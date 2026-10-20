@@ -61,7 +61,7 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 
 <div id="info">
 <h2>INFO</h2>
-<div class="info-wrap"><div class="info-card">⚡️ Vente en gros café premium<br>📦 50€ l'unité<br>🔒 Commande via @Simone57bot<br>🚚 Groupe de commandes : t.me/+WHfFP9hP8vplM2Q8<br>Livraison rapide 7j/7</div></div>
+<div class="info-wrap"><div class="info-card">⚡️ Vente en gros café premium<br>📦 50€ l'unité - GROS<br>🔒 Commande auto vers le groupe privé<br>🚚 Livraison rapide 7j/7</div></div>
 </div>
 
 <div id="avis">
@@ -76,14 +76,15 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 <div id="panier">
 <div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div>
 <input id="adresse" placeholder="📍 Mets ton adresse de livraison ici...">
-<button id="cmd" onclick="commander()">COMMANDER SUR @Simone57bot</button>
+<button id="cmd" onclick="commander()">COMMANDER - 50€</button>
 <button id="clear" onclick="clearCart()">Vider le panier</button>
 </div>
 
 <script>
+const BOT_TOKEN = "8331678292:AAGiWwj1VQB_xo-dMnBGh_xHfy8Pc9wk74k";
+const GROUP_ID = "-1004354661850";
 let panier={PISTACHIO:0,CARAMEL:0,CANAL:0,CHOCOLAT:0};
 const PRIX=50;
-const GROUPE_INVITE="https://t.me/+WHfFP9hP8vplM2Q8";
 function change(nom,delta){
  panier[nom]=Math.max(0,panier[nom]+delta);
  document.getElementById('q-'+nom).innerText=panier[nom];
@@ -104,17 +105,23 @@ function clearCart(){
  for(let k in panier) document.getElementById('q-'+k).innerText=0;
  update();
 }
-function commander(){
+async function commander(){
  let items=[],total=0;
  for(let k in panier){if(panier[k]>0){items.push(panier[k]+'x '+k); total+=panier[k]*PRIX}}
  if(items.length==0){alert('Ajoute un café');return}
  let adresse=document.getElementById('adresse').value;
  if(adresse.length<5){alert('Mets ton adresse complète !');return}
- let msg=`🔥 COMMANDE GROS SIMONE57 🔥%0A%0A📦 ${items.join(', ')}%0A💰 Total: ${total.toFixed(2)}€%0A📍 Adresse: ${adresse}%0A%0A%0A--- ENVOYE AUSSI DANS LE GROUPE : ${GROUPE_INVITE}`;
- // 1. Envoie au bot
- window.open('https://t.me/Simone57bot?text='+msg,'_blank');
- // 2. Ouvre aussi ton groupe pour que tu puisses coller
- setTimeout(()=>{ window.open(GROUPE_INVITE,'_blank'); }, 800);
+ let msg = `🔥 NOUVELLE COMMANDE GROS 50€ 🔥\n\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}\n\nClient depuis le site SIMONE57`;
+ let url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${GROUP_ID}&text=${encodeURIComponent(msg)}`;
+ try{
+   await fetch(url);
+   alert('✅ Commande envoyée ! Vérifie ton groupe Telegram');
+   window.open('https://t.me/Simone57bot?text='+encodeURIComponent(msg),'_blank');
+   clearCart();
+   document.getElementById('adresse').value='';
+ } catch(e){
+   alert('Erreur - Vérifie que ton bot est bien admin dans le groupe');
+ }
 }
 </script>
 </body>
