@@ -3,35 +3,29 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIMONE57 - Premium</title>
+<title>SIMONE57</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#fff;font-family:Inter,Arial,sans-serif;padding-bottom:110px}
-nav{position:sticky;top:0;z-index:99;background:rgba(0,0,0,.9);backdrop-filter:blur(10px);padding:16px;display:flex;justify-content:center;gap:24px;border-bottom:1px solid #1a1a1a}
-nav a{color:#fff;text-decoration:none;font-weight:900;font-size:12px;letter-spacing:1.5px;opacity:.8}
-nav a:hover{opacity:1}
-.hero{text-align:center;padding:80px 20px 60px;background:radial-gradient(circle at center,#1a1a3a 0%,#000 70%)}
-.hero h1{font-size:70px;letter-spacing:8px;font-weight:900}
-.hero span{color:#6b6bff}
-.hero p{opacity:.6;margin:12px 0 28px;letter-spacing:2px;font-size:13px}
-.btn{display:inline-block;padding:14px 28px;border-radius:30px;text-decoration:none;font-weight:900;font-size:13px;letter-spacing:1px}
-.btn-main{background:#fff;color:#000}
-.btn-ghost{background:transparent;border:1px solid #333;color:#fff;margin-left:8px}
-h2{text-align:center;margin:40px 0 20px;font-size:18px;letter-spacing:4px;opacity:.9}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:0 14px;max-width:600px;margin:0 auto}
-.card{background:#151515;border:1px solid #222;border-radius:22px;overflow:hidden;text-align:center;transition:.3s}
-.card:active{transform:scale(.97)}
-.card video{width:100%;height:230px;object-fit:cover;background:#111}
-.card h3{margin:14px 0 2px;font-size:13px;letter-spacing:2px}
-.price{color:#fff;font-weight:900;font-size:16px;margin-bottom:10px;opacity:.9}
-.card button{background:#fff;color:#000;border:none;padding:11px;border-radius:25px;width:85%;font-weight:900;font-size:12px;letter-spacing:1px;margin-bottom:14px}
+body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-bottom:180px}
+nav{position:sticky;top:0;z-index:99;background:#000;padding:14px;display:flex;justify-content:center;gap:22px;border-bottom:1px solid #1a1a1a}
+nav a{color:#fff;text-decoration:none;font-weight:900;font-size:12px;letter-spacing:1.5px}
+.hero{text-align:center;padding:70px 20px;background:radial-gradient(circle at center,#1e1e4a,#000 70%)}
+.hero h1{font-size:68px;letter-spacing:7px;font-weight:900}
+.hero p{opacity:.6;margin:10px 0 20px;font-size:12px;letter-spacing:2px}
+.btn{background:#fff;color:#000;padding:13px 26px;border-radius:30px;text-decoration:none;font-weight:900;font-size:12px;display:inline-block}
+h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px;max-width:600px;margin:0 auto}
+.card{background:#151515;border:1px solid #222;border-radius:20px;overflow:hidden;text-align:center}
+.card video{width:100%;height:220px;object-fit:cover;background:#111}
+.card h3{margin:12px 0 2px;font-size:12px;letter-spacing:2px}
+.price{font-weight:900;margin-bottom:8px}
+.card button{background:#fff;color:#000;border:none;padding:10px;border-radius:25px;width:85%;font-weight:900;font-size:11px;margin-bottom:12px}
 .avis-wrap{max-width:600px;margin:0 auto;padding:0 14px}
-.avis{background:#151515;border:1px solid #222;margin:10px 0;padding:18px;border-radius:18px;font-size:14px;line-height:1.4}
-.avis b{font-size:13px}
-#panier{position:fixed;bottom:14px;left:14px;right:14px;background:#fff;color:#000;padding:16px 18px;border-radius:20px;z-index:999;display:flex;align-items:center;justify-content:space-between;box-shadow:0 10px 40px rgba(0,0,0,.5)}
-#panier-left{font-weight:900;line-height:1.2}
-#panier-left small{opacity:.6;font-weight:400;font-size:12px;display:block}
-#cmd{background:#000;color:#fff;border:none;padding:14px 22px;border-radius:14px;font-weight:900;font-size:12px;letter-spacing:1px}
+.avis{background:#151515;border:1px solid #222;margin:8px 0;padding:16px;border-radius:16px;font-size:13px}
+#panier{position:fixed;bottom:0;left:0;right:0;background:#fff;color:#000;padding:16px;border-radius:22px 22px 0 0;z-index:999}
+#panier-top{display:flex;justify-content:space-between;font-weight:900}
+#adresse{width:100%;padding:14px;margin-top:12px;border-radius:12px;border:1px solid #ddd;font-size:14px;display:none}
+#cmd{width:100%;background:#000;color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;margin-top:10px;font-size:13px;letter-spacing:1px;display:none}
 </style>
 </head>
 <body>
@@ -43,53 +37,33 @@ h2{text-align:center;margin:40px 0 20px;font-size:18px;letter-spacing:4px;opacit
 </nav>
 
 <div id="accueil" class="hero">
-<h1>SIMONE<span>57</span></h1>
-<p>PREMIUM CAFÉ • PARIS</p>
-<a class="btn btn-main" href="#menu">COMMANDER 9€</a>
-<a class="btn btn-ghost" href="https://t.me/Simone57bot" target="_blank">TELEGRAM</a>
+<h1>SIMONE57</h1>
+<p>PREMIUM CAFÉ • 9€</p>
+<a class="btn" href="#menu">VOIR LE MENU</a>
 </div>
 
 <div id="menu">
-<h2>MENU</h2>
+<h2>MENU 9€</h2>
 <div class="grid">
-<div class="card">
-<video src="pistachio.mp4" autoplay loop muted playsinline></video>
-<h3>PISTACHIO</h3><div class="price">9€</div>
-<button onclick="add('PISTACHIO')">AJOUTER</button>
-</div>
-<div class="card">
-<video src="caramel.mp4" autoplay loop muted playsinline></video>
-<h3>CARAMEL</h3><div class="price">9€</div>
-<button onclick="add('CARAMEL')">AJOUTER</button>
-</div>
-<div class="card">
-<video src="canal.mp4" autoplay loop muted playsinline></video>
-<h3>CANAL</h3><div class="price">9€</div>
-<button onclick="add('CANAL')">AJOUTER</button>
-</div>
-<div class="card">
-<video src="chocolat.mp4" autoplay loop muted playsinline></video>
-<h3>CHOCOLAT</h3><div class="price">9€</div>
-<button onclick="add('CHOCOLAT')">AJOUTER</button>
-</div>
+<div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>PISTACHIO</h3><div class="price">9€</div><button onclick="add('PISTACHIO')">AJOUTER</button></div>
+<div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>CARAMEL</h3><div class="price">9€</div><button onclick="add('CARAMEL')">AJOUTER</button></div>
+<div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>CANAL</h3><div class="price">9€</div><button onclick="add('CANAL')">AJOUTER</button></div>
+<div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>CHOCOLAT</h3><div class="price">9€</div><button onclick="add('CHOCOLAT')">AJOUTER</button></div>
 </div>
 </div>
 
 <div id="avis">
-<h2>AVIS CLIENTS</h2>
+<h2>AVIS</h2>
 <div class="avis-wrap">
-<div class="avis"><b>⭐⭐⭐⭐⭐ Léa M. — Vérifié</b><br>Le pistachio est une dinguerie. Commande en 2 clics.</div>
-<div class="avis"><b>⭐⭐⭐⭐⭐ Karim — Vérifié</b><br>Le plus rapide sur Paris, qualité premium.</div>
-<div class="avis"><b>⭐⭐⭐⭐⭐ Inès — Vérifiée</b><br>SIMONE57 c'est mon quotidien maintenant.</div>
+<div class="avis"><b>⭐⭐⭐⭐⭐ Léa</b><br>Le meilleur, livraison super rapide !</div>
+<div class="avis"><b>⭐⭐⭐⭐⭐ Karim</b><br>Commande via bot @Simone57bot au top.</div>
 </div>
 </div>
 
 <div id="panier">
-<div id="panier-left">
-<span id="txt">Panier vide</span>
-<small id="tot">0.00€ • Livraison rapide</small>
-</div>
-<button id="cmd" onclick="commander()">COMMANDER</button>
+<div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div>
+<input id="adresse" placeholder="📍 Mets ton adresse de livraison ici...">
+<button id="cmd" onclick="commander()">COMMANDER SUR @Simone57bot</button>
 </div>
 
 <script>
@@ -99,13 +73,17 @@ function add(nom){
 cart.push(nom);
 total+=9;
 document.getElementById('txt').innerText=cart.join(' + ');
-document.getElementById('tot').innerText=total.toFixed(2)+'€ • '+cart.length+' article(s)';
-navigator.vibrate&&navigator.vibrate(50);
+document.getElementById('tot').innerText=total.toFixed(2)+'€';
+document.getElementById('adresse').style.display='block';
+document.getElementById('cmd').style.display='block';
+document.getElementById('adresse').focus();
 }
 function commander(){
-if(cart.length==0){alert('Ajoute un café d\'abord !');return}
-let msg=`🔥 COMMANDE SIMONE57 🔥%0A%0A📦 ${cart.join(', ')}%0A💰 Total: ${total.toFixed(2)}€%0A%0AJe veux commander maintenant !`;
-window.location.href='https://t.me/Simone57bot?text='+msg;
+if(cart.length==0){alert('Ajoute un café');return}
+let adresse=document.getElementById('adresse').value;
+if(adresse.length<5){alert('Mets ton adresse complète !');document.getElementById('adresse').style.border='2px solid red';return}
+let msg=`Salut %0A%0A📦 Produits: ${cart.join(', ')}%0A💰 Total: ${total.toFixed(2)}€%0A📍 Adresse: ${adresse}%0A%0AJe commande maintenant !`;
+window.open('https://t.me/Simone57bot?text='+msg,'_blank');
 }
 </script>
 
