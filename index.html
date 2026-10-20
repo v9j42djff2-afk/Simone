@@ -1,131 +1,41 @@
 <!DOCTYPE html>
 <html lang="fr">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SIMONE57</title>
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SIMONE57</title><script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-bottom:180px}
-nav{position:sticky;top:0;z-index:99;background:#000;padding:14px;display:flex;justify-content:center;gap:22px;border-bottom:1px solid #1a1a1a}
-nav a{color:#fff;text-decoration:none;font-weight:900;font-size:12px;letter-spacing:1.5px}
-.hero{text-align:center;padding:40px 20px 30px;background:radial-gradient(circle at center,#1e1e4a,#000 70%)}
-.hero img{width:85%;max-width:360px;border-radius:22px}
-.hero p{opacity:.6;margin:14px 0 20px;font-size:12px;letter-spacing:2px}
-.btns{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}
-.btn{padding:12px 20px;border-radius:30px;text-decoration:none;font-weight:900;font-size:11px;display:inline-block}
-.btn-shop{background:#fff;color:#000}.btn-canal{background:#229ED9;color:#fff}.btn-insta{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
-h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px;max-width:600px;margin:0 auto}
-.card{background:#151515;border:1px solid #222;border-radius:20px;overflow:hidden;text-align:center}
-.card video{width:100%;height:220px;object-fit:cover;background:#111;display:block}
-.card h3{margin:12px 0 2px;font-size:12px;letter-spacing:2px}
-.price{font-weight:900;margin-bottom:8px}
-.qty{display:flex;justify-content:center;align-items:center;gap:12px;margin:8px 0}
-.qty button{width:36px;height:36px;border-radius:50%;border:1px solid #333;background:#000;color:#fff;font-weight:900;font-size:18px;cursor:pointer}
-.qty span{font-weight:900;min-width:20px;font-size:16px}
-.card .add{background:#fff;color:#000;border:none;padding:10px;border-radius:25px;width:85%;font-weight:900;font-size:11px;margin-bottom:12px;cursor:pointer}
-.info-wrap{max-width:600px;margin:0 auto;padding:0 14px}
-.info-card{background:#151515;border:1px solid #222;border-radius:16px;padding:18px;font-size:13px;line-height:1.6;color:#aaa;text-align:center}
-.avis-wrap{max-width:600px;margin:0 auto;padding:0 14px}
-.avis{background:#151515;border:1px solid #222;margin:8px 0;padding:16px;border-radius:16px;font-size:13px}
-#panier{position:fixed;bottom:0;left:0;right:0;background:#fff;color:#000;padding:16px;border-radius:22px 22px 0 0;z-index:999}
-#panier-top{display:flex;justify-content:space-between;font-weight:900}
-#adresse{width:100%;padding:14px;margin-top:12px;border-radius:12px;border:1px solid #ddd;font-size:14px;display:none}
-#cmd{width:100%;background:#000;color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;margin-top:10px;font-size:13px;display:none;cursor:pointer}
-#clear{font-size:10px;color:#888;background:none;border:none;text-decoration:underline;cursor:pointer;display:none;margin-top:8px}
-#success{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;padding:25px;border-radius:20px;z-index:10000;text-align:center;font-weight:900}
-</style>
-</head>
-<body>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-bottom:180px}nav{position:sticky;top:0;z-index:99;background:#000;padding:14px;display:flex;justify-content:center;gap:22px;border-bottom:1px solid #1a1a1a}nav a{color:#fff;text-decoration:none;font-weight:900;font-size:12px;letter-spacing:1.5px}.hero{text-align:center;padding:40px 20px 30px;background:radial-gradient(circle at center,#1e1e4a,#000 70%)}.hero img{width:85%;max-width:360px;border-radius:22px}.hero p{opacity:.6;margin:14px 0 20px;font-size:12px;letter-spacing:2px}.btns{display:flex;justify-content:center;gap:8px;flex-wrap:wrap}.btn{padding:12px 20px;border-radius:30px;text-decoration:none;font-weight:900;font-size:11px;display:inline-block}.btn-shop{background:#fff;color:#000}.btn-canal{background:#229ED9;color:#fff}.btn-insta{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px;max-width:600px;margin:0 auto}.card{background:#151515;border:1px solid #222;border-radius:20px;overflow:hidden;text-align:center}.card video{width:100%;height:220px;object-fit:cover;background:#111;display:block}.card h3{margin:12px 0 2px;font-size:12px;letter-spacing:2px}.price{font-weight:900;margin-bottom:8px}.qty{display:flex;justify-content:center;align-items:center;gap:12px;margin:8px 0}.qty button{width:36px;height:36px;border-radius:50%;border:1px solid #333;background:#000;color:#fff;font-weight:900;font-size:18px;cursor:pointer}.qty span{font-weight:900;min-width:20px;font-size:16px}.card .add{background:#fff;color:#000;border:none;padding:10px;border-radius:25px;width:85%;font-weight:900;font-size:11px;margin-bottom:12px;cursor:pointer}.info-wrap{max-width:600px;margin:0 auto;padding:0 14px}.info-card{background:#151515;border:1px solid #222;border-radius:16px;padding:18px;font-size:13px;line-height:1.6;color:#aaa;text-align:center}.avis-wrap{max-width:600px;margin:0 auto;padding:0 14px}.avis{background:#151515;border:1px solid #222;margin:8px 0;padding:16px;border-radius:16px;font-size:13px}#panier{position:fixed;bottom:0;left:0;right:0;background:#fff;color:#000;padding:16px;border-radius:22px 22px 0 0;z-index:999}#panier-top{display:flex;justify-content:space-between;font-weight:900}#adresse{width:100%;padding:14px;margin-top:12px;border-radius:12px;border:1px solid #ddd;font-size:14px;display:none}#cmd{width:100%;background:#000;color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;margin-top:10px;font-size:13px;display:none;cursor:pointer}#clear{font-size:10px;color:#888;background:none;border:none;text-decoration:underline;cursor:pointer;display:none;margin-top:8px}#success{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;padding:25px;border-radius:20px;z-index:10000;text-align:center;font-weight:900}
+</style></head><body>
 <nav><a href="#accueil">ACCUEIL</a><a href="#menu">MENU</a><a href="#info">INFO</a><a href="#avis">AVIS</a></nav>
-<div class="hero" id="accueil"><img src="logo.jpg"><p>PREMIUM HASH • 50€ MINIMUM</p>
-<div class="btns">
-<a class="btn btn-shop" href="#menu">🛒 MENU</a>
-<a class="btn btn-canal" href="https://t.me/+pUIcuz_QTghhOGQ0" target="_blank">📢 CANAL</a>
-<a class="btn btn-insta" href="https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr" target="_blank">📸 INSTA</a>
-</div></div>
-<div id="menu"><h2>MENU</h2><div class="grid">
-<div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>MOUSSEUX</h3><div class="price">50€</div><div class="qty"><button onclick="chg('MOUSSEUX',-1)">-</button><span id="q-MOUSSEUX">0</span><button onclick="chg('MOUSSEUX',1)">+</button></div><button class="add" onclick="chg('MOUSSEUX',1)">AJOUTER</button></div>
-<div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>FROZEN</h3><div class="price">50€</div><div class="qty"><button onclick="chg('FROZEN',-1)">-</button><span id="q-FROZEN">0</span><button onclick="chg('FROZEN',1)">+</button></div><button class="add" onclick="chg('FROZEN',1)">AJOUTER</button></div>
-<div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>CALI</h3><div class="price">50€</div><div class="qty"><button onclick="chg('CALI',-1)">-</button><span id="q-CALI">0</span><button onclick="chg('CALI',1)">+</button></div><button class="add" onclick="chg('CALI',1)">AJOUTER</button></div>
-<div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>AMNESIA</h3><div class="price">50€</div><div class="qty"><button onclick="chg('AMNESIA',-1)">-</button><span id="q-AMNESIA">0</span><button onclick="chg('AMNESIA',1)">+</button></div><button class="add" onclick="chg('AMNESIA',1)">AJOUTER</button></div>
-</div></div>
-<div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">⚡️ Livraison 24/24 - A partir de 50€<br>🔒 Service fiable<br>💶 Paiement en espece<br><br>📢 <a href="https://t.me/+pUIcuz_QTghhOGQ0" style="color:#229ED9">Canal</a> • 📸 <a href="https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr" style="color:#ff6a9e">Instagram</a></div></div></div>
+<div class="hero" id="accueil"><img src="logo.jpg"><p>PREMIUM HASH • 50€ MINIMUM</p><div class="btns"><a class="btn btn-shop" href="#menu">🛒 MENU</a><a class="btn btn-canal" href="https://t.me/+pUIcuz_QTghhOGQ0" target="_blank">📢 CANAL</a><a class="btn btn-insta" href="https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr" target="_blank">📸 INSTA</a></div></div>
+<div id="menu"><h2>MENU</h2><div class="grid"><div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>MOUSSEUX</h3><div class="price">50€</div><div class="qty"><button onclick="chg('MOUSSEUX',-1)">-</button><span id="q-MOUSSEUX">0</span><button onclick="chg('MOUSSEUX',1)">+</button></div><button class="add" onclick="chg('MOUSSEUX',1)">AJOUTER</button></div><div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>FROZEN</h3><div class="price">50€</div><div class="qty"><button onclick="chg('FROZEN',-1)">-</button><span id="q-FROZEN">0</span><button onclick="chg('FROZEN',1)">+</button></div><button class="add" onclick="chg('FROZEN',1)">AJOUTER</button></div><div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>CALI</h3><div class="price">50€</div><div class="qty"><button onclick="chg('CALI',-1)">-</button><span id="q-CALI">0</span><button onclick="chg('CALI',1)">+</button></div><button class="add" onclick="chg('CALI',1)">AJOUTER</button></div><div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>AMNESIA</h3><div class="price">50€</div><div class="qty"><button onclick="chg('AMNESIA',-1)">-</button><span id="q-AMNESIA">0</span><button onclick="chg('AMNESIA',1)">+</button></div><button class="add" onclick="chg('AMNESIA',1)">AJOUTER</button></div></div></div>
+<div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">⚡️ Livraison 24/24 - A partir de 50€<br>🔒 Service fiable<br>💶 Paiement en espece</div></div></div>
 <div id="avis"><h2>AVIS</h2><div class="avis-wrap"><div class="avis"><b>⭐⭐⭐⭐⭐ Léa</b><br>Le meilleur, livraison super rapide !</div><div class="avis"><b>⭐⭐⭐⭐⭐ Karim</b><br>Commande via bot @Simone57bot au top.</div></div></div>
 <div id="panier"><div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div><input id="adresse" placeholder="📍 Mets ton adresse de livraison ici..."><button id="cmd" onclick="commander()">COMMANDER</button><button id="clear" onclick="clearCart()">Vider</button></div>
 <div id="success">COMMANDE ENVOYÉE !<br><br>On te répond sur Telegram 📍</div>
 <script>
 const BOT_TOKEN="8331678292:AAGiWwj1VQB_xo-dMnBGh_xHfy8Pc9wk74k";
-const GROUP_ID="-1004354661850";
+// GROUPE 1 = LIVEGRAM (garde ton ID actuel) - pour le support /start
+const GROUP_LIVEGRAM="-1004354661850";
+// GROUPE 2 = COMMANDES (crée un nouveau groupe et mets son ID ici) - pour les commandes, SANS topics
+const GROUP_COMMANDES="-1004354661850"; // <--- CHANGE ÇA par le nouveau groupe commandes
+
 const PRIX=50;
 let panier={MOUSSEUX:0,FROZEN:0,CALI:0,AMNESIA:0};
-let lastId=parseInt(localStorage.getItem('lastId')||'0');
-let isMaster=false;
-
-function chg(nom,d){
-  panier[nom]=Math.max(0,(panier[nom]||0)+d);
-  document.getElementById('q-'+nom).innerText=panier[nom];
-  let items=[],total=0;
-  for(let k in panier){if(panier[k]>0){items.push(panier[k]+'x '+k);total+=panier[k]*PRIX}}
-  let vide=items.length==0;
-  document.getElementById('txt').innerText=vide?'Panier vide':items.join(' + ');
-  document.getElementById('tot').innerText=total.toFixed(2)+'€';
-  document.getElementById('adresse').style.display=vide?'none':'block';
-  document.getElementById('cmd').style.display=vide?'none':'block';
-  document.getElementById('clear').style.display=vide?'none':'block';
-}
+function chg(nom,d){panier[nom]=Math.max(0,(panier[nom]||0)+d);document.getElementById('q-'+nom).innerText=panier[nom];let items=[],total=0;for(let k in panier){if(panier[k]>0){items.push(panier[k]+'x '+k);total+=panier[k]*PRIX}}let vide=items.length==0;document.getElementById('txt').innerText=vide?'Panier vide':items.join(' + ');document.getElementById('tot').innerText=total.toFixed(2)+'€';document.getElementById('adresse').style.display=vide?'none':'block';document.getElementById('cmd').style.display=vide?'none':'block';document.getElementById('clear').style.display=vide?'none':'block';}
 function clearCart(){for(let k in panier)panier[k]=0;document.querySelectorAll('[id^="q-"]').forEach(s=>s.innerText=0);chg('MOUSSEUX',0);}
-function tgUrl(m,p){return `https://api.telegram.org/bot${BOT_TOKEN}/${m}?`+new URLSearchParams(p).toString()}
-async function sendTG(method,params){
-  const url=tgUrl(method,params);
-  // FIX: 3 proxys différents pour forcer l'envoi
-  try{let r=await fetch(`https://corsproxy.io/?${encodeURIComponent(url)}`);let j=await r.json();if(j.ok)return j;}catch(e){}
-  try{let r=await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`);let j=await r.json();if(j.ok)return j;}catch(e){}
-  try{await fetch(url,{mode:'no-cors'});return {ok:true};}catch(e){}
-  return {ok:false};
-}
 async function commander(){
-  let items=[],total=0;
-  for(let k in panier){if(panier[k]>0){items.push(panier[k]+'x '+k);total+=panier[k]*PRIX}}
+  let items=[],total=0;for(let k in panier){if(panier[k]>0){items.push(panier[k]+'x '+k);total+=panier[k]*PRIX}}
   if(items.length==0){alert('Ajoute un produit');return}
-  let adresse=document.getElementById('adresse').value;
-  if(adresse.length<5){alert('Mets ton adresse complète !');return}
+  let adresse=document.getElementById('adresse').value;if(adresse.length<5){alert('Mets ton adresse complète !');return}
   let wa=window.Telegram?.WebApp, uid=wa?.initDataUnsafe?.user?.id||'SITE', uname=wa?.initDataUnsafe?.user?.first_name||'Client';
   let order='#S'+Math.floor(1000+Math.random()*9000);
-  let msg=`🔥 COMMANDE ${order} 🔥\n\n👤 ${uname} [ID:${uid}]\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}`;
+  let msg=`🔥 COMMANDE ${order} 🔥\n\n👤 ${uname} [ID:${uid}]\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}\n\n✅ Réponds avec /time 30min`;
+  
   document.getElementById('cmd').innerText='ENVOI...';
-  let res=await sendTG('sendMessage',{chat_id:GROUP_ID,text:msg});
-  if(res.ok){document.getElementById('success').style.display='block';setTimeout(()=>document.getElementById('success').style.display='none',3000);clearCart();}
-  else{alert('Erreur, bot pas admin dans le groupe. Mets le bot ADMIN.');}
+  try{
+    await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:GROUP_COMMANDES,text:msg})});
+    document.getElementById('success').style.display='block';setTimeout(()=>document.getElementById('success').style.display='none',3000);clearCart();
+  }catch(e){ await fetch(`https://corsproxy.io/?https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${GROUP_COMMANDES}&text=${encodeURIComponent(msg)}`); }
   document.getElementById('cmd').innerText='COMMANDER';
 }
-// ANTI-SPAM 1 seul bot qui répond au /start
-let lastMaster=parseInt(localStorage.getItem('masterTime')||'0');
-if(Date.now()-lastMaster>12000){localStorage.setItem('masterTime',Date.now());isMaster=true;setInterval(()=>localStorage.setItem('masterTime',Date.now()),4000);}
-async function poll(){
-  if(!isMaster) return;
-  try{
-    let r=await fetch(`https://corsproxy.io/?${encodeURIComponent(tgUrl('getUpdates',{offset:lastId+1,timeout:10}))}`);
-    let data=await r.json();
-    if(data.ok){
-      for(let upd of data.result){
-        lastId=upd.update_id;localStorage.setItem('lastId',lastId);
-        let m=upd.message; if(!m||m.from?.is_bot) continue;
-        if(m.text&&m.text.startsWith('/start')&&m.chat.type==='private'){
-          await sendTG('sendMessage',{chat_id:m.chat.id,text:"Bienvenue chez SIMONE57 ☕️\n\nLivraison rapide 📍\nParis & banlieue 📦\nProduits qualité ✅",reply_markup:JSON.stringify({inline_keyboard:[[{text:"🛒 SHOP",web_app:{url:location.href}}],[{text:"📢 CANAL",url:"https://t.me/+pUIcuz_QTghhOGQ0"},{text:"📸 INSTAGRAM",url:"https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr"}]]})});
-        }else if(m.chat.type==='private'){
-          await sendTG('forwardMessage',{chat_id:GROUP_ID,from_chat_id:m.chat.id,message_id:m.message_id});
-        }else if(String(m.chat.id)===GROUP_ID&&m.reply_to_message){
-          let orig=m.reply_to_message.text||'';let mm=orig.match(/\[ID:(\d+)\]/);let t=mm?mm[1]:m.reply_to_message.forward_from?.id;
-          if(t&&t!=='SITE'){let txt=m.text||'';if(txt.toLowerCase().startsWith('/time')){let d=txt.replace(/\/time/i,'').trim()||'30min';await sendTG('sendMessage',{chat_id:t,text:`⏱️ Livraison dans ${d} 🚚`});}else{await sendTG('sendMessage',{chat_id:t,text:txt});}}
-        }
-      }
-    }
-  }catch(e){}
-  setTimeout(poll,3000);
-}
-sendTG('deleteWebhook',{drop_pending_updates:'false'}).then(()=>{if(isMaster)poll();});
-</script>
-</body>
-</html>
+// PAS DE POLL ICI -> On laisse Livegram gérer le /start, donc plus de Broken topic
+</script></body></html>
