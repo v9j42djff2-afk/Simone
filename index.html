@@ -45,10 +45,10 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 <div id="menu">
 <h2>MENU</h2>
 <div class="grid">
-<div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>MOUSSEUX</h3><div class="price">50€</div><button onclick="add('PISTACHIO')">AJOUTER</button></div>
-<div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>FROZEN</h3><div class="price">50€</div><button onclick="add('CARAMEL')">AJOUTER</button></div>
-<div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>AMNESIA</h3><div class="price">50€</div><button onclick="add('CANAL')">AJOUTER</button></div>
-<div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>CALI</h3><div class="price">50€</div><button onclick="add('CHOCOLAT')">AJOUTER</button></div>
+<div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>MOUSSEUX</h3><div class="price">50€</div><button onclick="add('MOUSSEUX')">AJOUTER</button></div>
+<div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>FROZEN</h3><div class="price">50€</div><button onclick="add('FROZEN')">AJOUTER</button></div>
+<div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>AMNESIA</h3><div class="price">50€</div><button onclick="add('AMNESIA')">AJOUTER</button></div>
+<div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>CALI</h3><div class="price">50€</div><button onclick="add('CALI')">AJOUTER</button></div>
 </div>
 </div>
 
@@ -62,8 +62,8 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 
 <div id="panier">
 <div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div>
-<input id="adresse" placeholder="📍 Mets ton adresse de livraison ici...">
-<button id="cmd" onclick="commander()">COMMANDER SUR @Simone57bot</button>
+<input id="adresse" placeholder="📍 adresse de livraison ici...">
+<button id="cmd" onclick="commander()">COMMANDER</button>
 </div>
 
 <script>
@@ -82,7 +82,7 @@ function commander(){
 if(cart.length==0){alert('Ajoute un café');return}
 let adresse=document.getElementById('adresse').value;
 if(adresse.length<5){alert('Mets ton adresse complète !');return}
-let msg=`🔥 COMMANDE GROS SIMONE57 🔥%0A%0A📦 Produits: ${cart.join(', ')}%0A💰 Total: ${total.toFixed(2)}€ (50€/U)%0A📍 Adresse: ${adresse}%0A%0AJe commande maintenant !`;
+let msg=`🔥 SALUT 🔥%0A%0A📦 Produits: ${cart.join(', ')}%0A💰 Total: ${total.toFixed(2)}€ (50€/U)%0A📍 Adresse: ${adresse}%0A%0AJe commande maintenant !`;
 window.open('https://t.me/Simone57bot?text='+msg,'_blank');
 }
 </script>
