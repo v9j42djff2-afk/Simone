@@ -1,0 +1,16 @@
+import telebot
+from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
+
+TOKEN = "8331678292:AAGiWwj1VQB_xo-dMnBGh_xHfy8Pc9wk74k"
+SHOP_URL = "https://ton-site.com"  # change ton lien
+
+bot = telebot.TeleBot(TOKEN)
+
+@bot.message_handler(commands=['start'])
+def start(message):
+    markup = InlineKeyboardMarkup()
+    markup.add(InlineKeyboardButton("🛒 SHOP", url=SHOP_URL))
+    text = "Bienvenue clic sur SHOP\n\nLivraison rapide 📍\nParis & banlieue 📦\nProduits qualité ✅"
+    bot.send_message(message.chat.id, text, reply_markup=markup)
+
+bot.infinity_polling()
