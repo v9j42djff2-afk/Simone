@@ -11,34 +11,47 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .header{text-align:center;padding:30px 20px;background:radial-gradient(circle at top,#1a1a1a,#000)}
 .header img{width:240px;max-width:85%;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.3)}
 .header h1{margin-top:20px;font-size:28px;letter-spacing:2px;font-weight:800}
-.nav{display:flex;justify-content:center;gap:25px;padding:15px;background:#111;position:sticky;top:0;z-index:10}
-.nav a{color:#fff;text-decoration:none;font-weight:600;font-size:14px;letter-spacing:1px;opacity:0.7}
+.nav{display:flex;justify-content:center;gap:25px;padding:15px;background:#111;position:sticky;top:0;z-index:10;border-bottom:1px solid #222}
+.nav a{color:#fff;text-decoration:none;font-weight:600;font-size:13px;letter-spacing:1px;opacity:0.6}
 .nav a.active{opacity:1;color:#ff2a2a}
 .banner{background:#111;border:1px solid #222;margin:15px;border-radius:15px;padding:15px;text-align:center}
-.btn-main{background:linear-gradient(135deg,#ff1a1a,#b30000);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;font-size:16px;margin-top:10px}
+.btn-main{background:linear-gradient(135deg,#ff1a1a,#b30000);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;font-size:16px;margin-top:10px;cursor:pointer}
 .menu{padding:15px}
 .card{background:#161616;border-radius:20px;padding:15px;margin-bottom:15px;border:1px solid #222}
-.card img,.card video{width:100%;border-radius:15px;background:#000;min-height:180px;object-fit:cover}
+.card img{width:100%;border-radius:15px;background:#000;min-height:180px;object-fit:cover}
 .card h3{margin:12px 0 5px;font-size:18px}
 .card p{opacity:0.6;font-size:13px}
-.price{font-weight:800;color:#ff3b3b;margin:8px 0}
+.price{font-weight:800;color:#ff3b3b;margin:8px 0;font-size:18px}
+/* AVIS */
+.avis-section{padding:20px 15px;background:#111;margin-top:10px}
+.avis-card{background:#161616;border-radius:15px;padding:15px;margin-bottom:10px;border:1px solid #222;text-align:left}
+.avis-top{display:flex;justify-content:space-between;align-items:center}
+.stars{color:#ffcc00}
+/* INFOS */
+.info-section{padding:20px 15px}
+.info-box{background:#161616;border-radius:15px;padding:15px;margin-bottom:12px;border:1px solid #222;text-align:left}
+.info-box h4{color:#ff2a2a;margin-bottom:6px}
+.info-box p{font-size:13px;opacity:0.8;line-height:1.5}
+.footer{text-align:center;padding:20px;opacity:0.3;font-size:11px}
 </style>
 </head>
 <body>
 <div class="header">
 <img src="logo.png.jpg" alt="Coffe Simone">
 <h1>Coffe Simone</h1>
-<p style="opacity:0.5;margin-top:5px">PARIS • PREMIUM</p>
+<p style="opacity:0.5;margin-top:5px">PARIS • PREMIUM • LIVRAISON 7/7</p>
 </div>
 
 <div class="nav">
 <a href="#" class="active">ACCUEIL</a>
 <a href="#menu">MENU</a>
 <a href="#avis">AVIS</a>
+<a href="#infos">INFOS</a>
 </div>
 
 <div class="banner">
-<p>PREMIUM QUALITY - 50€ MINIMUM</p>
+<p><b>PREMIUM QUALITY - 50€ MINIMUM</b></p>
+<p style="font-size:12px;opacity:0.6;margin-top:5px">Livraison 20-40min sur Paris / IDF</p>
 <button class="btn-main" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">VOIR LE MENU</button>
 </div>
 
@@ -46,34 +59,89 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <h2 style="text-align:center;margin:15px 0;letter-spacing:2px">MENU</h2>
 
 <div class="card">
-<img src="logo.png.jpg">
-<h3>HASH MOUSSUEUX</h3>
-<p>Classique qualite premium, crème jaune mousseu</p>
+<img src="mousseux.mp4.MP4">
+<h3>HASH MOUSSEUX</h3>
+<p>Classique qualité hash inspiré de la célèbre mousse, le hash blond Marocain de type très clair, très fort et aromatique avec une texture  particulière, souple et sableuse., crème jaune mousseuse</p>
 <div class="price">50€</div>
-<button class="btn-main" onclick="order('Mousseux - 50€')">Commander</button>
+<button class="btn-main" onclick="order('HASH MOUSSEUX - 50€')">Commander</button>
 </div>
 
 <div class="card">
 <img src="logo.png.jpg">
 <h3>HASH FROZEN</h3>
-<p>Premium qualite hash concentré et pure</p>
+<p>Hash concentré ultra puissant  pur - Best Seller en 160u</p>
 <div class="price">60€</div>
-<button class="btn-main" onclick="order('Frozen - 50€')">Commander</button>
+<button class="btn-main" onclick="order('HASH FROZEN - 60€')">Commander</button>
 </div>
 
 <div class="card">
 <img src="logo.png.jpg">
 <h3>AMNESIA KUSH</h3>
-<p>Variete classique et dominante amnesia kush</p>
+<p>Variété classique et dominante Amnesia Kush</p>
 <div class="price">50€</div>
-<button class="btn-main" onclick="order('Amnesia - 50€')">Commander</button>
+<button class="btn-main" onclick="order('AMNESIA KUSH - 50€')">Commander</button>
+</div>
 </div>
 
+<!-- AVIS -->
+<div id="avis" class="avis-section">
+<h2 style="text-align:center;margin-bottom:15px;letter-spacing:2px">AVIS CLIENTS</h2>
+<div style="text-align:center;margin-bottom:15px">
+<p class="stars">⭐⭐⭐⭐⭐</p>
+<p style="font-size:14px;margin-top:5px"><b>4.9/5 - 247 avis vérifiés</b></p>
+</div>
+
+<div class="avis-card">
+<div class="avis-top"><b>@Alex_75</b><span class="stars">⭐⭐⭐⭐⭐</span></div>
+<p style="margin-top:8px">Toujours carré, livraison 25min top qualité comme d'hab 👌</p>
+</div>
+
+<div class="avis-card">
+<div class="avis-top"><b>@Sarah.P</b><span class="stars">⭐⭐⭐⭐⭐</span></div>
+<p style="margin-top:8px">Le mousseux est incroyable, merci Simone ❤️</p>
+</div>
+
+<div class="avis-card">
+<div class="avis-top"><b>@Momo_IDF</b><span class="stars">⭐⭐⭐⭐⭐</span></div>
+<p style="margin-top:8px">Meilleur service Paris, rapide et discret. Je recommande !</p>
+</div>
+</div>
+
+<!-- INFOS -->
+<div id="infos" class="info-section">
+<h2 style="text-align:center;margin-bottom:15px;letter-spacing:2px">INFOS</h2>
+
+<div class="info-box">
+<h4>🚚 LIVRAISON</h4>
+<p>Paris 20-40min<br>en 1h<br>7/7</p>
+</div>
+
+<div class="info-box">
+<h4>💳 PAIEMENT</h4>
+<p>Espèces uniquement<br>Minimum commande: 50€<br>Frais livraison: 0€</p>
+</div>
+
+<div class="info-box">
+<h4>📍 ZONE</h4>
+<p>Paris (75) - 92 - 93 - 94<br>78 - 77 - 91 - 95 sur demande</p>
+</div>
+
+<div class="info-box">
+<h4>📲 CONTACT</h4>
+<p>💶Paiment espece<br>@simone750<br>Réponse en moins de 2min</p>
+<button class="btn-main" onclick="window.open('https://t.me/simone750','_blank')">Contacter Simone</button>
+</div>
+</div>
+
+<div class="footer">
+<p>Coffee Simone © 2026 - Premium Quality</p>
+<p style="margin-top:5px">simone-rho.vercel.app</p>
 </div>
 
 <script>
 const tg = window.Telegram.WebApp;
 tg.expand();
+tg.enableClosingConfirmation();
 function order(produit){
 tg.HapticFeedback.impactOccurred('heavy');
 let text = "Salut Simone ! Je veux commander : " + produit;
