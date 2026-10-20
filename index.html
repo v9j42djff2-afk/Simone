@@ -5,59 +5,135 @@
 <title>SIMONE57</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-bottom:180px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-bottom:180px}
 nav{position:sticky;top:0;z-index:99;background:#000;padding:14px;display:flex;justify-content:center;gap:22px;border-bottom:1px solid #1a1a1a}
 nav a{color:#fff;text-decoration:none;font-weight:900;font-size:12px;letter-spacing:1.5px}
 .hero{text-align:center;padding:40px 20px 30px;background:radial-gradient(circle at center,#1e1e4a,#000 70%)}
-.hero img{width:85%;max-width:360px;border-radius:22px}.hero p{opacity:.6;margin:14px 0 20px;font-size:12px;letter-spacing:2px}
-.btn{background:#fff;color:#000;padding:13px 26px;border-radius:30px;text-decoration:none;font-weight:900;font-size:12px;display:inline-block;margin:5px}
-.btn-canal{background:#229ED9;color:#fff}.btn-insta{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
-.socials{display:flex;justify-content:center;gap:10px;margin:18px 0;flex-wrap:wrap}
+.hero img{width:85%;max-width:360px;border-radius:22px}
+.hero p{opacity:.6;margin:14px 0 20px;font-size:12px;letter-spacing:2px}
+.btns{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:15px}
+.btn{padding:12px 22px;border-radius:30px;text-decoration:none;font-weight:900;font-size:11px;display:inline-block}
+.btn-shop{background:#fff;color:#000}.btn-canal{background:#229ED9;color:#fff}.btn-insta{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:#fff}
 h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:0 14px;max-width:600px;margin:0 auto}
 .card{background:#151515;border:1px solid #222;border-radius:20px;overflow:hidden;text-align:center}
-.card video{width:100%;height:220px;object-fit:cover;background:#111;display:block}
+.card video{width:100%;height:220px;object-fit:cover;background:#111;display:block;pointer-events:none}
 .card h3{margin:12px 0 2px;font-size:12px;letter-spacing:2px}.price{font-weight:900;margin-bottom:8px}
-.qty{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px 0}
-.qty button{width:30px;height:30px;border-radius:50%;border:1px solid #333;background:#000;color:#fff;font-weight:900}
-.qty span{font-weight:900;min-width:20px}.card .add{background:#fff;color:#000;border:none;padding:10px;border-radius:25px;width:85%;font-weight:900;font-size:11px;margin-bottom:12px;cursor:pointer}
-.info-wrap{max-width:600px;margin:0 auto;padding:0 14px}.info-card{background:#151515;border:1px solid #222;border-radius:16px;padding:18px;font-size:13px;line-height:1.6;color:#aaa;text-align:center}
-.avis-wrap{max-width:600px;margin:0 auto;padding:0 14px}.avis{background:#151515;border:1px solid #222;margin:8px 0;padding:16px;border-radius:16px;font-size:13px}
+.qty{display:flex;justify-content:center;align-items:center;gap:12px;margin:8px 0}
+.qty button{width:36px;height:36px;border-radius:50%;border:1px solid #333;background:#000;color:#fff;font-weight:900;font-size:18px;cursor:pointer}
+.qty span{font-weight:900;min-width:20px;font-size:16px}
+.card .add{background:#fff;color:#000;border:none;padding:10px;border-radius:25px;width:85%;font-weight:900;font-size:11px;margin-bottom:12px;cursor:pointer}
+.info-wrap{max-width:600px;margin:0 auto;padding:0 14px}
+.info-card{background:#151515;border:1px solid #222;border-radius:16px;padding:18px;font-size:13px;line-height:1.6;color:#aaa;text-align:center}
+.avis-wrap{max-width:600px;margin:0 auto;padding:0 14px}
+.avis{background:#151515;border:1px solid #222;margin:8px 0;padding:16px;border-radius:16px;font-size:13px}
 #panier{position:fixed;bottom:0;left:0;right:0;background:#fff;color:#000;padding:16px;border-radius:22px 22px 0 0;z-index:999}
 #panier-top{display:flex;justify-content:space-between;font-weight:900}
 #adresse{width:100%;padding:14px;margin-top:12px;border-radius:12px;border:1px solid #ddd;font-size:14px;display:none}
-#cmd{width:100%;background:#000;color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;margin-top:10px;font-size:13px;display:none;cursor:pointer}
+#cmd{width:100%;background:#000;color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;margin-top:10px;font-size:13px;letter-spacing:1px;display:none;cursor:pointer}
 #clear{font-size:10px;color:#888;background:none;border:none;text-decoration:underline;cursor:pointer;display:none;margin-top:8px}
 #success{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;padding:25px;border-radius:20px;z-index:10000;text-align:center;font-weight:900}
+#status{position:fixed;top:8px;right:8px;background:#00ff6a;color:#000;font-size:9px;padding:3px 7px;border-radius:10px;display:none;z-index:10000}
 </style>
 </head>
 <body>
+<div id="status">BOT ON</div>
 <nav><a href="#accueil">ACCUEIL</a><a href="#menu">MENU</a><a href="#info">INFO</a><a href="#avis">AVIS</a></nav>
-<div class="hero">
+
+<div class="hero" id="accueil">
 <img src="logo.jpg">
 <p>PREMIUM HASH • 50€ MINIMUM</p>
-<a class="btn" href="#menu">VOIR LE MENU</a>
-<div class="socials">
+<div class="btns">
+<a class="btn btn-shop" href="#menu">🛒 VOIR MENU</a>
 <a class="btn btn-canal" href="https://t.me/+pUIcuz_QTghhOGQ0" target="_blank">📢 CANAL</a>
-<a class="btn btn-insta" href="https://www.instagram.com/simonecoffee57" target="_blank">📸 INSTAGRAM</a>
+<a class="btn btn-insta" href="https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr" target="_blank">📸 INSTAGRAM</a>
 </div>
 </div>
 
 <div id="menu"><h2>MENU</h2><div class="grid">
-<div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>MOUSSEUX</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
-<div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>FROZEN</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
-<div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>CALI</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
-<div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>AMNESIA</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
+<div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>MOUSSEUX</h3><div class="price">50€</div><div class="qty"><button onclick="add('MOUSSEUX',-1)">-</button><span id="q-MOUSSEUX">0</span><button onclick="add('MOUSSEUX',1)">+</button></div><button class="add" onclick="add('MOUSSEUX',1)">AJOUTER</button></div>
+<div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>FROZEN</h3><div class="price">50€</div><div class="qty"><button onclick="add('FROZEN',-1)">-</button><span id="q-FROZEN">0</span><button onclick="add('FROZEN',1)">+</button></div><button class="add" onclick="add('FROZEN',1)">AJOUTER</button></div>
+<div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>CALI</h3><div class="price">50€</div><div class="qty"><button onclick="add('CALI',-1)">-</button><span id="q-CALI">0</span><button onclick="add('CALI',1)">+</button></div><button class="add" onclick="add('CALI',1)">AJOUTER</button></div>
+<div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>AMNESIA</h3><div class="price">50€</div><div class="qty"><button onclick="add('AMNESIA',-1)">-</button><span id="q-AMNESIA">0</span><button onclick="add('AMNESIA',1)">+</button></div><button class="add" onclick="add('AMNESIA',1)">AJOUTER</button></div>
 </div></div>
 
-<div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">⚡️ Livraison 24/24 - A partir de 50€<br>🔒 Service fiable<br>💶 Paiement en espece<br><br><a href="https://t.me/+pUIcuz_QTghhOGQ0" style="color:#229ED9">📢 Rejoins le Canal</a> • <a href="https://www.instagram.com/simonecoffee57" style="color:#ff6a9e">📸 Instagram</a></div></div></div>
-<div id="avis"><h2>AVIS</h2><div class="avis-wrap"><div class="avis"><b>⭐⭐⭐⭐⭐ Léa</b><br>Le meilleur, livraison super rapide !</div><div class="avis"><b>⭐⭐⭐⭐⭐ Karim</b><br>Commande via bot @Simone57bot au top.</div></div></div>
+<div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">⚡️ Livraison 24/24 - A partir de 50€<br>🔒 Service fiable<br>💶 Paiement en espece<br><br>📢 <a href="https://t.me/+pUIcuz_QTghhOGQ0" style="color:#229ED9">Rejoins notre Canal Telegram</a><br>📸 <a href="https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr" style="color:#ff6a9e">Suis-nous sur Instagram</a></div></div></div>
 
-<div id="panier"><div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div><input id="adresse" placeholder="📍 Mets ton adresse de livraison ici..."><button id="cmd" onclick="commander()">COMMANDER</button><button id="clear" onclick="clearCart()">Vider</button></div>
+<div id="avis"><h2>AVIS CLIENTS</h2><div class="avis-wrap">
+<div class="avis"><b>⭐⭐⭐⭐⭐ Léa M.</b><br>Le meilleur, livraison super rapide ! Merci Simone 🙏</div>
+<div class="avis"><b>⭐⭐⭐⭐⭐ Karim D.</b><br>Commande via bot @Simone57bot au top, qualité au rendez-vous.</div>
+<div class="avis"><b>⭐⭐⭐⭐⭐ Sofiane</b><br>Toujours carré, je recommande fort !</div>
+</div></div>
+
+<div id="panier"><div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div><input id="adresse" placeholder="📍 Mets ton adresse de livraison ici..."><button id="cmd" onclick="commander()">COMMANDER</button><button id="clear" onclick="clearCart()">Vider le panier</button></div>
 <div id="success">COMMANDE ENVOYÉE !<br><br>On te répond sur Telegram 📍</div>
 
 <script>
-const BOT_TOKEN="8331678292:AAGiWwj1VQB_xo-dMnBGh_xHfy8Pc9wk74k", GROUP="-1004354661850", PRIX=50;
-let panier={}, lastId=parseInt(localStorage.getItem('sim_id')||'0');
+const TOKEN="8331678292:AAGiWwj1VQB_xo-dMnBGh_xHfy8Pc9wk74k";
+const GROUP="-1004354661850";
+const PROXY="https://corsproxy.io/?";
+let cart={MOUSSEUX:0,FROZEN:0,CALI:0,AMNESIA:0};
+let lastId=parseInt(localStorage.getItem('sim_id')||'0');
 
-function chg(b,d){let c=b.closest('.card'),n=c.querySelector('h3').innerText,s=c.querySelector('span');panier[n]=(panier[n]||0)+d;if(panier[n]<0)panier
+function add(name,delta){
+  cart[name]=Math.max(0,(cart[name]||0)+delta);
+  document.getElementById('q-'+name).innerText=cart[name];
+  let items=[],total=0;for(let k in cart){if(cart[k]>0){items.push(cart[k]+'x '+k);total+=cart[k]*50}}
+  document.getElementById('txt').innerText=items.length?items.join(' + '):'Panier vide';
+  document.getElementById('tot').innerText=total.toFixed(2)+'€';
+  let show=items.length>0;
+  document.getElementById('adresse').style.display=show?'block':'none';
+  document.getElementById('cmd').style.display=show?'block':'none';
+  document.getElementById('clear').style.display=show?'block':'none';
+}
+function clearCart(){for(let k in cart) cart[k]=0;document.querySelectorAll('[id^="q-"]').forEach(s=>s.innerText=0);add('MOUSSEUX',0);}
+
+async function commander(){
+  let items=[],total=0;for(let k in cart){if(cart[k]>0){items.push(cart[k]+'x '+k);total+=cart[k]*50}}
+  if(!items.length){alert('Ajoute un produit');return}
+  let adr=document.getElementById('adresse').value;if(adr.length<5){alert('Mets ton adresse complète !');return}
+  let wa=window.Telegram?.WebApp, uid=wa?.initDataUnsafe?.user?.id||'WEB', uname=wa?.initDataUnsafe?.user?.first_name||'Client';
+  let msg=`🔥 COMMANDE SIMONE57\n\n👤 ${uname} [ID:${uid}]\n📦 ${items.join(', ')}\n💰 ${total}€\n📍 ${adr}\n\n↩️ REPONDS à ce message pour répondre au client`;
+  await fetch(PROXY+encodeURIComponent(`https://api.telegram.org/bot${TOKEN}/sendMessage?chat_id=${GROUP}&text=${encodeURIComponent(msg)}`));
+  document.getElementById('success').style.display='block';setTimeout(()=>document.getElementById('success').style.display='none',3000);
+  clearCart();
+}
+
+async function api(method, params){
+  let url=`https://api.telegram.org/bot${TOKEN}/${method}?`+new URLSearchParams(params).toString();
+  let r=await fetch(PROXY+encodeURIComponent(url));
+  return r.json();
+}
+
+let isMaster=!localStorage.getItem('master')||Date.now()-parseInt(localStorage.getItem('master'))>60000;
+if(isMaster){
+  document.getElementById('status').style.display='block';
+  api('deleteWebhook',{drop_pending_updates:'false'}).then(()=>poll());
+}
+async function poll(){
+  localStorage.setItem('master',Date.now().toString());
+  try{
+    let data=await api('getUpdates',{offset:lastId+1,timeout:15});
+    if(data.ok){
+      for(let u of data.result){
+        lastId=u.update_id;localStorage.setItem('sim_id',lastId);
+        if(!u.message||u.message.from?.is_bot) continue;
+        if(u.message.text?.startsWith('/start') && u.message.chat.type==='private'){
+          await api('sendMessage',{chat_id:u.message.chat.id,text:`Bienvenue chez Simone Coffee ☕️\n\nLivraison rapide 📍\nParis & banlieue 📦\nProduits qualité ✅`,reply_markup:JSON.stringify({inline_keyboard:[[{text:"🛒 SHOP",web_app:{url:location.href}}],[{text:"📢 CANAL",url:"https://t.me/+pUIcuz_QTghhOGQ0"},{text:"📸 INSTA",url:"https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr"}]]})});
+        }
+        else if(u.message.chat.type==='private'){
+          await api('forwardMessage',{chat_id:GROUP,from_chat_id:u.message.chat.id,message_id:u.message.message_id});
+        }
+        else if(String(u.message.chat.id)===GROUP && u.message.reply_to_message){
+          let txt=u.message.reply_to_message.text||"";let m=txt.match(/\[ID:(\d+)\]/);let target=m?m[1]:u.message.reply_to_message.forward_from?.id;
+          if(target){await api('sendMessage',{chat_id:target,text:u.message.text}); await api('sendMessage',{chat_id:GROUP,text:"✅ Envoyé",reply_to_message_id:u.message.message_id});}
+        }
+      }
+    }
+  }catch(e){}
+  setTimeout(poll,3000);
+}
+</script>
+</body>
+</html>
