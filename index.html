@@ -1,11 +1,12 @@
-const BOT_TOKEN = "8331678292:AAGiWwj1VQB_xo-dMnBGh_xHfy8Pc9wk74k";
-const GROUP_ID = "-1004354661850";
-const SHOP_URL = "https://simone57.github.io"; // METS TON LIEN ICI
-const PRIX = 50;
-
-const HTML_SITE = `<!DOCTYPE html>
-<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SIMONE57</title>
-<style>*{margin:0;padding:0;box-sizing:border-box}body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-bottom:180px}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIMONE57</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:Arial,sans-serif;padding-bottom:180px}
 nav{position:sticky;top:0;z-index:99;background:#000;padding:14px;display:flex;justify-content:center;gap:22px;border-bottom:1px solid #1a1a1a}
 nav a{color:#fff;text-decoration:none;font-weight:900;font-size:12px;letter-spacing:1.5px}
 .hero{text-align:center;padding:40px 20px 30px;background:radial-gradient(circle at center,#1e1e4a,#000 70%)}
@@ -19,7 +20,7 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 .card h3{margin:12px 0 2px;font-size:12px;letter-spacing:2px}
 .price{font-weight:900;margin-bottom:8px}
 .qty{display:flex;justify-content:center;align-items:center;gap:10px;margin:8px 0}
-.qty button{width:32px;height:32px;border-radius:50%;border:1px solid #333;background:#000;color:#fff;font-weight:900}
+.qty button{width:30px;height:30px;border-radius:50%;border:1px solid #333;background:#000;color:#fff;font-weight:900}
 .qty span{font-weight:900;min-width:20px}
 .card .add{background:#fff;color:#000;border:none;padding:10px;border-radius:25px;width:85%;font-weight:900;font-size:11px;margin-bottom:12px;cursor:pointer}
 .info-wrap{max-width:600px;margin:0 auto;padding:0 14px}
@@ -31,8 +32,9 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 #adresse{width:100%;padding:14px;margin-top:12px;border-radius:12px;border:1px solid #ddd;font-size:14px;display:none}
 #cmd{width:100%;background:#000;color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;margin-top:10px;font-size:13px;letter-spacing:1px;display:none;cursor:pointer}
 #clear{font-size:10px;color:#888;background:none;border:none;text-decoration:underline;cursor:pointer;display:none;margin-top:8px}
-#success{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;padding:25px;border-radius:20px;z-index:10000;text-align:center;font-weight:900}
-</style></head><body>
+</style>
+</head>
+<body>
 <nav><a href="#accueil">ACCUEIL</a><a href="#menu">MENU</a><a href="#info">INFO</a><a href="#avis">AVIS</a></nav>
 <div class="hero"><img src="logo.jpg"><p>PREMIUM CAFÉ • 50€ GROS</p><a class="btn" href="#menu">VOIR LE MENU</a></div>
 <div id="menu"><h2>MENU 50€</h2><div class="grid">
@@ -41,53 +43,52 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 <div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>CANAL</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
 <div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>CHOCOLAT</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
 </div></div>
-<div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">Livraison rapide 📍<br>Paris & banlieue 📦<br>Produits qualité ✅</div></div></div>
+<div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">⚡️ GROS 50€ - Stock dispo & fast<br>🔒 Commande auto dans le groupe<br>💬 Tu peux répondre au client direct depuis le groupe</div></div></div>
 <div id="avis"><h2>AVIS</h2><div class="avis-wrap"><div class="avis"><b>⭐⭐⭐⭐⭐ Léa</b><br>Le meilleur, livraison super rapide !</div><div class="avis"><b>⭐⭐⭐⭐⭐ Karim</b><br>Commande via bot @Simone57bot au top.</div></div></div>
 <div id="panier"><div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div><input id="adresse" placeholder="📍 Mets ton adresse de livraison ici..."><button id="cmd" onclick="commander()">COMMANDER SUR @Simone57bot</button><button id="clear" onclick="clearCart()">Vider</button></div>
-<div id="success">✅ COMMANDE ENVOYÉE !<br><br>On te répond sur Telegram 📍</div>
-<script>
-const BOT_TOKEN="${BOT_TOKEN}";const GROUP_ID="${GROUP_ID}";const PRIX=${PRIX};let panier={};
-function chg(btn,d){let c=btn.closest('.card'),n=c.querySelector('h3').innerText.trim(),s=c.querySelector('.qty span');if(!panier[n])panier[n]=0;panier[n]=Math.max(0,panier[n]+d);s.innerText=panier[n];upd()}
-function upd(){let i=[],t=0;for(let k in panier){if(panier[k]>0){i.push(panier[k]+'x '+k);t+=panier[k]*PRIX}}let v=i.length==0;document.getElementById('txt').innerText=v?'Panier vide':i.join(' + ');document.getElementById('tot').innerText=t.toFixed(2)+'€';document.getElementById('adresse').style.display=v?'none':'block';document.getElementById('cmd').style.display=v?'none':'block';document.getElementById('clear').style.display=v?'none':'block'}
-function clearCart(){panier={};document.querySelectorAll('.qty span').forEach(s=>s.innerText=0);upd()}
-async function commander(){
- let i=[],t=0;for(let k in panier){if(panier[k]>0){i.push(panier[k]+'x '+k);t+=panier[k]*PRIX}}
- if(i.length==0){alert('Ajoute un café');return}
- let a=document.getElementById('adresse').value;if(a.length<5){alert('Mets ton adresse complète !');return}
- let msg=\`🔥 COMMANDE 50€ 🔥\\n\\n📦 \${i.join(', ')}\\n💰 \${t.toFixed(2)}€\\n📍 \${a}\`;
- await fetch(\`https://api.telegram.org/bot\${BOT_TOKEN}/sendMessage?chat_id=\${GROUP_ID}&text=\${encodeURIComponent(msg)}\`);
- document.getElementById('success').style.display='block';setTimeout(()=>document.getElementById('success').style.display='none',3000);
- window.open('https://t.me/Simone57bot?text='+encodeURIComponent(msg),'_blank');
- clearCart();document.getElementById('adresse').value='';
-}
-</script></body></html>`;
 
-export default {
-  async fetch(request, env, ctx) {
-    const url = new URL(request.url);
-    if (url.pathname === "/webhook" && request.method === "POST") {
-      const update = await request.json();
-      // Message du client
-      if (update.message && update.message.chat.type === "private") {
-        const chatId = update.message.chat.id;
-        const text = update.message.text || "";
-        if (text.startsWith("/start")) {
-          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-            method: "POST", headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({
-              chat_id: chatId,
-              text: "Bienvenue clic sur SHOP\n\nLivraison rapide 📍\nParis & banlieue 📦\nProduits qualité ✅",
-              reply_markup: { inline_keyboard: [[{ text: "🛒 SHOP", url: SHOP_URL }]] }
-            })
-          });
-        } else {
-          // Forward vers groupe
-          const fwd = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/forwardMessage`, {
-            method:"POST", headers:{"Content-Type":"application/json"},
-            body: JSON.stringify({ chat_id: GROUP_ID, from_chat_id: chatId, message_id: update.message.message_id })
-          });
-          const fwdData = await fwd.json();
-          if (fwdData.ok) {
-            // Sauvegarde mapping dans KV ou juste envoie ID
-            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-              method:"POST", headers:{"Content-Type":"
+<script>
+const BOT_TOKEN = "8331678292:AAGiWwj1VQB_xo-dMnBGh_xHfy8Pc9wk74k";
+const GROUP_ID = "-1004354661850";
+const PRIX = 50;
+let panier = {};
+function chg(btn, delta){
+  let card = btn.closest('.card');
+  let nom = card.querySelector('h3').innerText.trim();
+  let span = card.querySelector('.qty span');
+  if(!panier[nom]) panier[nom]=0;
+  panier[nom] = Math.max(0, panier[nom]+delta);
+  span.innerText = panier[nom];
+  update();
+}
+function update(){
+  let items=[], total=0;
+  for(let k in panier){ if(panier[k]>0){ items.push(panier[k]+'x '+k); total+=panier[k]*PRIX } }
+  let vide = items.length==0;
+  document.getElementById('txt').innerText = vide?'Panier vide':items.join(' + ');
+  document.getElementById('tot').innerText = total.toFixed(2)+'€';
+  document.getElementById('adresse').style.display = vide?'none':'block';
+  document.getElementById('cmd').style.display = vide?'none':'block';
+  document.getElementById('clear').style.display = vide?'none':'block';
+}
+function clearCart(){ panier={}; document.querySelectorAll('.qty span').forEach(s=>s.innerText=0); update(); }
+
+async function commander(){
+  let items=[], total=0;
+  for(let k in panier){ if(panier[k]>0){ items.push(panier[k]+'x '+k); total+=panier[k]*PRIX } }
+  if(items.length==0){ alert('Ajoute un café'); return }
+  let adresse = document.getElementById('adresse').value;
+  if(adresse.length<5){ alert('Mets ton adresse complète !'); return }
+
+  let msgClient = `🔥 COMMANDE SIMONE57 50€ 🔥\n\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}`;
+  
+  // ENVOI AUTO DANS TON GROUPE DE LIVRAISON
+  let msgGroupe = `🔥 NOUVELLE COMMANDE\n\n📦 ${items.join(', ')}\n💰 ${total.toFixed(2)}€\n📍 ${adresse}`;
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${GROUP_ID}&text=${encodeURIComponent(msgGroupe)}`);
+
+  // OUVRE LE BOT POUR QUE TU PUISSES REPONDRE
+  window.open('https://t.me/Simone57bot?text='+encodeURIComponent(msgClient),'_blank');
+}
+</script>
+</body>
+</html>
