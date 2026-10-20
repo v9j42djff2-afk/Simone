@@ -31,7 +31,7 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 .avis{background:#151515;border:1px solid #222;margin:8px 0;padding:16px;border-radius:16px;font-size:13px}
 #panier{position:fixed;bottom:0;left:0;right:0;background:#fff;color:#000;padding:16px;border-radius:22px 22px 0 0;z-index:999}
 #panier-top{display:flex;justify-content:space-between;font-weight:900}
-#adresse,#telephone{width:100%;padding:14px;margin-top:12px;border-radius:12px;border:1px solid #ddd;font-size:14px;display:none}
+#adresse{width:100%;padding:14px;margin-top:12px;border-radius:12px;border:1px solid #ddd;font-size:14px;display:none}
 #cmd{width:100%;background:#000;color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;margin-top:10px;font-size:13px;display:none;cursor:pointer}
 #clear{font-size:10px;color:#888;background:none;border:none;text-decoration:underline;cursor:pointer;display:none;margin-top:8px}
 #success{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;padding:25px;border-radius:20px;z-index:10000;text-align:center;font-weight:900}
@@ -56,10 +56,7 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 <div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">⚡️ Livraison 24/24 - A partir de 50€<br>🔒 Service fiable<br>💶 Paiement en espece<br><br>📢 <a href="https://t.me/+pUIcuz_QTghhOGQ0" style="color:#229ED9">Canal</a> • 📸 <a href="https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr" style="color:#ff6a9e">Instagram</a></div></div></div>
 <div id="avis"><h2>AVIS</h2><div class="avis-wrap"><div class="avis"><b>⭐⭐⭐⭐⭐ Léa</b><br>Le meilleur, livraison super rapide !</div><div class="avis"><b>⭐⭐⭐⭐⭐ Karim</b><br>Commande via bot @Simone57bot au top.</div></div></div>
 
-<div id="panier"><div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div>
-<input id="telephone" type="tel" placeholder="📞 Ton numéro">
-<input id="adresse" placeholder="📍 Mets ton adresse de livraison ici...">
-<button id="cmd" onclick="commander()">COMMANDER</button><button id="clear" onclick="clearCart()">Vider</button></div>
+<div id="panier"><div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div><input id="adresse" placeholder="📍 Mets ton adresse de livraison ici..."><button id="cmd" onclick="commander()">COMMANDER</button><button id="clear" onclick="clearCart()">Vider</button></div>
 <div id="success">COMMANDE ENVOYÉE !<br><br>On te répond sur Telegram 📍</div>
 
 <script>
@@ -68,7 +65,6 @@ const GROUP_ID="-1004354661850";
 const PRIX=50;
 let panier={MOUSSEUX:0,FROZEN:0,CALI:0,AMNESIA:0};
 let lastId=parseInt(localStorage.getItem('lastId')||'0');
-let isMaster=false;
 
 function chg(nom,d){
   panier[nom]=Math.max(0,(panier[nom]||0)+d);
@@ -79,18 +75,26 @@ function chg(nom,d){
   document.getElementById('txt').innerText=vide?'Panier vide':items.join(' + ');
   document.getElementById('tot').innerText=total.toFixed(2)+'€';
   document.getElementById('adresse').style.display=vide?'none':'block';
-  document.getElementById('telephone').style.display=vide?'none':'block';
   document.getElementById('cmd').style.display=vide?'none':'block';
   document.getElementById('clear').style.display=vide?'none':'block';
 }
 function clearCart(){for(let k in panier)panier[k]=0;document.querySelectorAll('[id^="q-"]').forEach(s=>s.innerText=0);chg('MOUSSEUX',0);}
 
 function tgUrl(m,p){return `https://api.telegram.org/bot${BOT_TOKEN}/${m}?`+new URLSearchParams(p).toString()}
-async function tg(method,params){
-  try{
-    let r=await fetch(`https://corsproxy.io/?${encodeURIComponent(tgUrl(method,params))}`);
-    return await r.json();
-  }catch(e){ return {ok:false}; }
+async function sendTG(method,params){
+  // 3 proxys pour forcer l'envoi
+  const url = tgUrl(method,params);
+  const proxys = [
+    `https://corsproxy.io/?${encodeURIComponent(url)}`,
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+    `https://thingproxy.freeboard.io/fetch/${url}`
+  ];
+  for(let pr of proxys){
+    try{ let r=await fetch(pr); let j=await r.json(); if(j.ok) return j; }catch(e){}
+  }
+  // dernier espoir no-cors (envoie quand même)
+  try{ await fetch(url,{mode:'no-cors'}); return {ok:true}; }catch(e){}
+  return {ok:false};
 }
 
 async function commander(){
@@ -98,71 +102,58 @@ async function commander(){
   for(let k in panier){if(panier[k]>0){items.push(panier[k]+'x '+k);total+=panier[k]*PRIX}}
   if(items.length==0){alert('Ajoute un produit');return}
   let adresse=document.getElementById('adresse').value;
-  let tel=document.getElementById('telephone').value;
   if(adresse.length<5){alert('Mets ton adresse complète !');return}
-  if(tel.length<6){alert('Mets ton numéro !');return}
 
   let wa=window.Telegram?.WebApp, uid=wa?.initDataUnsafe?.user?.id||'SITE', uname=wa?.initDataUnsafe?.user?.first_name||'Client';
   let order='#S'+Math.floor(1000+Math.random()*9000);
-  let msg=`🔥 COMMANDE ${order} 🔥\n\n👤 ${uname} [ID:${uid}]\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}\n📞 Tel: ${tel}\n\n⏱️ Réponds : /time 1h`;
+  let msg=`🔥 COMMANDE ${order} 🔥\n\n👤 ${uname} [ID:${uid}]\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}\n\n⏱️ /time 1h pour délai`;
 
-  await tg('sendMessage',{chat_id:GROUP_ID,text:msg});
-  document.getElementById('success').style.display='block';
-  setTimeout(()=>document.getElementById('success').style.display='none',3000);
-  clearCart();
+  document.getElementById('cmd').innerText='ENVOI...';
+  let res = await sendTG('sendMessage',{chat_id:GROUP_ID,text:msg});
+  
+  if(res.ok){
+    document.getElementById('success').style.display='block';
+    setTimeout(()=>document.getElementById('success').style.display='none',3000);
+    clearCart();
+  }else{
+    alert('Erreur envoi, réessaye. Vérifie que le bot est admin dans le groupe.');
+  }
+  document.getElementById('cmd').innerText='COMMANDER';
 }
 
-// ANTI-SPAM: 1 seul onglet fait le bot
+// --- /start + réponses : 1 seul onglet travaille ---
+let isMaster = false;
 function checkMaster(){
-  let last=parseInt(localStorage.getItem('masterTime')||'0');
-  if(Date.now()-last>15000){ localStorage.setItem('masterTime',Date.now()); isMaster=true; }
-  if(isMaster) setInterval(()=>localStorage.setItem('masterTime',Date.now()),5000);
+  let last = parseInt(localStorage.getItem('masterTime')||'0');
+  if(Date.now()-last > 10000){ localStorage.setItem('masterTime',Date.now()); isMaster=true; setInterval(()=>localStorage.setItem('masterTime',Date.now()),3000); }
 }
+checkMaster();
 
 async function poll(){
   if(!isMaster) return;
   try{
-    let data=await tg('getUpdates',{offset:lastId+1,timeout:15});
+    let r=await fetch(`https://corsproxy.io/?${encodeURIComponent(tgUrl('getUpdates',{offset:lastId+1,timeout:10}))}`);
+    let data=await r.json();
     if(data.ok){
       for(let upd of data.result){
         lastId=upd.update_id;localStorage.setItem('lastId',lastId);
-        let m=upd.message; if(!m||m.from?.is_bot) continue;
-
-        if(m.text&&m.text.startsWith('/start')&&m.chat.type==='private'){
-          await tg('sendMessage',{chat_id:m.chat.id,text:"Bienvenue chez SIMONE57 ☕️\n\nLivraison rapide 📍\nParis & banlieue 📦\nProduits qualité ✅",reply_markup:JSON.stringify({inline_keyboard:[[{text:"🛒 SHOP",web_app:{url:location.href}}],[{text:"📢 CANAL",url:"https://t.me/+pUIcuz_QTghhOGQ0"},{text:"📸 INSTAGRAM",url:"https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr"}]]})});
+        if(!upd.message||upd.message.from?.is_bot) continue;
+        if(upd.message.text&&upd.message.text.startsWith('/start')&&upd.message.chat.type==='private'){
+          await sendTG('sendMessage',{chat_id:upd.message.chat.id,text:"Bienvenue chez SIMONE57 ☕️\n\nLivraison rapide 📍\nParis & banlieue 📦\nProduits qualité ✅",reply_markup:JSON.stringify({inline_keyboard:[[{text:"🛒 SHOP",web_app:{url:location.href}}],[{text:"📢 CANAL",url:"https://t.me/+pUIcuz_QTghhOGQ0"},{text:"📸 INSTAGRAM",url:"https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr"}]]})});
         }
-        else if(m.chat.type==='private'){
-          await tg('forwardMessage',{chat_id:GROUP_ID,from_chat_id:m.chat.id,message_id:m.message_id});
+        else if(upd.message.chat.type==='private'){
+          await sendTG('forwardMessage',{chat_id:GROUP_ID,from_chat_id:upd.message.chat.id,message_id:upd.message.message_id});
         }
-        else if(String(m.chat.id)===GROUP_ID&&m.reply_to_message){
-          let orig=m.reply_to_message.text||''; let idM=orig.match(/\[ID:(\d+)\]/); let orderM=orig.match(/#S\d+/);
-          let target=idM?idM[1]:m.reply_to_message.forward_from?.id; let txt=m.text||'';
-          if(!target||target==='SITE') continue;
-          if(txt.toLowerCase().startsWith('/time')){
-            let d=txt.replace(/\/time/i,'').trim()||'30min';
-            await tg('sendMessage',{chat_id:target,text:`⏱️ Votre commande ${orderM?orderM[0]:''} : Livraison estimée ${d} 🚚`});
-            await tg('sendMessage',{chat_id:GROUP_ID,text:`✅ ${orderM?orderM[0]:''} -> ${d} envoyé`,reply_to_message_id:m.message_id});
-          }else{
-            await tg('sendMessage',{chat_id:target,text:txt});
-            await tg('sendMessage',{chat_id:GROUP_ID,text:`✅ Réponse envoyée`,reply_to_message_id:m.message_id});
-          }
+        else if(String(upd.message.chat.id)===GROUP_ID&&upd.message.reply_to_message){
+          let txt=upd.message.reply_to_message.text||"";let m=txt.match(/\[ID:(\d+)\]/);let target=m?m[1]:upd.message.reply_to_message.forward_from?.id;
+          if(target&&target!=='SITE'){ await sendTG('sendMessage',{chat_id:target,text:upd.message.text}); }
         }
       }
     }
   }catch(e){}
   setTimeout(poll,3000);
 }
-
-checkMaster();
-tg('deleteWebhook',{drop_pending_updates:'false'}).then(()=>{ if(isMaster) poll(); });
-
-// Si un autre onglet prend le master, celui-ci s'arrête
-setInterval(()=>{
-  if(!isMaster){
-    let last=parseInt(localStorage.getItem('masterTime')||'0');
-    if(Date.now()-last>15000){ isMaster=true; poll(); }
-  }
-},5000);
+sendTG('deleteWebhook',{drop_pending_updates:'false'}).then(()=>{ if(isMaster) poll(); });
 </script>
 </body>
 </html>
