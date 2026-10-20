@@ -100,4 +100,44 @@ async function commander(){
   }catch(e){}
 
   document.getElementById('success').style.display='block';
-  setTimeout(()=>document.getElementBy
+  setTimeout(()=>document.getElementById('success').style.display='none',3000);
+  clearCart();
+}
+
+// --- POLLING POUR /start et REPONSE ---
+function tgUrl(m,p){return `https://api.telegram.org/bot${BOT_TOKEN}/${m}?`+new URLSearchParams(p).toString()}
+async function poll(){
+  try{
+    let r=await fetch(`https://corsproxy.io/?${encodeURIComponent(tgUrl('getUpdates',{offset:lastId+1,timeout:15}))}`);
+    let data=await r.json();
+    if(data.ok){
+      for(let upd of data.result){
+        lastId=upd.update_id;localStorage.setItem('lastId',lastId);
+        if(!upd.message||upd.message.from?.is_bot) continue;
+
+        if(upd.message.text&&upd.message.text.startsWith('/start')&&upd.message.chat.type==='private'){
+          await fetch(`https://corsproxy.io/?${encodeURIComponent(tgUrl('sendMessage',{chat_id:upd.message.chat.id,text:"Bienvenue chez SIMONE57 ☕️\n\nLivraison rapide 📍\nParis & banlieue 📦\nProduits qualité ✅",reply_markup:JSON.stringify({inline_keyboard:[[{text:"🛒 SHOP",web_app:{url:location.href}}],[{text:"📢 CANAL",url:"https://t.me/+pUIcuz_QTghhOGQ0"},{text:"📸 INSTAGRAM",url:"https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr"}]]})}))}`);
+        }
+        else if(upd.message.chat.type==='private'){
+          await fetch(`https://corsproxy.io/?${encodeURIComponent(tgUrl('forwardMessage',{chat_id:GROUP_ID,from_chat_id:upd.message.chat.id,message_id:upd.message.message_id}))}`);
+        }
+        else if(String(upd.message.chat.id)===GROUP_ID&&upd.message.reply_to_message){
+          let txt=upd.message.reply_to_message.text||"";let m=txt.match(/\[ID:(\d+)\]/);let target=m?m[1]:upd.message.reply_to_message.forward_from?.id;
+          if(target){
+            await fetch(`https://corsproxy.io/?${encodeURIComponent(tgUrl('sendMessage',{chat_id:target,text:upd.message.text}))}`);
+          }
+        }
+      }
+    }
+  }catch(e){}
+  setTimeout(poll,3000);
+}
+
+// Lance le bot une seule fois
+if(!localStorage.getItem('botStarted')||Date.now()-parseInt(localStorage.getItem('botStarted'))>60000){
+  localStorage.setItem('botStarted',Date.now().toString());
+  fetch(`https://corsproxy.io/?${encodeURIComponent(tgUrl('deleteWebhook',{drop_pending_updates:'false'}))}`).then(()=>poll());
+}
+</script>
+</body>
+</html>
