@@ -35,21 +35,16 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 #cmd{width:100%;background:#000;color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;margin-top:10px;font-size:13px;display:none;cursor:pointer}
 #clear{font-size:10px;color:#888;background:none;border:none;text-decoration:underline;cursor:pointer;display:none;margin-top:8px}
 #success{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;padding:25px;border-radius:20px;z-index:10000;text-align:center;font-weight:900}
-#botstatus{position:fixed;top:5px;right:5px;background:#00ff6a;color:#000;font-size:10px;padding:4px 8px;border-radius:10px;z-index:10000}
 </style>
 </head>
 <body>
-<div id="botstatus">BOT ON - PRO</div>
 <nav><a href="#accueil">ACCUEIL</a><a href="#menu">MENU</a><a href="#info">INFO</a><a href="#avis">AVIS</a></nav>
-
-<div class="hero" id="accueil">
-<img src="logo.jpg"><p>PREMIUM HASH • 50€ MINIMUM</p>
+<div class="hero" id="accueil"><img src="logo.jpg"><p>PREMIUM HASH • 50€ MINIMUM</p>
 <div class="btns">
 <a class="btn btn-shop" href="#menu">🛒 MENU</a>
 <a class="btn btn-canal" href="https://t.me/+pUIcuz_QTghhOGQ0" target="_blank">📢 CANAL</a>
 <a class="btn btn-insta" href="https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr" target="_blank">📸 INSTA</a>
-</div>
-</div>
+</div></div>
 
 <div id="menu"><h2>MENU</h2><div class="grid">
 <div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>MOUSSEUX</h3><div class="price">50€</div><div class="qty"><button onclick="chg('MOUSSEUX',-1)">-</button><span id="q-MOUSSEUX">0</span><button onclick="chg('MOUSSEUX',1)">+</button></div><button class="add" onclick="chg('MOUSSEUX',1)">AJOUTER</button></div>
@@ -58,11 +53,11 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 <div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>AMNESIA</h3><div class="price">50€</div><div class="qty"><button onclick="chg('AMNESIA',-1)">-</button><span id="q-AMNESIA">0</span><button onclick="chg('AMNESIA',1)">+</button></div><button class="add" onclick="chg('AMNESIA',1)">AJOUTER</button></div>
 </div></div>
 
-<div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">⚡️ Livraison 24/24 - A partir de 50€<br>🔒 Service fiable<br>💶 Paiement en espece<br><br>📢 <a href="https://t.me/+pUIcuz_QTghhOGQ0" style="color:#229ED9">Canal</a> • 📸 <a href="https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr" style="color:#ff6a9e">Instagram</a></div></div></div>
+<div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">⚡️ Livraison 24/24 - A partir de 50€<br>🔒 Service fiable<br>💶 Paiement en espece<br><br>Commandes: /time 30min pour définir le délai</div></div></div>
 <div id="avis"><h2>AVIS</h2><div class="avis-wrap"><div class="avis"><b>⭐⭐⭐⭐⭐ Léa</b><br>Le meilleur, livraison super rapide !</div><div class="avis"><b>⭐⭐⭐⭐⭐ Karim</b><br>Commande via bot @Simone57bot au top.</div></div></div>
 
 <div id="panier"><div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div><input id="adresse" placeholder="📍 Mets ton adresse de livraison ici..."><button id="cmd" onclick="commander()">COMMANDER</button><button id="clear" onclick="clearCart()">Vider</button></div>
-<div id="success">COMMANDE ENVOYÉE !<br><br>On te répond sur Telegram 📍</div>
+<div id="success">COMMANDE ENVOYÉE !<br>Numéro: <span id="orderNum"></span></div>
 
 <script>
 const BOT_TOKEN="8331678292:AAGiWwj1VQB_xo-dMnBGh_xHfy8Pc9wk74k";
@@ -70,7 +65,7 @@ const GROUP_ID="-1004354661850";
 const PRIX=50;
 let panier={MOUSSEUX:0,FROZEN:0,CALI:0,AMNESIA:0};
 let lastId=parseInt(localStorage.getItem('lastId')||'0');
-let clientDB=JSON.parse(localStorage.getItem('clientDB')||'{}'); // MEMOIRE PERMANENTE
+let orders=JSON.parse(localStorage.getItem('orders')||'{}'); // orderNum -> clientId
 
 function chg(nom,d){
   panier[nom]=Math.max(0,(panier[nom]||0)+d);
@@ -85,18 +80,18 @@ function chg(nom,d){
 }
 function clearCart(){for(let k in panier)panier[k]=0;document.querySelectorAll('[id^="q-"]').forEach(s=>s.innerText=0);chg('MOUSSEUX',0);}
 
+function genOrderNum(){
+  let n='S'+Math.floor(1000+Math.random()*9000);
+  return '#'+n;
+}
+
 function tgUrl(m,p){return `https://api.telegram.org/bot${BOT_TOKEN}/${m}?`+new URLSearchParams(p).toString()}
 async function tgSend(method, params){
-  // 1. Essaie proxy 2. Si fail, envoie en no-cors (ça arrive quand même)
   try{
     let r=await fetch(`https://corsproxy.io/?${encodeURIComponent(tgUrl(method,params))}`);
-    let j=await r.json();
-    if(j.ok) return j;
+    let j=await r.json(); if(j.ok) return j;
   }catch(e){}
-  try{
-    await fetch(tgUrl(method,params),{mode:'no-cors'});
-    return {ok:true};
-  }catch(e){ return {ok:false} }
+  try{ await fetch(tgUrl(method,params),{mode:'no-cors'}); return {ok:true}; }catch(e){return {ok:false}}
 }
 
 async function commander(){
@@ -105,16 +100,18 @@ async function commander(){
   let adresse=document.getElementById('adresse').value;
   if(adresse.length<5){alert('Mets ton adresse complète !');return}
   let wa=window.Telegram?.WebApp, uid=wa?.initDataUnsafe?.user?.id||'SITE', uname=wa?.initDataUnsafe?.user?.first_name||'Client';
-  let msg=`🔥 COMMANDE SIMONE57BOT 🔥\n\n👤 ${uname} [ID:${uid}]\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 ${adresse}\n\n↩️ REPONDS à ce message pour répondre`;
+  let orderNum=genOrderNum();
+  orders[orderNum]=uid; localStorage.setItem('orders',JSON.stringify(orders));
+
+  let msg=`🔥 COMMANDE ${orderNum} 🔥\n\n👤 ${uname} [ID:${uid}]\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}\n\n⏱️ Pour définir le délai, réponds : /time 30min\n↩️ Ou écris un message pour répondre au client`;
 
   await tgSend('sendMessage',{chat_id:GROUP_ID,text:msg});
-  
+  document.getElementById('orderNum').innerText=orderNum;
   document.getElementById('success').style.display='block';
-  setTimeout(()=>document.getElementById('success').style.display='none',3000);
+  setTimeout(()=>document.getElementById('success').style.display='none',4000);
   clearCart();
 }
 
-// SYSTEME PRO RENFORCÉ
 async function poll(){
   localStorage.setItem('masterTime',Date.now().toString());
   try{
@@ -124,45 +121,41 @@ async function poll(){
         lastId=upd.update_id;localStorage.setItem('lastId',lastId);
         if(!upd.message||upd.message.from?.is_bot) continue;
 
-        // /start
         if(upd.message.text&&upd.message.text.startsWith('/start')&&upd.message.chat.type==='private'){
-          await tgSend('sendMessage',{
-            chat_id:upd.message.chat.id,
-            text:`Bienvenue chez SIMONE57 ☕️\n\nLivraison rapide 📍\nParis & banlieue 📦\nProduits qualité ✅\nID: ${upd.message.chat.id}`,
-            reply_markup:JSON.stringify({inline_keyboard:[
-              [{text:"🛒 SHOP",web_app:{url:location.href}}],
-              [{text:"📢 CANAL",url:"https://t.me/+pUIcuz_QTghhOGQ0"},{text:"📸 INSTAGRAM",url:"https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr"}]
-            ]})
-          });
+          await tgSend('sendMessage',{chat_id:upd.message.chat.id,text:"Bienvenue chez SIMONE57 ☕️\n\nLivraison rapide 📍\nParis & banlieue 📦\nProduits qualité ✅",reply_markup:JSON.stringify({inline_keyboard:[[{text:"🛒 SHOP",web_app:{url:location.href}}],[{text:"📢 CANAL",url:"https://t.me/+pUIcuz_QTghhOGQ0"},{text:"📸 INSTAGRAM",url:"https://www.instagram.com/simonecoffee57?srtk=MXF2MWc3c3Zrdjl6aQ%3D%3D&utm_source=qr"}]]})});
         }
-        // CLIENT -> GROUPE
         else if(upd.message.chat.type==='private'){
-          let fwd=await tgSend('forwardMessage',{chat_id:GROUP_ID,from_chat_id:upd.message.chat.id,message_id:upd.message.message_id});
-          if(fwd&&fwd.ok){
-            clientDB[fwd.result.message_id]=upd.message.chat.id;
-            localStorage.setItem('clientDB',JSON.stringify(clientDB));
-          }
+          await tgSend('forwardMessage',{chat_id:GROUP_ID,from_chat_id:upd.message.chat.id,message_id:upd.message.message_id});
         }
-        // TOI -> CLIENT (AVEC NOTIF)
         else if(String(upd.message.chat.id)===GROUP_ID&&upd.message.reply_to_message){
-          let replyMsg=upd.message.reply_to_message;
-          let txt=replyMsg.text||"";
-          let m=txt.match(/\[ID:(\d+)\]/);
-          let target=null;
+          let replyText=upd.message.reply_to_message.text||"";
+          let orderMatch=replyText.match(/#S\d+/);
+          let orderNum=orderMatch?orderMatch[0]:null;
+          let idMatch=replyText.match(/\[ID:(\d+)\]/);
+          let target=idMatch?idMatch[1]:null;
+          if(orderNum&&orders[orderNum]) target=orders[orderNum];
 
-          if(m) target=m[1]; // 1. ID dans le message commande
-          if(!target && clientDB[replyMsg.message_id]) target=clientDB[replyMsg.message_id]; // 2. Mémoire
-          if(!target && replyMsg.forward_from) target=replyMsg.forward_from.id; // 3. Forward
+          let txt=upd.message.text||"";
 
-          if(target){
-            let sent=await tgSend('sendMessage',{chat_id:target,text:upd.message.text});
-            if(sent.ok){
-              await tgSend('sendMessage',{chat_id:GROUP_ID,text:`✅ Réponse envoyée à [ID:${target}] : "${upd.message.text}"`,reply_to_message_id:upd.message.message_id});
+          // SYSTEME /time
+          if(txt.toLowerCase().startsWith('/time')){
+            let time=txt.replace('/time','').trim(); // ex: 1h, 30min
+            if(!time) time="30min";
+            if(orderNum){
+              await tgSend('sendMessage',{chat_id:GROUP_ID,text:`⏱️ ${orderNum} -> Délai défini : ${time} ✅`,reply_to_message_id:upd.message.message_id});
+              if(target&&target!=='SITE'){
+                await tgSend('sendMessage',{chat_id:target,text:`⏱️ Votre commande ${orderNum} est en préparation !\n\n🚚 Livraison estimée : ${time}\n📦 ${replyText.split('\n')[3]||''}\n\nMerci pour votre confiance 🙏`});
+              }
             }else{
-              await tgSend('sendMessage',{chat_id:GROUP_ID,text:`❌ Echec envoi à ${target}. Vérifie que le client n'a pas bloqué le bot.`,reply_to_message_id:upd.message.message_id});
+              await tgSend('sendMessage',{chat_id:GROUP_ID,text:`⚠️ Réponds à une commande avec /time 30min`,reply_to_message_id:upd.message.message_id});
             }
-          }else{
-            await tgSend('sendMessage',{chat_id:GROUP_ID,text:`⚠️ Impossible de trouver le client. Réponds directement sur le message qui contient [ID:xxx]`,reply_to_message_id:upd.message.message_id});
+          }
+          // Réponse normale
+          else{
+            if(target&&target!=='SITE'){
+              await tgSend('sendMessage',{chat_id:target,text:txt});
+              await tgSend('sendMessage',{chat_id:GROUP_ID,text:`✅ Réponse envoyée ${orderNum||''} à [ID:${target}]`,reply_to_message_id:upd.message.message_id});
+            }
           }
         }
       }
@@ -171,11 +164,8 @@ async function poll(){
   setTimeout(poll,3000);
 }
 
-// Lance une seule fois, même après coupure
 if(!localStorage.getItem('masterTime')||Date.now()-parseInt(localStorage.getItem('masterTime'))>30000){
   tgSend('deleteWebhook',{drop_pending_updates:'false'}).then(()=>poll());
-}else{
-  setTimeout(()=>{ if(Date.now()-parseInt(localStorage.getItem('masterTime'))>40000) poll(); },5000);
 }
 </script>
 </body>
