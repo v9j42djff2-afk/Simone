@@ -32,26 +32,31 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 #adresse{width:100%;padding:14px;margin-top:12px;border-radius:12px;border:1px solid #ddd;font-size:14px;display:none}
 #cmd{width:100%;background:#000;color:#fff;border:none;padding:15px;border-radius:14px;font-weight:900;margin-top:10px;font-size:13px;letter-spacing:1px;display:none;cursor:pointer}
 #clear{font-size:10px;color:#888;background:none;border:none;text-decoration:underline;cursor:pointer;display:none;margin-top:8px}
+#success{display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:#fff;color:#000;padding:25px;border-radius:20px;z-index:10000;text-align:center;font-weight:900}
 </style>
 </head>
 <body>
 <nav><a href="#accueil">ACCUEIL</a><a href="#menu">MENU</a><a href="#info">INFO</a><a href="#avis">AVIS</a></nav>
-<div class="hero"><img src="logo.jpg"><p>PREMIUM CAFÉ • 50€ GROS</p><a class="btn" href="#menu">VOIR LE MENU</a></div>
-<div id="menu"><h2>MENU 50€</h2><div class="grid">
-<div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>PISTACHIO</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
-<div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>CARAMEL</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
-<div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>CANAL</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
-<div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>CHOCOLAT</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
+<div class="hero"><img src="logo.jpg"><p>PREMIUM HASH • 50€ MINIMUM</p><a class="btn" href="#menu">VOIR LE MENU</a></div>
+<div id="menu"><h2>MENU</h2><div class="grid">
+<div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>MOUSSEUX</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
+<div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>FROZEN</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
+<div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>CALI</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
+<div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>AMNESIA</h3><div class="price">50€</div><div class="qty"><button onclick="chg(this,-1)">-</button><span>0</span><button onclick="chg(this,1)">+</button></div><button class="add" onclick="chg(this,1)">AJOUTER</button></div>
 </div></div>
-<div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">⚡️ GROS 50€ - Stock dispo & fast<br>🔒 Commande auto dans le groupe<br>💬 Tu peux répondre au client direct depuis le groupe</div></div></div>
+<div id="info"><h2>INFO</h2><div class="info-wrap"><div class="info-card">⚡️ Livraison 24/24 - A partir de 50€ <br>🔒 Service fiable<br>💶 Paiment en espece</div></div></div>
 <div id="avis"><h2>AVIS</h2><div class="avis-wrap"><div class="avis"><b>⭐⭐⭐⭐⭐ Léa</b><br>Le meilleur, livraison super rapide !</div><div class="avis"><b>⭐⭐⭐⭐⭐ Karim</b><br>Commande via bot @Simone57bot au top.</div></div></div>
-<div id="panier"><div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div><input id="adresse" placeholder="📍 Mets ton adresse de livraison ici..."><button id="cmd" onclick="commander()">COMMANDER SUR @Simone57bot</button><button id="clear" onclick="clearCart()">Vider</button></div>
+<div id="panier"><div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div><input id="adresse" placeholder="📍 Mets ton adresse de livraison ici..."><button id="cmd" onclick="commander()">COMMANDER</button><button id="clear" onclick="clearCart()">Vider</button></div>
+<div id="success">COMMANDE ENVOYÉE !<br><br>On te répond sur Telegram 📍</div>
 
 <script>
 const BOT_TOKEN = "8331678292:AAGiWwj1VQB_xo-dMnBGh_xHfy8Pc9wk74k";
 const GROUP_ID = "-1004354661850";
 const PRIX = 50;
 let panier = {};
+let lastUpdateId = 0;
+let clientMap = {}; // message_id groupe -> user_id
+
 function chg(btn, delta){
   let card = btn.closest('.card');
   let nom = card.querySelector('h3').innerText.trim();
@@ -80,15 +85,74 @@ async function commander(){
   let adresse = document.getElementById('adresse').value;
   if(adresse.length<5){ alert('Mets ton adresse complète !'); return }
 
-  let msgClient = `🔥 COMMANDE SIMONE57 50€ 🔥\n\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}`;
+  let msgClient = `🔥 COMMANDE SIMONE57BOT 🔥\n\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}`;
   
-  // ENVOI AUTO DANS TON GROUPE DE LIVRAISON
-  let msgGroupe = `🔥 NOUVELLE COMMANDE\n\n📦 ${items.join(', ')}\n💰 ${total.toFixed(2)}€\n📍 ${adresse}`;
-  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${GROUP_ID}&text=${encodeURIComponent(msgGroupe)}`);
+  // 1. Envoi auto dans ton groupe + message COMMANDE ENVOYEE
+  await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${GROUP_ID}&text=${encodeURIComponent(msgClient)}`);
+  document.getElementById('success').style.display='block';
+  setTimeout(()=>document.getElementById('success').style.display='none',3500);
 
-  // OUVRE LE BOT POUR QUE TU PUISSES REPONDRE
+  // 2. Ouvre le bot pour que le client puisse te parler
   window.open('https://t.me/Simone57bot?text='+encodeURIComponent(msgClient),'_blank');
+  clearCart();
 }
+
+// --- SYSTEME QUI FAIT MARCHER LE /start et la REPONSE DEPUIS LE GROUPE ---
+async function botPolling(){
+  try{
+    let res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getUpdates?offset=${lastUpdateId+1}&timeout=30`);
+    let data = await res.json();
+    if(data.ok){
+      for(let upd of data.result){
+        lastUpdateId = upd.update_id;
+        // /start
+        if(upd.message && upd.message.text && upd.message.text.startsWith('/start')){
+          await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({
+              chat_id: upd.message.chat.id,
+              text: "Bienvenue clic sur SHOP\n\nLivraison rapide 📍\nParis & banlieue 📦\nProduits qualité ✅",
+              reply_markup: { inline_keyboard: [[{text:"🛒 SHOP", url: location.href}]] }
+            })
+          });
+        }
+        // Message client -> forward vers groupe et on garde le lien
+        if(upd.message && upd.message.chat.type === 'private' && !upd.message.text?.startsWith('/start')){
+          let fwdRes = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/forwardMessage`,{
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({chat_id: GROUP_ID, from_chat_id: upd.message.chat.id, message_id: upd.message.message_id})
+          });
+          let fwdData = await fwdRes.json();
+          if(fwdData.ok){
+            clientMap[fwdData.result.message_id] = upd.message.chat.id;
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+              method:'POST', headers:{'Content-Type':'application/json'},
+              body: JSON.stringify({chat_id: GROUP_ID, text: `👤 ID:${upd.message.chat.id} - Réponds à ce message pour répondre au client`, reply_to_message_id: fwdData.result.message_id})
+            });
+          }
+        }
+        // Réponse depuis le groupe -> renvoie au client
+        if(upd.message && String(upd.message.chat.id) === GROUP_ID && upd.message.reply_to_message){
+          let replyId = upd.message.reply_to_message.message_id;
+          let target = clientMap[replyId];
+          if(!target && upd.message.reply_to_message.forward_from){
+            target = upd.message.reply_to_message.forward_from.id;
+          }
+          if(target){
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,{
+              method:'POST', headers:{'Content-Type':'application/json'},
+              body: JSON.stringify({chat_id: target, text: upd.message.text})
+            });
+          }
+        }
+      }
+    }
+  }catch(e){}
+  setTimeout(botPolling, 2000);
+}
+
+// Supprime webhook qui bloque et lance le bot
+fetch(`https://api.telegram.org/bot${BOT_TOKEN}/deleteWebhook`).then(()=>botPolling());
 </script>
 </body>
 </html>
