@@ -3,79 +3,81 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simone - Coffee</title>
+<title>Simone Coffee</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
-body{margin:0;font-family:sans-serif;background:#111;color:#fff;text-align:center}
-header{padding:20px;background:#000}
-header img{width:220px;max-width:80%;filter:drop-shadow(0 0 10px #ff0000)}
-.product{background:#222;margin:15px;border-radius:15px;padding:15px}
-.product video, .product img{width:100%;border-radius:12px}
-button{background:#ff1a1a;color:#fff;border:none;padding:12px 20px;border-radius:25px;font-weight:bold;margin-top:10px;width:100%}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+.header{text-align:center;padding:30px 20px;background:radial-gradient(circle at top,#1a1a1a,#000)}
+.header img{width:240px;max-width:85%;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.3)}
+.header h1{margin-top:20px;font-size:28px;letter-spacing:2px;font-weight:800}
+.nav{display:flex;justify-content:center;gap:25px;padding:15px;background:#111;position:sticky;top:0;z-index:10}
+.nav a{color:#fff;text-decoration:none;font-weight:600;font-size:14px;letter-spacing:1px;opacity:0.7}
+.nav a.active{opacity:1;color:#ff2a2a}
+.banner{background:#111;border:1px solid #222;margin:15px;border-radius:15px;padding:15px;text-align:center}
+.btn-main{background:linear-gradient(135deg,#ff1a1a,#b30000);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;font-size:16px;margin-top:10px}
+.menu{padding:15px}
+.card{background:#161616;border-radius:20px;padding:15px;margin-bottom:15px;border:1px solid #222}
+.card img,.card video{width:100%;border-radius:15px;background:#000;min-height:180px;object-fit:cover}
+.card h3{margin:12px 0 5px;font-size:18px}
+.card p{opacity:0.6;font-size:13px}
+.price{font-weight:800;color:#ff3b3b;margin:8px 0}
 </style>
 </head>
 <body>
-<header>
-<img src="logo.png.jpg">
+<div class="header">
+<img src="logo.png.jpg" alt="Coffe Simone">
 <h1>Coffe Simone</h1>
-</header>
+<p style="opacity:0.5;margin-top:5px">PARIS • PREMIUM</p>
+</div>
 
-<nav>
-<a href="#accueil">ACCUEIL</a>
+<div class="nav">
+<a href="#" class="active">ACCUEIL</a>
 <a href="#menu">MENU</a>
 <a href="#avis">AVIS</a>
-</nav>
-
-<div id="accueil" class="hero">
-<img src="logo.jpg" alt="Coffee Simone">
-<p>PREMIUM HASH • 50€ - MINIMUM</p>
-<a class="btn" href="#menu">VOIR LE MENU</a>
 </div>
 
-<div id="menu">
-<h2>MENU</h2>
-<div class="grid">
-<div class="card"><video src="mousseux.mp4" autoplay loop muted playsinline></video><h3>MOUSSEUX</h3><div class="price">50€</div><button onclick="add('MOUSSEUX')">AJOUTER</button></div>
-<div class="card"><video src="cali.mp4" autoplay loop muted playsinline></video><h3>CALI</h3><div class="price">50€</div><button onclick="add('CALI')">AJOUTER</button></div>
-<div class="card"><video src="coca.mp4" autoplay loop muted playsinline></video><h3>COCA</h3><div class="price">60€</div><button onclick="add('COCA')">AJOUTER</button></div>
-<div class="card"><video src="amnesia.mp4" autoplay loop muted playsinline></video><h3>AMNESIA</h3><div class="price">50€</div><button onclick="add('AMNESIA')">AJOUTER</button></div>
-<div class="card"><video src="frozen.mp4" autoplay loop muted playsinline></video><h3>FROZEN</h3><div class="price">50€</div><button onclick="add('FROZEN')">AJOUTER</button></div>
-</div>
+<div class="banner">
+<p>PREMIUM QUALITY - 50€ MINIMUM</p>
+<button class="btn-main" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">VOIR LE MENU</button>
 </div>
 
-<div id="avis">
-<h2>AVIS</h2>
-<div class="avis-wrap">
-<div class="avis"><b>⭐⭐⭐⭐⭐ Léa</b><br>Le meilleur, livraison super rapide !</div>
-<div class="avis"><b>⭐⭐⭐⭐⭐ Ka</b><br>Commande via bot @Simone57bot au top.</div>
-<div class="avis"><b>⭐⭐⭐⭐⭐ mlop</b><br>❤️</div>
-<div class="avis"><b>⭐⭐⭐⭐⭐ Karim</b><br>systeme ncikle</div>
-</div>
+<div id="menu" class="menu">
+<h2 style="text-align:center;margin:15px 0;letter-spacing:2px">MENU</h2>
+
+<div class="card">
+<img src="logo.png.jpg">
+<h3>HASH MOUSSUEUX</h3>
+<p>Classique qualite premium, crème jaune mousseu</p>
+<div class="price">50€</div>
+<button class="btn-main" onclick="order('Mousseux - 50€')">Commander</button>
 </div>
 
-<div id="panier">
-<div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div>
-<input id="adresse" placeholder="📍 Adresse de livraison ici...">
-<button id="cmd" onclick="commander()">COMMANDER</button>
+<div class="card">
+<img src="logo.png.jpg">
+<h3>HASH FROZEN</h3>
+<p>Premium qualite hash concentré et pure</p>
+<div class="price">60€</div>
+<button class="btn-main" onclick="order('Frozen - 50€')">Commander</button>
+</div>
+
+<div class="card">
+<img src="logo.png.jpg">
+<h3>AMNESIA KUSH</h3>
+<p>Variete classique et dominante amnesia kush</p>
+<div class="price">50€</div>
+<button class="btn-main" onclick="order('Amnesia - 50€')">Commander</button>
+</div>
+
 </div>
 
 <script>
-let cart=[];
-let total=0;
-function add(nom){
-cart.push(nom);
-total+=50;
-document.getElementById('txt').innerText=cart.join(' + ');
-document.getElementById('tot').innerText=total.toFixed(2)+'€';
-document.getElementById('adresse').style.display='block';
-document.getElementById('cmd').style.display='block';
-document.getElementById('adresse').focus();
-}
-function commander(){
-if(cart.length==0){alert('Ajoute un produit');return}
-let adresse=document.getElementById('adresse').value;
-if(adresse.length<5){alert('Mets ton adresse complète !');return}
-let msg=`🔥 Salut 🔥%0A%0A📦 Produits: ${cart.join(', ')}%0A💰 Total: ${total.toFixed(2)}€ %0A📍 Adresse: ${adresse}%0A%0AJe commande maintenant !`;
-window.open('https://t.me/Simone750?text='+msg,'_blank');
+const tg = window.Telegram.WebApp;
+tg.expand();
+function order(produit){
+tg.HapticFeedback.impactOccurred('heavy');
+let text = "Salut Simone ! Je veux commander : " + produit;
+window.open("https://t.me/simone750?text=" + encodeURIComponent(text), "_blank");
 }
 </script>
 </body>
