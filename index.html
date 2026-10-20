@@ -45,23 +45,23 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 
 <div id="accueil" class="hero">
 <img src="logo.jpg" alt="Coffe Simone">
-<p>PREMIUM CAFÉ • 50€ GROS</p>
+<p>PREMIUM HASH • LIVRAISON PARIS</p>
 <a class="btn" href="#menu">VOIR LE MENU</a>
 </div>
 
 <div id="menu">
-<h2>MENU 50€ GROS</h2>
+<h2>MENU</h2>
 <div class="grid">
-<div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>PISTACHIO</h3><div class="price">50€</div><div class="qty"><button onclick="change('PISTACHIO',-1)">-</button><span id="q-PISTACHIO">0</span><button onclick="change('PISTACHIO',1)">+</button></div><button class="add" onclick="change('PISTACHIO',1)">AJOUTER</button></div>
-<div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>CARAMEL</h3><div class="price">50€</div><div class="qty"><button onclick="change('CARAMEL',-1)">-</button><span id="q-CARAMEL">0</span><button onclick="change('CARAMEL',1)">+</button></div><button class="add" onclick="change('CARAMEL',1)">AJOUTER</button></div>
-<div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>CANAL</h3><div class="price">50€</div><div class="qty"><button onclick="change('CANAL',-1)">-</button><span id="q-CANAL">0</span><button onclick="change('CANAL',1)">+</button></div><button class="add" onclick="change('CANAL',1)">AJOUTER</button></div>
-<div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>CHOCOLAT</h3><div class="price">50€</div><div class="qty"><button onclick="change('CHOCOLAT',-1)">-</button><span id="q-CHOCOLAT">0</span><button onclick="change('CHOCOLAT',1)">+</button></div><button class="add" onclick="change('CHOCOLAT',1)">AJOUTER</button></div>
+<div class="card"><video src="pistachio.mp4" autoplay loop muted playsinline></video><h3>MOUSSEUX</h3><div class="price">50€</div><div class="qty"><button onclick="change('MOUSSEUX',-1)">-</button><span id="q-MOUSSEUX">0</span><button onclick="change('MOUSSEUX',1)">+</button></div><button class="add" onclick="change('MOUSSEUX',1)">AJOUTER</button></div>
+<div class="card"><video src="caramel.mp4" autoplay loop muted playsinline></video><h3>FROZEN</h3><div class="price">50€</div><div class="qty"><button onclick="change('FROZEN',-1)">-</button><span id="q-FROZEN">0</span><button onclick="change('FROZEN',1)">+</button></div><button class="add" onclick="change('FROZEN',1)">AJOUTER</button></div>
+<div class="card"><video src="canal.mp4" autoplay loop muted playsinline></video><h3>AMNESIA</h3><div class="price">50€</div><div class="qty"><button onclick="change('AMNESIA',-1)">-</button><span id="q-AMNESIA">0</span><button onclick="change('AMNESIA',1)">+</button></div><button class="add" onclick="change('AMNESIA',1)">AJOUTER</button></div>
+<div class="card"><video src="chocolat.mp4" autoplay loop muted playsinline></video><h3>CALI</h3><div class="price">50€</div><div class="qty"><button onclick="change('CALI',-1)">-</button><span id="q-CALI">0</span><button onclick="change('CALI',1)">+</button></div><button class="add" onclick="change('CALI',1)">AJOUTER</button></div>
 </div>
 </div>
 
 <div id="info">
 <h2>INFO</h2>
-<div class="info-wrap"><div class="info-card">⚡️ Vente en gros café premium<br>📦 50€ l'unité - GROS<br>🔒 Commande auto vers le groupe privé<br>🚚 Livraison rapide 7j/7</div></div>
+<div class="info-wrap"><div class="info-card">⚡️ Livraison rapide & qualite premium<br>📦 A partir de 50€<br>🔒 Service fables Paris IDF<br>🚚 Livraison rapide 7j/7</div></div>
 </div>
 
 <div id="avis">
@@ -75,8 +75,8 @@ h2{text-align:center;margin:35px 0 18px;letter-spacing:4px;font-size:16px}
 
 <div id="panier">
 <div id="panier-top"><span id="txt">Panier vide</span><span id="tot">0.00€</span></div>
-<input id="adresse" placeholder="📍 Mets ton adresse de livraison ici...">
-<button id="cmd" onclick="commander()">COMMANDER - 50€</button>
+<input id="adresse" placeholder="📍 Adresse de livraison ici...">
+<button id="cmd" onclick="commander()">COMMANDER</button>
 <button id="clear" onclick="clearCart()">Vider le panier</button>
 </div>
 
@@ -111,16 +111,16 @@ async function commander(){
  if(items.length==0){alert('Ajoute un café');return}
  let adresse=document.getElementById('adresse').value;
  if(adresse.length<5){alert('Mets ton adresse complète !');return}
- let msg = `🔥 NOUVELLE COMMANDE GROS 50€ 🔥\n\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}\n\nClient depuis le site SIMONE57`;
+ let msg = `🔥 NOUVELLE COMMANDE 🔥\n\n📦 ${items.join(', ')}\n💰 Total: ${total.toFixed(2)}€\n📍 Adresse: ${adresse}\n\nClient depuis le site @SIMONE57bot`;
  let url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${GROUP_ID}&text=${encodeURIComponent(msg)}`;
  try{
    await fetch(url);
-   alert('✅ Commande envoyée ! Vérifie ton groupe Telegram');
+   alert('✅ Commande envoyée !');
    window.open('https://t.me/Simone57bot?text='+encodeURIComponent(msg),'_blank');
    clearCart();
    document.getElementById('adresse').value='';
  } catch(e){
-   alert('Erreur - Vérifie que ton bot est bien admin dans le groupe');
+   alert('Erreur - Vérifie que ton produits est bien disponibles en nous contactent');
  }
 }
 </script>
