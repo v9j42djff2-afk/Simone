@@ -37,15 +37,15 @@ function commander(){
     }catch(e){}
   }
 
-  // 3. Sinon -> on ouvre https://t.me/Simone57bot et le client colle
+  // 3. Sinon -> on ouvre https://t.me/@Simone750 et le client colle
   let encoded=encodeURIComponent(msg);
   let successDiv=document.getElementById('success');
   successDiv.style.display='block';
   successDiv.innerHTML=`
     <b>PANIER PRÊT ✅</b><br><br>
     <div style="background:#f5f5f5;padding:12px;border-radius:12px;text-align:left;font-size:13px;white-space:pre-wrap;color:#000">${msg}</div><br>
-    <a href="${BOT_LINK}?text=${encoded}" target="_blank" style="display:block;background:#000;color:#fff;padding:14px;border-radius:12px;text-decoration:none;font-weight:900;text-align:center">📲 ENVOYER À @Simone57bot</a>
-    <div style="margin-top:10px;font-size:11px;color:#666">Lien : ${BOT_LINK}<br>Le message est déjà copié, colle-le dans le bot</div><br>
+    <a href="${BOT_LINK}?text=${encoded}" target="_blank" style="display:block;background:#000;color:#fff;padding:14px;border-radius:12px;text-decoration:none;font-weight:900;text-align:center">📲 ENVOYER À @Simone750</a>
+    <div style="margin-top:10px;font-size:11px;color:#666">Lien : ${BOT_LINK}<br>Le message est déjà copié, colle-le</div><br>
     <button onclick="document.getElementById('success').style.display='none'" style="background:none;border:none;text-decoration:underline;font-size:12px">Fermer</button>
   `;
   // Ouverture auto vers le bot
