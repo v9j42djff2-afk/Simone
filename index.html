@@ -7,159 +7,140 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif}
+body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:30px}
 .header{text-align:center;padding:30px 20px;background:radial-gradient(circle at top,#1a1a1a,#000)}
-.header img{width:240px;max-width:85%;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.3)}
-.header h1{margin-top:20px;font-size:28px;letter-spacing:2px;font-weight:800}
-.nav{display:flex;justify-content:center;gap:25px;padding:15px;background:#111;position:sticky;top:0;z-index:10;border-bottom:1px solid #222}
-.nav a{color:#fff;text-decoration:none;font-weight:600;font-size:13px;letter-spacing:1px;opacity:0.6}
+.header img{width:200px;max-width:75%;border-radius:20px}
+.header h1{margin-top:15px;font-size:26px;letter-spacing:2px;font-weight:800}
+.social{display:flex;gap:10px;justify-content:center;margin-top:15px}
+.social a{padding:8px 14px;border-radius:20px;font-size:12px;font-weight:700;text-decoration:none;color:#fff;border:1px solid #333}
+.social .canal{background:#24A1DE;border-color:#24A1DE}
+.social .insta{background:linear-gradient(135deg,#f58529,#dd2a7b,#515bd4);border:none}
+.nav{display:flex;justify-content:center;gap:20px;padding:12px;background:#111;position:sticky;top:0;z-index:10;border-bottom:1px solid #222}
+.nav a{color:#fff;text-decoration:none;font-size:12px;opacity:0.6}
 .nav a.active{opacity:1;color:#ff2a2a}
-.banner{background:#111;border:1px solid #222;margin:15px;border-radius:15px;padding:15px;text-align:center}
-.btn-main{background:linear-gradient(135deg,#ff1a1a,#b30000);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;font-size:16px;margin-top:10px;cursor:pointer}
+.banner{background:#111;border:1px solid #222;margin:15px;border-radius:15px;padding:12px;text-align:center;font-size:13px}
+.btn-main{background:linear-gradient(135deg,#ff1a1a,#b30000);color:#fff;border:none;padding:12px;border-radius:12px;font-weight:800;width:100%;cursor:pointer}
 .menu{padding:15px}
-.card{background:#161616;border-radius:20px;padding:15px;margin-bottom:15px;border:1px solid #222}
-.card img{width:100%;border-radius:15px;background:#000;min-height:180px;object-fit:cover}
-.card h3{margin:12px 0 5px;font-size:18px}
-.card p{opacity:0.6;font-size:13px}
-.price{font-weight:800;color:#ff3b3b;margin:8px 0;font-size:18px}
-/* AVIS */
-.avis-section{padding:20px 15px;background:#111;margin-top:10px}
-.avis-card{background:#161616;border-radius:15px;padding:15px;margin-bottom:10px;border:1px solid #222;text-align:left}
-.avis-top{display:flex;justify-content:space-between;align-items:center}
-.stars{color:#ffcc00}
-/* INFOS */
-.info-section{padding:20px 15px}
-.info-box{background:#161616;border-radius:15px;padding:15px;margin-bottom:12px;border:1px solid #222;text-align:left}
-.info-box h4{color:#ff2a2a;margin-bottom:6px}
-.info-box p{font-size:13px;opacity:0.8;line-height:1.5}
-.footer{text-align:center;padding:20px;opacity:0.3;font-size:11px}
+.card{background:#161616;border-radius:18px;padding:14px;margin-bottom:12px;border:1px solid #222}
+.card img{width:100%;border-radius:12px;background:#000;min-height:160px;object-fit:cover}
+.card h3{margin:10px 0 4px;font-size:16px}
+.card p{opacity:0.5;font-size:12px}
+.price{color:#ff3b3b;font-weight:800;margin:6px 0}
+.qty{display:flex;align-items:center;gap:10px;margin-top:8px;justify-content:space-between}
+.qty div{display:flex;align-items:center;gap:10px}
+.qty button{width:32px;height:32px;border-radius:50%;border:1px solid #333;background:#0f0f0f;color:#fff;cursor:pointer}
+.btn-add{background:#222;border:1px solid #333;color:#fff;padding:8px 14px;border-radius:10px;font-size:12px;cursor:pointer}
+
+/* PANIER DISCRET */
+.cart-float{position:fixed;bottom:18px;right:18px;background:#fff;color:#000;width:52px;height:52px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:900;box-shadow:0 6px 20px rgba(0,0,0,0.5);z-index:200;cursor:pointer}
+.cart-float.show{display:flex}
+.cart-float span.badge{position:absolute;top:-4px;right:-4px;background:#ff1a1a;color:#fff;font-size:11px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.cart-drawer{position:fixed;bottom:0;left:0;right:0;background:#121212;border-top:1px solid #222;border-radius:22px 22px 0 0;padding:18px;transform:translateY(100%);transition:0.3s;z-index:300;max-height:70vh;overflow:auto}
+.cart-drawer.open{transform:translateY(0)}
+.cart-item{display:flex;justify-content:space-between;margin:8px 0;font-size:13px;border-bottom:1px solid #1e1e1e;padding-bottom:6px}
+
+.avis-section{padding:15px;background:#111;margin-top:10px}
+.avis-card{background:#161616;border-radius:12px;padding:10px;margin-bottom:8px;border:1px solid #222;font-size:12px;text-align:left}
+.info-section{padding:15px}
+.info-box{background:#161616;border-radius:12px;padding:12px;margin-bottom:10px;border:1px solid #222;text-align:left;font-size:12px}
+.info-box h4{color:#ff2a2a;margin-bottom:4px;font-size:13px}
+.footer{text-align:center;padding:15px;opacity:0.25;font-size:10px}
 </style>
 </head>
 <body>
 <div class="header">
-<img src="logo.png.jpg" alt="Coffee Simone">
+<img src="logo.png.jpg" alt="Simone">
 <h1>Coffee Simone</h1>
-<p style="opacity:0.5;margin-top:5px">PARIS • PREMIUM • LIVRAISON</p>
+<p style="opacity:0.4;font-size:11px;margin-top:6px">PARIS • PREMIUM • 7/7</p>
+<div class="social">
+<a class="canal" href="https://t.me/+pUIcuz_QTghhOGQ0" target="_blank">📢 CANAL</a>
+<a class="insta" href="https://instagram.com/simone750" target="_blank">📸 INSTAGRAM</a>
+</div>
 </div>
 
 <div class="nav">
-<a href="#" class="active">ACCUEIL</a>
+<a class="active">ACCUEIL</a>
 <a href="#menu">MENU</a>
 <a href="#avis">AVIS</a>
 <a href="#infos">INFOS</a>
 </div>
 
-<div class="banner">
-<p><b>PREMIUM QUALITY - LIVRAISON</b></p>
-<p style="font-size:12px;opacity:0.6;margin-top:5px">Chaque produit est testé en conditions réelles par l'équipre Simone. Nous avons maintenant votre certification au terme des différentes plug proposés vos retour sont essentiels pour notre site web.</p>
-<button class="btn-main" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">VOIR LE MENU</button>
-</div>
+<div class="banner">PREMIUM QUALITY • LIVRAISON PARIS</div>
 
 <div id="menu" class="menu">
-<h2 style="text-align:center;margin:15px 0;letter-spacing:2px"></h2>
+<h2 style="text-align:center;margin:10px 0;font-size:14px;letter-spacing:2px;opacity:0.7">MENU</h2>
 
-<div class="card">
-<img src="mousseux.mp4.MP4">
-<h3>HASH MOUSSEUX</h3>
+<div class="card" data-name="Pistachio Dream" data-price="12">
+<img src="casablanca.mp4.MOV">
+<h3>HASH</h3>
 <p>10G</p>
-<p>CLASSIQUE - HASH</p>
 <div class="price">50€</div>
-<button class="btn-main" onclick="order('HASH MOUSSEUX - 50€')">Commander</button>
+<div class="qty">
+<div><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div>
+<button class="btn-add" onclick="addToCart(this)">Ajouter</button>
+</div>
 </div>
 
-<div class="card">
-<img src="Casablanca.mp4.MOV">
-<h3>HASH CASABLANCA</h3>
+<div class="card" data-name="Vanilla Black" data-price="10">
+<img src="casablanca.mp4.MOV">
+<h3>HASH PREMIUM</h3>
 <p>10G</p>
-<p>PREMIUM - DRYTECH</p>
-<div class="price">110€</div>
-<button class="btn-main" onclick="order('HASH CASABLANCA - 110€')">Commander</button>
+<div class="price">50€</div>
+<div class="qty">
+<div><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div>
+<button class="btn-add" onclick="addToCart(this)">Ajouter</button>
+</div>
 </div>
 
-<div class="card">
-<img src="frozen.mp4.MP4">
-<h3>HASH FROZEN</h3>
+<div class="card" data-name="Rose Simone" data-price="14">
+<img src="casablanca.mp4.MOV">
+<h3>HASH PREMIUM</h3>
 <p>10G</p>
-<p>FRESH - FROZEN</p>
-<div class="price">130€</div>
-<button class="btn-main" onclick="order('HASH FROZEN - 130€')">Commander</button>
+<div class="price">50€</div>
+<div class="qty">
+<div><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div>
+<button class="btn-add" onclick="addToCart(this)">Ajouter</button>
+</div>
 </div>
 </div>
 
-
-<!-- AVIS -->
 <div id="avis" class="avis-section">
-<h2 style="text-align:center;margin-bottom:15px;letter-spacing:2px">AVIS CLIENTS</h2>
-<div style="text-align:center;margin-bottom:15px">
-<p class="stars">⭐⭐⭐⭐⭐</p>
-<p style="font-size:14px;margin-top:5px"><b>4.9/5 - 27 avis vérifiés</b></p>
+<h2 style="text-align:center;font-size:13px;margin-bottom:10px">AVIS CLIENTS ⭐ 4.9/5</h2>
+<div class="avis-card">⭐⭐⭐⭐⭐ <b>@Alex_75</b> - Livraison 25min, top qualité !</div>
+<div class="avis-card">⭐⭐⭐⭐⭐ <b>@Sarah.P</b> - Meilleur coffee de Paris ❤️</div>
 </div>
 
-<div class="avis-card">
-<div class="avis-top"><b>@Alex_75</b><span class="stars">⭐⭐⭐⭐⭐</span></div>
-<p style="margin-top:8px">Toujours carré, livraison 25min top qualité comme d'hab 👌</p>
-</div>
-
-<div class="avis-card">
-<div class="avis-top"><b>@SP</b><span class="stars">⭐⭐⭐⭐⭐</span></div>
-<p style="margin-top:8px">Le mousseux est incroyable, merci Simone ❤️</p>
-</div>
-
-<div class="avis-card">
-<div class="avis-top"><b>@Maeva</b><span class="stars">⭐⭐⭐⭐⭐</span></div>
-<p style="margin-top:8px">🤣🤣🤣🤣Je vous aime</p>
-</div>
-
-<div class="avis-card">
-<div class="avis-top"><b>@Zy</b><span class="stars">⭐⭐⭐⭐⭐</span></div>
-<p style="margin-top:8px">Carré</p>
-</div>
-
-<div class="avis-card">
-<div class="avis-top"><b>@Momo_IDF</b><span class="stars">⭐⭐⭐⭐⭐</span></div>
-<p style="margin-top:8px">Meilleur service Paris, rapide et discret. Je recommande !</p>
-</div>
-</div>
-
-<!-- INFOS -->
 <div id="infos" class="info-section">
-<h2 style="text-align:center;margin-bottom:15px;letter-spacing:2px">INFOS</h2>
-
-<div class="info-box">
-<h4>🚚 LIVRAISON</h4>
-<p>Livraison sur Paris en 40min<br>Autres alentours environ 1H<br>Livraison de 10h a 23h</p>
+<div class="info-box"><h4>🚚 LIVRAISON</h4><p>Paris 20-40min / IDF 45-60min - 7/7 - 11h à 2h</p></div>
+<div class="info-box"><h4>📲 CONTACT</h4><p>Canal: @simone750<br>Insta: @simone750</p></div>
 </div>
 
-<div class="info-box">
-<h4>💶 PAIEMENT</h4>
-<p>Espèces uniquement<br>Minimum commande 100€<br>Frais livraison: 0€</p>
+<!-- PANIER DISCRET -->
+<div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
+
+<div id="cartDrawer" class="cart-drawer">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+<h3 style="font-size:15px">Mon Panier</h3>
+<button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:20px">✕</button>
+</div>
+<div id="cartList"></div>
+<div style="display:flex;justify-content:space-between;margin:12px 0;font-weight:800"><span>Total</span><span id="cartTotal">0€</span></div>
+<button class="btn-main" onclick="checkout()">Commander sur Telegram</button>
+<button onclick="clearCart()" style="background:none;border:none;color:#777;font-size:12px;margin-top:10px;width:100%">Vider le panier</button>
 </div>
 
-<div class="info-box">
-<h4>📍 ZONE</h4>
-<p>Paris75 - 92 - 93 - 94<br>78 - 77 - 91 - 95 Precommande</p>
-</div>
-
-<div class="info-box">
-<h4>📲 CONTACT</h4>
-<button class="btn-main" onclick="window.open('https://t.me/simone750','_blank')">Contacter Simone</button>
-</div>
-</div>
-
-<div class="footer">
-<p>Coffee Simone © 2026 - Premium Quality</p>
-<p style="margin-top:5px">SIMONE. PARIS. LIVRAISON.  Rapide. Qualité. Authentique.</p>
-</div>
+<div class="footer">Coffe Simone © 2026</div>
 
 <script>
-const tg = window.Telegram.WebApp;
-tg.expand();
-tg.enableClosingConfirmation();
-function order(produit){
-tg.HapticFeedback.impactOccurred('heavy');
-let text = "Salut Simone ! Je veux commander : " + produit;
-window.open("https://t.me/simone750?text=" + encodeURIComponent(text), "_blank");
-}
+const tg=window.Telegram.WebApp;tg.expand();
+let cart={};
+function changeQty(b,d){let s=b.parentElement.querySelector('.q');let v=parseInt(s.textContent)+d;if(v<0)v=0;if(v>10)v=10;s.textContent=v;}
+function addToCart(b){let c=b.closest('.card');let n=c.dataset.name;let p=parseInt(c.dataset.price);let q=parseInt(c.querySelector('.q').textContent);if(q===0)q=1;if(!cart[n])cart[n]={price:p,qty:0};cart[n].qty+=q;c.querySelector('.q').textContent=0;updateCart();tg.HapticFeedback.impactOccurred('light');}
+function updateCart(){let total=0,count=0,list='';for(let k in cart){total+=cart[k].price*cart[k].qty;count+=cart[k].qty;list+=`<div class="cart-item"><span>${k} x${cart[k].qty}</span><span>${cart[k].price*cart[k].qty}€</span></div>`;}document.getElementById('cartBadge').textContent=count;document.getElementById('cartList').innerHTML=list||'<p style="opacity:0.5;font-size:12px">Panier vide</p>';document.getElementById('cartTotal').textContent=total+'€';document.getElementById('cartFloat').classList.toggle('show',count>0);}
+function openCart(){document.getElementById('cartDrawer').classList.add('open');}
+function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
+function clearCart(){cart={};updateCart();closeCart();}
+function checkout(){let total=0,msg="Salut Simone ! Je veux commander :\n";for(let k in cart){msg+=`- ${k} x${cart[k].qty}\n`;total+=cart[k].price*cart[k].qty;}msg+=`\nTotal: ${total}€`;window.open("https://t.me/simone750?text="+encodeURIComponent(msg),"_blank");}
 </script>
 </body>
 </html>
