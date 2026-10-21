@@ -75,7 +75,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <span style="font-size:11px;opacity:0.6">Série: <b id="streak">0</b> jours 🔥</span>
 </div>
 <div class="days">
-<div class="day active" id="d1">Jour 1<br><b>50</b></div>
+<div class="day active" id="d1">Jour 1<br><b></b></div>
 <div class="day" id="d2">Jour 2<br><b></b></div>
 <div class="day" id="d3">Jour 3<br><b></b></div>
 <div class="day" id="d4">Jour 4<br><b></b></div>
@@ -83,7 +83,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="day" id="d6">Jour 6<br><b></b></div>
 <div class="day gift" id="d7">Jour 7<br><b>🎁</b></div>
 </div>
-<button class="btn-claim" id="claimBtn" onclick="claimDaily()">Récupérer mes points 🪙</button>
+<button class="btn-claim" id="claimBtn" onclick="claimDaily()">Récupérer</button>
 <div class="gift-banner" id="giftBanner">🎉 BRAVO ! TU AS UN PRODUIT OFFERT ! 🎉<br><span style="font-size:11px;font-weight:600">Il sera ajouté gratuitement à ta prochaine commande</span></div>
 <p id="claimMsg" style="font-size:11px;opacity:0.6;text-align:center;margin-top:8px"></p>
 </div>
@@ -94,12 +94,12 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="card" data-id="p2" data-name="CASABLANCA" data-price="110"><video src="Casablanca.mp4.MOV" autoplay muted loop playsinline></video><span class="tag">10G</span><h3>CASABLANCA</h3><div class="stars">⭐⭐⭐⭐⭐ 5.0</div><div class="price">110€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div></div>
 <div class="card" data-id="p3" data-name="FROZEN" data-price="130"><video src="frozen.mp4.MP4" autoplay muted loop playsinline></video><span class="tag">10G</span><h3>FROZEN</h3><div class="stars">⭐⭐⭐⭐⭐ 4.8</div><div class="price">130€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div></div>
 <div class="card" data-id="p4" data-name="COCA" data-price="60"><video src="coca.mp4.MP4" autoplay muted loop playsinline></video><span class="tag">1G</span><h3>COCA</h3><div class="stars">⭐⭐⭐⭐⭐ 4.9</div><div class="price">60€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div></div>
-<div class="card" data-id="p5" data-name="EDDIBLES" data-price="70"><video src="eddibles.mp4.MP4" autoplay muted loop playsinline></video><span class="tag">75mg</span><h3>EDDIBLES</h3><div class="stars">⭐⭐⭐⭐⭐ 5.0</div><div class="price">70€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div></div>
+<div class="card" data-id="p5" data-name="EDDIBLES" data-price="70"><video src="eddibles.mp4.MOV" autoplay muted loop playsinline></video><span class="tag">75mg</span><h3>EDDIBLES</h3><div class="stars">⭐⭐⭐⭐⭐ 5.0</div><div class="price">70€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div></div>
 <div class="card" data-id="p6" data-name="CALI" data-price="65"><video src="calicali.mp4.MOV" autoplay muted loop playsinline></video><span class="tag">5G</span><h3>CALI</h3><div class="stars">⭐⭐⭐⭐⭐ 4.7</div><div class="price">65€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div></div>
 </div>
 
 <div class="avis-section" id="avis">
-<div class="section-title">⭐ AVIS CLIENTS VÉRIFIÉS - 4.9/5 (37 avis)</div>
+<div class="section-title">⭐ AVIS CLIENTS VÉRIFIÉS - 4.9/5 (24 avis)</div>
 <div class="avis-card"><div style="display:flex;justify-content:space-between"><b>@Alex_75</b><span style="color:#ffcc00">⭐⭐⭐⭐⭐</span></div><p style="margin-top:6px">Toujours carré, livraison 25min top qualité comme d'hab 👌 Café incroyable</p></div>
 <div class="avis-card"><div style="display:flex;justify-content:space-between"><b>@SP</b><span style="color:#ffcc00">⭐⭐⭐⭐⭐</span></div><p style="margin-top:6px">Le mousseux est incroyable, merci Simone ❤️ </p></div>
 <div class="avis-card"><div style="display:flex;justify-content:space-between"><b>@Momo_IDF</b><span style="color:#ffcc00">⭐⭐⭐⭐⭐</span></div><p style="margin-top:6px">Meilleur service Paris, rapide et discret. Je recommande à 100% !</p></div>
@@ -178,7 +178,7 @@ function claimDaily(){
     alert('🎉 INCROYABLE ! Jour 7 atteint !\nTu as gagné 1 PRODUIT OFFERT 🎁\nIl sera ajouté gratuitement à ta commande !');
     streak=0;
   } else {
-    alert('✅ +'+gain+' POINTS ajoutés ! Total: '+pts+' POINTS\n\n⚠️ Points uniquement avec le clic quotidien, pas avec les commandes.');
+    alert('✅ +'+gain+' POINTS ajoutés ! Total: '+pts+' POINTS\n\n.');
   }
   lastClaim=today;
   localStorage.setItem('simone_pts',pts);
