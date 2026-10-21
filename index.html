@@ -70,16 +70,6 @@ Simone. Nous avons maintenant votre certification vos retour sont essentiels pou
 <div class="qty-row"><div class="qty-box"><button type="button" onclick="changeQty(this,-1)">-</button><span class="q">0</span><button type="button" onclick="changeQty(this,1)">+</button></div><button class="btn-add" onclick="addToCart(this)">Ajouter</button></div>
 </div>
 
-<!-- ===== PRODUIT 2 ===== -->
-<div class="card" data-id="p1" data-name="HASH DRY" data-price="100">
-<video src="Casablanca.mp4.MOV" autoplay muted loop playsinline></video>
-<h3 class="prod-name">HASH DRY</h3>
-<p>DRYTECH - HASH</p>
-<p>10G</p>
-<div class="price"><span class="price-val">50</span>€</div>
-<div class="qty-row"><div class="qty-box"><button type="button" onclick="changeQty(this,-1)">-</button><span class="q">0</span><button type="button" onclick="changeQty(this,1)">+</button></div><button class="btn-add" onclick="addToCart(this)">Ajouter</button></div>
-</div>
-
 <!-- ===== PRODUIT 3 ===== -->
 <div class="card" data-id="p3" data-name="HASH FROZEN" data-price="130">
 <video src="frozen.mp4.MP4" autoplay muted loop playsinline></video>
@@ -102,7 +92,7 @@ Simone. Nous avons maintenant votre certification vos retour sont essentiels pou
 <div id="infos" class="info-section">
 <h2 style="text-align:center;margin-bottom:12px;font-size:14px;letter-spacing:2px">INFOS</h2>
 <div class="info-box"><h4 style="color:#ff2a2a">🚚 LIVRAISON</h4><p style="font-size:13px;opacity:0.8">Paris 20-40min / IDF 1H - 7/7</p></div>
-<div class="info-box"><h4 style="color:#ff2a2a">💶 PAIEMENT</h4><p style="font-size:13px;opacity:0.8">Espèces - Minimum 100€ - Livraison 0€</p></div>
+<div class="info-box"><h4 style="color:#ff2a2a">💶 PAIEMENT</h4><p style="font-size:13px;opacity:0.8">Espèces - Minimum 100€ - Frais 0€</p></div>
 <div class="info-box">
 <h4 style="color:#ff2a2a">📲 CONTACT</h4>
 <button class="btn-main" onclick="window.open('https://t.me/simone750','_blank')">Contacter Simone</button>
@@ -119,7 +109,6 @@ Simone. Nous avons maintenant votre certification vos retour sont essentiels pou
 <div style="border-top:1px solid #222;padding-top:14px">
 <p style="font-size:13px;font-weight:800">📍 Adresse de livraison</p>
 <input id="addr" class="input" placeholder="Adresse + code postale">
-<input id="addr2" class="input" placeholder="Étage, code porte">
 <p style="font-size:13px;font-weight:800;margin-top:14px">🕐 Heure de livraison</p>
 <div class="hours">
 <button type="button" onclick="selectHour(this)">Au plus vite</button>
@@ -132,7 +121,7 @@ Simone. Nous avons maintenant votre certification vos retour sont essentiels pou
 <input id="note" class="input" placeholder="Note livreur (optionnel)" style="margin-top:14px">
 </div>
 
-<button class="btn-main" onclick="checkout()">Commander sur Telegram</button>
+<button class="btn-main" onclick="checkout()">Commander</button>
 <button onclick="clearCart()" style="background:none;border:none;color:#666;font-size:12px;margin-top:12px;width:100%">Vider le panier</button>
 </div>
 
