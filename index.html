@@ -58,8 +58,8 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <h1>Coffee Simone</h1>
 <p style="opacity:0.5;margin-top:5px">PARIS • PREMIUM • LIVRAISON</p>
 <div class="social">
-<a class="canal" href="https://t.me/+SDFZGObWt5I4NGI8" target="_blank">📢 CANAL OFFICIEL</a>
-<a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">📸 INSTAGRAM</a>
+<a class="canal" href="https://t.me/+SDFZGObWt5I4NGI8" target="_blank">CANAL OFFICIEL</a>
+<a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">INSTAGRAM</a>
 </div>
 </div>
 
@@ -71,19 +71,20 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </div>
 
 <div class="banner">
-<p><b>PREMIUM QUALITY - 100€ MINIMUM</b></p>
-<p style="font-size:12px;opacity:0.6;margin-top:5px">Livraison 20-40min sur Paris / IDF</p>
+<p><b>PREMIUM HASH - PARIS LIVRAISON</b></p>
+<p style="font-size:12px;opacity:0.6;margin-top:5px">Chaque produit est testé en conditions réelles par l'équipre Simone. Nous avons maintenant votre certification vos retour sont essentiels pour notre site w</p>
 <button class="btn-main" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">VOIR LE MENU</button>
 </div>
 
 <div id="menu" class="menu">
-<h2 style="text-align:center;margin:15px 0;letter-spacing:2px">MENU</h2>
+<h2 style="text-align:center;margin:15px 0;letter-spacing:2px"></h2>
 
 <!-- PRODUIT 1 - CHANGE ICI NOM ET PRIX -->
 <div class="card" data-name="MOUSSEUX LATTE" data-price="50">
 <video src="mousseux.mp4.MP4" autoplay muted loop playsinline></video>
-<h3>MOUSSEUX LATTE</h3>
-<p>CLASSIQUE - CAFÉ MOUSSEUX - 10G</p>
+<h3>MOUSSEUX </h3>
+<p>CLASSIQUE - HASH</p>
+<p>10G</p>
 <div class="price">50€</div>
 <div class="qty-row"><div class="qty-box"><button type="button" onclick="changeQty(this,-1)">-</button><span class="q">0</span><button type="button" onclick="changeQty(this,1)">+</button></div><button class="btn-add" onclick="addToCart(this)">Ajouter</button></div>
 </div>
@@ -91,8 +92,9 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <!-- PRODUIT 2 - CHANGE ICI NOM ET PRIX -->
 <div class="card" data-name="FROZEN COLD BREW" data-price="110">
 <video src="Casablanca.mp4.MOV" autoplay muted loop playsinline></video>
-<h3>FROZEN COLD BREW</h3>
-<p>PREMIUM - COLD BREW - 10G</p>
+<h3>FROZEN COLD</h3>
+<p>FRESH - FROZEN</p>
+<p>10G</p>
 <div class="price">110€</div>
 <div class="qty-row"><div class="qty-box"><button type="button" onclick="changeQty(this,-1)">-</button><span class="q">0</span><button type="button" onclick="changeQty(this,1)">+</button></div><button class="btn-add" onclick="addToCart(this)">Ajouter</button></div>
 </div>
@@ -101,7 +103,8 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="card" data-name="VANILLA SIGNATURE" data-price="130">
 <video src="frozen.mp4.MP4" autoplay muted loop playsinline></video>
 <h3>VANILLA SIGNATURE</h3>
-<p>FRESH - VANILLE - 10G</p>
+<p>HASH - DRYTECH</p>
+<p>10G</p>
 <div class="price">130€</div>
 <div class="qty-row"><div class="qty-box"><button type="button" onclick="changeQty(this,-1)">-</button><span class="q">0</span><button type="button" onclick="changeQty(this,1)">+</button></div><button class="btn-add" onclick="addToCart(this)">Ajouter</button></div>
 </div>
@@ -128,7 +131,6 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="info-box"><h4>📍 ZONE</h4><p>Paris (75) - 92 - 93 - 94<br>78 - 77 - 91 - 95 sur demande</p></div>
 <div class="info-box">
 <h4>📲 CONTACT</h4>
-<p>Seul contact @simone750 - Réponse en moins de 2min</p>
 <button class="btn-main" onclick="window.open('https://t.me/simone750','_blank')">Contacter Simone</button>
 <div class="social" style="margin-top:10px">
 <a class="canal" href="https://t.me/+eEtCWJ3jgB4xYTFk" target="_blank">📢 Canal</a>
@@ -147,8 +149,7 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 
 <div style="border-top:1px solid #222;padding-top:14px">
 <p style="font-size:13px;font-weight:800">📍 Adresse de livraison</p>
-<input id="addr" class="input" placeholder="Adresse complète, rue + numéro">
-<input id="addr2" class="input" placeholder="Étage, bâtiment, code porte">
+<input id="addr" class="input" placeholder="Adresse complète,  + code postale">
 
 <p style="font-size:13px;font-weight:800;margin-top:14px">🕐 Heure de livraison</p>
 <div class="hours" id="hours">
@@ -164,12 +165,13 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <input id="note" class="input" placeholder="Note pour le livreur (optionnel)" style="margin-top:14px">
 </div>
 
-<button class="btn-main" onclick="checkout()">Commander sur Telegram</button>
+<button class="btn-main" onclick="checkout()">Commander</button>
 <button onclick="clearCart()" style="background:none;border:none;color:#777;font-size:12px;margin-top:12px;width:100%">Vider le panier</button>
 </div>
 
 <div class="footer"><p>Coffee Simone © 2026 - Premium Quality</p></div>
-
+<div class="footer"><p>PARIS. LIVRAISON. Rapide. Qualité. Authentique.</p></div>
+  
 <script>
 const tg=window.Telegram.WebApp; try{tg.expand();}catch(e){}
 let cart={}, selectedHour="";
