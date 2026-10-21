@@ -3,49 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Simone Coffee - Premium</title>
+<title>Simone Coffee</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:80px}
-.header{text-align:center;padding:22px 15px;background:radial-gradient(circle at top,#2a0a0a,#000);border-bottom:1px solid #2a1a1a}
-.header img{width:140px;border-radius:18px;box-shadow:0 0 20px rgba(255,0,0,0.4)}
-.header h1{font-size:26px;font-weight:900;letter-spacing:2px;margin-top:10px}
+body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:90px}
+.header{text-align:center;padding:20px 15px;background:radial-gradient(circle at top,#2a0a0a,#000);border-bottom:1px solid #2a1a1a}
+.header img{width:130px;border-radius:18px;box-shadow:0 0 20px rgba(255,0,0,0.4)}
+.header h1{font-size:24px;font-weight:900;letter-spacing:2px;margin-top:10px}
 .header h1 span{color:#ff1a1a}
-.top-stats{display:flex;gap:8px;justify-content:center;margin-top:12px}
-.stat{ background:#1a1a1a;border:1px solid #2a2a2a;padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;display:flex;gap:5px;align-items:center}
+.top-stats{display:flex;gap:6px;justify-content:center;margin-top:12px;flex-wrap:wrap}
+.stat{background:#1a1a1a;border:1px solid #2a2a2a;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:800}
 .stat.red{background:linear-gradient(135deg,#ff1a1a,#8a0000);border:none}
-.nav{display:flex;gap:8px;padding:12px 15px;background:#111;overflow:auto;white-space:nowrap;position:sticky;top:0;z-index:20;border-bottom:1px solid #222}
-.nav button{padding:8px 16px;border-radius:20px;border:1px solid #2a2a2a;background:#1a1a1a;color:#fff;font-size:12px;font-weight:700;cursor:pointer}
-.nav button.active{background:#ff1a1a;border-color:#ff1a1a;color:#fff}
 .daily{margin:12px 15px;background:#151515;border:1px solid #2a2a2a;border-radius:18px;padding:14px}
-.daily-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.daily-top h3{font-size:13px;letter-spacing:1px}
-.days{display:flex;gap:6px;overflow:auto}
-.day{min-width:52px;height:62px;background:#111;border:1px solid #222;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;opacity:0.6}
-.day.active{border-color:#ff1a1a;background:linear-gradient(180deg,#2a1010,#111);opacity:1}
-.day b{font-size:14px;margin-top:2px}
-.btn-claim{width:100%;margin-top:10px;background:linear-gradient(135deg,#ff7a00,#ff1a1a);border:none;color:#fff;padding:12px;border-radius:12px;font-weight:800;cursor:pointer}
-.section-title{padding:15px 15px 5px;font-size:12px;letter-spacing:2px;opacity:0.5;font-weight:800}
+.days{display:flex;gap:6px;margin-top:10px}
+.day{flex:1;height:58px;background:#111;border:1px solid #222;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;opacity:0.5}
+.day.active{border-color:#ff1a1a;opacity:1;background:#1f0f0f}
+.btn-claim{width:100%;margin-top:12px;background:linear-gradient(135deg,#ff7a00,#ff1a1a);border:none;color:#fff;padding:12px;border-radius:12px;font-weight:900;cursor:pointer}
+.section-title{padding:16px 15px 6px;font-size:11px;letter-spacing:2px;opacity:0.5;font-weight:800}
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 15px}
-.card{background:#161616;border:1px solid #222;border-radius:18px;padding:10px;position:relative;overflow:hidden}
+.card{background:#161616;border:1px solid #222;border-radius:18px;padding:10px}
 .card video{width:100%;height:110px;border-radius:12px;object-fit:cover;background:#000;display:block}
-.card h3{font-size:13px;margin:8px 0 2px}
-.card .tag{display:inline-block;font-size:9px;padding:3px 7px;border-radius:10px;font-weight:800;margin-top:4px}
-.tag.new{background:#ff1a1a}.tag.hot{background:#ff7a00}.tag.top{background:#222;border:1px solid #333}
-.card .price{font-size:14px;font-weight:900;color:#ff3b3b;margin-top:4px}
-.card .stars{font-size:10px;color:#ffcc00;margin-top:2px}
+.card h3{font-size:12px;margin:8px 0 2px}
+.tag{display:inline-block;font-size:8px;padding:3px 6px;border-radius:8px;font-weight:800;margin-top:4px;background:#ff1a1a}
+.price{font-size:14px;font-weight:900;color:#ff3b3b;margin-top:4px}
+.stars{font-size:10px;color:#ffcc00}
 .card-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:8px}
-.qty-mini{display:flex;align-items:center;gap:6px;background:#111;border:1px solid #222;border-radius:20px;padding:2px 6px}
+.qty-mini{display:flex;align-items:center;gap:5px;background:#111;border:1px solid #222;border-radius:20px;padding:2px 6px}
 .qty-mini button{width:22px;height:22px;border-radius:50%;border:none;background:#222;color:#fff;cursor:pointer}
 .qty-mini span{font-size:12px;font-weight:800;min-width:14px;text-align:center}
 .btn-add-mini{background:#fff;color:#000;border:none;padding:6px 10px;border-radius:15px;font-size:11px;font-weight:800;cursor:pointer}
-.features{display:flex;gap:8px;padding:0 15px;flex-wrap:wrap}
-.feat{background:#141414;border:1px solid #222;border-radius:14px;padding:10px 12px;font-size:11px;flex:1;min-width:120px}
-.feat b{display:block;color:#ff2a2a;margin-bottom:3px}
-.avis-section{padding:15px}
-.avis-card{background:#161616;border:1px solid #222;border-radius:15px;padding:12px;margin-bottom:8px;font-size:12px}
-.info-box{background:#161616;border:1px solid #222;border-radius:15px;padding:14px;margin-bottom:10px}
 .cart-float{position:fixed;bottom:18px;right:18px;background:#ff1a1a;color:#fff;width:60px;height:60px;border-radius:50%;display:none;align-items:center;justify-content:center;z-index:200;cursor:pointer;font-size:22px;box-shadow:0 8px 25px rgba(255,0,0,0.4)}
 .cart-float.show{display:flex}
 .cart-float .badge{position:absolute;top:-4px;right:-4px;background:#fff;color:#000;font-size:11px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800}
@@ -66,149 +53,119 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="header">
 <img src="logo.png.jpg" alt="logo">
 <h1>COFFEE <span>SIMONE</span></h1>
-<p style="opacity:0.5;font-size:11px;margin-top:4px">PARIS PREMIUM • LIVRAISON 20-40MIN</p>
 <div class="top-stats">
-<div class="stat red">⚡ 15/15</div>
-<div class="stat">🔥 500 PTS</div>
+<div class="stat red">⚡ <span id="xpCount">0/300 XP</span></div>
+<div class="stat">🔥 <span id="ptsCount">0</span> PTS</div>
+<div class="stat" id="level">Новичок</div>
 <div class="stat">⭐ 4.9/5</div>
-<div class="stat">📦 37 Avis</div>
 </div>
-</div>
-
-<div class="nav">
-<button class="active">☕ Menu</button>
-<button onclick="document.getElementById('avis').scrollIntoView({behavior:'smooth'})">⭐ Avis</button>
-<button onclick="document.getElementById('infos').scrollIntoView({behavior:'smooth'})">ℹ️ Infos</button>
-<button onclick="window.open('https://t.me/+SDFZGObWt5I4NGI8','_blank')">📢 Canal</button>
 </div>
 
 <div class="daily">
-<div class="daily-top"><h3>🎁 RÉCOMPENSE JOURNALIÈRE</h3><span style="font-size:12px;opacity:0.6">🔥 0</span></div>
+<div style="display:flex;justify-content:space-between"><h3 style="font-size:12px">ЕЖЕДНЕВНЫЙ ВХОД</h3><span>🔥 <span id="streak">0</span></span></div>
 <div class="days">
-<div class="day active">1<br><b>50</b></div><div class="day">2<br><b>75</b></div><div class="day">3<br><b>100</b></div><div class="day">4<br><b>150</b></div><div class="day">5<br><b>200</b></div><div class="day">6<br><b>300</b></div><div class="day">7<br><b>🎁</b></div>
+<div class="day active" id="d1">1<br><b>50</b></div><div class="day" id="d2">2<br><b>75</b></div><div class="day" id="d3">3<br><b>100</b></div><div class="day" id="d4">4<br><b>150</b></div><div class="day" id="d5">5<br><b>200</b></div><div class="day" id="d6">6<br><b>300</b></div><div class="day" id="d7">7<br><b>🎁</b></div>
 </div>
-<button class="btn-claim">Récupérer +50 pts 🎁</button>
-</div>
-
-<div class="section-title">☕ PREMIUM • ÉDITION LIMITÉE</div>
-<div class="menu-grid" id="menu">
-
-<div class="card" data-id="p1" data-name="MOUSSEUX LATTE" data-price="50">
-<video src="mousseux.mp4.MP4" autoplay muted loop playsinline></video>
-<span class="tag new">NOUVEAU</span>
-<h3>MOUSSEUX LATTE</h3>
-<div class="stars">⭐⭐⭐⭐⭐ 4.9</div>
-<div class="price">50€</div>
-<div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div>
+<button class="btn-claim" id="claimBtn" onclick="claimDaily()">Забрать +50 🪙</button>
+<p id="claimMsg" style="font-size:11px;opacity:0.6;text-align:center;margin-top:8px"></p>
 </div>
 
-<div class="card" data-id="p2" data-name="FROZEN COLD BREW" data-price="110">
-<video src="Casablanca.mp4.MOV" autoplay muted loop playsinline></video>
-<span class="tag hot">HOT 🔥</span>
-<h3>FROZEN BREW</h3>
-<div class="stars">⭐⭐⭐⭐⭐ 5.0</div>
-<div class="price">110€</div>
-<div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div>
-</div>
-
-<div class="card" data-id="p3" data-name="VANILLA SIGNATURE" data-price="130">
-<video src="frozen.mp4.MP4" autoplay muted loop playsinline></video>
-<span class="tag top">TOP</span>
-<h3>VANILLA SIGNATURE</h3>
-<div class="stars">⭐⭐⭐⭐⭐ 4.8</div>
-<div class="price">130€</div>
-<div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div>
-</div>
-
-<div class="card" data-id="p4" data-name="CARAMEL DREAM" data-price="60">
-<video src="mousseux.mp4.MP4" autoplay muted loop playsinline></video>
-<span class="tag new">DOUX</span>
-<h3>CARAMEL DREAM</h3>
-<div class="stars">⭐⭐⭐⭐⭐ 4.9</div>
-<div class="price">60€</div>
-<div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div>
-</div>
-
-<div class="card" data-id="p5" data-name="PISTACHIO LOVE" data-price="70">
-<video src="frozen.mp4.MP4" autoplay muted loop playsinline></video>
-<span class="tag hot">LIMITED</span>
-<h3>PISTACHIO LOVE</h3>
-<div class="stars">⭐⭐⭐⭐⭐ 5.0</div>
-<div class="price">70€</div>
-<div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div>
-</div>
-
-<div class="card" data-id="p6" data-name="HAZELNUT BLAST" data-price="65">
-<video src="Casablanca.mp4.MOV" autoplay muted loop playsinline></video>
-<span class="tag new">NEW</span>
-<h3>HAZELNUT BLAST</h3>
-<div class="stars">⭐⭐⭐⭐⭐ 4.7</div>
-<div class="price">65€</div>
-<div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">Ajouter</button></div>
-</div>
-
-</div>
-
-<div class="section-title">⚡ AVANTAGES</div>
-<div class="features">
-<div class="feat"><b>🚚 RAPIDE</b>20-40min Paris</div>
-<div class="feat"><b>💶 PAIEMENT</b>Espèces 100€ min</div>
-<div class="feat"><b>📍 ZONE</b>75-92-93-94</div>
-<div class="feat"><b>🔒 DISCRET</b>Emballage neutre</div>
-</div>
-
-<div id="avis" class="avis-section">
-<div class="section-title">⭐ AVIS VÉRIFIÉS</div>
-<div class="avis-card"><b>@Alex_75</b> - ⭐⭐⭐⭐⭐ <br>Toujours carré, 25min top 👌</div>
-<div class="avis-card"><b>@SP</b> - ⭐⭐⭐⭐⭐ <br>Le mousseux incroyable ❤️</div>
-<div class="avis-card"><b>@Momo_IDF</b> - ⭐⭐⭐⭐⭐ <br>Meilleur service Paris !</div>
-</div>
-
-<div id="infos" class="avis-section">
-<div class="info-box"><h4 style="color:#ff1a1a">📲 CONTACTS</h4>
-<p style="font-size:12px;margin-top:6px">Réponse en 2min</p>
-<div class="social" style="justify-content:flex-start;margin-top:10px">
-<a class="canal" href="https://t.me/simone750" target="_blank">Telegram</a>
-<a class="whats" href="https://wa.me/33744146189" target="_blank">WhatsApp</a>
-<a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">Insta</a>
-</div>
-</div>
+<div class="section-title">МЕНЮ - 2 PAR 2</div>
+<div class="menu-grid">
+<div class="card" data-id="p1" data-name="MOUSSEUX LATTE" data-price="50"><video src="mousseux.mp4.MP4" autoplay muted loop playsinline></video><span class="tag">NEW</span><h3>MOUSSEUX LATTE</h3><div class="stars">⭐⭐⭐⭐⭐</div><div class="price">50€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">+</button></div></div>
+<div class="card" data-id="p2" data-name="FROZEN BREW" data-price="110"><video src="Casablanca.mp4.MOV" autoplay muted loop playsinline></video><span class="tag">HOT</span><h3>FROZEN BREW</h3><div class="stars">⭐⭐⭐⭐⭐</div><div class="price">110€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">+</button></div></div>
+<div class="card" data-id="p3" data-name="VANILLA" data-price="130"><video src="frozen.mp4.MP4" autoplay muted loop playsinline></video><span class="tag">TOP</span><h3>VANILLA</h3><div class="stars">⭐⭐⭐⭐⭐</div><div class="price">130€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">+</button></div></div>
+<div class="card" data-id="p4" data-name="CARAMEL" data-price="60"><video src="mousseux.mp4.MP4" autoplay muted loop playsinline></video><span class="tag">DOUX</span><h3>CARAMEL</h3><div class="stars">⭐⭐⭐⭐⭐</div><div class="price">60€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">+</button></div></div>
+<div class="card" data-id="p5" data-name="PISTACHIO" data-price="70"><video src="frozen.mp4.MP4" autoplay muted loop playsinline></video><span class="tag">LIMITED</span><h3>PISTACHIO</h3><div class="stars">⭐⭐⭐⭐⭐</div><div class="price">70€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">+</button></div></div>
+<div class="card" data-id="p6" data-name="HAZELNUT" data-price="65"><video src="Casablanca.mp4.MOV" autoplay muted loop playsinline></video><span class="tag">NEW</span><h3>HAZELNUT</h3><div class="stars">⭐⭐⭐⭐⭐</div><div class="price">65€</div><div class="card-bottom"><div class="qty-mini"><button onclick="changeQty(this,-1)">-</button><span class="q">0</span><button onclick="changeQty(this,1)">+</button></div><button class="btn-add-mini" onclick="addToCart(this)">+</button></div></div>
 </div>
 
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
 
 <div id="cartDrawer" class="cart-drawer">
-<div style="display:flex;justify-content:space-between;align-items:center"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div>
+<div style="display:flex;justify-content:space-between"><h3>Panier - <span id="ptsInCart">0 PTS</span></h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div>
 <div id="cartList" style="margin-top:10px"></div>
 <div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div>
-
-<div style="border-top:1px solid #222;padding-top:12px">
 <input id="addr" class="input" placeholder="📍 Adresse + code postal">
-<div class="hours"><button type="button" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">12h-14h</button><button type="button" onclick="selectHour(this)">14h-16h</button><button type="button" onclick="selectHour(this)">16h-18h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-22h</button></div>
-<input id="note" class="input" placeholder="Note livreur (optionnel)">
-</div>
-
-<button class="btn-main" onclick="checkout()">Commander - Envoyer à Simone 🚀</button>
-<div style="display:flex;gap:8px;margin-top:10px">
+<div class="hours"><button type="button" onclick="selectHour(this)">Au plus vite</button><button type="button" onclick="selectHour(this)">12h-14h</button><button type="button" onclick="selectHour(this)">16h-18h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-22h</button></div>
+<input id="note" class="input" placeholder="Note">
+<button class="btn-main" onclick="checkout()">Commander Telegram 🚀</button>
 <button class="btn-main" style="background:#25D366" onclick="checkoutWhatsApp()">WhatsApp 💬</button>
-<button class="btn-main" style="background:#222" onclick="clearCart()">Vider</button>
-</div>
+<button onclick="clearCart()" style="background:none;border:none;color:#666;font-size:12px;margin-top:10px;width:100%">Vider</button>
 </div>
 
-<div class="footer">Coffee Simone © 2026 - Premium • Rapide • Authentique</div>
+<div class="footer">Coffee Simone © 2026</div>
 
 <script>
 let cart={}, selectedHour="";
+let pts = parseInt(localStorage.getItem('simone_pts')||'0');
+let xp = parseInt(localStorage.getItem('simone_xp')||'0');
+let streak = parseInt(localStorage.getItem('simone_streak')||'0');
+let lastClaim = localStorage.getItem('simone_lastClaim')||'';
+
+function refreshUI(){
+  document.getElementById('ptsCount').textContent = pts;
+  document.getElementById('xpCount').textContent = xp + '/300 XP';
+  document.getElementById('ptsInCart').textContent = pts + ' PTS';
+  document.getElementById('streak').textContent = streak;
+  document.getElementById('level').textContent = xp<100?'Новичок':xp<200?'Начинающий':'Pro';
+  // couleur jours
+  for(let i=1;i<=7;i++){ let el=document.getElementById('d'+i); if(el){ el.classList.toggle('active', i<=streak); } }
+  let today = new Date().toDateString();
+  if(lastClaim===today){
+    document.getElementById('claimBtn').textContent='Déjà récupéré ✅';
+    document.getElementById('claimBtn').style.opacity='0.5';
+    document.getElementById('claimMsg').textContent='Reviens demain pour +'+(50+streak*10)+' PTS';
+  } else {
+    document.getElementById('claimBtn').textContent='Забрать +'+(50+streak*10)+' 🪙';
+    document.getElementById('claimBtn').style.opacity='1';
+    document.getElementById('claimMsg').textContent='';
+  }
+}
+refreshUI();
+
+function claimDaily(){
+  let today = new Date().toDateString();
+  if(lastClaim===today){ alert('Déjà pris aujourd\'hui !'); return; }
+  let gain = 50 + streak*10;
+  if(streak>=6) gain=300;
+  pts+=gain; xp+=20; streak+=1; if(streak>7) streak=1;
+  lastClaim=today;
+  localStorage.setItem('simone_pts',pts);
+  localStorage.setItem('simone_xp',xp);
+  localStorage.setItem('simone_streak',streak);
+  localStorage.setItem('simone_lastClaim',today);
+  refreshUI();
+  alert('✅ +'+gain+' PTS ! Total: '+pts);
+}
+
 function changeQty(btn,d){const c=btn.closest('.card');const s=c.querySelector('.q');let v=parseInt(s.textContent)||0;v+=d;if(v<0)v=0;if(v>20)v=20;s.textContent=v;}
-function addToCart(btn){const card=btn.closest('.card');const id=card.dataset.id;const name=card.dataset.name;const price=parseInt(card.dataset.price);const qEl=card.querySelector('.q');let q=parseInt(qEl.textContent)||0;if(q===0)q=1;if(!cart[id])cart[id]={name,price,qty:0};cart[id].name=name;cart[id].price=price;cart[id].qty+=q;qEl.textContent="0";updateCart();}
-function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].price*cart[id].qty;c+=cart[id].qty;l+=`<div style="display:flex;justify-content:space-between;margin:8px 0;font-size:13px;border-bottom:1px solid #1e1e1e;padding-bottom:6px"><span>${cart[id].name} x${cart[id].qty}</span><span>${cart[id].price*cart[id].qty}€</span></div>`}document.getElementById('cartBadge').textContent=c;document.getElementById('cartList').innerHTML=l||'<p style="opacity:0.5;font-size:12px">Panier vide</p>';document.getElementById('cartTotal').textContent=t+'€';document.getElementById('cartFloat').classList.toggle('show',c>0);}
+function addToCart(btn){const card=btn.closest('.card');const id=card.dataset.id;const name=card.dataset.name;const price=parseInt(card.dataset.price);const qEl=card.querySelector('.q');let q=parseInt(qEl.textContent)||0;if(q===0)q=1;if(!cart[id])cart[id]={name,price,qty:0};cart[id].qty+=q;qEl.textContent="0";updateCart();}
+function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].price*cart[id].qty;c+=cart[id].qty;l+=`<div style="display:flex;justify-content:space-between;margin:6px 0;font-size:13px"><span>${cart[id].name} x${cart[id].qty}</span><span>${cart[id].price*cart[id].qty}€</span></div>`}document.getElementById('cartBadge').textContent=c;document.getElementById('cartList').innerHTML=l||'Panier vide';document.getElementById('cartTotal').textContent=t+'€';document.getElementById('cartFloat').classList.toggle('show',c>0);}
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function clearCart(){cart={};updateCart();closeCart();}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-function buildMsg(){let total=0,msg="Salut Simone ! Commande :\n";for(let id in cart){msg+=`- ${cart[id].name} x${cart[id].qty}\n`;total+=cart[id].price*cart[id].qty;}if(total===0){alert("Panier vide !");return null;}msg+=`\nTotal: ${total}€\n`;let a=document.getElementById('addr').value.trim();let note=document.getElementById('note').value.trim();if(!a){alert("Mets ton adresse !");openCart();return null;}if(!selectedHour){alert("Choisis une heure !");return null;}msg+=`\n📍 Adresse: ${a}\n🕐 Heure: ${selectedHour}\nNote: ${note}`;return msg;}
-function checkout(){let msg=buildMsg();if(!msg)return;window.open("https://t.me/simone750?text="+encodeURIComponent(msg),"_blank");}
-function checkoutWhatsApp(){let msg=buildMsg();if(!msg)return;window.open("https://wa.me/33744146189?text="+encodeURIComponent(msg),"_blank");}
+
+function buildMsg(){
+  let total=0,msg=`Salut Simone ! [${pts} PTS | ${xp} XP | Streak ${streak}]\nCommande:\n`;
+  for(let id in cart){msg+=`- ${cart[id].name} x${cart[id].qty}\n`;total+=cart[id].price*cart[id].qty;}
+  if(total===0){alert("Panier vide !");return null;}
+  if(pts>=300){ total=Math.max(100,total-10); msg+=`\n🎁 -10€ fidélité (300 PTS utilisés)\n`; pts-=300; }
+  msg+=`\nTotal: ${total}€\n`;
+  let a=document.getElementById('addr').value.trim();let note=document.getElementById('note').value.trim();
+  if(!a){alert("Mets adresse !");openCart();return null;}
+  if(!selectedHour){alert("Choisis heure !");return null;}
+  msg+=`📍 ${a}\n🕐 ${selectedHour}\nNote: ${note}`;
+  xp+=30; pts+=20;
+  localStorage.setItem('simone_pts',pts);
+  localStorage.setItem('simone_xp',xp);
+  localStorage.setItem('simone_streak',streak);
+  refreshUI();
+  return msg;
+}
+function checkout(){let m=buildMsg();if(!m)return;window.open("https://t.me/simone750?text="+encodeURIComponent(m),"_blank");}
+function checkoutWhatsApp(){let m=buildMsg();if(!m)return;window.open("https://wa.me/33744146189?text="+encodeURIComponent(m),"_blank");}
 </script>
 </body>
 </html>
