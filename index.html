@@ -7,21 +7,24 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:40px}
-.header{text-align:center;padding:28px 20px;background:radial-gradient(circle at top,#1e1e1e,#000)}
-.header img{width:220px;max-width:80%;border-radius:20px}
-.header h1{margin-top:15px;font-size:28px;letter-spacing:2px;font-weight:900}
-.social{display:flex;gap:10px;justify-content:center;margin-top:12px;flex-wrap:wrap}
-.social a{padding:9px 18px;border-radius:25px;font-size:12px;font-weight:800;text-decoration:none;color:#fff}
+body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:30px}
+.header{text-align:center;padding:30px 20px;background:radial-gradient(circle at top,#1a1a1a,#000)}
+.header img{width:240px;max-width:85%;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.3)}
+.header h1{margin-top:20px;font-size:28px;letter-spacing:2px;font-weight:800}
+.nav{display:flex;justify-content:center;gap:25px;padding:15px;background:#111;position:sticky;top:0;z-index:10;border-bottom:1px solid #222}
+.nav a{color:#fff;text-decoration:none;font-weight:600;font-size:13px;letter-spacing:1px;opacity:0.6}
+.nav a.active{opacity:1;color:#ff2a2a}
+.banner{background:#111;border:1px solid #222;margin:15px;border-radius:15px;padding:15px;text-align:center}
+.social{display:flex;gap:10px;justify-content:center;margin-top:10px;flex-wrap:wrap}
+.social a{padding:8px 16px;border-radius:20px;font-size:12px;font-weight:800;text-decoration:none;color:#fff}
 .social .canal{background:#24A1DE}
 .social .insta{background:linear-gradient(135deg,#f58529,#dd2a7b,#515bd4)}
-.banner{background:#141414;border:1px solid #222;margin:15px;border-radius:15px;padding:14px;text-align:center}
-.btn-main{background:linear-gradient(135deg,#ff1a1a,#b30000);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;font-size:15px;cursor:pointer;margin-top:10px}
+.btn-main{background:linear-gradient(135deg,#ff1a1a,#b30000);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;font-size:16px;margin-top:10px;cursor:pointer}
 .menu{padding:15px}
-.card{background:#161616;border-radius:20px;padding:14px;margin-bottom:14px;border:1px solid #222}
-.card video{width:100%;border-radius:14px;background:#000;display:block;max-height:240px;object-fit:cover}
-.card h3{margin:12px 0 4px;font-size:18px}
-.card p{opacity:0.6;font-size:12px}
+.card{background:#161616;border-radius:20px;padding:15px;margin-bottom:15px;border:1px solid #222}
+.card video{width:100%;border-radius:15px;background:#000;min-height:180px;max-height:240px;object-fit:cover;display:block}
+.card h3{margin:12px 0 5px;font-size:18px}
+.card p{opacity:0.6;font-size:13px}
 .price{font-weight:800;color:#ff3b3b;margin:8px 0;font-size:18px}
 .qty-row{display:flex;align-items:center;justify-content:space-between;margin-top:10px}
 .qty-box{display:flex;align-items:center;gap:10px;background:#111;border:1px solid #222;border-radius:30px;padding:4px 8px}
@@ -29,10 +32,15 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .qty-box span{width:24px;text-align:center;font-weight:800}
 .btn-add{background:#fff;color:#000;border:none;padding:10px 18px;border-radius:30px;font-size:13px;cursor:pointer;font-weight:800}
 .avis-section{padding:20px 15px;background:#111;margin-top:10px}
+.avis-card{background:#161616;border-radius:15px;padding:15px;margin-bottom:10px;border:1px solid #222;text-align:left}
+.avis-top{display:flex;justify-content:space-between;align-items:center}
+.stars{color:#ffcc00}
 .info-section{padding:20px 15px}
 .info-box{background:#161616;border-radius:15px;padding:15px;margin-bottom:12px;border:1px solid #222;text-align:left}
+.info-box h4{color:#ff2a2a;margin-bottom:6px}
+.info-box p{font-size:13px;opacity:0.8;line-height:1.5}
 .footer{text-align:center;padding:20px;opacity:0.3;font-size:11px}
-.cart-float{position:fixed;bottom:18px;right:18px;background:#fff;color:#000;width:58px;height:58px;border-radius:50%;display:none;align-items:center;justify-content:center;box-shadow:0 8px 25px rgba(0,0,0,0.6);z-index:200;cursor:pointer;font-size:22px}
+.cart-float{position:fixed;bottom:18px;right:18px;background:#fff;color:#000;width:56px;height:56px;border-radius:50%;display:none;align-items:center;justify-content:center;font-weight:900;box-shadow:0 8px 25px rgba(0,0,0,0.6);z-index:200;cursor:pointer;font-size:20px}
 .cart-float.show{display:flex}
 .cart-float .badge{position:absolute;top:-5px;right:-5px;background:#ff1a1a;color:#fff;font-size:11px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center}
 .cart-drawer{position:fixed;bottom:0;left:0;right:0;background:#121212;border-top:1px solid #222;border-radius:22px 22px 0 0;padding:20px;transform:translateY(110%);transition:0.35s;z-index:300;max-height:90vh;overflow:auto}
@@ -46,54 +54,102 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </head>
 <body>
 <div class="header">
-<img src="logo.png.jpg" alt="Simone">
+<img src="logo.png.jpg" alt="Coffee Simone">
 <h1>Coffee Simone</h1>
-<p style="opacity:0.5;font-size:12px;margin-top:5px">PARIS • PREMIUM COFFEE</p>
+<p style="opacity:0.5;margin-top:5px">PARIS • PREMIUM • LIVRAISON</p>
 <div class="social">
 <a class="canal" href="https://t.me/+SDFZGObWt5I4NGI8" target="_blank">📢 CANAL OFFICIEL</a>
 <a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">📸 INSTAGRAM</a>
 </div>
 </div>
 
+<div class="nav">
+<a href="#" class="active">ACCUEIL</a>
+<a href="#menu">MENU</a>
+<a href="#avis">AVIS</a>
+<a href="#infos">INFOS</a>
+</div>
+
 <div class="banner">
-<b>PREMIUM QUALITY - CAFÉ ARTISANAL</b><br><span style="font-size:12px;opacity:0.6">Livraison 20-40min Paris / IDF</span>
+<p><b>PREMIUM QUALITY - 100€ MINIMUM</b></p>
+<p style="font-size:12px;opacity:0.6;margin-top:5px">Livraison 20-40min sur Paris / IDF</p>
 <button class="btn-main" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">VOIR LE MENU</button>
 </div>
 
 <div id="menu" class="menu">
-<h2 style="text-align:center;margin:10px 0;font-size:14px;letter-spacing:2px;opacity:0.7">MENU</h2>
+<h2 style="text-align:center;margin:15px 0;letter-spacing:2px">MENU</h2>
 
-<div class="card" data-name="Mousseux Latte" data-price="12">
-<video src="mousseux.mp4.MP4" autoplay muted loop playsinline preload="metadata"></video>
-<h3>Mousseux Latte</h3><p>Café onctueux texture mousse - 250ml</p><div class="price">12€</div>
+<!-- PRODUIT 1 - CHANGE ICI NOM ET PRIX -->
+<div class="card" data-name="MOUSSEUX LATTE" data-price="50">
+<video src="mousseux.mp4.MP4" autoplay muted loop playsinline></video>
+<h3>MOUSSEUX LATTE</h3>
+<p>CLASSIQUE - CAFÉ MOUSSEUX - 10G</p>
+<div class="price">50€</div>
 <div class="qty-row"><div class="qty-box"><button type="button" onclick="changeQty(this,-1)">-</button><span class="q">0</span><button type="button" onclick="changeQty(this,1)">+</button></div><button class="btn-add" onclick="addToCart(this)">Ajouter</button></div>
 </div>
 
-<div class="card" data-name="Frozen Cold Brew" data-price="14">
-<video src="frozen.mp4.MP4" autoplay muted loop playsinline preload="metadata"></video>
-<h3>Frozen Cold Brew</h3><p>Cold brew ultra frais - 300ml</p><div class="price">14€</div>
+<!-- PRODUIT 2 - CHANGE ICI NOM ET PRIX -->
+<div class="card" data-name="FROZEN COLD BREW" data-price="110">
+<video src="Casablanca.mp4.MOV" autoplay muted loop playsinline></video>
+<h3>FROZEN COLD BREW</h3>
+<p>PREMIUM - COLD BREW - 10G</p>
+<div class="price">110€</div>
 <div class="qty-row"><div class="qty-box"><button type="button" onclick="changeQty(this,-1)">-</button><span class="q">0</span><button type="button" onclick="changeQty(this,1)">+</button></div><button class="btn-add" onclick="addToCart(this)">Ajouter</button></div>
 </div>
 
-<div class="card" data-name="Amnesia Vanilla" data-price="13">
-<video src="Casablanca.mp4.MOV" autoplay muted loop playsinline preload="metadata"></video>
-<h3>Amnesia Vanilla</h3><p>Vanille Madagascar signature - 250ml</p><div class="price">13€</div>
+<!-- PRODUIT 3 - CHANGE ICI NOM ET PRIX -->
+<div class="card" data-name="VANILLA SIGNATURE" data-price="130">
+<video src="frozen.mp4.MP4" autoplay muted loop playsinline></video>
+<h3>VANILLA SIGNATURE</h3>
+<p>FRESH - VANILLE - 10G</p>
+<div class="price">130€</div>
 <div class="qty-row"><div class="qty-box"><button type="button" onclick="changeQty(this,-1)">-</button><span class="q">0</span><button type="button" onclick="changeQty(this,1)">+</button></div><button class="btn-add" onclick="addToCart(this)">Ajouter</button></div>
+</div>
+
+</div>
+
+<!-- AVIS -->
+<div id="avis" class="avis-section">
+<h2 style="text-align:center;margin-bottom:15px;letter-spacing:2px">AVIS CLIENTS</h2>
+<div style="text-align:center;margin-bottom:15px">
+<p class="stars">⭐⭐⭐⭐⭐</p>
+<p style="font-size:14px;margin-top:5px"><b>4.9/5 - 37 avis vérifiés</b></p>
+</div>
+<div class="avis-card"><div class="avis-top"><b>@Alex_75</b><span class="stars">⭐⭐⭐⭐⭐</span></div><p style="margin-top:8px">Toujours carré, livraison 25min top qualité comme d'hab 👌</p></div>
+<div class="avis-card"><div class="avis-top"><b>@SP</b><span class="stars">⭐⭐⭐⭐⭐</span></div><p style="margin-top:8px">Le mousseux est incroyable, merci Simone ❤️</p></div>
+<div class="avis-card"><div class="avis-top"><b>@Momo_IDF</b><span class="stars">⭐⭐⭐⭐⭐</span></div><p style="margin-top:8px">Meilleur service Paris, rapide et discret. Je recommande !</p></div>
+</div>
+
+<!-- INFOS -->
+<div id="infos" class="info-section">
+<h2 style="text-align:center;margin-bottom:15px;letter-spacing:2px">INFOS</h2>
+<div class="info-box"><h4>🚚 LIVRAISON</h4><p>Livraison sur Paris en 20-40min<br>Autres alentours environ 1H<br>7/7</p></div>
+<div class="info-box"><h4>💶 PAIEMENT</h4><p>Espèces uniquement<br>Minimum commande 100€<br>Frais livraison: 0€</p></div>
+<div class="info-box"><h4>📍 ZONE</h4><p>Paris (75) - 92 - 93 - 94<br>78 - 77 - 91 - 95 sur demande</p></div>
+<div class="info-box">
+<h4>📲 CONTACT</h4>
+<p>Seul contact @simone750 - Réponse en moins de 2min</p>
+<button class="btn-main" onclick="window.open('https://t.me/simone750','_blank')">Contacter Simone</button>
+<div class="social" style="margin-top:10px">
+<a class="canal" href="https://t.me/+eEtCWJ3jgB4xYTFk" target="_blank">📢 Canal</a>
+<a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">📸 Instagram</a>
+</div>
 </div>
 </div>
 
+<!-- PANIER DISCRET + ADRESSE + HORAIRES SANS TELEPHONE -->
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
 
 <div id="cartDrawer" class="cart-drawer">
-<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Mon Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div>
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px"><h3>Mon Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div>
 <div id="cartList"></div>
-<div style="display:flex;justify-content:space-between;margin:12px 0;font-weight:800;font-size:16px"><span>Total</span><span id="cartTotal">0€</span></div>
+<div style="display:flex;justify-content:space-between;margin:15px 0;font-weight:800;font-size:16px"><span>Total</span><span id="cartTotal">0€</span></div>
 
-<div style="border-top:1px solid #222;padding-top:14px;margin-top:10px">
+<div style="border-top:1px solid #222;padding-top:14px">
 <p style="font-size:13px;font-weight:800">📍 Adresse de livraison</p>
-<input id="addr" class="input" placeholder="Rue, numéro">
-<input id="addr2" class="input" placeholder="Étage, code porte">
-<input id="phone" class="input" placeholder="Téléphone">
+<input id="addr" class="input" placeholder="Adresse complète, rue + numéro">
+<input id="addr2" class="input" placeholder="Étage, bâtiment, code porte">
+
 <p style="font-size:13px;font-weight:800;margin-top:14px">🕐 Heure de livraison</p>
 <div class="hours" id="hours">
 <button type="button" onclick="selectHour(this)">Au plus vite</button>
@@ -104,80 +160,61 @@ body{background:#0a0a0a;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <button type="button" onclick="selectHour(this)">20h-22h</button>
 <button type="button" onclick="selectHour(this)">22h-00h</button>
 </div>
-<input id="note" class="input" placeholder="Note livreur (optionnel)" style="margin-top:14px">
+
+<input id="note" class="input" placeholder="Note pour le livreur (optionnel)" style="margin-top:14px">
 </div>
 
 <button class="btn-main" onclick="checkout()">Commander sur Telegram</button>
-<button onclick="clearCart()" style="background:none;border:none;color:#666;font-size:12px;margin-top:12px;width:100%">Vider le panier</button>
+<button onclick="clearCart()" style="background:none;border:none;color:#777;font-size:12px;margin-top:12px;width:100%">Vider le panier</button>
 </div>
 
-<div class="footer">Coffee Simone © 2026</div>
+<div class="footer"><p>Coffee Simone © 2026 - Premium Quality</p></div>
 
 <script>
-const tg = window.Telegram.WebApp;
-try{tg.expand();}catch(e){}
-let cart = {};
-let selectedHour = "";
-
-function changeQty(btn, delta){
-  const box = btn.closest('.qty-box');
-  const span = box.querySelector('.q');
-  let v = parseInt(span.textContent) || 0;
-  v += delta;
-  if(v < 0) v = 0;
-  if(v > 20) v = 20;
-  span.textContent = v;
+const tg=window.Telegram.WebApp; try{tg.expand();}catch(e){}
+let cart={}, selectedHour="";
+function changeQty(btn,delta){
+  const box=btn.closest('.qty-box');
+  const span=box.querySelector('.q');
+  let v=parseInt(span.textContent)||0;
+  v+=delta; if(v<0)v=0; if(v>20)v=20;
+  span.textContent=v;
 }
-
 function addToCart(btn){
-  const card = btn.closest('.card');
-  const name = card.getAttribute('data-name');
-  const price = parseInt(card.getAttribute('data-price'));
-  const qtySpan = card.querySelector('.q');
-  let qty = parseInt(qtySpan.textContent) || 0;
-  if(qty === 0) qty = 1;
-  if(!cart[name]) cart[name] = {price:price, qty:0};
-  cart[name].qty += qty;
-  qtySpan.textContent = "0";
+  const card=btn.closest('.card');
+  const name=card.getAttribute('data-name');
+  const price=parseInt(card.getAttribute('data-price'));
+  const qtySpan=card.querySelector('.q');
+  let qty=parseInt(qtySpan.textContent)||0;
+  if(qty===0) qty=1;
+  if(!cart[name]) cart[name]={price,qty:0};
+  cart[name].qty+=qty;
+  qtySpan.textContent="0";
   updateCart();
-  try{tg.HapticFeedback.impactOccurred('light');}catch(e){}
 }
-
 function updateCart(){
   let total=0,count=0,list='';
-  for(let k in cart){
-    total += cart[k].price * cart[k].qty;
-    count += cart[k].qty;
-    list += `<div class="cart-item"><span>${k} x${cart[k].qty}</span><span>${cart[k].price*cart[k].qty}€</span></div>`;
-  }
-  document.getElementById('cartBadge').textContent = count;
-  document.getElementById('cartList').innerHTML = list || '<p style="opacity:0.5;font-size:12px">Panier vide</p>';
-  document.getElementById('cartTotal').textContent = total+'€';
-  document.getElementById('cartFloat').classList.toggle('show', count>0);
+  for(let k in cart){total+=cart[k].price*cart[k].qty;count+=cart[k].qty;list+=`<div class="cart-item"><span>${k} x${cart[k].qty}</span><span>${cart[k].price*cart[k].qty}€</span></div>`;}
+  document.getElementById('cartBadge').textContent=count;
+  document.getElementById('cartList').innerHTML=list||'<p style="opacity:0.5;font-size:12px">Panier vide</p>';
+  document.getElementById('cartTotal').textContent=total+'€';
+  document.getElementById('cartFloat').classList.toggle('show',count>0);
 }
-
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function clearCart(){cart={};updateCart();closeCart();}
-
-function selectHour(el){
-  document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));
-  el.classList.add('active');
-  selectedHour = el.textContent;
-}
-
+function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
 function checkout(){
   let total=0,msg="Salut Simone ! Je veux commander :\n";
-  for(let k in cart){msg+=`- ${k} x${cart[k].qty}\n`; total+=cart[k].price*cart[k].qty;}
+  for(let k in cart){msg+=`- ${k} x${cart[k].qty}\n`;total+=cart[k].price*cart[k].qty;}
   if(total===0){alert("Panier vide !");return;}
   msg+=`\nTotal: ${total}€\n`;
   let a=document.getElementById('addr').value.trim();
   let a2=document.getElementById('addr2').value.trim();
-  let ph=document.getElementById('phone').value.trim();
   let note=document.getElementById('note').value.trim();
-  if(!a||!ph){alert("Mets ton adresse et ton téléphone !");openCart();return;}
-  if(!selectedHour){alert("Choisis une heure de livraison !");return;}
-  msg+=`\n📍 Adresse: ${a} ${a2}\n📞 Tel: ${ph}\n🕐 Heure: ${selectedHour}\nNote: ${note}`;
+  if(!a){alert("Mets ton adresse !");openCart();return;}
+  if(!selectedHour){alert("Choisis une heure !");return;}
+  msg+=`\n📍 Adresse: ${a} ${a2}\n🕐 Heure: ${selectedHour}\nNote: ${note}`;
   window.open("https://t.me/simone750?text="+encodeURIComponent(msg),"_blank");
 }
 </script>
