@@ -78,12 +78,12 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <span style="font-size:11px;background:#111;border:1px solid #222;padding:5px 10px;border-radius:20px">Série: <b id="streak">1</b>j 🔥 | <b id="ptsCount">0</b> PTS</span>
 </div>
 <div class="days">
-<div class="day active" id="d1">J1<br><b>50</b></div>
-<div class="day" id="d2">J2<br><b>75</b></div>
-<div class="day" id="d3">J3<br><b>100</b></div>
-<div class="day" id="d4">J4<br><b>150</b></div>
-<div class="day" id="d5">J5<br><b>200</b></div>
-<div class="day" id="d6">J6<br><b>300</b></div>
+<div class="day active" id="d1">J1<br><b></b></div>
+<div class="day" id="d2">J2<br><b></b></div>
+<div class="day" id="d3">J3<br><b></b></div>
+<div class="day" id="d4">J4<br><b></b></div>
+<div class="day" id="d5">J5<br><b></b></div>
+<div class="day" id="d6">J6<br><b></b></div>
 <div class="day gift" id="d7">J7<br><b>🎁</b></div>
 </div>
 <button class="btn-claim" id="claimBtn" onclick="claimDaily()">Récupérer mes points 🪙</button>
@@ -91,7 +91,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <p id="claimMsg" style="font-size:11px;opacity:0.6;text-align:center;margin-top:8px"></p>
 </div>
 
-<div class="section-title">☕ MENU PREMIUM - CLIQUE SUR PRODUIT</div>
+<div class="section-title"> MENU PREMIUM</div>
 <div class="menu-grid" id="menuGrid"></div>
 
 <div class="avis-section" id="avis">
@@ -119,7 +119,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="info-box">
 <h4 style="color:#ff1a1a">📲 CONTACT</h4>
 <div class="social" style="justify-content:flex-start;margin-top:10px">
-<a class="simone" href="https://t.me/simone750" target="_blank">Simone</a>
+<a class="teleg" href="https://t.me/simone750" target="_blank">Simone</a>
 <a class="whats" href="https://wa.me/33744146189" target="_blank">WhatsApp</a>
 <a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">Instagram</a>
 </div>
@@ -163,9 +163,9 @@ const PRODUCTS={
  p1:{name:'MOUSSEUX',price:50,tag:'10G',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse, goût classique. Indoor premium. Goût unique en bouche.'},
  p2:{name:'CASABLANCA',price:110,tag:'10G',video:'frozen.mp4.MP4',desc:'Edition Fresh Frozen, hash ultra concentré. Effet direct, goût brew. Réservé aux connaisseurs. Stock limité.'},
  p3:{name:'FROZEN',price:130,tag:'10G',video:'Casablanca.mp4.MOV',desc:'Hash doux, effet longue durée. Le préféré des habitués.'},
- p4:{name:'CALIPLATE',price:130,tag:'10G',video:'caliplate.mp4.MOV',desc:'Goût caramel gourmand, texture onctueuse. Effet happy.'},
- p5:{name:'EDDIBLES',price:60,tag:'75mg',video:'eddibles.mp4.MP4',desc:'Edition unique de bonbon infusé au thc rare, goût fraise kiwi, effet créatif et social. Edition limitée.'},
- p6:{name:'COCA',price:70,tag:'1G',video:'coca.mp4.MOV',desc:'Pure cocaine intense, torréfiée, effet relax profond. Très demandé.'}
+ p4:{name:'CALIPLATE',price:130,tag:'10G',video:'caliplate.mp4.MP4',desc:'Goût caramel gourmand, texture onctueuse. Effet happy.'},
+ p5:{name:'EDDIBLES',price:60,tag:'75mg',video:'eddibles.mp4.MOV',desc:'Edition unique de bonbon infusé au thc rare, goût fraise kiwi, effet créatif et social. Edition limitée.'},
+ p6:{name:'COCA',price:70,tag:'1G',video:'coca.mp4.MP4',desc:'Pure cocaine intense, torréfiée, effet relax profond. Très demandé.'}
 };
 let cart={},selectedHour="",selectedStars=5,currentProd=null;
 let pts=parseInt(localStorage.getItem('simone_pts')||'0'),streak=parseInt(localStorage.getItem('simone_streak')||'1'),lastClaim=localStorage.getItem('simone_lastClaim')||'',hasFreeProduct=localStorage.getItem('simone_free')==='1',avisList=JSON.parse(localStorage.getItem('simone_avis')||'[]');
