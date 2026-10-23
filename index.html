@@ -185,9 +185,9 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 const tg = window.Telegram?.WebApp; if(tg) tg.expand();
 
 const PRODUCTS = {
- p1:{id:'p1',name:'MOUSSEUX LATTE',tag:'NOUVEAU',video:'mousseux.mp4',poster:'logo.png.jpg',desc:'Le best-seller de Simone. Texture ultra mousseuse qui fond, goût latte vanillé. Cultivé en indoor premium, trichomes blancs.',
+ p1:{id:'p1',name:'MOUSSEUX',tag:'',video:'mousseux.mp4.MP4',poster:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse, goût classique et unique en bouche',
  variants:[{label:'10G',price:50},{label:'25G',price:125},{label:'50G',price:200},{label:'100G',price:300}], avis:[{name:'@Leo_92',stars:5,text:'Texture de fou, ça mousse direct.'},{name:'@Ines75',stars:5,text:'Goût vanille léger, hyper doux.'}]},
- p2:{id:'p2',name:'CASABLANCA',tag:'',video:'Casablanca.mp4.MOV',poster:'Casablanca.mp4.MOV',desc:'Edition Frozen ultra fraîche. Effet glacé direct, goût mentholé brew. Réservé aux connaisseurs.',
+ p2:{id:'p2',name:'CASABLANCA',tag:'',video:'Casablanca.mp4.MOV',poster:'Casablanca.mp4.MOV',desc:'Edition Frozen ultra fraîche. Effet glacé direct, goût brew. Réservé aux connaisseurs.',
  variants:[{label:'10G',price:110},{label:'25G',price:200},{label:'50G',price:370}], avis:[{name:'@Samy',stars:5,text:'Ca défonce vraiment, effet direct.'},{name:'@Karim93',stars:5,text:'Très fort, 2 bare et t’es posé.'}]},
  p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',poster:'frozen.mp4.MP4',desc:'Edition Fresh Frozen, hash ultra concentré. Effet direct, goût brew. Réservé aux connaisseurs. Stock limité.',
  variants:[{label:'10G',price:130},{label:'25G',price:220},{label:'50G',price:400}], avis:[{name:'@Sofia',stars:5,text:'hash vrm premium.'}]},
@@ -260,7 +260,7 @@ function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-function buildMsg(){let total=0,msg=`🔥 NOUVELLE COMMANDE SIMONE 🔥\n\n`;for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}if(total===0&&!hasFreeProduct){alert("Panier vide !");return null;}if(hasFreeProduct)msg+=`- 🎁 OFFERT x1\n`;msg+=`\n💰 TOTAL: ${total}€\n`;let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;return msg;}
+function buildMsg(){let total=0,msg=`🔥 SALUT SIMONE 🔥\n\n`;for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}if(total===0&&!hasFreeProduct){alert("Panier vide !");return null;}if(hasFreeProduct)msg+=`- 🎁 OFFERT x1\n`;msg+=`\n💰 TOTAL: ${total}€\n`;let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;return msg;}
 function checkout(){let m=buildMsg();if(!m)return;if(tg){try{tg.sendData(m);}catch(e){} tg.openTelegramLink(`https://t.me/simone750?text=${encodeURIComponent(m)}`);}else{window.location.href=`https://t.me/simone750?text=${encodeURIComponent(m)}`;}}
 function checkoutWhatsApp(){let m=buildMsg();if(!m)return;if(tg){tg.openTelegramLink(`https://wa.me/33744146189?text=${encodeURIComponent(m)}`);}else{window.open(`https://wa.me/33744146189?text=${encodeURIComponent(m)}`,"_blank");}}
 function shareProduct(){if(navigator.share){navigator.share({title:currentProd.name});}}
