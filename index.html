@@ -12,9 +12,8 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .header img{width:180px;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.5);background:#000}
 .header h1{font-size:28px;font-weight:900;letter-spacing:2px;margin-top:14px}
 .header h1 span{color:#ff1a1a}
-.header p{opacity:0.5;font-size:12px;margin-top:4px;letter-spacing:1px}
 .daily{margin:14px 12px;background:#151515;border:1px solid #2a2a2a;border-radius:20px;padding:14px}
-.daily-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px}
+.daily-top{display:flex;justify-content:space-between;align-items:center}
 .days{display:flex;gap:6px;margin-top:12px}
 .day{flex:1;height:62px;background:#111;border:1px solid #222;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;opacity:0.5}
 .day.active{border-color:#ff1a1a;opacity:1;background:#1f0f0f}
@@ -24,20 +23,19 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 12px}
 .card{background:#161616;border:1px solid #222;border-radius:18px;padding:10px;cursor:pointer;transition:0.2s}
 .card:active{transform:scale(0.97);border-color:#ff1a1a}
-.card video{width:100%;height:135px;border-radius:12px;object-fit:cover;background:#000;display:block;pointer-events:none}
+.card video{width:100%;height:130px;border-radius:12px;object-fit:cover;background:#000;display:block;pointer-events:none}
 .card h3{font-size:12px;margin:8px 0 2px}
-.tag{display:inline-block;font-size:8px;padding:3px 6px;border-radius:8px;font-weight:800;margin-top:4px;background:#ff1a1a}
+.tag{display:inline-block;font-size:8px;padding:3px 6px;border-radius:8px;font-weight:800;background:#ff1a1a}
 .price{font-size:13px;font-weight:900;color:#ff3b3b;margin-top:4px;opacity:0.8}
 .stars{font-size:10px;color:#ffcc00}
 .avis-section{padding:12px}
-.avis-card{background:#161616;border:1px solid #222;border-radius:15px;padding:12px;margin-bottom:8px;font-size:12px;line-height:1.4}
+.avis-card{background:#161616;border:1px solid #222;border-radius:15px;padding:12px;margin-bottom:8px;font-size:12px;position:relative}
+.avis-card .status{position:absolute;top:10px;right:10px;font-size:9px;padding:3px 7px;border-radius:10px;font-weight:800}
+.status.wait{background:#ffcc00;color:#000}.status.sent{background:#25D366;color:#fff}
 .info-box{background:#161616;border:1px solid #222;border-radius:15px;padding:14px;margin-bottom:10px}
-.input,.textarea{width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px;border-radius:11px;margin-top:8px;font-size:13px;outline:none}
+.input, .textarea{width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px;border-radius:11px;margin-top:8px;font-size:13px;outline:none}
 .textarea{resize:none;height:70px}
-.star-select{display:flex;gap:6px;margin-top:8px}
-.star-select button{background:#111;border:1px solid #222;border-radius:10px;padding:6px 10px;color:#fff;cursor:pointer}
-.star-select button.active{border-color:#ffcc00;background:#2a2200}
-.cart-float{position:fixed;bottom:18px;right:18px;background:#ff1a1a;color:#fff;width:62px;height:62px;border-radius:50%;display:none;align-items:center;justify-content:center;z-index:200;cursor:pointer;font-size:22px;box-shadow:0 8px 25px rgba(255,0,0,0.5)}
+.cart-float{position:fixed;bottom:18px;right:18px;background:#ff1a1a;color:#fff;width:62px;height:62px;border-radius:50%;display:none;align-items:center;justify-content:center;z-index:200;cursor:pointer;font-size:22px}
 .cart-float.show{display:flex}
 .cart-float .badge{position:absolute;top:-4px;right:-4px;background:#fff;color:#000;font-size:11px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800}
 .cart-drawer{position:fixed;bottom:0;left:0;right:0;background:#121212;border-top:1px solid #222;border-radius:22px 22px 0 0;padding:20px;transform:translateY(110%);transition:0.35s;z-index:300;max-height:92vh;overflow:auto}
@@ -50,77 +48,93 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .social a{padding:8px 14px;border-radius:20px;font-size:11px;font-weight:800;text-decoration:none;color:#fff}
 .social .canal{background:#24A1DE}.social .insta{background:linear-gradient(135deg,#f58529,#dd2a7b,#515bd4)}.social .whats{background:#25D366}
 .footer{text-align:center;padding:15px;opacity:0.3;font-size:10px}
-.gift-banner{display:none;background:linear-gradient(135deg,#ffcc00,#ff7a00);color:#000;padding:12px;border-radius:12px;font-weight:900;text-align:center;margin-top:10px}
+.gift-banner{display:none;background:linear-gradient(135deg,#ffcc00,#ff7a00);color:#000;padding:12px;border-radius:12px;font-weight:900;text-align:center;margin-top:10px;font-size:13px}
 .gift-banner.show{display:block}
+.star-select{display:flex;gap:6px;margin-top:8px}
+.star-select button{background:#111;border:1px solid #222;border-radius:10px;padding:6px 10px;color:#fff;cursor:pointer}
+.star-select button.active{border-color:#ffcc00;background:#2a2200}
 
-/* FICHE PRODUIT - VERSION AVEC VIDEO A LA PLACE DES CASES */
-.product-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:#070707;z-index:1000;overflow:auto;transform:translateY(100%);transition:0.4s cubic-bezier(0.16,1,0.3,1);display:flex;flex-direction:column}
+/* FICHE PRODUIT AVEC QUANTITES */
+.product-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:#070707;z-index:1000;overflow:auto;transform:translateY(100%);transition:0.35s;display:flex;flex-direction:column}
 .product-modal.open{transform:translateY(0)}
-.prod-header{position:sticky;top:0;z-index:10;background:rgba(7,7,7,0.95);backdrop-filter:blur(10px);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222}
+.prod-header{display:flex;justify-content:space-between;align-items:center;padding:14px;background:rgba(0,0,0,0.9);position:sticky;top:0;z-index:5;border-bottom:1px solid #222}
 .prod-header button{background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer}
-.prod-content{padding:18px}
-.prod-content h2{font-size:22px;font-weight:900}
-.prod-content .stars{font-size:13px;margin:6px 0}
+.prod-video-wrap{position:relative;background:#000}
+.prod-video-wrap video{width:100%;height:42vh;object-fit:cover;display:block;background:#000}
+.prod-badge{position:absolute;top:14px;left:14px;background:#ff1a1a;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:900}
+.prod-content{padding:16px}
 .prod-desc{font-size:13px;line-height:1.5;opacity:0.8;margin-top:10px;background:#151515;border:1px solid #222;border-radius:12px;padding:12px}
-
-/* VIDEO QUI REMPLACE LES CASES */
-.prod-video-replace{width:100%;height:38vh;background:#000;border-radius:18px;overflow:hidden;border:1px solid #222;margin-top:14px;position:relative}
-.prod-video-replace video{width:100%;height:100%;object-fit:cover;display:block}
-
 .qte-section{margin-top:18px}
-.qte-title{font-size:11px;letter-spacing:1px;opacity:0.6;font-weight:800;margin-bottom:10px}
+.qte-title{font-size:11px;letter-spacing:1.5px;opacity:0.6;font-weight:800;margin-bottom:10px}
 .grid-qte{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.btn-qte{background:#161616;border:1px solid #333;border-radius:14px;padding:14px;text-align:center;cursor:pointer}
+.btn-qte{background:#161616;border:1px solid #333;border-radius:14px;padding:14px;text-align:center;cursor:pointer;transition:0.2s}
 .btn-qte.active{background:#fff;color:#000;border-color:#fff;transform:scale(0.97)}
 .btn-qte b{display:block;font-size:14px;font-weight:900}
 .btn-qte span{font-size:12px;opacity:0.7}
-.prod-action{position:sticky;bottom:0;background:#070707;padding:14px 18px 20px;display:flex;border-top:1px solid #222;margin-top:auto}
+.btn-qte.full{grid-column:span 2}
+.prod-action{position:sticky;bottom:0;background:#070707;padding:14px 18px 20px;border-top:1px solid #222;margin-top:auto}
 .prod-avis-card{background:#161616;border:1px solid #222;border-radius:12px;padding:10px;margin-bottom:8px;font-size:12px}
 </style>
 </head>
 <body>
 
 <div class="header">
-<img src="logo.png.jpg">
+<img src="logo.png.jpg" alt="logo">
 <h1>COFFEE <span>SIMONE</span></h1>
-<p>PREMIUM HASH • PARIS LIVRAISON </p>
+<p>PREMIUM HASH • PARIS LIVRAISON</p>
 </div>
 
 <div class="daily">
 <div class="daily-top">
-<h3>FIDÉLITÉ</h3>
-<span style="font-size:11px;background:#111;border:1px solid #222;padding:5px 10px;border-radius:20px">Série: <b id="streak">1</b> jours 🔥 | <b id="ptsCount">0</b> POINTS</span>
+<h3>FIDÉLITÉ </h3>
+<span style="font-size:11px;background:#111;border:1px solid #222;padding:5px 10px;border-radius:20px">Série: <b id="streak">1</b>j 🔥 | <b id="ptsCount">0</b> PTS</span>
 </div>
 <div class="days">
-<div class="day active" id="d1">Jour 1<br><b></b></div><div class="day" id="d2">Jour 2<br><b></b></div><div class="day" id="d3">Jour 3<br><b></b></div><div class="day" id="d4">Jour 4<br><b></b></div><div class="day" id="d5">Jour 5<br><b></b></div><div class="day" id="d6">Jour 6<br><b></b></div><div class="day gift" id="d7">Jour 7<br><b>🎁</b></div>
+<div class="day active" id="d1">J1<br><b></b></div>
+<div class="day" id="d2">J2<br><b></b></div>
+<div class="day" id="d3">J3<br><b></b></div>
+<div class="day" id="d4">J4<br><b></b></div>
+<div class="day" id="d5">J5<br><b></b></div>
+<div class="day" id="d6">J6<br><b></b></div>
+<div class="day gift" id="d7">J7<br><b>🎁</b></div>
 </div>
 <button class="btn-claim" id="claimBtn" onclick="claimDaily()">Récupérer mes points 🪙</button>
-<div class="gift-banner" id="giftBanner">🎉 BRAVO ! TU AS UN PRODUIT OFFERT ! 🎉</div>
+<div class="gift-banner" id="giftBanner">🎉 PRODUIT OFFERT DÉBLOQUÉ !</div>
+<p id="claimMsg" style="font-size:11px;opacity:0.6;text-align:center;margin-top:8px"></p>
 </div>
 
-<div class="section-title">MENU </div>
+<div class="section-title"> MENU PREMIUM - CLIQUE POUR VOIR DÉTAIL</div>
 <div class="menu-grid" id="menuGrid"></div>
 
 <div class="avis-section" id="avis">
-<div class="section-title">⭐ AVIS BOUTIQUE</div>
+<div class="section-title">⭐ AVIS CLIENTS</div>
 <div id="avisList"></div>
 <div class="info-box" style="margin-top:12px">
 <h4 style="color:#ff1a1a">✍️ LAISSER UN AVIS</h4>
 <input id="avisName" class="input" placeholder="Ton pseudo">
 <div class="star-select">
-<button onclick="selectStars(1)" id="s1">⭐</button><button onclick="selectStars(2)" id="s2">⭐⭐</button><button onclick="selectStars(3)" id="s3">⭐⭐⭐</button><button onclick="selectStars(4)" id="s4">⭐⭐⭐⭐</button><button onclick="selectStars(5)" id="s5" class="active">⭐⭐⭐⭐⭐</button>
+<button onclick="selectStars(1)" id="s1">⭐</button>
+<button onclick="selectStars(2)" id="s2">⭐⭐</button>
+<button onclick="selectStars(3)" id="s3">⭐⭐⭐</button>
+<button onclick="selectStars(4)" id="s4">⭐⭐⭐⭐</button>
+<button onclick="selectStars(5)" id="s5" class="active">⭐⭐⭐⭐⭐</button>
 </div>
 <textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea>
 <button class="btn-main" onclick="postAvis()">Envoyer mon avis 📩</button>
+<p id="avisStatus" style="font-size:11px;text-align:center;margin-top:8px;opacity:0.7"></p>
 </div>
 </div>
 
-<div class="info-section" style="padding:12px">
+<div class="info-section" id="infos">
 <div class="section-title">ℹ️ INFOS</div>
 <div class="info-box"><h4 style="color:#ff1a1a">🚚 LIVRAISON</h4><p style="font-size:13px;opacity:0.8;margin-top:4px">Paris 20-40min / IDF 1H - 7j/7 10h-23h</p></div>
 <div class="info-box">
 <h4 style="color:#ff1a1a">📲 CONTACT</h4>
-<div class="social"><a class="canal" href="https://t.me/simone750" target="_blank">Telegram</a><a class="whats" href="https://wa.me/33744146189" target="_blank">WhatsApp</a><a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">Instagram</a></div>
+<div class="social" style="justify-content:flex-start;margin-top:10px">
+<a class="insta" href="https://t.me/simone750" target="_blank">simone</a>
+<a class="insta" href="https://wa.me/33744146189" target="_blank">WhatsApp</a>
+<a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">Instagram</a>
+</div>
 </div>
 </div>
 
@@ -130,52 +144,48 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div>
 <div id="cartList" style="margin-top:10px"></div>
 <div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div>
-<div id="freeProductMsg" style="display:none;background:#111;border:1px dashed #ffcc00;padding:10px;border-radius:10px;font-size:12px;text-align:center;margin-bottom:10px">🎁 Produit OFFERT Jour 7</div>
+<div id="freeProductMsg" style="display:none;background:#111;border:1px dashed #ffcc00;padding:10px;border-radius:10px;font-size:12px;text-align:center;margin-bottom:10px">🎁 Produit OFFERT (Jour 7)</div>
 <input id="addr" class="input" placeholder="📍 Adresse + code postal">
-<div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">18h-20h</button></div>
+<div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">12h-14h</button><button type="button" onclick="selectHour(this)">16h-18h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-22h</button></div>
 <input id="note" class="input" placeholder="Note livreur">
 <button class="btn-main" onclick="checkout()">Commander Telegram 🚀</button>
 <button class="btn-main" style="background:#25D366" onclick="checkoutWhatsApp()">WhatsApp </button>
 </div>
 
-<!-- FICHE PRODUIT DETAIL -->
 <div id="productModal" class="product-modal">
 <div class="prod-header">
 <button onclick="closeProduct()">✕</button>
-<span style="font-weight:800;font-size:13px">DÉTAIL PRODUIT</span>
-<button onclick="shareProduct()">↗</button>
+<span style="font-weight:800;font-size:12px">DÉTAIL PRODUIT</span>
+<span style="width:36px"></span>
 </div>
+<div class="prod-video-wrap"><video id="prodVideo" src="" autoplay muted loop playsinline></video><span id="prodTag" class="prod-badge">NOUVEAU</span></div>
 <div class="prod-content">
-<h2 id="prodName"></h2>
-<div class="stars">⭐⭐⭐⭐⭐ <span id="prodAvisCount" style="color:#fff;opacity:0.6;font-size:12px"></span></div>
-<div class="prod-desc" id="prodDesc"></div>
+<h2 id="prodName">PRODUIT</h2>
+<div class="stars" style="margin-top:6px">⭐⭐⭐⭐⭐ <span id="prodAvisCount" style="opacity:0.6;font-size:12px">(127 avis)</span></div>
+<div class="prod-desc" id="prodDesc">Description complète</div>
 
-<!-- VIDEO A LA PLACE DES 4 CASES -->
-<div class="prod-video-replace">
-<video id="prodVideo" autoplay muted loop playsinline webkit-playsinline controls></video>
-</div>
-
+<!-- QUANTITES COMME SUR TIKTOK -->
 <div class="qte-section">
 <div class="qte-title">SÉLECTIONNER LA QUANTITÉ</div>
 <div class="grid-qte" id="qteGrid"></div>
 </div>
 
+<!-- AVIS PRODUIT -->
 <div style="margin-top:20px">
 <div style="font-size:11px;letter-spacing:1px;font-weight:800;margin-bottom:10px;display:flex;justify-content:space-between"><span>⭐ AVIS SUR CE PRODUIT</span><span id="prodAvisNb" style="opacity:0.6"></span></div>
 <div id="prodAvisList"></div>
 <div class="info-box" style="margin-top:12px">
-<h4 style="color:#ff1a1a;font-size:12px">✍️ LAISSER UN AVIS SUR CE PRODUIT</h4>
+<h4 style="color:#ff1a1a;font-size:12px">✍️ LAISSER UN AVIS</h4>
 <input id="prodAvisName" class="input" placeholder="Ton pseudo">
-<div class="star-select">
-<button onclick="selectProdStars(1)" id="ps1">⭐</button><button onclick="selectProdStars(2)" id="ps2">⭐⭐</button><button onclick="selectProdStars(3)" id="ps3">⭐⭐⭐</button><button onclick="selectProdStars(4)" id="ps4">⭐⭐⭐⭐</button><button onclick="selectProdStars(5)" id="ps5" class="active">⭐⭐⭐⭐⭐</button>
-</div>
+<div class="star-select"><button onclick="selectProdStars(1)" id="ps1">⭐</button><button onclick="selectProdStars(2)" id="ps2">⭐⭐</button><button onclick="selectProdStars(3)" id="ps3">⭐⭐⭐</button><button onclick="selectProdStars(4)" id="ps4">⭐⭐⭐⭐</button><button onclick="selectProdStars(5)" id="ps5" class="active">⭐⭐⭐⭐⭐</button></div>
 <textarea id="prodAvisText" class="textarea" placeholder="T'en as pensé quoi ?"></textarea>
-<button class="btn-main" onclick="postProdAvis()">Envoyer mon avis</button>
+<button class="btn-main" onclick="postProdAvis()">Envoyer</button>
 </div>
 </div>
+
 </div>
 <div class="prod-action">
-<button id="prodAddBtn" class="btn-main" style="margin:0;flex:1;opacity:0.3;pointer-events:none">Sélectionnez une quantité</button>
+<button id="prodAddBtn" class="btn-main" style="margin:0;opacity:0.3;pointer-events:none">Sélectionnez une quantité</button>
 </div>
 </div>
 
@@ -184,32 +194,29 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <script>
 const tg = window.Telegram?.WebApp; if(tg) tg.expand();
 
-const PRODUCTS = {
- p1:{id:'p1',name:'MOUSSEUX',tag:'',video:'mousseux.mp4.MP4',poster:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse, goût classique et unique en bouche',
- variants:[{label:'10G',price:50},{label:'25G',price:100},{label:'50G',price:160},{label:'100G',price:300}], avis:[{name:'@Leo_92',stars:5,text:'Texture de fou, mousse au top.'},{name:'@Ines75',stars:5,text:'Goût carre hyper doux.'}]},
- p2:{id:'p2',name:'CASABLANCA',tag:'',video:'Casablanca.mp4.MOV',poster:'Casablanca.mp4.MOV',desc:'Edition Frozen ultra fraîche. Effet glacé direct, goût brew. Réservé aux connaisseurs.',
- variants:[{label:'10G',price:110},{label:'25G',price:200},{label:'50G',price:370}], avis:[{name:'@Samy',stars:5,text:'Ca défonce vraiment, effet direct.'},{name:'@Karim93',stars:5,text:'Très fort, 2 bare et t’es posé.'}]},
- p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',poster:'frozen.mp4.MP4',desc:'Edition Fresh Frozen, hash ultra concentré. Effet direct, goût brew. Réservé aux connaisseurs. Stock limité.',
- variants:[{label:'10G',price:130},{label:'25G',price:220},{label:'50G',price:400}], avis:[{name:'@Sofia',stars:5,text:'hash vrm premium.'}]},
- p4:{id:'p4',name:'CALIPLATE',tag:'',video:'caliplate.mp4.MP4',poster:'caliplate.mp4.MP4',desc:'Haschisch compressé caliplate. Inspiré des méthodes californiennes, il offre une saveur intense et procure, effets unique et exceptionnels.',
- variants:[{label:'10G',price:130},{label:'25G',price:240}], avis:[{name:'@Nora',stars:5,text:'Goût caramel 😍'}]},
- p5:{id:'p5',name:'EDDIBLES',tag:'75MG',video:'eddibles.mp4.MOV',poster:'eddibles.mp4.MOV',desc:'Edition pistache rare, goût noisette pistache, effet créatif et social.', variants:[{label:'3unité',price:50},{label:'10unité',price:100}], avis:[{name:'@Yanis',stars:5,text:'Goût unique !'}]},
- p6:{id:'p6',name:'COCAINE',tag:'COLOMBIA',video:'coca.mp4.MP4',poster:'coca.mp4.MP4',desc:'Pure cocaine intense, torréfiée, effet relax profond. Très demandé.', variants:[{label:'1G',price:70},{label:'2G',price:120}], avis:[{name:'@Rayan',stars:5,text:'Très bon.'}]},
+// ICI TU METS TES QUANTITES PAR PRODUIT - COMME SUR TIKTOK
+const PRODUCTS={
+ p1:{name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse, goût classique et unique en bouche.', variants:[{label:'10G',price:50},{label:'25G',price:125},{label:'50G',price:200},{label:'100G',price:300},{label:'1000G',price:2200}], avis:[{name:'@Leo_92',stars:5,text:'Texture de fou, ça mousse direct.'},{name:'@Ines',stars:5,text:'Top qualité'}]},
+ p2:{name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Edition Fresh Frozen, hash ultra concentré. Effet direct, goût brew. Réservé aux connaisseurs.', variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:230},{label:'100G',price:350}], avis:[{name:'@Samy',stars:5,text:'Le frozen il défonce vraiment.'}]},
+ p3:{name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Edition Fresh Frozen, hash ultra concentré. Effet direct, goût brew. Stock limité.', variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:230}], avis:[{name:'@Karim',stars:5,text:'Très fort, posé direct.'}]},
+ p4:{name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'haschisch compressé caliplate. Inspiré des méthodes californiennes, saveur intense.', variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:240}], avis:[{name:'@Nora',stars:5,text:'Goût cali de fou'}]},
+ p5:{name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Edition unique de bonbon infusé au thc rare, goût fraise kiwi, effet créatif.', variants:[{label:'1 PIECE',price:15},{label:'5 PIECES',price:60},{label:'10 PIECES',price:100}], avis:[{name:'@Yanis',stars:5,text:'Hyper fort, attention'}]},
+ p6:{name:'COCA',tag:'1G',video:'coca.mp4.MP4',desc:'Pure cocaine intense, torréfiée, effet relax profond.', variants:[{label:'1G',price:70},{label:'2G',price:130},{label:'5G',price:300}], avis:[{name:'@Rayan',stars:5,text:'Qualité au top'}]}
 };
 
-let cart={}, selectedHour="Au plus vite ⚡", selectedStars=5, selectedProdStars=5, currentProd=null, selectedVariant=null;
-let pts=parseInt(localStorage.getItem('simone_pts')||'90'), streak=parseInt(localStorage.getItem('simone_streak')||'1'), lastClaim=localStorage.getItem('simone_lastClaim')||'', hasFreeProduct=localStorage.getItem('simone_free')==='1', avisList=JSON.parse(localStorage.getItem('simone_avis')||'[]');
+let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,selectedProdStars=5,currentProd=null,selectedVariant=null;
+let pts=parseInt(localStorage.getItem('simone_pts')||'0'),streak=parseInt(localStorage.getItem('simone_streak')||'1'),lastClaim=localStorage.getItem('simone_lastClaim')||'',hasFreeProduct=localStorage.getItem('simone_free')==='1',avisList=JSON.parse(localStorage.getItem('simone_avis')||'[]');
 
 function buildGrid(){
- let grid=document.getElementById('menuGrid'); let html='';
+ let grid=document.getElementById('menuGrid');let html='';
  for(let id in PRODUCTS){
   let p=PRODUCTS[id];
   html+=`<div class="card" onclick="openProduct('${id}')">
-   <video src="${p.video}" poster="${p.poster}" muted loop playsinline webkit-playsinline preload="metadata" onloadeddata="this.play().catch(()=>{})"></video>
+   <video src="${p.video}" autoplay muted loop playsinline></video>
    <span class="tag">${p.tag}</span>
    <h3>${p.name}</h3>
    <div class="stars">⭐⭐⭐⭐⭐</div>
-   <div class="price">À partir de ${p.variants[0].price}€ • Voir détail </div>
+   <div class="price">À partir de ${p.variants[0].price}€ • Voir détail 👁️</div>
   </div>`;
  }
  grid.innerHTML=html;
@@ -218,17 +225,21 @@ buildGrid();
 
 function openProduct(id){
  currentProd=PRODUCTS[id]; selectedVariant=null;
- let v=document.getElementById('prodVideo'); v.src=currentProd.video; v.poster=currentProd.poster; v.load(); v.play().catch(()=>{});
+ document.getElementById('prodVideo').src=currentProd.video;
  document.getElementById('prodName').textContent=currentProd.name;
+ document.getElementById('prodTag').textContent=currentProd.tag;
  document.getElementById('prodDesc').textContent=currentProd.desc;
- document.getElementById('prodAvisCount').textContent=`(${currentProd.avis.length+120} avis)`;
- let qteHtml=''; currentProd.variants.forEach(vr=>{ qteHtml+=`<div class="btn-qte" onclick="selectVariant(this,'${vr.label}',${vr.price})"><b>${vr.label}</b><span>${vr.price}€</span></div>`; });
+ document.getElementById('prodAvisCount').textContent=`(${currentProd.avis.length+127} avis)`;
+ let qteHtml=''; currentProd.variants.forEach(v=>{
+   let cls = v.label==='1000G' || v.label==='10 PIECES' ? 'btn-qte full' : 'btn-qte';
+   qteHtml+=`<div class="${cls}" onclick="selectVariant(this,'${v.label}',${v.price})"><b>${v.label}</b><span>${v.price}€</span></div>`;
+ });
  document.getElementById('qteGrid').innerHTML=qteHtml;
  let btn=document.getElementById('prodAddBtn'); btn.textContent='Sélectionnez une quantité'; btn.style.opacity='0.3'; btn.style.pointerEvents='none';
  renderProdAvis(id);
- document.getElementById('productModal').classList.add('open'); document.body.style.overflow='hidden';
+ document.getElementById('productModal').classList.add('open');
 }
-function closeProduct(){document.getElementById('productModal').classList.remove('open');document.body.style.overflow='';document.getElementById('prodVideo').pause();}
+function closeProduct(){document.getElementById('productModal').classList.remove('open');document.getElementById('prodVideo').pause();}
 function selectVariant(el,label,price){
  document.querySelectorAll('#qteGrid .btn-qte').forEach(b=>b.classList.remove('active'));
  el.classList.add('active'); selectedVariant={label,price};
@@ -236,11 +247,12 @@ function selectVariant(el,label,price){
  if(tg) tg.HapticFeedback.selectionChanged();
 }
 function addProdToCart(){
- if(!selectedVariant) return;
+ if(!selectedVariant){alert('Choisis une quantité !');return;}
  let cartId=currentProd.id+'_'+selectedVariant.label;
  if(!cart[cartId]) cart[cartId]={name:currentProd.name,qteLabel:selectedVariant.label,price:selectedVariant.price,qty:1,total:selectedVariant.price};
  else{cart[cartId].qty++; cart[cartId].total=cart[cartId].qty*cart[cartId].price;}
  updateCart(); closeProduct(); openCart();
+ if(tg) tg.HapticFeedback.notificationOccurred('success');
 }
 function getSavedProdAvis(pid){return JSON.parse(localStorage.getItem('simone_avis_'+pid)||'[]');}
 function renderProdAvis(pid){
@@ -248,22 +260,36 @@ function renderProdAvis(pid){
  let html=''; all.forEach(a=>{ html+=`<div class="prod-avis-card"><div style="display:flex;justify-content:space-between"><b>${a.name}</b><span style="color:#ffcc00">${'⭐'.repeat(a.stars)}</span></div><p style="margin-top:4px;opacity:0.8">${a.text}</p></div>`; });
  document.getElementById('prodAvisList').innerHTML=html; document.getElementById('prodAvisNb').textContent=all.length+' avis';
 }
-function selectStars(n){selectedStars=n;for(let i=1;i<=5;i++)document.getElementById('s'+i).classList.toggle('active',i===n);}
-function selectProdStars(n){selectedProdStars=n;for(let i=1;i<=5;i++)document.getElementById('ps'+i).classList.toggle('active',i===n);}
-function postAvis(){let name=document.getElementById('avisName').value.trim(), text=document.getElementById('avisText').value.trim();if(!name||!text){alert('Remplis tout');return;}avisList.unshift({name,text,stars:selectedStars});localStorage.setItem('simone_avis',JSON.stringify(avisList));document.getElementById('avisName').value='';document.getElementById('avisText').value='';renderAvis();}
-function postProdAvis(){let name=document.getElementById('prodAvisName').value.trim(), text=document.getElementById('prodAvisText').value.trim();if(!name||!text){alert('Remplis tout');return;}let pid=currentProd.id;let saved=getSavedProdAvis(pid);saved.unshift({name,stars:selectedProdStars,text});localStorage.setItem('simone_avis_'+pid,JSON.stringify(saved));document.getElementById('prodAvisName').value='';document.getElementById('prodAvisText').value='';renderProdAvis(pid);}
-function renderAvis(){let html='';avisList.forEach(a=>{html+=`<div class="avis-card"><b>${a.name}</b><br><span style="color:#ffcc00">${'⭐'.repeat(a.stars)}</span><br>${a.text}</div>`;});html+=`<div class="avis-card"><b>@Alex_75</b><br><span style="color:#ffcc00">⭐⭐⭐⭐⭐</span><br>Toujours carré, 25min top 👌</div>`;document.getElementById('avisList').innerHTML=html;}
-function refreshUI(){document.getElementById('ptsCount').textContent=pts;document.getElementById('streak').textContent=streak;for(let i=1;i<=7;i++){let el=document.getElementById('d'+i);if(el)el.classList.toggle('active',i<=streak);}let today=new Date().toDateString();if(lastClaim===today){document.getElementById('claimBtn').textContent='Déjà récupéré ✅';document.getElementById('claimBtn').style.opacity='0.5';}else{let g=streak>=6?300:50+streak*10;document.getElementById('claimBtn').textContent='Récupérer +'+g+' POINTS 🪙';}document.getElementById('giftBanner').classList.toggle('show',hasFreeProduct);document.getElementById('freeProductMsg').style.display=hasFreeProduct?'block':'none';renderAvis();}
+function refreshUI(){
+ document.getElementById('ptsCount').textContent=pts;
+ document.getElementById('streak').textContent=streak;
+ for(let i=1;i<=7;i++){let el=document.getElementById('d'+i);if(el)el.classList.toggle('active',i<=streak);}
+ let today=new Date().toDateString();
+ if(lastClaim===today){document.getElementById('claimBtn').textContent='Déjà récupéré ✅';document.getElementById('claimBtn').style.opacity='0.5';document.getElementById('claimMsg').textContent='Reviens demain !';}
+ else{let g=streak>=6?300:50+streak*10;document.getElementById('claimBtn').textContent='Récupérer +'+g+' POINTS 🪙';document.getElementById('claimMsg').textContent=streak===6?'Prochain jour = PRODUIT OFFERT 🎁':'';}
+ document.getElementById('giftBanner').classList.toggle('show',hasFreeProduct);
+ document.getElementById('freeProductMsg').style.display=hasFreeProduct?'block':'none';
+ renderAvis();
+}
 refreshUI();
 function claimDaily(){let today=new Date().toDateString();if(lastClaim===today){alert('Déjà récupéré !');return;}let gain=streak>=6?300:50+streak*10;pts+=gain;streak+=1;if(streak===7){hasFreeProduct=true;localStorage.setItem('simone_free','1');alert('🎉 JOUR 7 ! PRODUIT OFFERT !');streak=0;}else alert('✅ +'+gain+' POINTS !');lastClaim=today;localStorage.setItem('simone_pts',pts);localStorage.setItem('simone_streak',streak);localStorage.setItem('simone_lastClaim',today);refreshUI();}
-function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=cart[id].qty;l+=`<div style="display:flex;justify-content:space-between;margin:8px 0;font-size:13px;background:#1a1a1a;padding:10px;border-radius:10px"><span><b>${cart[id].name}</b><br><small style="opacity:0.6">Quantité: ${cart[id].qteLabel} x${cart[id].qty}</small></span><span style="font-weight:900">${cart[id].total}€</span></div>`;}if(hasFreeProduct){l+=`<div style="display:flex;justify-content:space-between;margin:6px 0;font-size:13px;color:#ffcc00;font-weight:800"><span>🎁 OFFERT x1</span><span>0€</span></div>`;c+=1;}document.getElementById('cartBadge').textContent=c;document.getElementById('cartList').innerHTML=l||'Panier vide';document.getElementById('cartTotal').textContent=t+'€';document.getElementById('cartFloat').classList.toggle('show',c>0);}
+function selectStars(n){selectedStars=n;for(let i=1;i<=5;i++){document.getElementById('s'+i).classList.toggle('active',i===n);}}
+function selectProdStars(n){selectedProdStars=n;for(let i=1;i<=5;i++){document.getElementById('ps'+i).classList.toggle('active',i===n);}}
+function postAvis(){
+ let name=document.getElementById('avisName').value.trim(),text=document.getElementById('avisText').value.trim();
+ if(!name||!text){alert('Remplis tout !');return;}
+ document.getElementById('avisStatus').textContent='⏳ Envoi en cours...';
+ setTimeout(()=>{avisList.unshift({name:name,text:text,stars:selectedStars,status:'wait'});localStorage.setItem('simone_avis',JSON.stringify(avisList));document.getElementById('avisName').value='';document.getElementById('avisText').value='';document.getElementById('avisStatus').textContent='✅ Avis envoyé';renderAvis();},500);
+}
+function postProdAvis(){let name=document.getElementById('prodAvisName').value.trim(),text=document.getElementById('prodAvisText').value.trim();if(!name||!text){alert('Remplis tout');return;}let pid=currentProd.id;let saved=getSavedProdAvis(pid);saved.unshift({name,stars:selectedProdStars,text});localStorage.setItem('simone_avis_'+pid,JSON.stringify(saved));document.getElementById('prodAvisName').value='';document.getElementById('prodAvisText').value='';renderProdAvis(pid);}
+function renderAvis(){let html='';avisList.forEach(a=>{let badge=a.status==='wait'?'<span class="status wait">⏳ En attente</span>':'<span class="status sent">✅ Envoyé</span>';html+=`<div class="avis-card">${badge}<b>${a.name}</b><br><span style="color:#ffcc00">${'⭐'.repeat(a.stars)}</span><br>${a.text}</div>`;});html+=`<div class="avis-card"><b>@Alex_75</b><br><span style="color:#ffcc00">⭐⭐⭐⭐⭐</span><br>Toujours carré, 25min top 👌</div><div class="avis-card"><b>@SP</b><br><span style="color:#ffcc00">⭐⭐⭐⭐⭐</span><br>Le mousseux incroyable ❤️</div>`;document.getElementById('avisList').innerHTML=html;}
+function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=cart[id].qty;l+=`<div style="display:flex;justify-content:space-between;margin:8px 0;font-size:13px;background:#1a1a1a;padding:10px;border-radius:10px"><span><b>${cart[id].name}</b><br><small style="opacity:0.6">Quantité: ${cart[id].qteLabel} x${cart[id].qty}</small></span><div style="display:flex;gap:8px;align-items:center"><span style="font-weight:900">${cart[id].total}€</span><span onclick="delete cart['${id}'];updateCart()" style="color:#ff3b3b;cursor:pointer">✕</span></div></div>`}if(hasFreeProduct){l+=`<div style="display:flex;justify-content:space-between;margin:6px 0;font-size:13px;color:#ffcc00;font-weight:800"><span>🎁 OFFERT</span><span>0€</span></div>`;c+=1;}document.getElementById('cartBadge').textContent=c;document.getElementById('cartList').innerHTML=l||'Panier vide';document.getElementById('cartTotal').textContent=t+'€';document.getElementById('cartFloat').classList.toggle('show',c>0);}
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-function buildMsg(){let total=0,msg=`🔥 SALUT SIMONE 🔥\n\n`;for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}if(total===0&&!hasFreeProduct){alert("Panier vide !");return null;}if(hasFreeProduct)msg+=`- 🎁 OFFERT x1\n`;msg+=`\n💰 TOTAL: ${total}€\n`;let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;return msg;}
-function checkout(){let m=buildMsg();if(!m)return;if(tg){try{tg.sendData(m);}catch(e){} tg.openTelegramLink(`https://t.me/simone750?text=${encodeURIComponent(m)}`);}else{window.location.href=`https://t.me/simone750?text=${encodeURIComponent(m)}`;}}
+function buildMsg(){let total=0,msg=`🔥 NOUVELLE COMMANDE SIMONE 🔥\n\n`;for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}if(total===0&&!hasFreeProduct){alert("Panier vide !");return null;}if(hasFreeProduct)msg+=`- 🎁 OFFERT x1\n`;msg+=`\n💰 TOTAL: ${total}€\n`;let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;let n=document.getElementById('note').value.trim();if(n)msg+=`📝 ${n}\n`;return msg;}
+function checkout(){let m=buildMsg();if(!m)return;if(tg){try{tg.sendData(m);}catch(e){} tg.openTelegramLink(`https://t.me/simone750?text=${encodeURIComponent(m)}`);}else{window.open(`https://t.me/simone750?text=${encodeURIComponent(m)}`,"_blank");}}
 function checkoutWhatsApp(){let m=buildMsg();if(!m)return;if(tg){tg.openTelegramLink(`https://wa.me/33744146189?text=${encodeURIComponent(m)}`);}else{window.open(`https://wa.me/33744146189?text=${encodeURIComponent(m)}`,"_blank");}}
-function shareProduct(){if(navigator.share){navigator.share({title:currentProd.name});}}
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
 </script>
 </body>
