@@ -124,7 +124,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="gift-banner" id="giftBanner">🎉 PRODUIT OFFERT DÉBLOQUÉ !</div>
 </div>
 
-<div class="section-title"> MENU PREMIUM - CLIQUE POUR VOIR DÉTAIL</div>
+<div class="section-title"> MENU</div>
 <div class="menu-grid" id="menuGrid"></div>
 
 <div class="avis-section" id="avis">
@@ -196,12 +196,12 @@ function hideSplash(){document.getElementById('splash').classList.add('hide');}
 setTimeout(hideSplash, 2600);
 
 const PRODUCTS={
- p1:{name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse, goût classique et unique en bouche.', variants:[{label:'10G',price:50},{label:'25G',price:125},{label:'50G',price:200},{label:'100G',price:300},{label:'1000G',price:2200}], avis:[{name:'@Leo_92',stars:5,text:'Texture de fou, ça mousse direct.'}]},
- p2:{name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Edition Fresh Frozen, hash ultra concentré.', variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:230},{label:'100G',price:350}], avis:[{name:'@Samy',stars:5,text:'Le frozen il défonce vraiment.'}]},
- p3:{name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Edition Fresh Frozen, hash ultra concentré.', variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:230}], avis:[]},
- p4:{name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'haschisch compressé caliplate.', variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:240}], avis:[]},
- p5:{name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Edition unique de bonbon infusé au thc rare.', variants:[{label:'1 PIECE',price:15},{label:'5 PIECES',price:60},{label:'10 PIECES',price:100}], avis:[]},
- p6:{name:'COCA',tag:'1G',video:'coca.mp4.MP4',desc:'Pure intense.', variants:[{label:'1G',price:70},{label:'2G',price:130},{label:'5G',price:300}], avis:[]}
+ p1:{name:'MOUSSEUX',tag:'HASH',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse, goût classique et unique en bouche.', variants:[{label:'10G',price:50},{label:'25G',price:100},{label:'50G',price:160},{label:'100G',price:300},{label:'1KG',price:2900}], avis:[{name:'@titi',stars:5,text:'Texture de fou, mousse au top.'}]},
+ p2:{name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Edition Fresh Frozen, hash ultra concentré.', variants:[{label:'10G',price:110},{label:'25g',price:200},{label:'50G',price:400},{label:'100G',price:670}], avis:[{name:'@Samy',stars:5,text:'Le frozen il défonce vraiment.'}]},
+ p3:{name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Edition Fresh Frozen, hash ultra concentré.', variants:[{label:'10G',price:130},{label:'25G',price:210},{label:'50G',price:400}], avis:[{name:'@azert',stars:5,text:'❤️❤️❤️❤️.'}]},
+ p4:{name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'haschisch compressé caliplate.', variants:[{label:'10G',price:130},{label:'25G',price:230},{label:'50G',price:420}], avis:[]},
+ p5:{name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Edition unique de bonbon infusé au thc rare.', variants:[{label:'1 PIECE',price:20},{label:'5 PIECES',price:50},{label:'10 PIECES',price:100}], avis:[{name:'@Leo_92',stars:5,text:'Attention cet vrm fort.'}]},
+ p6:{name:'COCA',tag:'1G',video:'coca.mp4.MP4',desc:'Pure intense.', variants:[{label:'1G',price:70},{label:'2G',price:130},{label:'5G',price:300}], avis:[{name:'@myo',stars:5,text:'Tres bon.'}]},
 };
 
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,selectedProdStars=5,currentProd=null,selectedVariant=null;
