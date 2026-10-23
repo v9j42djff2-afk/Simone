@@ -200,8 +200,8 @@ const PRODUCTS={
  p2:{name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Edition Fresh Frozen, hash ultra concentré.', variants:[{label:'10G',price:110},{label:'25g',price:200},{label:'50G',price:400},{label:'100G',price:670}], avis:[{name:'@Samy',stars:5,text:'Le frozen il défonce vraiment.'}]},
  p3:{name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Edition Fresh Frozen, hash ultra concentré.', variants:[{label:'10G',price:130},{label:'25G',price:210},{label:'50G',price:400}], avis:[{name:'@azert',stars:5,text:'❤️❤️❤️❤️.'}]},
  p4:{name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'haschisch compressé caliplate.', variants:[{label:'10G',price:130},{label:'25G',price:230},{label:'50G',price:420}], avis:[]},
- p5:{name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Edition unique de bonbon infusé au thc rare.', variants:[{label:'1 PIECE',price:20},{label:'5 PIECES',price:50},{label:'10 PIECES',price:100}], avis:[{name:'@Leo_92',stars:5,text:'Attention cet vrm fort.'}]},
- p6:{name:'COCA',tag:'1G',video:'coca.mp4.MP4',desc:'Pure intense.', variants:[{label:'1G',price:70},{label:'2G',price:130},{label:'5G',price:300}], avis:[{name:'@myo',stars:5,text:'Tres bon.'}]},
+ p5:{name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Edition unique de bonbon infusé au thc rare.', variants:[{label:'1 PIECE',price:20},], avis:[{name:'@Leo_92',stars:5,text:'Attention cet vrm fort.'}]},
+ p6:{name:'COCAINE',tag:'COLOMBIA',video:'coca.mp4.MP4',desc:'Pure intense.', variants:[{label:'1G',price:70},{label:'2G',price:130},{label:'5G',price:300}], avis:[{name:'@myo',stars:5,text:'Tres bon.'}]},
 };
 
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,selectedProdStars=5,currentProd=null,selectedVariant=null;
@@ -272,7 +272,7 @@ function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-function buildMsg(){let total=0,msg=`🔥 COMMANDE SIMONE 🔥\n\n`;for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}if(total===0){alert("Panier vide !");return null;}msg+=`\n💰 TOTAL: ${total}€\n`;let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;return msg;}
+function buildMsg(){let total=0,msg=`🔥 SALUT SIMONE 🔥\n\n`;for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}if(total===0){alert("Panier vide !");return null;}msg+=`\n💰 TOTAL: ${total}€\n`;let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;return msg;}
 function checkout(){let m=buildMsg();if(!m)return;if(tg){try{tg.sendData(m);}catch(e){} tg.openTelegramLink(`https://t.me/simone750?text=${encodeURIComponent(m)}`);}else{window.open(`https://t.me/simone750?text=${encodeURIComponent(m)}`,"_blank");}}
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
 </script>
