@@ -48,9 +48,6 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .hours button{padding:8px 12px;border-radius:20px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:11px;cursor:pointer}
 .hours button.active{background:#ff1a1a;border-color:#ff1a1a;font-weight:800}
 .btn-main{background:linear-gradient(135deg,#ff1a1a,#b30000);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;font-size:14px;cursor:pointer;margin-top:10px}
-.social{display:flex;gap:8px;justify-content:center;margin-top:10px;flex-wrap:wrap}
-.social a{padding:8px 14px;border-radius:20px;font-size:11px;font-weight:800;text-decoration:none;color:#fff}
-.social .canal{background:#24A1DE}.social .insta{background:linear-gradient(135deg,#f58529,#dd2a7b,#515bd4)}.social .whats{background:#25D366}
 .footer{text-align:center;padding:15px;opacity:0.3;font-size:10px}
 .gift-banner{display:none;background:linear-gradient(135deg,#ffcc00,#ff7a00);color:#000;padding:12px;border-radius:12px;font-weight:900;text-align:center;margin-top:10px;font-size:13px}
 .gift-banner.show{display:block}
@@ -58,21 +55,18 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 /* FICHE PRODUIT */
 .product-modal{position:fixed;top:0;left:0;right:0;bottom:0;background:#070707;z-index:1000;overflow:auto;transform:translateY(100%);transition:0.4s cubic-bezier(0.16,1,0.3,1);display:flex;flex-direction:column}
 .product-modal.open{transform:translateY(0)}
-.prod-header{position:sticky;top:0;z-index:10;background:rgba(7,7,7,0.9);backdrop-filter:blur(10px);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222}
+.prod-header{position:sticky;top:0;z-index:10;background:rgba(7,7,7,0.95);backdrop-filter:blur(10px);padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #222}
 .prod-header button{background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%;font-size:18px;cursor:pointer}
-.prod-video-wrap{position:relative;background:#000}
-.prod-video-wrap video{width:100%;height:52vh;object-fit:cover;display:block}
+.prod-video-wrap{position:relative;background:#000;width:100%;height:48vh;overflow:hidden}
+.prod-video-wrap video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.prod-video-wrap img{width:100%;height:100%;object-fit:cover;display:none}
 .prod-badge{position:absolute;top:14px;left:14px;background:#ff1a1a;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:900}
 .prod-content{padding:18px}
 .prod-content h2{font-size:22px;font-weight:900}
-.prod-content .stars{font-size:13px;margin:6px 0}
-.prod-desc{font-size:13px;line-height:1.5;opacity:0.8;margin-top:10px;background:#151515;border:1px solid #222;border-radius:12px;padding:12px}
 .prod-details{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
 .prod-details div{background:#161616;border:1px solid #222;border-radius:12px;padding:10px;text-align:center}
 .prod-details b{display:block;font-size:11px;color:#ff3b3b;margin-bottom:2px}
 .prod-details span{font-size:12px;font-weight:600}
-
-/* NOUVEAU STYLE QUANTITE TIKTOK */
 .qte-section{margin-top:18px}
 .qte-title{font-size:11px;letter-spacing:1px;opacity:0.6;font-weight:800;margin-bottom:10px}
 .grid-qte{display:grid;grid-template-columns:1fr 1fr;gap:10px}
@@ -80,8 +74,14 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .btn-qte.active{background:#fff;color:#000;border-color:#fff;transform:scale(0.97)}
 .btn-qte b{display:block;font-size:14px;font-weight:900}
 .btn-qte span{font-size:12px;opacity:0.7}
-.btn-qte.full{grid-column:span 2}
 .prod-action{position:sticky;bottom:0;background:linear-gradient(0deg,#070707 90%,transparent);padding:14px 18px 20px;display:flex;gap:10px;align-items:center;border-top:1px solid #222;margin-top:20px}
+
+/* AVIS PRODUIT */
+.prod-avis-section{margin-top:20px}
+.prod-avis-title{font-size:11px;letter-spacing:1px;font-weight:800;margin-bottom:10px;display:flex;justify-content:space-between}
+.prod-avis-card{background:#161616;border:1px solid #222;border-radius:12px;padding:10px;margin-bottom:8px;font-size:12px}
+.prod-avis-card b{font-size:12px}
+.prod-avis-card p{margin-top:4px;opacity:0.8;line-height:1.3}
 </style>
 </head>
 <body>
@@ -89,13 +89,13 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="header">
 <img src="logo.png.jpg" alt="logo">
 <h1>COFFEE <span>SIMONE</span></h1>
-<p>PREMIUM • CLIQUE SUR UN PRODUIT POUR VOIR</p>
+<p>PREMIUM • CLIQUE SUR UN PRODUIT</p>
 </div>
 
 <div class="daily">
 <div class="daily-top">
 <h3>🎁 RÉCOMPENSE QUOTIDIENNE</h3>
-<span style="font-size:11px;background:#111;border:1px solid #222;padding:5px 10px;border-radius:20px">Série: <b id="streak">1</b> jours 🔥 | 🔥 <b id="ptsCount">0</b> POINTS</span>
+<span style="font-size:11px;background:#111;border:1px solid #222;padding:5px 10px;border-radius:20px">Série: <b id="streak">1</b> jours 🔥 | <b id="ptsCount">0</b> POINTS</span>
 </div>
 <div class="days">
 <div class="day active" id="d1">Jour 1<br><b>50</b></div>
@@ -114,12 +114,12 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="section-title">☕ MENU PREMIUM - CLIQUE POUR VOIR DÉTAIL</div>
 <div class="menu-grid" id="menuGrid"></div>
 
-<div class="avis-section" id="avis">
-<div class="section-title">⭐ AVIS CLIENTS</div>
+<div class="avis-section">
+<div class="section-title">⭐ AVIS BOUTIQUE</div>
 <div id="avisList"></div>
 <div class="info-box" style="margin-top:12px">
-<h4 style="color:#ff1a1a">✍️ LAISSER UN AVIS</h4>
-<input id="avisName" class="input" placeholder="Ton pseudo (ex: @Alex_75)">
+<h4 style="color:#ff1a1a">✍️ LAISSER UN AVIS BOUTIQUE</h4>
+<input id="avisName" class="input" placeholder="Ton pseudo">
 <div class="star-select">
 <button onclick="selectStars(1)" id="s1">⭐</button>
 <button onclick="selectStars(2)" id="s2">⭐⭐</button>
@@ -129,7 +129,6 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </div>
 <textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea>
 <button class="btn-main" onclick="postAvis()">Envoyer mon avis 📩</button>
-<p id="avisStatus" style="font-size:11px;text-align:center;margin-top:8px;opacity:0.7"></p>
 </div>
 </div>
 
@@ -139,49 +138,66 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div>
 <div id="cartList" style="margin-top:10px"></div>
 <div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div>
-<div id="freeProductMsg" style="display:none;background:#111;border:1px dashed #ffcc00;padding:10px;border-radius:10px;font-size:12px;text-align:center;margin-bottom:10px">🎁 Produit OFFERT débloqué (Jour 7)</div>
+<div id="freeProductMsg" style="display:none;background:#111;border:1px dashed #ffcc00;padding:10px;border-radius:10px;font-size:12px;text-align:center;margin-bottom:10px">🎁 Produit OFFERT Jour 7</div>
 <input id="addr" class="input" placeholder="📍 Adresse + code postal">
-<div class="hours"><button type="button" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">12h-14h</button><button type="button" onclick="selectHour(this)">16h-18h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-22h</button></div>
+<div class="hours"><button type="button" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">12h-14h</button><button type="button" onclick="selectHour(this)">18h-20h</button></div>
 <input id="note" class="input" placeholder="Note livreur">
 <button class="btn-main" onclick="checkout()">Commander Telegram 🚀</button>
-<button class="btn-main" style="background:#25D366" onclick="checkoutWhatsApp()">WhatsApp 💬</button>
 </div>
 
 <!-- FICHE PRODUIT DETAIL -->
 <div id="productModal" class="product-modal">
 <div class="prod-header">
 <button onclick="closeProduct()">✕</button>
-<span style="font-weight:800;font-size:13px;letter-spacing:1px">DÉTAIL PRODUIT</span>
-<button onclick="shareProduct()" style="font-size:14px">↗</button>
+<span style="font-weight:800;font-size:13px">DÉTAIL PRODUIT</span>
+<button onclick="closeProduct()">↗</button>
 </div>
 <div class="prod-video-wrap">
-<video id="prodVideo" src="" autoplay muted loop playsinline controls></video>
+<video id="prodVideo" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+<img id="prodImage" src="" alt="">
 <span id="prodTag" class="prod-badge">NOUVEAU</span>
 </div>
 <div class="prod-content">
-<h2 id="prodName">MOUSSEUX LATTE</h2>
-<div class="stars">⭐⭐⭐⭐⭐ <span style="color:#fff;opacity:0.6;font-size:12px">(127 avis)</span></div>
-<div class="prod-desc" id="prodDesc">Description</div>
+<h2 id="prodName"></h2>
+<div class="stars" style="margin:6px 0">⭐⭐⭐⭐⭐ <span style="color:#fff;opacity:0.6;font-size:12px" id="prodAvisCount">(127 avis)</span></div>
+
+<!-- LES 4 CASES ORIGINE ETC - ON GARDE -->
 <div class="prod-details">
-<div><b>🧊 TEXTURE</b><span id="prodTexture">Crémeux</span></div>
-<div><b>🌍 ORIGINE</b><span id="prodOrigin">Californie</span></div>
-<div><b>⚡ EFFET</b><span id="prodEffect">Relax</span></div>
+<div><b>🧊 TEXTURE</b><span id="prodTexture"></span></div>
+<div><b>🌍 ORIGINE</b><span id="prodOrigin"></span></div>
+<div><b>⚡ EFFET</b><span id="prodEffect"></span></div>
 <div><b>🚚 LIVRAISON</b><span>20-40min</span></div>
 </div>
 
-<!-- ICI LA SELECTION QUANTITE COMME TIKTOK -->
 <div class="qte-section">
 <div class="qte-title">SÉLECTIONNER LA QUANTITÉ</div>
 <div class="grid-qte" id="qteGrid"></div>
 </div>
 
-<div class="info-box" style="margin-top:14px">
-<h4 style="color:#ff1a1a;font-size:12px">🔥 POURQUOI IL CARTONNE ?</h4>
-<p id="prodWhy" style="font-size:13px;opacity:0.8;margin-top:6px;line-height:1.4">...</p>
+<!-- ICI LES AVIS PAR PRODUIT -->
+<div class="prod-avis-section">
+<div class="prod-avis-title"><span>⭐ AVIS SUR CE PRODUIT</span><span id="prodAvisNb" style="opacity:0.6"></span></div>
+<div id="prodAvisList"></div>
+
+<div class="info-box" style="margin-top:12px">
+<h4 style="color:#ff1a1a;font-size:12px">✍️ LAISSER UN AVIS SUR CE PRODUIT</h4>
+<input id="prodAvisName" class="input" placeholder="Ton pseudo">
+<div class="star-select" id="prodStarSelect">
+<button onclick="selectProdStars(1)" id="ps1">⭐</button>
+<button onclick="selectProdStars(2)" id="ps2">⭐⭐</button>
+<button onclick="selectProdStars(3)" id="ps3">⭐⭐⭐</button>
+<button onclick="selectProdStars(4)" id="ps4">⭐⭐⭐⭐</button>
+<button onclick="selectProdStars(5)" id="ps5" class="active">⭐⭐⭐⭐⭐</button>
 </div>
+<textarea id="prodAvisText" class="textarea" placeholder="T'en as pensé quoi ?"></textarea>
+<button class="btn-main" onclick="postProdAvis()">Envoyer mon avis 📩</button>
+<p id="prodAvisStatus" style="font-size:11px;text-align:center;margin-top:6px;opacity:0.7"></p>
+</div>
+</div>
+
 </div>
 <div class="prod-action">
-<button id="prodAddBtn" class="btn-main" style="margin:0;flex:1;opacity:0.3;pointer-events:none" onclick="addProdToCart()">Sélectionnez une quantité</button>
+<button id="prodAddBtn" class="btn-main" style="margin:0;flex:1;opacity:0.3;pointer-events:none">Sélectionnez une quantité</button>
 </div>
 </div>
 
@@ -189,13 +205,21 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 
 <script>
 const PRODUCTS = {
- p1:{id:'p1',name:'MOUSSEUX LATTE',tag:'NOUVEAU',video:'mousseux.mp4.MP4',texture:'Mousseux / Crémeux',origin:'Californie Indoor',effect:'Relax • Créatif',desc:'Le best-seller de Simone. Texture ultra mousseuse qui fond, goût latte vanillé. Cultivé en indoor premium.',why:'• Goût latte unique introuvable ailleurs\n• Texture mousseuse qui colle aux doigts\n• 127 clients conquis',variants:[{label:'10G',price:50},{label:'25G',price:125},{label:'50G',price:200},{label:'100G',price:300},{label:'1000G',price:2200}]},
- p2:{id:'p2',name:'FROZEN BREW',tag:'HOT 🔥',video:'Casablanca.mp4.MOV',texture:'Frozen • Cristal',origin:'Amsterdam',effect:'Fort • Planant',desc:'Edition Frozen ultra fraîche. Effet glacé direct, goût mentholé brew.',why:'• Effet frozen immédiat\n• Stock limité',variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:230},{label:'100G',price:380}]},
- p3:{id:'p3',name:'VANILLA SIGNATURE',tag:'TOP',video:'frozen.mp4.MP4',texture:'Vanille • Doux',origin:'Californie',effect:'Doux • Euphorique',desc:'Signature vanille de Simone. Arôme vanille naturelle, fumée douce.',why:'• Arôme vanille naturelle\n• Le préféré des habitués',variants:[{label:'10G',price:55},{label:'25G',price:130},{label:'50G',price:240}]},
- p4:{id:'p4',name:'CARAMEL DREAM',tag:'DOUX',video:'mousseux.mp4.MP4',texture:'Caramel • Onctueux',origin:'Espagne',effect:'Doux • Happy',desc:'Goût caramel gourmand, texture onctueuse.',why:'• Goût caramel gourmand',variants:[{label:'10G',price:50},{label:'25G',price:120}]},
+ p1:{id:'p1',name:'MOUSSEUX LATTE',tag:'NOUVEAU',video:'mousseux.mp4.MP4',fallback:'logo.png.jpg',texture:'Mousseux • Crémeux',origin:'Californie Indoor',effect:'Relax • Créatif',
+ variants:[{label:'10G',price:50},{label:'25G',price:125},{label:'50G',price:200},{label:'100G',price:300}],
+ avis:[{name:'@Leo_92',stars:5,text:'Texture de fou, ça mousse direct. Meilleur latte que j’ai testé.'},{name:'@Ines75',stars:5,text:'Goût vanille léger, hyper doux. Je recommande à 100%.'},{name:'@Momo',stars:4,text:'Livré en 20min, frais, collant comme il faut.'}]},
+ p2:{id:'p2',name:'FROZEN BREW',tag:'HOT 🔥',video:'Casablanca.mp4.MOV',fallback:'logo.png.jpg',texture:'Frozen • Cristal',origin:'Amsterdam',effect:'Fort • Planant',
+ variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:230}],
+ avis:[{name:'@Samy',stars:5,text:'Le frozen il défonce vraiment, effet glacé direct.'},{name:'@Karim93',stars:5,text:'Très fort, 2 lattes et t’es posé. Top qualité.'},{name:'@Lina',stars:5,text:'Goût mentholé grave frais, j’adore.'}]},
+ p3:{id:'p3',name:'CARAMEL DREAM',tag:'DOUX',video:'mousseux.mp4.MP4',fallback:'logo.png.jpg',texture:'Caramel • Onctueux',origin:'Espagne',effect:'Doux • Happy',
+ variants:[{label:'10G',price:50},{label:'25G',price:120},{label:'50G',price:200}],
+ avis:[{name:'@Nora',stars:5,text:'Goût caramel gourmand, on dirait un dessert 😍'},{name:'@Yanis',stars:4,text:'Doux, parfait pour le soir, pas trop fort.'},{name:'@Alex',stars:5,text:'Le goût reste longtemps, hyper bon.'}]},
+ p4:{id:'p4',name:'VANILLA SIGNATURE',tag:'TOP',video:'frozen.mp4.MP4',fallback:'logo.png.jpg',texture:'Vanille • Doux',origin:'Californie',effect:'Euphorique',
+ variants:[{label:'10G',price:55},{label:'25G',price:130}],
+ avis:[{name:'@Sofia',stars:5,text:'Vanille naturelle, ça se sent que c’est premium.'},{name:'@Rayan',stars:5,text:'Mon préféré de la carte, fumée douce de ouf.'}]},
 };
 
-let cart={}, selectedHour="", selectedStars=5, currentProd=null, selectedVariant=null;
+let cart={}, selectedHour="", selectedStars=5, selectedProdStars=5, currentProd=null, selectedVariant=null;
 let pts=parseInt(localStorage.getItem('simone_pts')||'90'), streak=parseInt(localStorage.getItem('simone_streak')||'1'), lastClaim=localStorage.getItem('simone_lastClaim')||'', hasFreeProduct=localStorage.getItem('simone_free')==='1', avisList=JSON.parse(localStorage.getItem('simone_avis')||'[]');
 
 function buildGrid(){
@@ -203,13 +227,12 @@ function buildGrid(){
  let html='';
  for(let id in PRODUCTS){
   let p=PRODUCTS[id];
-  // ON A ENLEVÉ LE BOUTON AJOUTER ICI - JUSTE L'INFO CLIQUE
   html+=`<div class="card" onclick="openProduct('${id}')">
-   <video src="${p.video}" muted loop playsinline></video>
+   <video src="${p.video}" muted loop playsinline webkit-playsinline preload="metadata" onerror="this.style.display='none'"></video>
    <span class="tag">${p.tag}</span>
    <h3>${p.name}</h3>
    <div class="stars">⭐⭐⭐⭐⭐</div>
-   <div class="price">À partir de ${p.variants[0].price}€ • Voir détail 👁️</div>
+   <div class="price">À partir de ${p.variants[0].price}€</div>
   </div>`;
  }
  grid.innerHTML=html;
@@ -218,16 +241,22 @@ buildGrid();
 
 function openProduct(id){
  currentProd=PRODUCTS[id]; selectedVariant=null;
- document.getElementById('prodVideo').src=currentProd.video;
+ let video = document.getElementById('prodVideo');
+ let img = document.getElementById('prodImage');
+ video.src=currentProd.video;
+ video.load();
+ video.play().catch(()=>{});
+ video.style.display='block';
+ img.style.display='none';
+ video.onerror = ()=>{ video.style.display='none'; img.src=currentProd.fallback; img.style.display='block'; };
+
  document.getElementById('prodName').textContent=currentProd.name;
  document.getElementById('prodTag').textContent=currentProd.tag;
- document.getElementById('prodDesc').textContent=currentProd.desc;
  document.getElementById('prodTexture').textContent=currentProd.texture;
  document.getElementById('prodOrigin').textContent=currentProd.origin;
  document.getElementById('prodEffect').textContent=currentProd.effect;
- document.getElementById('prodWhy').innerText=currentProd.why;
- 
- // Génère les boutons de quantité
+ document.getElementById('prodAvisCount').textContent=`(${currentProd.avis.length + getSavedProdAvis(id).length + 120} avis)`;
+
  let qteHtml = '';
  currentProd.variants.forEach(v=>{
    qteHtml += `<div class="btn-qte" onclick="selectVariant(this,'${v.label}',${v.price})"><b>${v.label}</b><span>${v.price}€</span></div>`;
@@ -237,32 +266,53 @@ function openProduct(id){
  document.getElementById('prodAddBtn').style.opacity = '0.3';
  document.getElementById('prodAddBtn').style.pointerEvents = 'none';
 
+ renderProdAvis(id);
  document.getElementById('productModal').classList.add('open');
  document.body.style.overflow='hidden';
 }
+
+function getSavedProdAvis(pid){ return JSON.parse(localStorage.getItem('simone_avis_'+pid)||'[]'); }
+
+function renderProdAvis(pid){
+ let all = [...(PRODUCTS[pid].avis||[]), ...getSavedProdAvis(pid)];
+ let html='';
+ all.forEach(a=>{
+   html+=`<div class="prod-avis-card"><div style="display:flex;justify-content:space-between"><b>${a.name}</b><span style="color:#ffcc00">${'⭐'.repeat(a.stars)}</span></div><p>${a.text}</p></div>`;
+ });
+ document.getElementById('prodAvisList').innerHTML = html;
+ document.getElementById('prodAvisNb').textContent = all.length + ' avis';
+}
+
 function closeProduct(){document.getElementById('productModal').classList.remove('open');document.body.style.overflow='';document.getElementById('prodVideo').pause();}
 function selectVariant(el, label, price){
- document.querySelectorAll('.btn-qte').forEach(b=>b.classList.remove('active'));
+ document.querySelectorAll('#qteGrid .btn-qte').forEach(b=>b.classList.remove('active'));
  el.classList.add('active');
  selectedVariant = {label, price};
  let btn = document.getElementById('prodAddBtn');
- btn.style.opacity='1';
- btn.style.pointerEvents='auto';
+ btn.style.opacity='1'; btn.style.pointerEvents='auto';
  btn.innerHTML = `Ajouter ${label} - ${price}€ 🛒`;
 }
-
 function addProdToCart(){
- if(!selectedVariant){alert('Choisis une quantité !');return;}
- let cartId = currentProd.id + '_' + selectedVariant.label; // clé unique par quantité
- if(!cart[cartId]){
-   cart[cartId]={name:currentProd.name, qteLabel:selectedVariant.label, price:selectedVariant.price, qty:1, total:selectedVariant.price};
- } else {
-   cart[cartId].qty += 1;
-   cart[cartId].total = cart[cartId].qty * cart[cartId].price;
- }
+ if(!selectedVariant) return;
+ let cartId = currentProd.id + '_' + selectedVariant.label;
+ if(!cart[cartId]) cart[cartId]={name:currentProd.name, qteLabel:selectedVariant.label, price:selectedVariant.price, qty:1, total:selectedVariant.price};
+ else { cart[cartId].qty+=1; cart[cartId].total=cart[cartId].qty*cart[cartId].price; }
  updateCart();closeProduct();openCart();
 }
-function shareProduct(){if(navigator.share){navigator.share({title:currentProd.name});}else{alert('Lien copié !');}}
+function selectProdStars(n){selectedProdStars=n;for(let i=1;i<=5;i++)document.getElementById('ps'+i).classList.toggle('active',i===n);}
+function postProdAvis(){
+ let name=document.getElementById('prodAvisName').value.trim();
+ let text=document.getElementById('prodAvisText').value.trim();
+ if(!name||!text){alert('Remplis tout !');return;}
+ let pid=currentProd.id;
+ let saved=getSavedProdAvis(pid);
+ saved.unshift({name, stars:selectedProdStars, text});
+ localStorage.setItem('simone_avis_'+pid, JSON.stringify(saved));
+ document.getElementById('prodAvisName').value='';document.getElementById('prodAvisText').value='';
+ document.getElementById('prodAvisStatus').textContent='✅ Avis ajouté sur ce produit !';
+ renderProdAvis(pid);
+ setTimeout(()=>document.getElementById('prodAvisStatus').textContent='',2000);
+}
 
 function refreshUI(){
   document.getElementById('ptsCount').textContent=pts;
@@ -277,34 +327,23 @@ function refreshUI(){
 }
 refreshUI();
 function claimDaily(){let today=new Date().toDateString();if(lastClaim===today){alert('Déjà récupéré !');return;}let gain=streak>=6?300:50+streak*10;pts+=gain;streak+=1;if(streak===7){hasFreeProduct=true;localStorage.setItem('simone_free','1');alert('🎉 JOUR 7 ! PRODUIT OFFERT !');streak=0;}else alert('✅ +'+gain+' POINTS !');lastClaim=today;localStorage.setItem('simone_pts',pts);localStorage.setItem('simone_streak',streak);localStorage.setItem('simone_lastClaim',today);refreshUI();}
-function selectStars(n){selectedStars=n;for(let i=1;i<=5;i++){document.getElementById('s'+i).classList.toggle('active',i===n);}}
-function postAvis(){let name=document.getElementById('avisName').value.trim(), text=document.getElementById('avisText').value.trim();if(!name||!text){alert('Remplis tout !');return;}document.getElementById('avisStatus').textContent='⏳ Envoi en cours...';setTimeout(()=>{avisList.unshift({name:name,text:text,stars:selectedStars,status:'wait'});localStorage.setItem('simone_avis',JSON.stringify(avisList));document.getElementById('avisName').value='';document.getElementById('avisText').value='';document.getElementById('avisStatus').textContent='✅ Avis envoyé';renderAvis();},600);}
-function renderAvis(){let html='';avisList.forEach(a=>{let badge=a.status==='wait'?'<span class="status wait">⏳ En attente</span>':'<span class="status sent">✅ Envoyé</span>';html+=`<div class="avis-card">${badge}<b>${a.name}</b><br><span style="color:#ffcc00">${'⭐'.repeat(a.stars)}</span><br>${a.text}</div>`;});html+=`<div class="avis-card"><b>@Alex_75</b><br><span style="color:#ffcc00">⭐⭐⭐⭐⭐</span><br>Toujours carré, 25min top 👌</div>`;document.getElementById('avisList').innerHTML=html;}
-
-// PANIER MODIFIÉ POUR AFFICHER LA QUANTITÉ
+function selectStars(n){selectedStars=n;for(let i=1;i<=5;i++)document.getElementById('s'+i).classList.toggle('active',i===n);}
+function postAvis(){let name=document.getElementById('avisName').value.trim(), text=document.getElementById('avisText').value.trim();if(!name||!text){alert('Remplis tout !');return;}avisList.unshift({name,text,stars:selectedStars});localStorage.setItem('simone_avis',JSON.stringify(avisList));document.getElementById('avisName').value='';document.getElementById('avisText').value='';renderAvis();}
+function renderAvis(){let html='';avisList.forEach(a=>{html+=`<div class="avis-card"><b>${a.name}</b><br><span style="color:#ffcc00">${'⭐'.repeat(a.stars)}</span><br>${a.text}</div>`;});html+=`<div class="avis-card"><b>@Alex_75</b><br><span style="color:#ffcc00">⭐⭐⭐⭐⭐</span><br>Toujours carré, 25min top 👌</div>`;document.getElementById('avisList').innerHTML=html;}
 function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=cart[id].qty;l+=`<div style="display:flex;justify-content:space-between;margin:8px 0;font-size:13px;background:#1a1a1a;padding:10px;border-radius:10px"><span><b>${cart[id].name}</b><br><small style="opacity:0.6">Quantité: ${cart[id].qteLabel} x${cart[id].qty}</small></span><span style="font-weight:900">${cart[id].total}€</span></div>`}if(hasFreeProduct){l+=`<div style="display:flex;justify-content:space-between;margin:6px 0;font-size:13px;color:#ffcc00;font-weight:800"><span>🎁 OFFERT x1</span><span>0€</span></div>`;c+=1;}document.getElementById('cartBadge').textContent=c;document.getElementById('cartList').innerHTML=l||'Panier vide';document.getElementById('cartTotal').textContent=t+'€';document.getElementById('cartFloat').classList.toggle('show',c>0);}
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
 function buildMsg(){
-  let total=0,msg=`🔥 NOUVELLE COMMANDE SIMONE 🔥\n\n`;
-  for(let id in cart){
-    msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;
-    total+=cart[id].total;
-  }
+  let total=0,msg=`🔥 NOUVELLE COMMANDE 🔥\n\n`;
+  for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}
   if(total===0&&!hasFreeProduct){alert("Panier vide !");return null;}
-  if(hasFreeProduct)msg+=`- 🎁 OFFERT x1 (Jour 7)\n`;
   msg+=`\n💰 TOTAL: ${total}€\n`;
-  let a=document.getElementById('addr').value.trim();
-  if(!a){alert("Adresse !");openCart();return null;}
+  let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}
   if(!selectedHour){alert("Heure !");return null;}
-  msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;
-  let n=document.getElementById('note').value.trim();
-  if(n) msg+=`📝 Note: ${n}\n`;
-  return msg;
+  msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;return msg;
 }
 function checkout(){let m=buildMsg();if(!m)return;window.open("https://t.me/simone750?text="+encodeURIComponent(m),"_blank");}
-function checkoutWhatsApp(){let m=buildMsg();if(!m)return;window.open("https://wa.me/33744146189?text="+encodeURIComponent(m),"_blank");}
 </script>
 </body>
 </html>
