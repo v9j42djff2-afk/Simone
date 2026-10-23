@@ -103,11 +103,11 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <p id="claimMsg" style="font-size:11px;opacity:0.6;text-align:center;margin-top:8px"></p>
 </div>
 
-<div class="section-title"> MENUm</div>
+<div class="section-title"> MENU</div>
 <div class="menu-grid" id="menuGrid"></div>
 
 <div class="avis-section" id="avis">
-<div class="section-title">⭐ AVIS CLIENTS</div>
+<div class="section-title">⭐ AVIS VERIFIÉ</div>
 <div id="avisList"></div>
 <div class="info-box" style="margin-top:12px">
 <h4 style="color:#ff1a1a">✍️ LAISSER UN AVIS</h4>
@@ -161,7 +161,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="prod-video-wrap"><video id="prodVideo" src="" autoplay muted loop playsinline></video><span id="prodTag" class="prod-badge">NOUVEAU</span></div>
 <div class="prod-content">
 <h2 id="prodName">PRODUIT</h2>
-<div class="stars" style="margin-top:6px">⭐⭐⭐⭐⭐ <span id="prodAvisCount" style="opacity:0.6;font-size:12px">(127 avis)</span></div>
+<div class="stars" style="margin-top:6px">⭐⭐⭐⭐⭐ <span id="prodAvisCount" style="opacity:0.6;font-size:12px">(42 avis)</span></div>
 <div class="prod-desc" id="prodDesc">Description complète</div>
 
 <!-- QUANTITES COMME SUR TIKTOK -->
@@ -287,7 +287,7 @@ function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-function buildMsg(){let total=0,msg=`🔥 NOUVELLE COMMANDE SIMONE 🔥\n\n`;for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}if(total===0&&!hasFreeProduct){alert("Panier vide !");return null;}if(hasFreeProduct)msg+=`- 🎁 OFFERT x1\n`;msg+=`\n💰 TOTAL: ${total}€\n`;let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;let n=document.getElementById('note').value.trim();if(n)msg+=`📝 ${n}\n`;return msg;}
+function buildMsg(){let total=0,msg=`🔥 SALUT SIMONE 🔥\n\n`;for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}if(total===0&&!hasFreeProduct){alert("Panier vide !");return null;}if(hasFreeProduct)msg+=`- 🎁 OFFERT x1\n`;msg+=`\n💰 TOTAL: ${total}€\n`;let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;let n=document.getElementById('note').value.trim();if(n)msg+=`📝 ${n}\n`;return msg;}
 function checkout(){let m=buildMsg();if(!m)return;if(tg){try{tg.sendData(m);}catch(e){} tg.openTelegramLink(`https://t.me/simone750?text=${encodeURIComponent(m)}`);}else{window.open(`https://t.me/simone750?text=${encodeURIComponent(m)}`,"_blank");}}
 function checkoutWhatsApp(){let m=buildMsg();if(!m)return;if(tg){tg.openTelegramLink(`https://wa.me/33744146189?text=${encodeURIComponent(m)}`);}else{window.open(`https://wa.me/33744146189?text=${encodeURIComponent(m)}`,"_blank");}}
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
