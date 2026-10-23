@@ -83,12 +83,12 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="header">
 <img src="logo.png.jpg">
 <h1>COFFEE <span>SIMONE</span></h1>
-<p>PREMIUM • PARIS LIVRAISON - CLIQUE SUR UN PRODUIT</p>
+<p>PREMIUM HASH • PARIS LIVRAISON </p>
 </div>
 
 <div class="daily">
 <div class="daily-top">
-<h3>🎁 RÉCOMPENSE QUOTIDIENNE</h3>
+<h3>FIDÉLITÉ</h3>
 <span style="font-size:11px;background:#111;border:1px solid #222;padding:5px 10px;border-radius:20px">Série: <b id="streak">1</b> jours 🔥 | <b id="ptsCount">0</b> POINTS</span>
 </div>
 <div class="days">
@@ -98,7 +98,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="gift-banner" id="giftBanner">🎉 BRAVO ! TU AS UN PRODUIT OFFERT ! 🎉</div>
 </div>
 
-<div class="section-title">☕ MENU PREMIUM - CLIQUE POUR VOIR DÉTAIL</div>
+<div class="section-title">MENU </div>
 <div class="menu-grid" id="menuGrid"></div>
 
 <div class="avis-section" id="avis">
@@ -135,7 +135,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">18h-20h</button></div>
 <input id="note" class="input" placeholder="Note livreur">
 <button class="btn-main" onclick="checkout()">Commander Telegram 🚀</button>
-<button class="btn-main" style="background:#25D366" onclick="checkoutWhatsApp()">WhatsApp 💬</button>
+<button class="btn-main" style="background:#25D366" onclick="checkoutWhatsApp()">WhatsApp </button>
 </div>
 
 <!-- FICHE PRODUIT DETAIL -->
@@ -194,7 +194,7 @@ const PRODUCTS = {
  p4:{id:'p4',name:'CARAMEL DREAM',tag:'DOUX',video:'mousseux.mp4',poster:'logo.png.jpg',desc:'Goût caramel gourmand, texture onctueuse. Parfait pour fin de journée.',
  variants:[{label:'10G',price:50},{label:'25G',price:120}], avis:[{name:'@Nora',stars:5,text:'Goût caramel gourmand 😍'}]},
  p5:{id:'p5',name:'PISTACHIO LOVE',tag:'EDITION',video:'frozen.mp4',poster:'logo.png.jpg',desc:'Edition pistache rare, goût noisette pistache, effet créatif et social.', variants:[{label:'10G',price:70},{label:'25G',price:150}], avis:[{name:'@Yanis',stars:5,text:'Goût pistache unique !'}]},
- p6:{id:'p6',name:'HAZELNUT BLAST',tag:'NEW',video:'Casablanca.mov',poster:'logo.png.jpg',desc:'Blast noisette intense, effet relax profond.', variants:[{label:'10G',price:65},{label:'25G',price:140}], avis:[{name:'@Rayan',stars:5,text:'Noisette torréfiée, très bon.'}]},
+ p6:{id:'p6',name:'COCAINE',tag:'NEW',video:'coca.mp4.MP4',poster:'coca.mp4.MP4',desc:'Pure cocaine intense, torréfiée, effet relax profond. Très demandé.', variants:[{label:'1G',price:70},{label:'2G',price:120}], avis:[{name:'@Rayan',stars:5,text:'Très bon.'}]},
 };
 
 let cart={}, selectedHour="Au plus vite ⚡", selectedStars=5, selectedProdStars=5, currentProd=null, selectedVariant=null;
