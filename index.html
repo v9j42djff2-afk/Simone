@@ -92,7 +92,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <span style="font-size:11px;background:#111;border:1px solid #222;padding:5px 10px;border-radius:20px">Série: <b id="streak">1</b> jours 🔥 | <b id="ptsCount">0</b> POINTS</span>
 </div>
 <div class="days">
-<div class="day active" id="d1">Jour 1<br><b>50</b></div><div class="day" id="d2">Jour 2<br><b>75</b></div><div class="day" id="d3">Jour 3<br><b>100</b></div><div class="day" id="d4">Jour 4<br><b>150</b></div><div class="day" id="d5">Jour 5<br><b>200</b></div><div class="day" id="d6">Jour 6<br><b>300</b></div><div class="day gift" id="d7">Jour 7<br><b>🎁</b></div>
+<div class="day active" id="d1">Jour 1<br><b></b></div><div class="day" id="d2">Jour 2<br><b></b></div><div class="day" id="d3">Jour 3<br><b></b></div><div class="day" id="d4">Jour 4<br><b></b></div><div class="day" id="d5">Jour 5<br><b></b></div><div class="day" id="d6">Jour 6<br><b></b></div><div class="day gift" id="d7">Jour 7<br><b>🎁</b></div>
 </div>
 <button class="btn-claim" id="claimBtn" onclick="claimDaily()">Récupérer mes points 🪙</button>
 <div class="gift-banner" id="giftBanner">🎉 BRAVO ! TU AS UN PRODUIT OFFERT ! 🎉</div>
@@ -191,7 +191,7 @@ const PRODUCTS = {
  variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:230}], avis:[{name:'@Samy',stars:5,text:'Le frozen il défonce vraiment, effet glacé direct.'},{name:'@Karim93',stars:5,text:'Très fort, 2 lattes et t’es posé.'}]},
  p3:{id:'p3',name:'VANILLA SIGNATURE',tag:'TOP',video:'frozen.mp4',poster:'logo.png.jpg',desc:'Signature vanille de Simone. Arôme vanille naturelle, fumée douce, effet euphorique longue durée.',
  variants:[{label:'10G',price:55},{label:'25G',price:130},{label:'50G',price:240}], avis:[{name:'@Sofia',stars:5,text:'Vanille naturelle, premium.'}]},
- p4:{id:'p4',name:'CALIPLATE',tag:'',video:'caliplate.mp4.MOV',poster:'caliplate.mp4.MOV',desc:'Goût caramel gourmand, texture onctueuse. Parfait pour fin de journée.',
+ p4:{id:'p4',name:'CALIPLATE',tag:'',video:'caliplate.mp4.MP4',poster:'caliplate.mp4.MP4',desc:'Haschisch compressé caliplate. Inspiré des méthodes californiennes, il offre une saveur intense et procure, effets unique et exceptionnels.',
  variants:[{label:'10G',price:130},{label:'25G',price:240}], avis:[{name:'@Nora',stars:5,text:'Goût caramel 😍'}]},
  p5:{id:'p5',name:'EDDIBLES',tag:'75MG',video:'eddibles.mp4.MOV',poster:'eddibles.mp4.MOV',desc:'Edition pistache rare, goût noisette pistache, effet créatif et social.', variants:[{label:'3unité',price:50},{label:'10unité',price:100}], avis:[{name:'@Yanis',stars:5,text:'Goût unique !'}]},
  p6:{id:'p6',name:'COCAINE',tag:'COLOMBIA',video:'coca.mp4.MP4',poster:'coca.mp4.MP4',desc:'Pure cocaine intense, torréfiée, effet relax profond. Très demandé.', variants:[{label:'1G',price:70},{label:'2G',price:120}], avis:[{name:'@Rayan',stars:5,text:'Très bon.'}]},
