@@ -16,6 +16,11 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .header img{width:180px;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.5);background:#000}
 .header h1{font-size:28px;font-weight:900;letter-spacing:2px;margin-top:14px}
 .header h1 span{color:#ff1a1a}
+.daily{margin:14px 12px;background:#151515;border:1px solid #2a2a2a;border-radius:20px;padding:14px}
+.days{display:flex;gap:6px;margin-top:12px}
+.day{flex:1;height:62px;background:#111;border:1px solid #222;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;opacity:0.5}
+.day.active{border-color:#ff1a1a;opacity:1;background:#1f0f0f}
+.btn-claim{width:100%;margin-top:12px;background:linear-gradient(135deg,#ff7a00,#ff1a1a);border:none;color:#fff;padding:13px;border-radius:12px;font-weight:900;cursor:pointer}
 .section-title{padding:18px 15px 8px;font-size:11px;letter-spacing:2px;opacity:0.6;font-weight:800}
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 12px}
 .card{background:#161616;border:1px solid #222;border-radius:18px;padding:10px;cursor:pointer}
@@ -56,56 +61,17 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <body>
 <button class="admin-btn-top" onclick="openAdmin()">🔐 ADMIN</button>
 <div class="header"><img src="logo.png.jpg"><h1>COFFEE <span>SIMONE</span></h1><p>PREMIUM HASH • PARIS LIVRAISON</p></div>
-
 <div id="myOrderBanner" class="my-order-banner"><p id="myOrderLabel" style="font-size:11px;opacity:0.8">📦 COMMANDE EN COURS</p><b id="myOrderTimer">40:00</b><p id="myOrderId" style="font-size:11px;margin-top:4px;opacity:0.7"></p><p id="myOrderFooter" style="font-size:11px;margin-top:6px">Ton livreur arrive, reste dispo !</p></div>
-
-<div class="section-title">MENU </div><div class="menu-grid" id="menuGrid"></div>
-
-<div class="avis-section">
-  <div class="section-title">⭐ AVIS CLIENTS</div>
-  <div id="avisList"></div>
-  <div class="info-box"><h4 style="color:#ff1a1a">✍️ LAISSER UN AVIS</h4><input id="avisName" class="input" placeholder="Ton pseudo"><div style="display:flex;gap:6px;margin-top:8px"><button onclick="selectStars(1)" id="s1" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐</button><button onclick="selectStars(2)" id="s2" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐⭐</button><button onclick="selectStars(3)" id="s3" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐⭐⭐</button><button onclick="selectStars(4)" id="s4" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐⭐⭐⭐</button><button onclick="selectStars(5)" id="s5" style="background:#2a2200;border:1px solid #ffcc00;padding:6px 10px;border-radius:10px">⭐⭐⭐⭐⭐</button></div><textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea><button class="btn-main" onclick="postAvis()">Envoyer mon avis 📩</button></div>
-</div>
-
-<!-- INFOS & CONTACT - REMIS -->
-<div class="avis-section">
-  <div class="section-title">📍 INFOS & CONTACT</div>
-  <div class="info-box">
-    <h4 style="color:#ff1a1a">🕐 HORAIRES</h4>
-    <p style="font-size:13px;margin-top:8px;line-height:1.6">
-    10h - 23h<br>
-    Livraison Paris75<br>
-    Délai moyen : 40 min
-    </p>
-  </div>
-  <div class="info-box">
-    <h4 style="color:#25D366">💬 CONTACT</h4>
-    <p style="font-size:13px;margin-top:8px;line-height:1.6">
-    📲 Telegram : @Simone750<br>
-    💬 WhatsApp : Dispo sur demande<br>
-    ⚡ Réponse en 2 min
-    </p>
-  </div>
-  <div class="info-box">
-    <h4 style="color:#ffcc00">🚚 LIVRAISON</h4>
-    <p style="font-size:13px;margin-top:8px;line-height:1.6">
-    ✅ Paiement en espèce<br>
-    ✅ Produits premium testés<br>
-    ✅ Discrétion assurée
-    </p>
-  </div>
-</div>
-
+<div class="section-title"> MENU </div><div class="menu-grid" id="menuGrid"></div>
+<div class="avis-section"><div class="section-title">⭐ AVIS CLIENTS</div><div id="avisList"></div><div class="info-box"><h4 style="color:#ff1a1a">✍️ LAISSER UN AVIS</h4><input id="avisName" class="input" placeholder="Ton pseudo"><div style="display:flex;gap:6px;margin-top:8px"><button onclick="selectStars(1)" id="s1" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐</button><button onclick="selectStars(2)" id="s2" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐⭐</button><button onclick="selectStars(3)" id="s3" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐⭐⭐</button><button onclick="selectStars(4)" id="s4" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐⭐⭐⭐</button><button onclick="selectStars(5)" id="s5" style="background:#2a2200;border:1px solid #ffcc00;padding:6px 10px;border-radius:10px">⭐⭐⭐⭐⭐</button></div><textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea><button class="btn-main" onclick="postAvis()">Envoyer mon avis 📩</button></div></div>
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
 <div id="cartDrawer" class="cart-drawer"><div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div><div id="cartList"></div><div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div><input id="addr" class="input" placeholder="📍 Adresse + code postal"><div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">20h-22h</button></div><input id="note" class="input" placeholder="Note livreur"><button class="btn-main" onclick="checkout()">Commander 🚀</button></div>
-
 <div id="productModal" class="product-modal"><div style="display:flex;justify-content:space-between;padding:14px;border-bottom:1px solid #222"><button onclick="closeProduct()" style="background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button><span style="font-weight:800;font-size:12px">DÉTAIL PRODUIT</span><span style="width:36px"></span></div><div style="background:#000;position:relative"><video id="prodVideo" src="" autoplay muted loop playsinline style="width:100%;height:42vh;object-fit:cover"></video><span id="prodTag" style="position:absolute;top:14px;left:14px;background:#ff1a1a;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:900">NOUVEAU</span></div><div style="padding:16px"><h2 id="prodName">PRODUIT</h2><div id="prodDesc" style="font-size:13px;opacity:0.8;margin-top:10px;background:#151515;border:1px solid #222;border-radius:12px;padding:12px"></div><div style="margin-top:18px"><div style="font-size:11px;opacity:0.6;font-weight:800;margin-bottom:10px">SÉLECTIONNER LA QUANTITÉ</div><div id="qteGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div></div><div style="margin-top:20px"><div style="font-size:11px;font-weight:800;margin-bottom:10px">⭐ AVIS SUR CE PRODUIT</div><div id="prodAvisList"></div><div class="info-box" style="margin-top:12px"><h4 style="color:#ff1a1a;font-size:12px">✍️ AVIS PRODUIT</h4><input id="prodAvisName" class="input" placeholder="Ton pseudo"><textarea id="prodAvisText" class="textarea" placeholder="T'en as pensé quoi ?"></textarea><button class="btn-main" onclick="postProdAvis()">Envoyer</button></div></div></div><div style="position:sticky;bottom:0;background:#070707;padding:14px 18px 20px;border-top:1px solid #222;margin-top:auto"><button id="prodAddBtn" class="btn-main" style="margin:0;opacity:0.3;pointer-events:none">Sélectionnez une quantité</button></div></div>
-
 <div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div><div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div><div id="adminContent" style="display:none"><div style="background:#1a1a1a;border:1px dashed #ffcc00;border-radius:12px;padding:12px;margin-bottom:12px"><h4 style="color:#ffcc00">🧪 TEST NPOINT</h4><p style="font-size:11px;opacity:0.7">Clique pour tester si les commandes arrivent</p><button onclick="testNpoint()" style="background:#ffcc00;color:#000;border:none;padding:10px 14px;border-radius:10px;font-weight:800;margin-top:8px;cursor:pointer">TESTER MAINTENANT</button><p id="testResult" style="font-size:11px;margin-top:8px"></p></div><div class="admin-tabs"><button id="tabOrders" class="active" onclick="switchAdminTab('orders')">📦 Commandes (<span id="adminCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ Avis (<span id="adminAvisCount">0</span>)</button></div><div id="adminOrdersView"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Toutes les commandes</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Tous les avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
-
 <script>
 const ADMIN_PASSWORD = "Norber93100//";
 const NPOINT_URL = "https://api.npoint.io/2d35186dfe62583dd8a9";
+
 function openAdmin(){document.getElementById('adminPanel').classList.add('open'); fetchAll();}
 function closeAdmin(){document.getElementById('adminPanel').classList.remove('open');}
 function loginAdmin(){let p=document.getElementById('adminPass').value.trim(); if(p===ADMIN_PASSWORD){document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; fetchAll();} else{document.getElementById('adminError').style.display='block';}}
@@ -120,6 +86,7 @@ const PRODUCTS={
  p6:{id:'p6',name:'COCA',tag:'COLOMBIA',video:'coca.mp4.MP4',desc:'Coca.', variants:[{label:'1G',price:70}]}
 };
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,currentProd=null,selectedVariant=null;
+let pts=parseInt(localStorage.getItem('simone_pts')||'0'),streak=parseInt(localStorage.getItem('simone_streak')||'1');
 let orders=[], avisList=[], prodAvisMap={};
 
 async function fetchAll(){
@@ -128,23 +95,46 @@ async function fetchAll(){
     let data = await r.json();
     if(Array.isArray(data)){ orders=data; avisList=[]; prodAvisMap={}; }
     else{ orders=data.orders||[]; avisList=data.avis||[]; prodAvisMap=data.prodAvis||{}; }
-  }catch(e){ console.log("FETCH ERREUR", e); }
+    console.log("FETCH OK", data);
+  }catch(e){
+    console.log("FETCH ERREUR", e);
+    document.getElementById('testResult').textContent = "❌ Erreur fetch: " + e;
+  }
   renderAdminOrders(); renderAdminAvis(); renderAvis(); checkMyOrder();
 }
 async function saveAll(){
   let payload={orders, avis:avisList, prodAvis:prodAvisMap};
   try{
     let res = await fetch(NPOINT_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload)});
-    return res.ok;
-  }catch(e){ return false; }
+    console.log("SAVE STATUS", res.status);
+    let txt = await res.text();
+    console.log("SAVE REPONSE", txt);
+    if(res.ok){
+      document.getElementById('testResult').textContent = "✅ Sauvegardé ! Statut: " + res.status;
+      return true;
+    }else{
+      document.getElementById('testResult').textContent = "❌ Erreur save: " + res.status + " " + txt;
+      alert("Erreur npoint: " + res.status + " - " + txt);
+      return false;
+    }
+  }catch(e){
+    console.log("SAVE ERREUR", e);
+    document.getElementById('testResult').textContent = "❌ Erreur: " + e;
+    alert("Erreur réseau npoint: " + e);
+    return false;
+  }
 }
+
 async function testNpoint(){
-  document.getElementById('testResult').textContent = "⏳ Test...";
+  document.getElementById('testResult').textContent = "⏳ Test en cours...";
   await fetchAll();
-  let fake = {id:'TEST-'+Date.now(), time:Date.now(), date:new Date().toLocaleString('fr-FR'), items:"TEST COMMANDE", total:99, address:"TEST ADRESSE", hour:"Test", note:"Test", remaining:40, status:'en cours'};
+  let fake = {id:'TEST-'+Date.now(), time:Date.now(), date:new Date().toLocaleString('fr-FR'), items:"TEST COMMANDE", total:99, address:"TEST ADRESSE", hour:"Test", note:"Test npoint", remaining:40, status:'en cours'};
   orders.unshift(fake);
   let ok = await saveAll();
-  if(ok){ alert("✅ TEST OK"); await fetchAll(); }
+  if(ok){
+    alert("✅ TEST RÉUSSI ! Commande test envoyée. Regarde dans ton panel si elle apparaît. Supprime-la après.");
+    await fetchAll();
+  }
 }
 
 function buildGrid(){let g=document.getElementById('menuGrid');let h='';for(let id in PRODUCTS){let p=PRODUCTS[id];h+=`<div class="card" onclick="openProduct('${id}')"><video src="${p.video}" autoplay muted loop playsinline></video><span class="tag">${p.tag}</span><h3>${p.name}</h3><div class="price">${p.variants[0].price}€</div></div>`;}g.innerHTML=h;}
@@ -162,19 +152,20 @@ function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-async function checkout(){let total=0;for(let id in cart){total+=cart[id].total;}if(total===0){alert("Panier vide !");return;}let addr=document.getElementById('addr').value.trim();if(!addr){alert("Adresse !");openCart();return;}await fetchAll();let order={id:'CMD-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'),total:total,address:addr,hour:selectedHour,note:document.getElementById('note').value,remaining:40,status:'en cours'};orders.unshift(order);let ok=await saveAll();if(ok){localStorage.setItem('simone_myOrder',JSON.stringify(order));cart={};updateCart();closeCart();checkMyOrder();alert('✅ Commande envoyée !');}}
+async function checkout(){let total=0;for(let id in cart){total+=cart[id].total;}if(total===0){alert("Panier vide !");return;}let addr=document.getElementById('addr').value.trim();if(!addr){alert("Adresse !");openCart();return;}await fetchAll();let order={id:'CMD-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'),total:total,address:addr,hour:selectedHour,note:document.getElementById('note').value,remaining:40,status:'en cours'};orders.unshift(order);let ok=await saveAll();if(ok){localStorage.setItem('simone_myOrder',JSON.stringify(order));cart={};updateCart();closeCart();checkMyOrder();alert('✅ Commande envoyée ! Visible dans ton panel admin');}else{alert('❌ ERREUR: commande pas envoyée, regarde le message dans le panel admin');}}
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
-function checkMyOrder(){let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');let banner=document.getElementById('myOrderBanner');if(!my){banner.classList.remove('show'); return;}let found=orders.find(o=>o.id===my.id);if(!found){localStorage.removeItem('simone_myOrder');banner.classList.remove('show');return;}let d=found;let elapsed=Math.floor((Date.now()-d.time)/60000);let rest=d.remaining-elapsed;let timer=document.getElementById('myOrderTimer');let idEl=document.getElementById('myOrderId');banner.classList.add('show');if(d.status==='livré'){banner.classList.add('arrived');timer.textContent='LIVREUR ARRIVÉ';return;}banner.classList.remove('arrived');if(rest<=0){timer.textContent='ARRIVÉE IMMINENTE';}else{timer.textContent=rest+' min restant';}idEl.textContent=d.id+' - '+d.total+'€';}
+function checkMyOrder(){let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');let banner=document.getElementById('myOrderBanner');if(!my){banner.classList.remove('show'); return;}let found=orders.find(o=>o.id===my.id);if(!found){localStorage.removeItem('simone_myOrder');banner.classList.remove('show');banner.classList.remove('arrived');return;}let d=found;let elapsed=Math.floor((Date.now()-d.time)/60000);let rest=d.remaining-elapsed;let timer=document.getElementById('myOrderTimer');let idEl=document.getElementById('myOrderId');banner.classList.add('show');if(d.status==='livré'){banner.classList.add('arrived');timer.textContent='LIVREUR ARRIVÉ';return;}banner.classList.remove('arrived');if(rest<=0){timer.textContent='ARRIVÉE IMMINENTE';idEl.textContent=d.id;}else{timer.textContent=rest+' min restant';idEl.textContent=d.id+' - '+d.total+'€';}}
 setInterval(checkMyOrder, 3000); setInterval(fetchAll, 7000);
-function renderAdminOrders(){let list=document.getElementById('adminOrdersList');if(!list)return;if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande</p>';document.getElementById('adminCount').textContent='0';return;}document.getElementById('adminCount').textContent=orders.length;let html='';orders.forEach((o,idx)=>{let elapsed=Math.floor((Date.now()-o.time)/60000);let rest=o.remaining-elapsed;if(rest<0)rest=0;html+=`<div class="admin-order"><div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div><div style="font-size:12px;margin-top:6px">${o.items}</div><div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b>${o.status.toUpperCase()}</b></div><div style="font-size:12px;margin-top:4px">📍 ${o.address}<br>🕐 ${o.hour}</div><div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="admin-timer">${o.status==='livré'?'LIVREUR ARRIVÉ':rest+' min'}</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})">OK</button></div><div class="admin-actions"><button onclick="addTime(${idx},5)">+5 min</button><button onclick="addTime(${idx},-5)">-5 min</button><button style="background:#25D366;color:#fff;border:none" onclick="markDelivered(${idx})">LIVREUR ARRIVÉ ✅</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteOrder(${idx})">Supprimer 🗑️</button></div></div>`;});list.innerHTML=html;}
+function renderAdminOrders(){let list=document.getElementById('adminOrdersList');if(!list)return;if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande - en attente</p>';document.getElementById('adminCount').textContent='0';return;}document.getElementById('adminCount').textContent=orders.length;let html='';orders.forEach((o,idx)=>{let elapsed=Math.floor((Date.now()-o.time)/60000);let rest=o.remaining-elapsed;if(rest<0)rest=0;html+=`<div class="admin-order"><div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div><div style="font-size:12px;margin-top:6px">${o.items}</div><div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b>${o.status.toUpperCase()}</b></div><div style="font-size:12px;margin-top:4px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div><div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="admin-timer">${o.status==='livré'?'LIVREUR ARRIVÉ':rest+' min'}</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})">OK</button></div><div class="admin-actions"><button onclick="addTime(${idx},5)">+5 min</button><button onclick="addTime(${idx},-5)">-5 min</button><button style="background:#25D366;color:#fff;border:none" onclick="markDelivered(${idx})">LIVREUR ARRIVÉ ✅</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteOrder(${idx})">Supprimer + bannière client 🗑️</button></div></div>`;});list.innerHTML=html;}
 function renderAdminAvis(){let list=document.getElementById('adminAvisList');if(!list)return;let all=[...avisList.map(a=>({...a,type:'Général'})),...Object.entries(prodAvisMap).flatMap(([pid,arr])=>arr.map(a=>({...a,type:pid})))];if(all.length===0){list.innerHTML='<p style="opacity:0.5">Aucun avis</p>';return;}let html='';all.forEach((a,idx)=>{html+=`<div class="admin-order"><b>${a.name}</b> - <span style="color:#ffcc00">${'⭐'.repeat(a.stars)}</span><br><div style="margin-top:6px">${a.text}</div><small style="opacity:0.4">${a.date||''}</small><div class="admin-actions"><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteAvis(${idx})">Supprimer ❌</button></div></div>`;});list.innerHTML=html;document.getElementById('adminAvisCount').textContent=all.length;}
 async function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value);if(v>0){orders[idx].remaining=v;orders[idx].time=Date.now();orders[idx].status='en cours';await saveAll();renderAdminOrders();}}
 async function addTime(idx,d){orders[idx].remaining+=d;if(orders[idx].remaining<1)orders[idx].remaining=1;orders[idx].time=Date.now();await saveAll();renderAdminOrders();}
 async function markDelivered(idx){orders[idx].status='livré';await saveAll();renderAdminOrders();checkMyOrder();}
-async function deleteOrder(idx){if(confirm('Supprimer ?')){orders.splice(idx,1);await saveAll();renderAdminOrders();}}
+async function deleteOrder(idx){if(confirm('Supprimer ? Client perd sa bannière')){orders.splice(idx,1);await saveAll();renderAdminOrders();}}
 async function clearAllOrders(){if(confirm('Tout supprimer ?')){orders=[];await saveAll();renderAdminOrders();localStorage.removeItem('simone_myOrder');document.getElementById('myOrderBanner').classList.remove('show');}}
 async function deleteAvis(idx){let all=[...avisList.map((a,i)=>({a,i,type:'general'})),...Object.entries(prodAvisMap).flatMap(([pid,arr])=>arr.map((a,i)=>({a,i,pid,type:'prod'})))];let item=all[idx];if(item.type==='general'){avisList.splice(item.i,1);}else{prodAvisMap[item.pid].splice(item.i,1);}await saveAll();renderAdminAvis();renderAvis();}
 async function clearAllAvis(){if(confirm('Supprimer tous les avis ?')){avisList=[];prodAvisMap={};await saveAll();renderAdminAvis();renderAvis();}}
+function claimDaily(){}
 fetchAll();
 </script>
 </body>
