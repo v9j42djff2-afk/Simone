@@ -135,15 +135,11 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="avis-section"><div class="section-title">⭐ AVIS CLIENTS</div><div id="avisList"></div>
 <div class="info-box" style="margin-top:12px"><h4 style="color:#ff1a1a">✍️ LAISSER UN AVIS</h4><input id="avisName" class="input" placeholder="Ton pseudo"><div class="star-select"><button onclick="selectStars(1)" id="s1">⭐</button><button onclick="selectStars(2)" id="s2">⭐⭐</button><button onclick="selectStars(3)" id="s3">⭐⭐⭐</button><button onclick="selectStars(4)" id="s4">⭐⭐⭐⭐</button><button onclick="selectStars(5)" id="s5" class="active">⭐⭐⭐⭐⭐</button></div><textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea><button class="btn-main" onclick="postAvis()">Envoyer mon avis 📩</button></div></div>
 
-<!-- INFOS REMIS -->
 <div class="info-section">
 <div class="section-title">ℹ️ INFOS & CONTACT</div>
 <div class="info-box"><h4 style="color:#ff1a1a">🚚 LIVRAISON</h4><p style="font-size:13px;opacity:0.8;margin-top:4px">Paris 20-40min / IDF 1H - 7j/7 10h-23h<br>Commande minimum 50€</p></div>
 <div class="info-box"><h4 style="color:#ff1a1a">💳 PAIEMENT</h4><p style="font-size:13px;opacity:0.8;margin-top:4px">Espèces • Lydia • BTC</p></div>
-<div class="info-box"><h4 style="color:#ff1a1a">📲 CONTACT</h4>
-<div class="social"><a class="canal" href="https://t.me/simone750" target="_blank">Telegram Canal</a><a class="whats" href="https://wa.me/33744146189" target="_blank">WhatsApp</a><a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">Instagram</a></div>
-<p style="font-size:11px;opacity:0.5;margin-top:8px">Réponse en moins de 5min 12h-00h</p>
-</div>
+<div class="info-box"><h4 style="color:#ff1a1a">📲 CONTACT</h4><div class="social"><a class="canal" href="https://t.me/simone750" target="_blank">Telegram Canal</a><a class="whats" href="https://wa.me/33744146189" target="_blank">WhatsApp</a><a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">Instagram</a></div></div>
 </div>
 
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
@@ -155,13 +151,11 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div id="clientDeliveryTime" style="display:none;background:#1a1a1a;border:1px solid #ffcc00;padding:12px;border-radius:12px;text-align:center;margin-bottom:10px">
   <p style="font-size:11px;opacity:0.6">⏱️ TEMPS DE LIVRAISON ESTIMÉ</p>
   <b id="clientTimeText" style="font-size:22px;color:#ffcc00">40 min</b>
-  <p style="font-size:10px;opacity:0.5;margin-top:4px">Modifiable par l'admin</p>
 </div>
 <input id="addr" class="input" placeholder="📍 Adresse + code postal">
 <div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">20h-22h</button></div>
 <input id="note" class="input" placeholder="Note livreur (optionnel)">
-<button class="btn-main" onclick="checkout()">Commander 🚀 (Uniquement Panel Admin)</button>
-<p style="font-size:10px;opacity:0.4;text-align:center;margin-top:8px">La commande n'envoie plus de message, elle part direct dans le panel admin</p>
+<button class="btn-main" onclick="checkout()">Commander 🚀</button>
 </div>
 
 <div id="productModal" class="product-modal">
@@ -179,7 +173,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 
 <div id="adminPanel" class="admin-panel">
 <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div>
-<div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe admin</h4><input id="adminPass" class="input" type="password" placeholder="Norber93100//"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div>
+<div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div>
 <div id="adminContent" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>📦 Commandes (<span id="adminCount">0</span>)</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div></div>
 </div>
 
@@ -197,7 +191,7 @@ function closeAdmin(){document.getElementById('adminPanel').classList.remove('op
 function loginAdmin(){
   let p=document.getElementById('adminPass').value.trim();
   if(p===ADMIN_PASSWORD){document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; renderAdminOrders();}
-  else{document.getElementById('adminError').style.display='block';}
+  else{document.getElementById('adminError').style.display='block'; document.getElementById('adminError').textContent='Mauvais mot de passe';}
 }
 const PRODUCTS={
  p1:{name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse.', variants:[{label:'10G',price:50},{label:'25G',price:125},{label:'50G',price:200},{label:'100G',price:300},{label:'1000G',price:2200}], avis:[{name:'@Leo_92',stars:5,text:'Texture de fou'}]},
@@ -270,15 +264,12 @@ function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-
-// COMMANDE UNIQUEMENT DANS PANEL ADMIN - PLUS DE TELEGRAM
 function saveOrderToAdmin(cartData,total,addr,hour){
   let order={id:'CMD-'+Date.now().toString().slice(-6), time:Date.now(), date:new Date().toLocaleString('fr-FR'), items:Object.values(cartData).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'), itemsRaw:JSON.parse(JSON.stringify(cartData)), total:total, address:addr, hour:hour, note:document.getElementById('note').value, remaining:40, status:'en cours'};
   orders.unshift(order);
   localStorage.setItem('simone_orders', JSON.stringify(orders));
   localStorage.setItem('simone_myOrder', JSON.stringify(order));
 }
-
 function checkout(){
   let total=0; for(let id in cart){total+=cart[id].total;}
   if(total===0){alert("Panier vide !");return;}
@@ -286,11 +277,9 @@ function checkout(){
   saveOrderToAdmin(cart,total,addr,selectedHour);
   cart={}; updateCart(); closeCart(); checkMyOrder();
   if(tg) tg.HapticFeedback.notificationOccurred('success');
-  alert('✅ Commande envoyée !\n\nTa commande est dans le panel admin.\nTemps de livraison : 40 min (modifiable par l\'admin)\n\nTu peux suivre ton temps restant en haut de la page !');
+  alert('✅ Commande envoyée !');
 }
-
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
-
 function checkMyOrder(){
   let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
   if(!my){document.getElementById('myOrderBanner').classList.remove('show'); return;}
@@ -304,7 +293,6 @@ function checkMyOrder(){
   document.getElementById('myOrderId').textContent=my.id+' - '+my.total+'€';
 }
 setInterval(checkMyOrder, 5000);
-
 function renderAdminOrders(){
   let list=document.getElementById('adminOrdersList');
   orders=JSON.parse(localStorage.getItem('simone_orders')||'[]');
