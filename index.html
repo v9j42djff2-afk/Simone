@@ -85,7 +85,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <button class="btn-claim" id="claimBtn" onclick="claimDaily()">Récupérer mes points 🪙</button>
 </div>
 
-<div class="section-title"> MENU PREMIUM - CLIQUE POUR VOIR DÉTAIL</div>
+<div class="section-title"> MENU </div>
 <div class="menu-grid" id="menuGrid"></div>
 
 <div class="avis-section"><div class="section-title">⭐ AVIS CLIENTS (TOUS LES TÉLÉPHONES)</div><div id="avisList"></div>
@@ -148,11 +148,11 @@ function switchAdminTab(tab){
 }
 
 const PRODUCTS={
- p1:{id:'p1',name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone.', variants:[{label:'10G',price:50},{label:'25G',price:125},{label:'50G',price:200},{label:'100G',price:300},{label:'1000G',price:2200}]},
- p2:{id:'p2',name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Fresh frozen.', variants:[{label:'10G',price:60}]},
- p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Fresh frozen.', variants:[{label:'10G',price:60}]},
- p4:{id:'p4',name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'Caliplate.', variants:[{label:'10G',price:60}]},
- p5:{id:'p5',name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Edibles 75mg.', variants:[{label:'1 PIECE',price:15}]},
+ p1:{id:'p1',name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone.', variants:[{label:'10G',price:50},{label:'25G',price:100},{label:'50G',price:200},{label:'100G',price:300},{label:'1KG',price:2700}]},
+ p2:{id:'p2',name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Fresh frozen.', variants:[{label:'10G',price:110}]},
+ p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Fresh frozen.', variants:[{label:'10G',price:130}]},
+ p4:{id:'p4',name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'Caliplate.', variants:[{label:'10G',price:130}]},
+ p5:{id:'p5',name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Edibles 75mg.', variants:[{label:'1 PIECE',price:20}]},
  p6:{id:'p6',name:'COCA',tag:'1G',video:'coca.mp4.MP4',desc:'Coca.', variants:[{label:'1G',price:70}]}
 };
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,currentProd=null,selectedVariant=null;
