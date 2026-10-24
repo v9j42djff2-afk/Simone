@@ -8,11 +8,11 @@
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:90px;overflow-x:hidden}
 .admin-btn-top{position:fixed;top:10px;left:10px;z-index:400;background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer}
-.my-order-banner{display:none;margin:12px;border-radius:16px;padding:18px;text-align:center;border:1px solid #ff3b3b}
+.my-order-banner{display:none;margin:12px;border-radius:16px;padding:18px;text-align:center;border:1px solid #ff3b3b;transition:0.3s}
 .my-order-banner.show{display:block}
 .my-order-banner.banned{background:#111;border-color:#ff1a1a}
 .my-order-banner.canceled{background:#222;border-color:#666}
-.my-order-banner.arrived{background:linear-gradient(135deg,#25D366,#128C7E);border-color:#25D366}
+.my-order-banner.arrived{background:linear-gradient(135deg,#25D366,#128C7E)!important;border-color:#25D366!important}
 .my-order-banner.closed{background:#333;border-color:#666}
 .header{text-align:center;padding:40px 15px 22px;background:radial-gradient(circle at top,#2a0a0a,#000);border-bottom:1px solid #222}
 .header img{width:180px;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.5);background:#000}
@@ -65,7 +65,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="header"><img src="logo.png.jpg"><h1>COFFEE <span>SIMONE</span></h1><p>PREMIUM HASH • 11H-23H</p></div>
 
 <div id="closedBanner" class="my-order-banner closed"><p>🔒 FERMÉ</p><b style="font-size:18px">OUVERT 11H-23H</b></div>
-<div id="myOrderBanner" class="my-order-banner" style="background:linear-gradient(135deg,#ff1a1a,#b30000)"><p style="font-size:11px;opacity:0.8" id="myOrderStatus">📦 COMMANDE EN ATTENTE</p><b id="myOrderTimer">En attente</b><div class="status-steps" id="mySteps"><div class="active"></div><div></div><div></div><div></div></div><p id="myOrderId" style="font-size:11px;margin-top:8px;opacity:0.7"></p></div>
+<div id="myOrderBanner" class="my-order-banner" style="background:linear-gradient(135deg,#ff1a1a,#b30000)"><p style="font-size:11px;opacity:0.8" id="myOrderStatus">📦 COMMANDE EN ATTENTE</p><b id="myOrderTimer">40 min</b><div class="status-steps" id="mySteps"><div class="active"></div><div></div><div></div><div></div></div><p id="myOrderId" style="font-size:11px;margin-top:8px;opacity:0.7"></p></div>
 <div id="bannedBanner" class="my-order-banner banned"><p style="font-size:11px;color:#ff1a1a">🚫 COMPTE BANNI</p><b style="font-size:18px">TU ES BANNI</b><p id="bannedUntil" style="font-size:11px;margin-top:6px"></p></div>
 <div id="canceledBanner" class="my-order-banner canceled"><p style="font-size:11px">❌ COMMANDE ANNULÉE</p><b style="font-size:18px">CONTACTE SIMONE</b><p id="canceledId" style="font-size:11px;margin-top:6px"></p></div>
 
@@ -77,7 +77,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 
 <div id="productModal" class="product-modal"><div style="display:flex;justify-content:space-between;padding:14px;border-bottom:1px solid #222"><button onclick="closeProduct()" style="background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button><span style="font-weight:800;font-size:12px">DÉTAIL PRODUIT</span><span style="width:36px"></span></div><div style="background:#000;position:relative"><video id="prodVideo" src="" autoplay muted loop playsinline style="width:100%;height:42vh;object-fit:cover"></video><span id="prodTag" style="position:absolute;top:14px;left:14px;background:#ff1a1a;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:900">NOUVEAU</span></div><div style="padding:16px"><h2 id="prodName">PRODUIT</h2><div id="prodDesc" style="font-size:13px;opacity:0.8;margin-top:10px;background:#151515;border:1px solid #222;border-radius:12px;padding:12px"></div><div style="margin-top:18px"><div style="font-size:11px;opacity:0.6;font-weight:800;margin-bottom:10px">SÉLECTIONNER LA QUANTITÉ</div><div id="qteGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div></div></div><div style="position:sticky;bottom:0;background:#070707;padding:14px 18px 20px;border-top:1px solid #222;margin-top:auto"><button id="prodAddBtn" class="btn-main" style="margin:0;opacity:0.3;pointer-events:none">Sélectionnez une quantité</button></div></div>
 
-<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div><div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabOrders" class="active" onclick="switchAdminTab('orders')">📦 Commandes (<span id="adminCount">0</span>)</button><button id="tabTop" onclick="switchAdminTab('top')">👑 Top Clients</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 Bans (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ Avis (<span id="adminAvisCount">0</span>)</button></div><div id="adminOrdersView"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Toutes les commandes</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div></div><div id="adminTopView" style="display:none"><h3>👑 Top Clients (ce mois)</h3><p style="font-size:11px;opacity:0.6;margin:8px 0">Classé par total dépensé</p><div id="adminTopList"></div><h3 style="margin-top:20px">📊 Tous les clients</h3><div id="adminAllClientsList" style="margin-top:8px"></div></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Utilisateurs bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Tous les avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
+<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div><div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabOrders" class="active" onclick="switchAdminTab('orders')">📦 Commandes (<span id="adminCount">0</span>)</button><button id="tabTop" onclick="switchAdminTab('top')">👑 Top Clients</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 Bans (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ Avis (<span id="adminAvisCount">0</span>)</button></div><div id="adminOrdersView"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Toutes les commandes</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div></div><div id="adminTopView" style="display:none"><h3>👑 Top Clients</h3><div id="adminTopList"></div><h3 style="margin-top:20px">📊 Tous les clients</h3><div id="adminAllClientsList" style="margin-top:8px"></div></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Utilisateurs bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Tous les avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
 
 <script>
 const ADMIN_PASSWORD = "Norber93100//";
@@ -155,20 +155,24 @@ async function checkout(){
 }
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
 
-// *** ICI LE FIX DU BUG "ARRIVÉE IMMINENTE" ***
+// FIX: Temps de livraison + case verte
 function checkMyOrder(){
   let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
   let banner=document.getElementById('myOrderBanner');
   let canceled=document.getElementById('canceledBanner');
-  if(!my){banner.classList.remove('show'); canceled.classList.remove('show'); return;}
-  if(isBanned()){banner.classList.remove('show'); return;}
+  if(!my){banner.classList.remove('show'); banner.classList.remove('arrived'); canceled.classList.remove('show'); return;}
+  if(isBanned()){banner.classList.remove('show'); banner.classList.remove('arrived'); return;}
   let found=orders.find(o=>o.id===my.id);
   if(!found && hasFetchedOnce && (Date.now() - my.time) > 15000){
     localStorage.removeItem('simone_myOrder');
-    banner.classList.remove('show'); canceled.classList.remove('show'); return;
+    banner.classList.remove('show'); banner.classList.remove('arrived'); canceled.classList.remove('show'); return;
   }
   let d = found || my;
-  if(d.status==='annulé'){banner.classList.remove('show'); canceled.classList.add('show'); document.getElementById('canceledId').textContent=d.id; return;}
+  if(d.status==='annulé'){banner.classList.remove('show'); banner.classList.remove('arrived'); canceled.classList.add('show'); document.getElementById('canceledId').textContent=d.id; return;}
+
+  let elapsed=Math.floor((Date.now()-d.time)/60000);
+  let rest=d.remaining - elapsed;
+  if(rest<0) rest=0;
 
   let statusText = {
     'en attente': '📦 COMMANDE EN ATTENTE',
@@ -176,25 +180,39 @@ function checkMyOrder(){
     'en route': '🛵 LIVREUR EN ROUTE',
     'livré': '✅ LIVREUR ARRIVÉ'
   };
-  let timerText = {
-    'en attente': 'EN ATTENTE DE CONFIRMATION',
-    'en préparation': 'PRÉPARATION EN COURS',
-    'en route': 'ARRIVÉE IMMINENTE',
-    'livré': 'LIVREUR ARRIVÉ ✅'
-  };
 
   let step = d.statusStep || 1;
   document.getElementById('myOrderStatus').textContent = statusText[d.status] || d.status.toUpperCase();
-  document.getElementById('myOrderTimer').textContent = timerText[d.status] || d.status.toUpperCase();
-  document.getElementById('myOrderId').textContent = d.id+' - '+d.total+'€';
-
-  if(d.status==='livré'){ banner.classList.add('arrived'); } else { banner.classList.remove('arrived'); }
   
+  // AFFICHAGE TEMPS + CASE VERTE
+  if(d.status==='livré'){
+    document.getElementById('myOrderTimer').textContent = 'LIVREUR ARRIVÉ ✅';
+    banner.classList.add('arrived');
+  } else {
+    banner.classList.remove('arrived');
+    if(rest<=0){
+      document.getElementById('myOrderTimer').textContent = 'ARRIVÉE IMMINENTE - '+rest+' min';
+    } else {
+      document.getElementById('myOrderTimer').textContent = rest+' MIN RESTANT';
+    }
+    // Si en route on met arrivée imminente mais avec le temps
+    if(d.status==='en route'){
+      document.getElementById('myOrderTimer').textContent = 'ARRIVÉE IMMINENTE - '+rest+' min';
+    }
+    if(d.status==='en attente'){
+      document.getElementById('myOrderTimer').textContent = 'EN ATTENTE - '+rest+' min';
+    }
+    if(d.status==='en préparation'){
+      document.getElementById('myOrderTimer').textContent = 'PRÉPARATION - '+rest+' min';
+    }
+  }
+
+  document.getElementById('myOrderId').textContent = d.id+' - '+d.total+'€';
   let stepsEl=document.getElementById('mySteps'); if(stepsEl){ let html=''; for(let i=1;i<=4;i++){ html+=`<div class="${i<step?'done':''} ${i===step?'active':''}"></div>`; } stepsEl.innerHTML=html; }
   banner.classList.add('show'); canceled.classList.remove('show');
 }
 
-setInterval(()=>{checkMyOrder(); checkBanned(); checkOpen();}, 2000); 
+setInterval(()=>{checkMyOrder(); checkBanned(); checkOpen();}, 1000); 
 setInterval(fetchAll, 5000);
 
 function renderAdminOrders(){
@@ -204,8 +222,8 @@ function renderAdminOrders(){
   let html=''; orders.forEach((o,idx)=>{
     let elapsed=Math.floor((Date.now()-o.time)/60000); let rest=o.remaining-elapsed; if(rest<0)rest=0;
     let statusColor=o.status==='annulé'?'#888':o.status==='livré'?'#25D366':'#ffcc00';
-    html+=`<div class="admin-order"><div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div><div style="font-size:10px;opacity:0.5">Device: ${o.deviceId||'?'}</div><div style="font-size:12px;margin-top:6px">${o.items}</div><div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${statusColor}">${o.status.toUpperCase()}</b> (Step ${o.statusStep||1}/4)</div><div style="font-size:12px;margin-top:4px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div><div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="admin-timer">${o.status==='livré'?'ARRIVÉ':o.status==='annulé'?'ANNULÉ':rest+' min'}</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})">OK</button></div>
-    <div class="admin-actions"><button onclick="updateStatus(${idx},'en attente',1)" style="${o.status==='en attente'?'background:#ff1a1a;color:#fff':''}">En attente</button><button onclick="updateStatus(${idx},'en préparation',2)" style="${o.status==='en préparation'?'background:#ffaa00;color:#000':''}">Préparation 👨‍🍳</button><button onclick="updateStatus(${idx},'en route',3)" style="${o.status==='en route'?'background:#0096ff;color:#fff':''}">En route 🛵</button><button onclick="updateStatus(${idx},'livré',4)" style="background:#25D366;color:#fff;border:none">Arrivé ✅</button></div>
+    html+=`<div class="admin-order" style="${o.status==='livré'?'border-color:#25D366':''}"><div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div><div style="font-size:10px;opacity:0.5">Device: ${o.deviceId||'?'}</div><div style="font-size:12px;margin-top:6px">${o.items}</div><div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${statusColor}">${o.status.toUpperCase()}</b> - ${rest} min restant</div><div style="font-size:12px;margin-top:4px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div><div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="admin-timer">${rest} min</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})">OK</button></div>
+    <div class="admin-actions"><button onclick="updateStatus(${idx},'en attente',1)" style="${o.status==='en attente'?'background:#ff1a1a;color:#fff':''}">En attente</button><button onclick="updateStatus(${idx},'en préparation',2)" style="${o.status==='en préparation'?'background:#ffaa00;color:#000':''}">Préparation 👨‍🍳</button><button onclick="updateStatus(${idx},'en route',3)" style="${o.status==='en route'?'background:#0096ff;color:#fff':''}">En route 🛵</button><button onclick="updateStatus(${idx},'livré',4)" style="background:#25D366;color:#fff;border:none">Arrivé ✅ VERT</button></div>
     <div class="admin-actions"><button onclick="addTime(${idx},5)">+5 min</button><button onclick="addTime(${idx},-5)">-5 min</button><button style="background:#ffaa00;color:#000;border:none" onclick="cancelOrder(${idx})">ANNULER ❌</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteOrder(${idx})">Supprimer 🗑️</button><button style="background:#111;color:#25D366;border:1px solid #25D366" onclick="openMaps('${encodeURIComponent(o.address)}')">🗺️ MAPS</button></div>
     <div class="admin-actions" style="border-top:1px solid #333;padding-top:8px"><button style="background:#000;color:#ff1a1a;border:1px solid #ff1a1a" onclick="banUser('${o.deviceId}', 60)">BAN 1H</button><button style="background:#000;color:#ff1a1a;border:1px solid #ff1a1a" onclick="banUser('${o.deviceId}', 1440)">BAN 24H</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUser('${o.deviceId}', 0)">BAN DEF</button></div></div>`;
   }); list.innerHTML=html;
