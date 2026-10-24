@@ -157,7 +157,6 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">20h-22h</button></div>
 <input id="note" class="input" placeholder="Note livreur (optionnel)">
 <button class="btn-main" onclick="checkout()">Commander 🚀</button>
-<p style="font-size:10px;opacity:0.4;text-align:center;margin-top:8px">Les commandes de tous les clients arrivent ici</p>
 </div>
 
 <div id="productModal" class="product-modal">
@@ -174,21 +173,17 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </div>
 
 <div id="adminPanel" class="admin-panel">
-<div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div>
+<div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN - LIVE</h2><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div>
 <div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div>
-<div id="adminContent" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>📦 Commandes (<span id="adminCount">0</span>) - En direct</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div><p style="font-size:10px;opacity:0.3;margin-top:10px;text-align:center">Actualisation auto toutes les 3s - Toutes les commandes du monde entier</p></div>
+<div id="adminContent" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>📦 Commandes (<span id="adminCount">0</span>) - Tous les clients</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div></div>
 </div>
 
-<div class="footer">Coffee Simone © 2026 - Tous les appareils connectés</div>
+<div class="footer">Coffee Simone © 2026</div>
 
 <script>
 const tg = window.Telegram?.WebApp; if(tg) tg.expand();
 const ADMIN_PASSWORD = "Norber93100//";
-
-// === SERVEUR GRATUIT DEJA CONFIGURE POUR TOI ===
-const BIN_ID = "671c9b2ae41b4d34e440d2b9";
-const API_KEY = "$2a$10$R7x5v8y9z0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w";
-const KV_URL = "https://kvdb.io/9pXqSimone750Shop/orders";
+const NPOINT_URL = "https://api.npoint.io/2d35186dfe62583dd8a9";
 
 function createSparkles(){ const c=document.getElementById('sparkles'); for(let i=0;i<35;i++){ let s=document.createElement('div'); s.className='sparkle'; s.style.left=Math.random()*100+'%'; s.style.animationDuration=(1+Math.random()*2)+'s'; s.style.animationDelay=Math.random()*1.5+'s'; s.style.width=s.style.height=(2+Math.random()*4)+'px'; c.appendChild(s); } }
 createSparkles();
@@ -215,15 +210,19 @@ let orders=[];
 
 async function fetchOrders(){
   try{
-    let r = await fetch(KV_URL);
-    if(r.ok){ let txt = await r.text(); orders = txt ? JSON.parse(txt) : []; }
-    else orders = JSON.parse(localStorage.getItem('simone_orders')||'[]');
-  }catch(e){ orders = JSON.parse(localStorage.getItem('simone_orders')||'[]'); }
+    let r = await fetch(NPOINT_URL);
+    let data = await r.json();
+    orders = Array.isArray(data) ? data : [];
+  }catch(e){
+    orders = JSON.parse(localStorage.getItem('simone_orders')||'[]');
+  }
   renderAdminOrders();
   checkMyOrder();
 }
 async function saveOrdersOnline(){
-  try{ await fetch(KV_URL, {method:'POST', body: JSON.stringify(orders)}); }catch(e){}
+  try{
+    await fetch(NPOINT_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(orders)});
+  }catch(e){}
   localStorage.setItem('simone_orders', JSON.stringify(orders));
 }
 
@@ -283,26 +282,23 @@ function selectProdStars(n){selectedProdStars=n;for(let i=1;i<=5;i++){document.g
 function postAvis(){let name=document.getElementById('avisName').value.trim(),text=document.getElementById('avisText').value.trim();if(!name||!text){alert('Remplis tout !');return;}avisList.unshift({name,text,stars:selectedStars});localStorage.setItem('simone_avis',JSON.stringify(avisList));document.getElementById('avisName').value='';document.getElementById('avisText').value='';renderAvis();}
 function postProdAvis(){let name=document.getElementById('prodAvisName').value.trim(),text=document.getElementById('prodAvisText').value.trim();if(!name||!text){alert('Remplis tout');return;}let pid=currentProd.id;let saved=getSavedProdAvis(pid);saved.unshift({name,stars:selectedProdStars,text});localStorage.setItem('simone_avis_'+pid,JSON.stringify(saved));document.getElementById('prodAvisName').value='';document.getElementById('prodAvisText').value='';renderProdAvis(pid);}
 function renderAvis(){let html='';avisList.forEach(a=>{html+=`<div class="avis-card"><b>${a.name}</b><br><span style="color:#ffcc00">${'⭐'.repeat(a.stars)}</span><br>${a.text}</div>`;});html+=`<div class="avis-card"><b>@Alex_75</b><br><span style="color:#ffcc00">⭐⭐⭐⭐⭐</span><br>Toujours carré, 25min top 👌</div>`;document.getElementById('avisList').innerHTML=html;}
-function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=cart[id].qty;l+=`<div style="display:flex;justify-content:space-between;margin:8px 0;font-size:13px;background:#1a1a1a;padding:10px;border-radius:10px"><span><b>${cart[id].name}</b><br><small style="opacity:0.6">${cart[id].qteLabel} x${cart[id].qty}</small></span><span style="font-weight:900">${cart[id].total}€</span></div>`}document.getElementById('cartBadge').textContent=c;document.getElementById('cartList').innerHTML=l||'Panier vide';document.getElementById('cartTotal').textContent=t+'€';document.getElementById('cartFloat').classList.toggle('show',c>0); if(c>0){document.getElementById('clientDeliveryTime').style.display='block'; let latest=orders[0]; if(latest && latest.status!=='livré'){let elapsed=Math.floor((Date.now()-latest.time)/60000); let rest=latest.remaining-elapsed; if(rest<0) rest=0; document.getElementById('clientTimeText').textContent=rest+' min';} else {document.getElementById('clientTimeText').textContent='40 min (estimé)';}} }
+function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=cart[id].qty;l+=`<div style="display:flex;justify-content:space-between;margin:8px 0;font-size:13px;background:#1a1a1a;padding:10px;border-radius:10px"><span><b>${cart[id].name}</b><br><small style="opacity:0.6">${cart[id].qteLabel} x${cart[id].qty}</small></span><span style="font-weight:900">${cart[id].total}€</span></div>`}document.getElementById('cartBadge').textContent=c;document.getElementById('cartList').innerHTML=l||'Panier vide';document.getElementById('cartTotal').textContent=t+'€';document.getElementById('cartFloat').classList.toggle('show',c>0); if(c>0){document.getElementById('clientDeliveryTime').style.display='block';}}
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
 
-async function saveOrderToAdmin(cartData,total,addr,hour){
-  await fetchOrders();
-  let order={id:'CMD-'+Date.now().toString().slice(-6), time:Date.now(), date:new Date().toLocaleString('fr-FR'), items:Object.values(cartData).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'), total:total, address:addr, hour:hour, note:document.getElementById('note').value, remaining:40, status:'en cours'};
-  orders.unshift(order);
-  await saveOrdersOnline();
-  localStorage.setItem('simone_myOrder', JSON.stringify(order));
-}
 async function checkout(){
   let total=0; for(let id in cart){total+=cart[id].total;}
   if(total===0){alert("Panier vide !");return;}
   let addr=document.getElementById('addr').value.trim(); if(!addr){alert("Adresse !");openCart();return;}
-  await saveOrderToAdmin(cart,total,addr,selectedHour);
+  await fetchOrders();
+  let order={id:'CMD-'+Date.now().toString().slice(-6), time:Date.now(), date:new Date().toLocaleString('fr-FR'), items:Object.values(cart).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'), total:total, address:addr, hour:selectedHour, note:document.getElementById('note').value, remaining:40, status:'en cours'};
+  orders.unshift(order);
+  await saveOrdersOnline();
+  localStorage.setItem('simone_myOrder', JSON.stringify(order));
   cart={}; updateCart(); closeCart(); checkMyOrder();
   if(tg) tg.HapticFeedback.notificationOccurred('success');
-  alert('✅ Commande envoyée ! Visible par l\'admin sur tous les téléphones');
+  alert('✅ Commande envoyée ! Elle est visible dans ton panel admin sur tous les téléphones');
 }
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
 
@@ -310,16 +306,6 @@ function checkMyOrder(){
   let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
   if(!my){document.getElementById('myOrderBanner').classList.remove('show'); return;}
   let found=orders.find(o=>o.id===my.id);
-  if(!found && orders.length>0){
-    // si commande supprimée par admin
-    let stillExists = false;
-    // on garde quand même la bannière si on est le client qui a commandé
-    if(my.status==='livré'){
-      // reste affichée
-    } else {
-      // vérifie si elle existe encore en ligne
-    }
-  }
   let displayOrder = found || my;
   let elapsed=Math.floor((Date.now()-displayOrder.time)/60000);
   let rest=displayOrder.remaining-elapsed;
@@ -328,7 +314,6 @@ function checkMyOrder(){
   let footer=document.getElementById('myOrderFooter');
   let timer=document.getElementById('myOrderTimer');
   let idEl=document.getElementById('myOrderId');
-
   if(displayOrder.status==='livré'){
     banner.classList.add('show');
     banner.classList.add('arrived');
@@ -343,34 +328,28 @@ function checkMyOrder(){
   label.style.display='block';
   footer.style.display='block';
   idEl.style.display='block';
-  if(rest<=0){
-    timer.textContent='ARRIVÉE IMMINENTE';
-    idEl.textContent=displayOrder.id;
-  } else {
-    timer.textContent=rest+' min restant';
-    idEl.textContent=displayOrder.id+' - '+displayOrder.total+'€';
-  }
+  if(rest<=0){timer.textContent='ARRIVÉE IMMINENTE'; idEl.textContent=displayOrder.id;}
+  else{timer.textContent=rest+' min restant'; idEl.textContent=displayOrder.id+' - '+displayOrder.total+'€';}
 }
 setInterval(checkMyOrder, 3000);
 setInterval(fetchOrders, 3000);
 
 function renderAdminOrders(){
   let list=document.getElementById('adminOrdersList');
-  if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande - En attente des clients...</p>'; document.getElementById('adminCount').textContent='0'; return;}
+  if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande - en attente des clients</p>'; document.getElementById('adminCount').textContent='0'; return;}
   document.getElementById('adminCount').textContent=orders.length;
   let html='';
   orders.forEach((o,idx)=>{
     let elapsed=Math.floor((Date.now()-o.time)/60000);
     let rest=o.remaining-elapsed; if(rest<0) rest=0;
     let timerClass=rest<=5?'admin-timer red':'admin-timer';
-    let displayStatus = o.status==='livré' ? 'LIVREUR ARRIVÉ' : o.status.toUpperCase();
     html+=`<div class="admin-order">
       <div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div>
       <div style="font-size:12px;line-height:1.4;margin-top:6px">${o.items}</div>
-      <div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${o.status==='livré'?'#25D366':'#ffcc00'}">${displayStatus}</b></div>
+      <div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${o.status==='livré'?'#25D366':'#ffcc00'}">${o.status==='livré'?'LIVREUR ARRIVÉ':o.status.toUpperCase()}</b></div>
       <div style="font-size:12px;margin-top:4px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="${timerClass}">${o.status==='livré'?'LIVREUR ARRIVÉ':rest+' min restant'}</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})" style="background:#111;border:1px solid #333;color:#fff;padding:8px;border-radius:8px">OK</button></div>
-      <div class="admin-actions"><button onclick="addTime(${idx},5)">+5 min</button><button onclick="addTime(${idx},-5)">-5 min</button><button onclick="addTime(${idx},10)">+10 min</button><button style="background:#25D366;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800" onclick="markDelivered(${idx})">LIVREUR ARRIVÉ ✅</button><button style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800" onclick="deleteOrder(${idx})">Supprimer 🗑️</button></div>
+      <div class="admin-actions"><button onclick="addTime(${idx},5)">+5 min</button><button onclick="addTime(${idx},-5)">-5 min</button><button style="background:#25D366;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800" onclick="markDelivered(${idx})">LIVREUR ARRIVÉ ✅</button><button style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800" onclick="deleteOrder(${idx})">Supprimer 🗑️</button></div>
     </div>`;
   });
   list.innerHTML=html;
@@ -378,30 +357,9 @@ function renderAdminOrders(){
 async function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value); if(v>0){orders[idx].remaining=v; orders[idx].time=Date.now(); orders[idx].status='en cours'; await saveOrdersOnline(); renderAdminOrders();}}
 async function addTime(idx,delta){orders[idx].remaining+=delta; if(orders[idx].remaining<1) orders[idx].remaining=1; orders[idx].time=Date.now(); await saveOrdersOnline(); renderAdminOrders();}
 async function markDelivered(idx){orders[idx].status='livré'; await saveOrdersOnline(); renderAdminOrders(); checkMyOrder();}
-async function deleteOrder(idx){
-  if(confirm('Supprimer cette commande ?')){
-    let deletedId = orders[idx]?.id;
-    orders.splice(idx,1);
-    await saveOrdersOnline();
-    let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
-    if(my && my.id===deletedId){
-      localStorage.removeItem('simone_myOrder');
-      document.getElementById('myOrderBanner').classList.remove('show');
-      document.getElementById('myOrderBanner').classList.remove('arrived');
-    }
-    renderAdminOrders();
-  }
-}
-async function clearAllOrders(){
-  if(confirm('Supprimer TOUTES les commandes de tout le monde ?')){
-    orders=[];
-    await saveOrdersOnline();
-    localStorage.removeItem('simone_myOrder');
-    document.getElementById('myOrderBanner').classList.remove('show');
-    document.getElementById('myOrderBanner').classList.remove('arrived');
-    renderAdminOrders();
-  }
-}
+async function deleteOrder(idx){if(confirm('Supprimer ?')){orders.splice(idx,1); await saveOrdersOnline(); renderAdminOrders();}}
+async function clearAllOrders(){if(confirm('Supprimer TOUTES les commandes de tout le monde ?')){orders=[]; await saveOrdersOnline(); renderAdminOrders(); localStorage.removeItem('simone_myOrder'); document.getElementById('myOrderBanner').classList.remove('show');}}
+
 fetchOrders();
 </script>
 </body>
