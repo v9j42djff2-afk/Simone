@@ -65,7 +65,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="header"><img src="logo.png.jpg"><h1>COFFEE <span>SIMONE</span></h1><p>PREMIUM HASH • 11H-23H</p></div>
 
 <div id="closedBanner" class="my-order-banner closed"><p>🔒 FERMÉ</p><b style="font-size:18px">OUVERT 11H-23H</b></div>
-<div id="myOrderBanner" class="my-order-banner" style="background:linear-gradient(135deg,#ff1a1a,#b30000)"><p style="font-size:11px;opacity:0.8" id="myOrderStatus">📦 COMMANDE EN ATTENTE</p><b id="myOrderTimer">40 min</b><div class="status-steps" id="mySteps"><div class="active"></div><div></div><div></div><div></div></div><p id="myOrderId" style="font-size:11px;margin-top:8px;opacity:0.7"></p></div>
+<div id="myOrderBanner" class="my-order-banner" style="background:linear-gradient(135deg,#ff1a1a,#b30000)"><p style="font-size:11px;opacity:0.8" id="myOrderStatus">📦 COMMANDE EN ATTENTE</p><b id="myOrderTimer">En attente</b><div class="status-steps" id="mySteps"><div class="active"></div><div></div><div></div><div></div></div><p id="myOrderId" style="font-size:11px;margin-top:8px;opacity:0.7"></p></div>
 <div id="bannedBanner" class="my-order-banner banned"><p style="font-size:11px;color:#ff1a1a">🚫 COMPTE BANNI</p><b style="font-size:18px">TU ES BANNI</b><p id="bannedUntil" style="font-size:11px;margin-top:6px"></p></div>
 <div id="canceledBanner" class="my-order-banner canceled"><p style="font-size:11px">❌ COMMANDE ANNULÉE</p><b style="font-size:18px">CONTACTE SIMONE</b><p id="canceledId" style="font-size:11px;margin-top:6px"></p></div>
 
@@ -155,7 +155,7 @@ async function checkout(){
 }
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
 
-// FIX: Temps de livraison + case verte
+// FIX DEMANDÉ: Livreur en route = uniquement si tu mets un temps, Arrivée imminente = uniquement à 0
 function checkMyOrder(){
   let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
   let banner=document.getElementById('myOrderBanner');
@@ -174,40 +174,32 @@ function checkMyOrder(){
   let rest=d.remaining - elapsed;
   if(rest<0) rest=0;
 
-  let statusText = {
-    'en attente': '📦 COMMANDE EN ATTENTE',
-    'en préparation': '👨‍🍳 EN PRÉPARATION',
-    'en route': '🛵 LIVREUR EN ROUTE',
-    'livré': '✅ LIVREUR ARRIVÉ'
-  };
-
   let step = d.statusStep || 1;
-  document.getElementById('myOrderStatus').textContent = statusText[d.status] || d.status.toUpperCase();
-  
-  // AFFICHAGE TEMPS + CASE VERTE
-  if(d.status==='livré'){
+  document.getElementById('myOrderId').textContent = d.id+' - '+d.total+'€';
+
+  // LOGIQUE DEMANDÉE
+  if(d.status==='en attente'){
+    document.getElementById('myOrderStatus').textContent = '📦 COMMANDE EN ATTENTE';
+    document.getElementById('myOrderTimer').textContent = 'EN ATTENTE DE CONFIRMATION';
+    banner.classList.remove('arrived');
+  } else if(d.status==='en préparation'){
+    document.getElementById('myOrderStatus').textContent = '👨‍🍳 EN PRÉPARATION';
+    document.getElementById('myOrderTimer').textContent = 'PRÉPARATION EN COURS';
+    banner.classList.remove('arrived');
+  } else if(d.status==='en route'){
+    document.getElementById('myOrderStatus').textContent = '🛵 LIVREUR EN ROUTE';
+    if(rest===0){
+      document.getElementById('myOrderTimer').textContent = 'ARRIVÉE IMMINENTE';
+    } else {
+      document.getElementById('myOrderTimer').textContent = 'LIVREUR EN ROUTE - '+rest+' MIN';
+    }
+    banner.classList.remove('arrived');
+  } else if(d.status==='livré'){
+    document.getElementById('myOrderStatus').textContent = '✅ LIVREUR ARRIVÉ';
     document.getElementById('myOrderTimer').textContent = 'LIVREUR ARRIVÉ ✅';
     banner.classList.add('arrived');
-  } else {
-    banner.classList.remove('arrived');
-    if(rest<=0){
-      document.getElementById('myOrderTimer').textContent = 'ARRIVÉE IMMINENTE - '+rest+' min';
-    } else {
-      document.getElementById('myOrderTimer').textContent = rest+' MIN RESTANT';
-    }
-    // Si en route on met arrivée imminente mais avec le temps
-    if(d.status==='en route'){
-      document.getElementById('myOrderTimer').textContent = 'ARRIVÉE IMMINENTE - '+rest+' min';
-    }
-    if(d.status==='en attente'){
-      document.getElementById('myOrderTimer').textContent = 'EN ATTENTE - '+rest+' min';
-    }
-    if(d.status==='en préparation'){
-      document.getElementById('myOrderTimer').textContent = 'PRÉPARATION - '+rest+' min';
-    }
   }
 
-  document.getElementById('myOrderId').textContent = d.id+' - '+d.total+'€';
   let stepsEl=document.getElementById('mySteps'); if(stepsEl){ let html=''; for(let i=1;i<=4;i++){ html+=`<div class="${i<step?'done':''} ${i===step?'active':''}"></div>`; } stepsEl.innerHTML=html; }
   banner.classList.add('show'); canceled.classList.remove('show');
 }
@@ -223,9 +215,8 @@ function renderAdminOrders(){
     let elapsed=Math.floor((Date.now()-o.time)/60000); let rest=o.remaining-elapsed; if(rest<0)rest=0;
     let statusColor=o.status==='annulé'?'#888':o.status==='livré'?'#25D366':'#ffcc00';
     html+=`<div class="admin-order" style="${o.status==='livré'?'border-color:#25D366':''}"><div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div><div style="font-size:10px;opacity:0.5">Device: ${o.deviceId||'?'}</div><div style="font-size:12px;margin-top:6px">${o.items}</div><div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${statusColor}">${o.status.toUpperCase()}</b> - ${rest} min restant</div><div style="font-size:12px;margin-top:4px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div><div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="admin-timer">${rest} min</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})">OK</button></div>
-    <div class="admin-actions"><button onclick="updateStatus(${idx},'en attente',1)" style="${o.status==='en attente'?'background:#ff1a1a;color:#fff':''}">En attente</button><button onclick="updateStatus(${idx},'en préparation',2)" style="${o.status==='en préparation'?'background:#ffaa00;color:#000':''}">Préparation 👨‍🍳</button><button onclick="updateStatus(${idx},'en route',3)" style="${o.status==='en route'?'background:#0096ff;color:#fff':''}">En route 🛵</button><button onclick="updateStatus(${idx},'livré',4)" style="background:#25D366;color:#fff;border:none">Arrivé ✅ VERT</button></div>
-    <div class="admin-actions"><button onclick="addTime(${idx},5)">+5 min</button><button onclick="addTime(${idx},-5)">-5 min</button><button style="background:#ffaa00;color:#000;border:none" onclick="cancelOrder(${idx})">ANNULER ❌</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteOrder(${idx})">Supprimer 🗑️</button><button style="background:#111;color:#25D366;border:1px solid #25D366" onclick="openMaps('${encodeURIComponent(o.address)}')">🗺️ MAPS</button></div>
-    <div class="admin-actions" style="border-top:1px solid #333;padding-top:8px"><button style="background:#000;color:#ff1a1a;border:1px solid #ff1a1a" onclick="banUser('${o.deviceId}', 60)">BAN 1H</button><button style="background:#000;color:#ff1a1a;border:1px solid #ff1a1a" onclick="banUser('${o.deviceId}', 1440)">BAN 24H</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUser('${o.deviceId}', 0)">BAN DEF</button></div></div>`;
+    <div class="admin-actions"><button onclick="updateStatus(${idx},'en attente',1)" style="${o.status==='en attente'?'background:#ff1a1a;color:#fff':''}">En attente</button><button onclick="updateStatus(${idx},'en préparation',2)" style="${o.status==='en préparation'?'background:#ffaa00;color:#000':''}">Préparation 👨‍🍳</button><button onclick="updateStatus(${idx},'en route',3)" style="${o.status==='en route'?'background:#0096ff;color:#fff':''}">En route 🛵 (${rest} min)</button><button onclick="updateStatus(${idx},'livré',4)" style="background:#25D366;color:#fff;border:none">Arrivé ✅ VERT</button></div>
+    <div class="admin-actions"><button onclick="addTime(${idx},5)">+5 min</button><button onclick="addTime(${idx},-5)">-5 min</button><button style="background:#ffaa00;color:#000;border:none" onclick="cancelOrder(${idx})">ANNULER ❌</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteOrder(${idx})">Supprimer 🗑️</button><button style="background:#111;color:#25D366;border:1px solid #25D366" onclick="openMaps('${encodeURIComponent(o.address)}')">🗺️ MAPS</button></div></div>`;
   }); list.innerHTML=html;
 }
 function renderTopClients(){
@@ -234,7 +225,7 @@ function renderTopClients(){
   let map={}; orders.forEach(o=>{ if(!o.deviceId) return; if(!map[o.deviceId]) map[o.deviceId]={id:o.deviceId, total:0, count:0, lastAddr:o.address, lastDate:o.date}; map[o.deviceId].total+=o.total||0; map[o.deviceId].count+=1; });
   let arr=Object.values(map).sort((a,b)=>b.total-a.total);
   let html=''; arr.slice(0,10).forEach((c,i)=>{ let medal=i===0?'🥇':i===1?'🥈':i===2?'🥉':'👤'; html+=`<div class="top-client"><span>${medal} <b>${c.id}</b><br><small style="opacity:0.6">${c.lastAddr||''}</small></span><span style="text-align:right"><b>${c.total}€</b><br><small>${c.count} commandes</small></span></div>`; }); topList.innerHTML=html;
-  let htmlAll=''; arr.forEach(c=>{ htmlAll+=`<div class="top-client"><span><b>${c.id}</b><br><small>${c.lastDate}</small></span><span><b>${c.total}€</b> - ${c.count} cmd <button onclick="banUser('${c.id}',0)" style="background:#ff1a1a;border:none;color:#fff;padding:4px 8px;border-radius:8px;margin-left:6px;font-size:10px">BAN</button></span></div>`; }); allList.innerHTML=htmlAll;
+  let htmlAll=''; arr.forEach(c=>{ htmlAll+=`<div class="top-client"><span><b>${c.id}</b><br><small>${c.lastDate}</small></span><span><b>${c.total}€</b> - ${c.count} cmd</span></div>`; }); allList.innerHTML=htmlAll;
 }
 function renderAdminBans(){let list=document.getElementById('adminBansList'); if(!list) return; document.getElementById('adminBansCount').textContent=bannedList.length; if(bannedList.length===0){list.innerHTML='<p style="opacity:0.5">Aucun banni</p>';return;} let html=''; bannedList.forEach((b,idx)=>{let untilText=b.until ? new Date(b.until).toLocaleString('fr-FR') : 'DEFINITIF'; html+=`<div class="admin-order"><b style="color:#ff1a1a">${b.deviceId}</b><br><small>Fin: ${untilText}</small><br><div class="admin-actions"><button style="background:#25D366;color:#fff;border:none" onclick="unbanUser(${idx})">DÉBANNIR ✅</button></div></div>`;}); list.innerHTML=html;}
 function renderAdminAvis(){let list=document.getElementById('adminAvisList'); if(!list) return; if(avisList.length===0){list.innerHTML='<p style="opacity:0.5">Aucun avis</p>';return;} let html=''; avisList.forEach((a,i)=>{html+=`<div class="admin-order"><b>${a.name}</b> - ${a.stars}⭐<br>${a.text}<br><small>${a.date}</small><div class="admin-actions"><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteAvis(${i})">Supprimer</button></div></div>`}); list.innerHTML=html;}
@@ -242,8 +233,8 @@ function openMaps(addr){window.open('https://www.google.com/maps/search/?api=1&q
 async function banUser(deviceId, minutes){if(!deviceId || deviceId==='undefined'){alert('Pas de deviceId');return;} let until = minutes===0 ? null : Date.now() + minutes*60000; await fetchAll(); bannedList = bannedList.filter(b=>b.deviceId!==deviceId); bannedList.push({deviceId, until, date:new Date().toLocaleString('fr-FR')}); await saveAll(); renderAdminBans(); alert('✅ Banni');}
 async function unbanUser(idx){bannedList.splice(idx,1); await saveAll(); renderAdminBans();}
 async function clearAllBans(){if(confirm('Débannir tout ?')){bannedList=[]; await saveAll(); renderAdminBans();}}
-async function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value);if(v>0){orders[idx].remaining=v;orders[idx].time=Date.now();if(orders[idx].status==='en attente') {orders[idx].status='en préparation'; orders[idx].statusStep=2;} await saveAll();renderAdminOrders();}}
-async function addTime(idx,d){orders[idx].remaining+=d;if(orders[idx].remaining<1)orders[idx].remaining=1;orders[idx].time=Date.now();await saveAll();renderAdminOrders();}
+async function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value);if(v>0){orders[idx].remaining=v;orders[idx].time=Date.now(); await saveAll();renderAdminOrders();}}
+async function addTime(idx,d){orders[idx].remaining+=d;if(orders[idx].remaining<1)orders[idx].remaining=0;orders[idx].time=Date.now();await saveAll();renderAdminOrders();}
 async function updateStatus(idx,status,step){orders[idx].status=status; orders[idx].statusStep=step; if(status==='livré') orders[idx].remaining=0; await saveAll(); renderAdminOrders(); checkMyOrder();}
 async function cancelOrder(idx){orders[idx].status='annulé';await saveAll();renderAdminOrders();checkMyOrder();}
 async function deleteOrder(idx){if(confirm('Supprimer ?')){orders.splice(idx,1);await saveAll();renderAdminOrders();}}
