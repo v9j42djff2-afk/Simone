@@ -25,8 +25,9 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 @keyframes pulseGlow{0%,100%{transform:scale(0.9);opacity:0.6}50%{transform:scale(1.2);opacity:1}}
 @keyframes fall{0%{transform:translateY(-10px) scale(0);opacity:0}100%{transform:translateY(110vh) scale(1.2);opacity:0}}
 .admin-btn-top{position:fixed;top:10px;left:10px;z-index:400;background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer}
-.my-order-banner{display:none;margin:12px;background:linear-gradient(135deg,#ff1a1a,#b30000);border-radius:16px;padding:14px;text-align:center;border:1px solid #ff3b3b}
+.my-order-banner{display:none;margin:12px;background:linear-gradient(135deg,#ff1a1a,#b30000);border-radius:16px;padding:14px;text-align:center;border:1px solid #ff3b3b;transition:0.4s}
 .my-order-banner.show{display:block}
+.my-order-banner.arrived{background:linear-gradient(135deg,#25D366,#128C7E);border-color:#25D366;box-shadow:0 0 20px rgba(37,211,102,0.4)}
 .my-order-banner b{font-size:22px}
 .header{text-align:center;padding:40px 15px 22px;background:radial-gradient(circle at top,#2a0a0a,#000);border-bottom:1px solid #222}
 .header img{width:180px;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.5);background:#000}
@@ -116,10 +117,10 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </div>
 
 <div id="myOrderBanner" class="my-order-banner">
-  <p style="font-size:11px;letter-spacing:1px;opacity:0.8">📦 COMMANDE EN COURS</p>
+  <p id="myOrderLabel" style="font-size:11px;letter-spacing:1px;opacity:0.8">📦 COMMANDE EN COURS</p>
   <b id="myOrderTimer">40:00</b>
   <p id="myOrderId" style="font-size:11px;margin-top:4px;opacity:0.7"></p>
-  <p style="font-size:11px;margin-top:6px">Ton livreur arrive, reste dispo !</p>
+  <p id="myOrderFooter" style="font-size:11px;margin-top:6px">Ton livreur arrive, reste dispo !</p>
 </div>
 
 <div class="daily">
@@ -284,7 +285,6 @@ document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
 function checkMyOrder(){
   let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
   if(!my){document.getElementById('myOrderBanner').classList.remove('show'); return;}
-  // FIX : si la commande a été supprimée dans l'admin, on la supprime aussi ici
   let found=orders.find(o=>o.id===my.id);
   if(!found){
     localStorage.removeItem('simone_myOrder');
@@ -294,11 +294,33 @@ function checkMyOrder(){
   my=found;
   let elapsed=Math.floor((Date.now()-my.time)/60000);
   let rest=my.remaining-elapsed;
-  if(my.status==='livré'){document.getElementById('myOrderBanner').classList.add('show'); document.getElementById('myOrderTimer').textContent='LIVREUR ARRIVÉ'; document.getElementById('myOrderId').textContent=my.id+' - Merci !'; return;}
-  if(rest<=0){document.getElementById('myOrderBanner').classList.add('show'); document.getElementById('myOrderTimer').textContent='ARRIVÉE IMMINENTE'; document.getElementById('myOrderId').textContent=my.id; return;}
-  document.getElementById('myOrderBanner').classList.add('show');
-  document.getElementById('myOrderTimer').textContent=rest+' min restant';
-  document.getElementById('myOrderId').textContent=my.id+' - '+my.total+'€';
+  let banner=document.getElementById('myOrderBanner');
+  let label=document.getElementById('myOrderLabel');
+  let footer=document.getElementById('myOrderFooter');
+  let timer=document.getElementById('myOrderTimer');
+  let idEl=document.getElementById('myOrderId');
+
+  if(my.status==='livré'){
+    banner.classList.add('show');
+    banner.classList.add('arrived');
+    label.style.display='none';
+    footer.style.display='none';
+    timer.textContent='LIVREUR ARRIVÉ';
+    idEl.textContent=my.id;
+    return;
+  }
+  // commande en cours normale
+  banner.classList.remove('arrived');
+  banner.classList.add('show');
+  label.style.display='block';
+  footer.style.display='block';
+  if(rest<=0){
+    timer.textContent='ARRIVÉE IMMINENTE';
+    idEl.textContent=my.id;
+  } else {
+    timer.textContent=rest+' min restant';
+    idEl.textContent=my.id+' - '+my.total+'€';
+  }
 }
 setInterval(checkMyOrder, 3000);
 
@@ -327,17 +349,16 @@ function renderAdminOrders(){
 function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value); if(v>0){orders[idx].remaining=v; orders[idx].time=Date.now(); orders[idx].status='en cours'; localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders(); checkMyOrder();}}
 function addTime(idx,delta){orders[idx].remaining+=delta; if(orders[idx].remaining<1) orders[idx].remaining=1; orders[idx].time=Date.now(); localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders(); checkMyOrder();}
 function markDelivered(idx){orders[idx].status='livré'; localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders(); checkMyOrder();}
-
 function deleteOrder(idx){
   if(confirm('Supprimer cette commande ?')){
     let deletedId = orders[idx]?.id;
     orders.splice(idx,1);
     localStorage.setItem('simone_orders',JSON.stringify(orders));
-    // FIX : supprime aussi la bannière client si c'est sa commande
     let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
     if(my && my.id===deletedId){
       localStorage.removeItem('simone_myOrder');
       document.getElementById('myOrderBanner').classList.remove('show');
+      document.getElementById('myOrderBanner').classList.remove('arrived');
     }
     renderAdminOrders();
     checkMyOrder();
@@ -349,6 +370,7 @@ function clearAllOrders(){
     localStorage.setItem('simone_orders','[]');
     localStorage.removeItem('simone_myOrder');
     document.getElementById('myOrderBanner').classList.remove('show');
+    document.getElementById('myOrderBanner').classList.remove('arrived');
     renderAdminOrders();
   }
 }
