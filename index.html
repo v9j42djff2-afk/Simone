@@ -79,8 +79,8 @@ function loginAdmin(){let p=document.getElementById('adminPass').value.trim(); i
 function switchAdminTab(tab){document.getElementById('tabOrders').classList.toggle('active', tab==='orders'); document.getElementById('tabAvis').classList.toggle('active', tab==='avis'); document.getElementById('adminOrdersView').style.display = tab==='orders' ? 'block' : 'none'; document.getElementById('adminAvisView').style.display = tab==='avis' ? 'block' : 'none'; if(tab==='avis') renderAdminAvis(); else renderAdminOrders();}
 
 const PRODUCTS={
- p1:{id:'p1',name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller.', variants:[{label:'10G',price:50},{label:'50G',price:170},{label:'100G',price:310}]},
- p2:{id:'p2',name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Fresh.', variants:[{label:'10G',price:110}]},
+ p1:{id:'p1',name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse, goût classique et unique en bouche.', variants:[{label:'10G',price:50},{label:'50G',price:170},{label:'100G',price:310}]},
+ p2:{id:'p2',name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Edition Fresh Frozen, hash ultra concentré. Effet direct, goût brew. Réservé aux connaisseurs. Stock limité.', variants:[{label:'10G',price:110}]},
  p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Edition Fresh Frozen, hash ultra concentré. Effet direct, goût brew. Réservé aux connaisseurs. Stock limité.', variants:[{label:'10G',price:130}]},
  p4:{id:'p4',name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'Haschisch compressé caliplate. Inspiré des méthodes californiennes, il offre une saveur intense et procure, effets unique et exceptionnels.', variants:[{label:'10G',price:130}]},
  p5:{id:'p5',name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Edition unique de bonbon infusé au thc rare, goût fraise kiwi, effet créatif et social. Edition limitée..', variants:[{label:'3 PIECE',price:50}]},
