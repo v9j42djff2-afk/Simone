@@ -8,8 +8,6 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:90px;overflow-x:hidden}
-
-/* ===== SPLASH EFFET OUVERTURE ===== */
 .splash{position:fixed;top:0;left:0;right:0;bottom:0;background:radial-gradient(circle at 50% 30%,#2a0a0a 0%,#070707 60%);z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:0.8s cubic-bezier(0.16,1,0.3,1)}
 .splash.hide{transform:translateY(-100%);opacity:0;pointer-events:none}
 .splash-logo-wrap{position:relative;width:220px;height:220px;display:flex;align-items:center;justify-content:center}
@@ -28,13 +26,11 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 @keyframes pulseGlow{0%,100%{transform:scale(0.9);opacity:0.6}50%{transform:scale(1.2);opacity:1}}
 @keyframes fadeUp{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
 @keyframes fall{0%{transform:translateY(-10px) translateX(0) scale(0);opacity:0}10%{opacity:1}90%{opacity:1}100%{transform:translateY(110vh) translateX(50px) scale(1.2);opacity:0}}
-
-.header{text-align:center;padding:22px 15px;background:radial-gradient(circle at top,#2a0a0a,#000);border-bottom:1px solid #222}
+.header{text-align:center;padding:22px 15px;background:radial-gradient(circle at top,#2a0a0a,#000);border-bottom:1px solid #222;user-select:none}
 .header img{width:180px;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.5);background:#000}
-.header h1{font-size:28px;font-weight:900;letter-spacing:2px;margin-top:14px}
+.header h1{font-size:28px;font-weight:900;letter-spacing:2px;margin-top:14px;cursor:pointer}
 .header h1 span{color:#ff1a1a}
 .daily{margin:14px 12px;background:#151515;border:1px solid #2a2a2a;border-radius:20px;padding:14px}
-.daily-top{display:flex;justify-content:space-between;align-items:center}
 .days{display:flex;gap:6px;margin-top:12px}
 .day{flex:1;height:62px;background:#111;border:1px solid #222;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:10px;opacity:0.5}
 .day.active{border-color:#ff1a1a;opacity:1;background:#1f0f0f}
@@ -43,7 +39,6 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .section-title{padding:18px 15px 8px;font-size:11px;letter-spacing:2px;opacity:0.6;font-weight:800}
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 12px}
 .card{background:#161616;border:1px solid #222;border-radius:18px;padding:10px;cursor:pointer;transition:0.2s}
-.card:active{transform:scale(0.97);border-color:#ff1a1a}
 .card video{width:100%;height:130px;border-radius:12px;object-fit:cover;background:#000;display:block;pointer-events:none}
 .card h3{font-size:12px;margin:8px 0 2px}
 .tag{display:inline-block;font-size:8px;padding:3px 6px;border-radius:8px;font-weight:800;background:#ff1a1a}
@@ -65,7 +60,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .btn-main{background:linear-gradient(135deg,#ff1a1a,#b30000);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;font-size:14px;cursor:pointer;margin-top:10px}
 .social{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
 .social a{padding:8px 14px;border-radius:20px;font-size:11px;font-weight:800;text-decoration:none;color:#fff}
-.social .canal{background:#24A1DE}.social .insta{background:linear-gradient(135deg,#f58529,#dd2a7b,#515bd4)}.social .whats{background:#25D366}
+.social .insta{background:linear-gradient(135deg,#f58529,#dd2a7b,#515bd4)}
 .footer{text-align:center;padding:15px;opacity:0.3;font-size:10px}
 .gift-banner{display:none;background:linear-gradient(135deg,#ffcc00,#ff7a00);color:#000;padding:12px;border-radius:12px;font-weight:900;text-align:center;margin-top:10px;font-size:13px}
 .gift-banner.show{display:block}
@@ -91,61 +86,52 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .btn-qte.full{grid-column:span 2}
 .prod-action{position:sticky;bottom:0;background:#070707;padding:14px 18px 20px;border-top:1px solid #222;margin-top:auto}
 .prod-avis-card{background:#161616;border:1px solid #222;border-radius:12px;padding:10px;margin-bottom:8px;font-size:12px}
+
+/* PANEL ADMIN */
+.admin-panel{position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0a0a;z-index:5000;overflow:auto;transform:translateY(100%);transition:0.4s;padding:16px}
+.admin-panel.open{transform:translateY(0)}
+.admin-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px}
+.admin-order{background:#161616;border:1px solid #222;border-radius:16px;padding:14px;margin-bottom:12px}
+.admin-order-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.admin-timer{font-size:22px;font-weight:900;color:#ffcc00}
+.admin-timer.red{color:#ff1a1a;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0.4}}
+.admin-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.admin-actions button{padding:8px 10px;border-radius:10px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:11px;font-weight:800;cursor:pointer}
+.admin-actions button.green{background:#25D366;border-color:#25D366}
+.admin-actions button.red{background:#ff1a1a;border-color:#ff1a1a}
+.admin-input{width:60px;background:#000;border:1px solid #333;color:#ffcc00;padding:8px;border-radius:8px;text-align:center;font-weight:900}
 </style>
 </head>
 <body>
 
-<!-- ECRAN DE CHARGEMENT AVEC PAILLETTES -->
 <div id="splash" class="splash" onclick="hideSplash()">
   <div class="sparkles" id="sparkles"></div>
-  <div class="splash-logo-wrap">
-    <div class="splash-glow"></div>
-    <div class="splash-logo"><img src="logo.png.jpg" alt="logo"></div>
-  </div>
+  <div class="splash-logo-wrap"><div class="splash-glow"></div><div class="splash-logo"><img src="logo.png.jpg"></div></div>
   <div class="splash-title">COFFEE <span>SIMONE</span></div>
   <div class="splash-sub">PREMIUM • PARIS LIVRAISON</div>
 </div>
 
 <div class="header">
-<img src="logo.png.jpg" alt="logo">
-<h1>COFFEE <span>SIMONE</span></h1>
-<p>PREMIUM HASH • PARIS LIVRAISON</p>
+<img src="logo.png.jpg">
+<h1 id="adminTrigger">COFFEE <span>SIMONE</span></h1>
+<p>PREMIUM HASH • PARIS LIVRAISON - CLIQUE 5X POUR ADMIN</p>
 </div>
 
 <div class="daily">
-<div class="daily-top">
-<h3>FIDÉLITÉ </h3>
-<span style="font-size:11px;background:#111;border:1px solid #222;padding:5px 10px;border-radius:20px">Série: <b id="streak">1</b>j 🔥 | <b id="ptsCount">0</b> PTS</span>
-</div>
-<div class="days">
-<div class="day active" id="d1">J1<br><b></b></div><div class="day" id="d2">J2<br><b></b></div><div class="day" id="d3">J3<br><b></b></div><div class="day" id="d4">J4<br><b></b></div><div class="day" id="d5">J5<br><b></b></div><div class="day" id="d6">J6<br><b></b></div><div class="day gift" id="d7">J7<br><b>🎁</b></div>
-</div>
+<div class="daily-top"><h3>FIDÉLITÉ </h3><span style="font-size:11px;background:#111;border:1px solid #222;padding:5px 10px;border-radius:20px">Série: <b id="streak">1</b>j 🔥 | <b id="ptsCount">0</b> PTS</span></div>
+<div class="days"><div class="day active" id="d1">J1</div><div class="day" id="d2">J2</div><div class="day" id="d3">J3</div><div class="day" id="d4">J4</div><div class="day" id="d5">J5</div><div class="day" id="d6">J6</div><div class="day gift" id="d7">J7 🎁</div></div>
 <button class="btn-claim" id="claimBtn" onclick="claimDaily()">Récupérer mes points 🪙</button>
 <div class="gift-banner" id="giftBanner">🎉 PRODUIT OFFERT DÉBLOQUÉ !</div>
 </div>
 
-<div class="section-title"> MENU</div>
+<div class="section-title"> MENU PREMIUM - CLIQUE POUR VOIR DÉTAIL</div>
 <div class="menu-grid" id="menuGrid"></div>
 
-<div class="avis-section" id="avis">
-<div class="section-title">⭐ AVIS CLIENTS</div>
-<div id="avisList"></div>
-<div class="info-box" style="margin-top:12px">
-<h4 style="color:#ff1a1a">✍️ LAISSER UN AVIS</h4>
-<input id="avisName" class="input" placeholder="Ton pseudo">
-<div class="star-select">
-<button onclick="selectStars(1)" id="s1">⭐</button><button onclick="selectStars(2)" id="s2">⭐⭐</button><button onclick="selectStars(3)" id="s3">⭐⭐⭐</button><button onclick="selectStars(4)" id="s4">⭐⭐⭐⭐</button><button onclick="selectStars(5)" id="s5" class="active">⭐⭐⭐⭐⭐</button>
-</div>
-<textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea>
-<button class="btn-main" onclick="postAvis()">Envoyer mon avis 📩</button>
-</div>
-</div>
+<div class="avis-section"><div class="section-title">⭐ AVIS CLIENTS</div><div id="avisList"></div>
+<div class="info-box" style="margin-top:12px"><h4 style="color:#ff1a1a">✍️ LAISSER UN AVIS</h4><input id="avisName" class="input" placeholder="Ton pseudo"><div class="star-select"><button onclick="selectStars(1)" id="s1">⭐</button><button onclick="selectStars(2)" id="s2">⭐⭐</button><button onclick="selectStars(3)" id="s3">⭐⭐⭐</button><button onclick="selectStars(4)" id="s4">⭐⭐⭐⭐</button><button onclick="selectStars(5)" id="s5" class="active">⭐⭐⭐⭐⭐</button></div><textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea><button class="btn-main" onclick="postAvis()">Envoyer mon avis 📩</button></div></div>
 
-<div class="info-section" id="infos">
-<div class="section-title">ℹ️ INFOS</div>
-<div class="info-box"><h4 style="color:#ff1a1a">🚚 LIVRAISON</h4><p style="font-size:13px;opacity:0.8;margin-top:4px">Paris 20-40min / IDF 1H - 7j/7 10h-23h</p></div>
-<div class="info-box"><h4 style="color:#ff1a1a">📲 CONTACT</h4><div class="social"><a class="insta" href="https://t.me/simone750" target="_blank">simone</a><a class="insta" href="https://wa.me/33744146189" target="_blank">WhatsApp</a><a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">Instagram</a></div></div>
-</div>
+<div class="info-section" style="padding:12px"><div class="section-title">ℹ️ INFOS</div><div class="info-box"><h4 style="color:#ff1a1a">🚚 LIVRAISON</h4><p style="font-size:13px;opacity:0.8;margin-top:4px">Paris 20-40min / IDF 1H - 7j/7 10h-23h</p></div></div>
 
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
 
@@ -154,7 +140,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div id="cartList" style="margin-top:10px"></div>
 <div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div>
 <input id="addr" class="input" placeholder="📍 Adresse + code postal">
-<div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">12h-14h</button><button type="button" onclick="selectHour(this)">20h-22h</button></div>
+<div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">20h-22h</button></div>
 <input id="note" class="input" placeholder="Note livreur">
 <button class="btn-main" onclick="checkout()">Commander Telegram 🚀</button>
 </div>
@@ -163,9 +149,8 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="prod-header"><button onclick="closeProduct()">✕</button><span style="font-weight:800;font-size:12px">DÉTAIL PRODUIT</span><span style="width:36px"></span></div>
 <div class="prod-video-wrap"><video id="prodVideo" src="" autoplay muted loop playsinline></video><span id="prodTag" class="prod-badge">NOUVEAU</span></div>
 <div class="prod-content">
-<h2 id="prodName">PRODUIT</h2>
-<div class="stars" style="margin-top:6px">⭐⭐⭐⭐⭐ <span id="prodAvisCount" style="opacity:0.6;font-size:12px">(127 avis)</span></div>
-<div class="prod-desc" id="prodDesc">Description complète</div>
+<h2 id="prodName">PRODUIT</h2><div class="stars" style="margin-top:6px">⭐⭐⭐⭐⭐ <span id="prodAvisCount" style="opacity:0.6;font-size:12px">(127 avis)</span></div>
+<div class="prod-desc" id="prodDesc">Description</div>
 <div class="qte-section"><div class="qte-title">SÉLECTIONNER LA QUANTITÉ</div><div class="grid-qte" id="qteGrid"></div></div>
 <div style="margin-top:20px"><div style="font-size:11px;letter-spacing:1px;font-weight:800;margin-bottom:10px;display:flex;justify-content:space-between"><span>⭐ AVIS SUR CE PRODUIT</span><span id="prodAvisNb" style="opacity:0.6"></span></div><div id="prodAvisList"></div>
 <div class="info-box" style="margin-top:12px"><h4 style="color:#ff1a1a;font-size:12px">✍️ LAISSER UN AVIS</h4><input id="prodAvisName" class="input" placeholder="Ton pseudo"><div class="star-select"><button onclick="selectProdStars(1)" id="ps1">⭐</button><button onclick="selectProdStars(2)" id="ps2">⭐⭐</button><button onclick="selectProdStars(3)" id="ps3">⭐⭐⭐</button><button onclick="selectProdStars(4)" id="ps4">⭐⭐⭐⭐</button><button onclick="selectProdStars(5)" id="ps5" class="active">⭐⭐⭐⭐⭐</button></div><textarea id="prodAvisText" class="textarea" placeholder="T'en as pensé quoi ?"></textarea><button class="btn-main" onclick="postProdAvis()">Envoyer</button></div></div>
@@ -173,46 +158,66 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="prod-action"><button id="prodAddBtn" class="btn-main" style="margin:0;opacity:0.3;pointer-events:none">Sélectionnez une quantité</button></div>
 </div>
 
+<!-- PANEL ADMIN -->
+<div id="adminPanel" class="admin-panel">
+<div class="admin-header"><h2>🔐 PANEL ADMIN - SIMONE</h2><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div>
+<div id="adminLogin">
+<div class="info-box"><h4 style="color:#ffcc00">Mot de passe admin</h4><input id="adminPass" class="input" type="password" placeholder="Mot de passe"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div>
+</div>
+<div id="adminContent" style="display:none">
+<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>📦 Commandes (<span id="adminCount">0</span>)</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer 🗑️</button></div>
+<div id="adminOrdersList"></div>
+</div>
+</div>
+
 <div class="footer">Coffee Simone © 2026</div>
 
 <script>
 const tg = window.Telegram?.WebApp; if(tg) tg.expand();
+const ADMIN_PASSWORD = "Norber93100//";
 
-// GENERATEUR PAILLETTES
-function createSparkles(){
- const c=document.getElementById('sparkles');
- for(let i=0;i<35;i++){
-  let s=document.createElement('div');
-  s.className='sparkle';
-  s.style.left=Math.random()*100+'%';
-  s.style.animationDuration=(1+Math.random()*2)+'s';
-  s.style.animationDelay=Math.random()*1.5+'s';
-  s.style.width=s.style.height=(2+Math.random()*4)+'px';
-  c.appendChild(s);
- }
-}
+// SPLASH
+function createSparkles(){ const c=document.getElementById('sparkles'); for(let i=0;i<35;i++){ let s=document.createElement('div'); s.className='sparkle'; s.style.left=Math.random()*100+'%'; s.style.animationDuration=(1+Math.random()*2)+'s'; s.style.animationDelay=Math.random()*1.5+'s'; s.style.width=s.style.height=(2+Math.random()*4)+'px'; c.appendChild(s); } }
 createSparkles();
 function hideSplash(){document.getElementById('splash').classList.add('hide');}
 setTimeout(hideSplash, 2600);
 
+// ADMIN TRIGGER - 5 CLICS SUR LE TITRE
+let adminClicks=0, adminTimer=null;
+document.getElementById('adminTrigger').addEventListener('click',()=>{
+  adminClicks++; clearTimeout(adminTimer);
+  adminTimer=setTimeout(()=>adminClicks=0, 2000);
+  if(adminClicks>=5){ adminClicks=0; openAdmin(); if(tg) tg.HapticFeedback.notificationOccurred('success'); }
+});
+
+function openAdmin(){document.getElementById('adminPanel').classList.add('open');}
+function closeAdmin(){document.getElementById('adminPanel').classList.remove('open');}
+function loginAdmin(){
+  if(document.getElementById('adminPass').value===ADMIN_PASSWORD){
+    document.getElementById('adminLogin').style.display='none';
+    document.getElementById('adminContent').style.display='block';
+    renderAdminOrders();
+  }else{
+    document.getElementById('adminError').style.display='block';
+  }
+}
+
 const PRODUCTS={
- p1:{name:'MOUSSEUX',tag:'HASH',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse, goût classique et unique en bouche.', variants:[{label:'10G',price:50},{label:'25G',price:100},{label:'50G',price:160},{label:'100G',price:300},{label:'1KG',price:2900}], avis:[{name:'@titi',stars:5,text:'Texture de fou, mousse au top.'}]},
- p2:{name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Edition Fresh Frozen, hash ultra concentré.', variants:[{label:'10G',price:110},{label:'25g',price:200},{label:'50G',price:400},{label:'100G',price:670}], avis:[{name:'@Samy',stars:5,text:'Le frozen il défonce vraiment.'}]},
- p3:{name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Edition Fresh Frozen, hash ultra concentré.', variants:[{label:'10G',price:130},{label:'25G',price:210},{label:'50G',price:400}], avis:[{name:'@azert',stars:5,text:'❤️❤️❤️❤️.'}]},
- p4:{name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'haschisch compressé caliplate.', variants:[{label:'10G',price:130},{label:'25G',price:230},{label:'50G',price:420}], avis:[]},
- p5:{name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Edition unique de bonbon infusé au thc rare.', variants:[{label:'1 PIECE',price:20},], avis:[{name:'@Leo_92',stars:5,text:'Attention cet vrm fort.'}]},
- p6:{name:'COCAINE',tag:'COLOMBIA',video:'coca.mp4.MP4',desc:'Pure intense.', variants:[{label:'1G',price:70},{label:'2G',price:130},{label:'5G',price:300}], avis:[{name:'@myo',stars:5,text:'Tres bon.'}]},
+ p1:{name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse.', variants:[{label:'10G',price:50},{label:'25G',price:125},{label:'50G',price:200},{label:'100G',price:300},{label:'1000G',price:2200}], avis:[{name:'@Leo_92',stars:5,text:'Texture de fou'}]},
+ p2:{name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Edition Fresh Frozen.', variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:230}], avis:[]},
+ p3:{name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Edition Fresh Frozen.', variants:[{label:'10G',price:60},{label:'25G',price:130}], avis:[]},
+ p4:{name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'haschisch compressé caliplate.', variants:[{label:'10G',price:60},{label:'25G',price:130}], avis:[]},
+ p5:{name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Bonbon infusé thc.', variants:[{label:'1 PIECE',price:15},{label:'5 PIECES',price:60}], avis:[]},
+ p6:{name:'COCA',tag:'1G',video:'coca.mp4.MP4',desc:'Pure intense.', variants:[{label:'1G',price:70},{label:'2G',price:130}], avis:[]}
 };
 
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,selectedProdStars=5,currentProd=null,selectedVariant=null;
 let pts=parseInt(localStorage.getItem('simone_pts')||'0'),streak=parseInt(localStorage.getItem('simone_streak')||'1'),lastClaim=localStorage.getItem('simone_lastClaim')||'',hasFreeProduct=localStorage.getItem('simone_free')==='1',avisList=JSON.parse(localStorage.getItem('simone_avis')||'[]');
+let orders=JSON.parse(localStorage.getItem('simone_orders')||'[]');
 
 function buildGrid(){
  let grid=document.getElementById('menuGrid');let html='';
- for(let id in PRODUCTS){
-  let p=PRODUCTS[id];
-  html+=`<div class="card" onclick="openProduct('${id}')"><video src="${p.video}" autoplay muted loop playsinline></video><span class="tag">${p.tag}</span><h3>${p.name}</h3><div class="stars">⭐⭐⭐⭐⭐</div><div class="price">À partir de ${p.variants[0].price}€</div></div>`;
- }
+ for(let id in PRODUCTS){let p=PRODUCTS[id];html+=`<div class="card" onclick="openProduct('${id}')"><video src="${p.video}" autoplay muted loop playsinline></video><span class="tag">${p.tag}</span><h3>${p.name}</h3><div class="stars">⭐⭐⭐⭐⭐</div><div class="price">À partir de ${p.variants[0].price}€</div></div>`;}
  grid.innerHTML=html;
 }
 buildGrid();
@@ -232,12 +237,11 @@ function openProduct(id){
  renderProdAvis(id);
  document.getElementById('productModal').classList.add('open');
 }
-function closeProduct(){document.getElementById('productModal').classList.remove('open');document.getElementById('prodVideo').pause();}
+function closeProduct(){document.getElementById('productModal').classList.remove('open');}
 function selectVariant(el,label,price){
  document.querySelectorAll('#qteGrid .btn-qte').forEach(b=>b.classList.remove('active'));
  el.classList.add('active'); selectedVariant={label,price};
  let btn=document.getElementById('prodAddBtn'); btn.style.opacity='1'; btn.style.pointerEvents='auto'; btn.innerHTML=`Ajouter ${label} - ${price}€ 🛒`;
- if(tg) tg.HapticFeedback.selectionChanged();
 }
 function addProdToCart(){
  if(!selectedVariant){alert('Choisis une quantité !');return;}
@@ -256,7 +260,7 @@ function refreshUI(){
  document.getElementById('ptsCount').textContent=pts; document.getElementById('streak').textContent=streak;
  for(let i=1;i<=7;i++){let el=document.getElementById('d'+i);if(el)el.classList.toggle('active',i<=streak);}
  let today=new Date().toDateString();
- if(lastClaim===today){document.getElementById('claimBtn').textContent='Déjà récupéré ✅';document.getElementById('claimBtn').style.opacity='0.5';}
+ if(lastClaim===today){document.getElementById('claimBtn').textContent='Déjà récupéré ✅';}
  else{let g=streak>=6?300:50+streak*10;document.getElementById('claimBtn').textContent='Récupérer +'+g+' POINTS 🪙';}
  document.getElementById('giftBanner').classList.toggle('show',hasFreeProduct);
  renderAvis();
@@ -272,9 +276,80 @@ function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-function buildMsg(){let total=0,msg=`🔥 SALUT SIMONE 🔥\n\n`;for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}if(total===0){alert("Panier vide !");return null;}msg+=`\n💰 TOTAL: ${total}€\n`;let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;return msg;}
-function checkout(){let m=buildMsg();if(!m)return;if(tg){try{tg.sendData(m);}catch(e){} tg.openTelegramLink(`https://t.me/simone750?text=${encodeURIComponent(m)}`);}else{window.open(`https://t.me/simone750?text=${encodeURIComponent(m)}`,"_blank");}}
+
+function saveOrderToAdmin(cartData,total,addr,hour){
+  let order={
+    id:'CMD-'+Date.now().toString().slice(-6),
+    time:Date.now(),
+    date:new Date().toLocaleString('fr-FR'),
+    items:Object.values(cartData).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'),
+    itemsRaw:JSON.parse(JSON.stringify(cartData)),
+    total:total,
+    address:addr,
+    hour:hour,
+    note:document.getElementById('note').value,
+    remaining:40,
+    status:'en cours'
+  };
+  orders.unshift(order);
+  localStorage.setItem('simone_orders', JSON.stringify(orders));
+}
+
+function buildMsg(){
+  let total=0,msg=`🔥 NOUVELLE COMMANDE SIMONE 🔥\n\n`;
+  for(let id in cart){msg+=`- ${cart[id].name} - ${cart[id].qteLabel} x${cart[id].qty} = ${cart[id].total}€\n`;total+=cart[id].total;}
+  if(total===0){alert("Panier vide !");return null;}
+  msg+=`\n💰 TOTAL: ${total}€\n`;
+  let a=document.getElementById('addr').value.trim();if(!a){alert("Adresse !");openCart();return null;}
+  msg+=`📍 ${a}\n🕐 ${selectedHour}\n`;
+  let n=document.getElementById('note').value.trim();if(n)msg+=`📝 ${n}\n`;
+  saveOrderToAdmin(cart,total,a,selectedHour);
+  return msg;
+}
+function checkout(){let m=buildMsg();if(!m)return;if(tg){try{tg.sendData(m);}catch(e){} tg.openTelegramLink(`https://t.me/simone750?text=${encodeURIComponent(m)}`);}else{window.open(`https://t.me/simone750?text=${encodeURIComponent(m)}`,"_blank");} cart={}; updateCart(); closeCart(); alert('✅ Commande envoyée ! Elle est dans le panel admin.');}
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
+
+// ADMIN LOGIC
+function renderAdminOrders(){
+  let list=document.getElementById('adminOrdersList');
+  if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande</p>'; document.getElementById('adminCount').textContent='0'; return;}
+  document.getElementById('adminCount').textContent=orders.length;
+  let html='';
+  orders.forEach((o,idx)=>{
+    let elapsed = Math.floor((Date.now()-o.time)/60000);
+    let rest = o.remaining - elapsed;
+    if(rest<0) rest=0;
+    let timerClass = rest<=5 ? 'admin-timer red' : 'admin-timer';
+    let statusColor = o.status==='livré' ? '#25D366' : '#ffcc00';
+    html+=`<div class="admin-order">
+      <div class="admin-order-top"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div>
+      <div style="font-size:12px;line-height:1.4">${o.items}</div>
+      <div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${statusColor}">${o.status.toUpperCase()}</b></div>
+      <div style="margin-top:4px;font-size:12px">📍 ${o.address} - 🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-top:12px">
+        <span class="${timerClass}" id="timer-${idx}">${o.status==='livré' ? 'LIVRÉ ✅' : rest+' min restant'}</span>
+        <input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}" min="1">
+        <button onclick="updateRemaining(${idx})" style="background:#111;border:1px solid #333;color:#fff;padding:8px;border-radius:8px">OK</button>
+      </div>
+      <div class="admin-actions">
+        <button onclick="addTime(${idx},5)">+5 min</button>
+        <button onclick="addTime(${idx},-5)">-5 min</button>
+        <button onclick="addTime(${idx},10)">+10 min</button>
+        <button class="green" onclick="markDelivered(${idx})">Livré ✅</button>
+        <button class="red" onclick="deleteOrder(${idx})">Supprimer 🗑️</button>
+        <button onclick="shareOrder(${idx})">Partager 📤</button>
+      </div>
+    </div>`;
+  });
+  list.innerHTML=html;
+}
+function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value); if(v>0){orders[idx].remaining=v; orders[idx].time=Date.now(); orders[idx].status='en cours'; localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders();}}
+function addTime(idx,delta){orders[idx].remaining+=delta; if(orders[idx].remaining<1) orders[idx].remaining=1; orders[idx].time=Date.now(); localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders();}
+function markDelivered(idx){orders[idx].status='livré'; localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders();}
+function deleteOrder(idx){if(confirm('Supprimer cette commande ?')){orders.splice(idx,1); localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders();}}
+function clearAllOrders(){if(confirm('Supprimer TOUTES les commandes ?')){orders=[]; localStorage.setItem('simone_orders','[]'); renderAdminOrders();}}
+function shareOrder(idx){let o=orders[idx]; let txt=`${o.id} - ${o.date}\n${Object.values(o.itemsRaw).map(i=>`${i.name} ${i.qteLabel} x${i.qty}`).join(', ')}\nTotal ${o.total}€\n📍 ${o.address}`; if(tg) tg.openTelegramLink(`https://t.me/simone750?text=${encodeURIComponent(txt)}`); else navigator.clipboard.writeText(txt).then(()=>alert('Copié'));}
+setInterval(()=>{ if(document.getElementById('adminPanel').classList.contains('open')) renderAdminOrders(); }, 10000);
 </script>
 </body>
 </html>
