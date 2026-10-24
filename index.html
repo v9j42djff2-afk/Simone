@@ -191,7 +191,7 @@ function closeAdmin(){document.getElementById('adminPanel').classList.remove('op
 function loginAdmin(){
   let p=document.getElementById('adminPass').value.trim();
   if(p===ADMIN_PASSWORD){document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; renderAdminOrders();}
-  else{document.getElementById('adminError').style.display='block'; document.getElementById('adminError').textContent='Mauvais mot de passe';}
+  else{document.getElementById('adminError').style.display='block';}
 }
 const PRODUCTS={
  p1:{name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse.', variants:[{label:'10G',price:50},{label:'25G',price:125},{label:'50G',price:200},{label:'100G',price:300},{label:'1000G',price:2200}], avis:[{name:'@Leo_92',stars:5,text:'Texture de fou'}]},
@@ -280,19 +280,28 @@ function checkout(){
   alert('✅ Commande envoyée !');
 }
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
+
 function checkMyOrder(){
   let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
   if(!my){document.getElementById('myOrderBanner').classList.remove('show'); return;}
-  let found=orders.find(o=>o.id===my.id); if(found) my=found;
+  // FIX : si la commande a été supprimée dans l'admin, on la supprime aussi ici
+  let found=orders.find(o=>o.id===my.id);
+  if(!found){
+    localStorage.removeItem('simone_myOrder');
+    document.getElementById('myOrderBanner').classList.remove('show');
+    return;
+  }
+  my=found;
   let elapsed=Math.floor((Date.now()-my.time)/60000);
   let rest=my.remaining-elapsed;
-  if(my.status==='livré'){document.getElementById('myOrderBanner').classList.add('show'); document.getElementById('myOrderTimer').textContent='LIVRÉ ✅'; document.getElementById('myOrderId').textContent=my.id+' - Merci !'; return;}
+  if(my.status==='livré'){document.getElementById('myOrderBanner').classList.add('show'); document.getElementById('myOrderTimer').textContent='LIVREUR ARRIVÉ'; document.getElementById('myOrderId').textContent=my.id+' - Merci !'; return;}
   if(rest<=0){document.getElementById('myOrderBanner').classList.add('show'); document.getElementById('myOrderTimer').textContent='ARRIVÉE IMMINENTE'; document.getElementById('myOrderId').textContent=my.id; return;}
   document.getElementById('myOrderBanner').classList.add('show');
   document.getElementById('myOrderTimer').textContent=rest+' min restant';
   document.getElementById('myOrderId').textContent=my.id+' - '+my.total+'€';
 }
-setInterval(checkMyOrder, 5000);
+setInterval(checkMyOrder, 3000);
+
 function renderAdminOrders(){
   let list=document.getElementById('adminOrdersList');
   orders=JSON.parse(localStorage.getItem('simone_orders')||'[]');
@@ -303,13 +312,14 @@ function renderAdminOrders(){
     let elapsed=Math.floor((Date.now()-o.time)/60000);
     let rest=o.remaining-elapsed; if(rest<0) rest=0;
     let timerClass=rest<=5?'admin-timer red':'admin-timer';
+    let displayStatus = o.status==='livré' ? 'LIVREUR ARRIVÉ' : o.status.toUpperCase();
     html+=`<div class="admin-order">
       <div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div>
       <div style="font-size:12px;line-height:1.4;margin-top:6px">${o.items}</div>
-      <div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${o.status==='livré'?'#25D366':'#ffcc00'}">${o.status.toUpperCase()}</b></div>
+      <div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${o.status==='livré'?'#25D366':'#ffcc00'}">${displayStatus}</b></div>
       <div style="font-size:12px;margin-top:4px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div>
-      <div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="${timerClass}">${o.status==='livré'?'LIVRÉ ✅':rest+' min restant'}</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})" style="background:#111;border:1px solid #333;color:#fff;padding:8px;border-radius:8px">OK</button></div>
-      <div class="admin-actions"><button onclick="addTime(${idx},5)">+5 min</button><button onclick="addTime(${idx},-5)">-5 min</button><button onclick="addTime(${idx},10)">+10 min</button><button style="background:#25D366;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800" onclick="markDelivered(${idx})">Livré ✅</button><button style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800" onclick="deleteOrder(${idx})">Supprimer 🗑️</button></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="${timerClass}">${o.status==='livré'?'LIVREUR ARRIVÉ':rest+' min restant'}</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})" style="background:#111;border:1px solid #333;color:#fff;padding:8px;border-radius:8px">OK</button></div>
+      <div class="admin-actions"><button onclick="addTime(${idx},5)">+5 min</button><button onclick="addTime(${idx},-5)">-5 min</button><button onclick="addTime(${idx},10)">+10 min</button><button style="background:#25D366;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800" onclick="markDelivered(${idx})">LIVREUR ARRIVÉ ✅</button><button style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800" onclick="deleteOrder(${idx})">Supprimer 🗑️</button></div>
     </div>`;
   });
   list.innerHTML=html;
@@ -317,8 +327,31 @@ function renderAdminOrders(){
 function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value); if(v>0){orders[idx].remaining=v; orders[idx].time=Date.now(); orders[idx].status='en cours'; localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders(); checkMyOrder();}}
 function addTime(idx,delta){orders[idx].remaining+=delta; if(orders[idx].remaining<1) orders[idx].remaining=1; orders[idx].time=Date.now(); localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders(); checkMyOrder();}
 function markDelivered(idx){orders[idx].status='livré'; localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders(); checkMyOrder();}
-function deleteOrder(idx){if(confirm('Supprimer cette commande ?')){orders.splice(idx,1); localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders();}}
-function clearAllOrders(){if(confirm('Supprimer TOUTES les commandes ?')){orders=[]; localStorage.setItem('simone_orders','[]'); localStorage.removeItem('simone_myOrder'); renderAdminOrders(); document.getElementById('myOrderBanner').classList.remove('show');}}
+
+function deleteOrder(idx){
+  if(confirm('Supprimer cette commande ?')){
+    let deletedId = orders[idx]?.id;
+    orders.splice(idx,1);
+    localStorage.setItem('simone_orders',JSON.stringify(orders));
+    // FIX : supprime aussi la bannière client si c'est sa commande
+    let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
+    if(my && my.id===deletedId){
+      localStorage.removeItem('simone_myOrder');
+      document.getElementById('myOrderBanner').classList.remove('show');
+    }
+    renderAdminOrders();
+    checkMyOrder();
+  }
+}
+function clearAllOrders(){
+  if(confirm('Supprimer TOUTES les commandes ?')){
+    orders=[];
+    localStorage.setItem('simone_orders','[]');
+    localStorage.removeItem('simone_myOrder');
+    document.getElementById('myOrderBanner').classList.remove('show');
+    renderAdminOrders();
+  }
+}
 setInterval(()=>{ if(document.getElementById('adminPanel').classList.contains('open')) renderAdminOrders(); }, 5000);
 </script>
 </body>
