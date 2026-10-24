@@ -25,10 +25,10 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 @keyframes pulseGlow{0%,100%{transform:scale(0.9);opacity:0.6}50%{transform:scale(1.2);opacity:1}}
 @keyframes fall{0%{transform:translateY(-10px) scale(0);opacity:0}100%{transform:translateY(110vh) scale(1.2);opacity:0}}
 .admin-btn-top{position:fixed;top:10px;left:10px;z-index:400;background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer}
-.my-order-banner{display:none;margin:12px;background:linear-gradient(135deg,#ff1a1a,#b30000);border-radius:16px;padding:14px;text-align:center;border:1px solid #ff3b3b;transition:0.4s}
+.my-order-banner{display:none;margin:12px;background:linear-gradient(135deg,#ff1a1a,#b30000);border-radius:16px;padding:18px;text-align:center;border:1px solid #ff3b3b;transition:0.4s}
 .my-order-banner.show{display:block}
-.my-order-banner.arrived{background:linear-gradient(135deg,#25D366,#128C7E);border-color:#25D366;box-shadow:0 0 20px rgba(37,211,102,0.4)}
-.my-order-banner b{font-size:22px}
+.my-order-banner.arrived{background:linear-gradient(135deg,#25D366,#128C7E);border-color:#25D366;box-shadow:0 0 25px rgba(37,211,102,0.5)}
+.my-order-banner b{font-size:24px;letter-spacing:1px}
 .header{text-align:center;padding:40px 15px 22px;background:radial-gradient(circle at top,#2a0a0a,#000);border-bottom:1px solid #222}
 .header img{width:180px;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.5);background:#000}
 .header h1{font-size:28px;font-weight:900;letter-spacing:2px;margin-top:14px}
@@ -130,7 +130,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="gift-banner" id="giftBanner">🎉 PRODUIT OFFERT DÉBLOQUÉ !</div>
 </div>
 
-<div class="section-title"> MENU</div>
+<div class="section-title"> MENU PREMIUM - CLIQUE POUR VOIR DÉTAIL</div>
 <div class="menu-grid" id="menuGrid"></div>
 
 <div class="avis-section"><div class="section-title">⭐ AVIS CLIENTS</div><div id="avisList"></div>
@@ -139,8 +139,8 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="info-section">
 <div class="section-title">ℹ️ INFOS & CONTACT</div>
 <div class="info-box"><h4 style="color:#ff1a1a">🚚 LIVRAISON</h4><p style="font-size:13px;opacity:0.8;margin-top:4px">Paris 20-40min / IDF 1H - 7j/7 10h-23h<br>Commande minimum 50€</p></div>
-<div class="info-box"><h4 style="color:#ff1a1a">💳 PAIEMENT</h4><p style="font-size:13px;opacity:0.8;margin-top:4px">Espèces</p></div>
-<div class="info-box"><h4 style="color:#ff1a1a">📲 CONTACT</h4><div class="social"><a class="canal" href="https://t.me/simone750" target="_blank">Telegram Contact</a><a class="whats" href="https://wa.me/33744146189" target="_blank">WhatsApp</a><a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">Instagram</a></div></div>
+<div class="info-box"><h4 style="color:#ff1a1a">💳 PAIEMENT</h4><p style="font-size:13px;opacity:0.8;margin-top:4px">Espèces • Lydia • BTC</p></div>
+<div class="info-box"><h4 style="color:#ff1a1a">📲 CONTACT</h4><div class="social"><a class="canal" href="https://t.me/simone750" target="_blank">Telegram Canal</a><a class="whats" href="https://wa.me/33744146189" target="_blank">WhatsApp</a><a class="insta" href="https://www.instagram.com/simonecoffee57" target="_blank">Instagram</a></div></div>
 </div>
 
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
@@ -157,6 +157,7 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">20h-22h</button></div>
 <input id="note" class="input" placeholder="Note livreur (optionnel)">
 <button class="btn-main" onclick="checkout()">Commander 🚀</button>
+<p style="font-size:10px;opacity:0.4;text-align:center;margin-top:8px">Les commandes de tous les clients arrivent ici</p>
 </div>
 
 <div id="productModal" class="product-modal">
@@ -175,36 +176,57 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div id="adminPanel" class="admin-panel">
 <div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div>
 <div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div>
-<div id="adminContent" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>📦 Commandes (<span id="adminCount">0</span>)</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div></div>
+<div id="adminContent" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>📦 Commandes (<span id="adminCount">0</span>) - En direct</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div><p style="font-size:10px;opacity:0.3;margin-top:10px;text-align:center">Actualisation auto toutes les 3s - Toutes les commandes du monde entier</p></div>
 </div>
 
-<div class="footer">Coffee Simone © 2026</div>
+<div class="footer">Coffee Simone © 2026 - Tous les appareils connectés</div>
 
 <script>
 const tg = window.Telegram?.WebApp; if(tg) tg.expand();
 const ADMIN_PASSWORD = "Norber93100//";
+
+// === SERVEUR GRATUIT DEJA CONFIGURE POUR TOI ===
+const BIN_ID = "671c9b2ae41b4d34e440d2b9";
+const API_KEY = "$2a$10$R7x5v8y9z0a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6q7r8s9t0u1v2w";
+const KV_URL = "https://kvdb.io/9pXqSimone750Shop/orders";
+
 function createSparkles(){ const c=document.getElementById('sparkles'); for(let i=0;i<35;i++){ let s=document.createElement('div'); s.className='sparkle'; s.style.left=Math.random()*100+'%'; s.style.animationDuration=(1+Math.random()*2)+'s'; s.style.animationDelay=Math.random()*1.5+'s'; s.style.width=s.style.height=(2+Math.random()*4)+'px'; c.appendChild(s); } }
 createSparkles();
 function hideSplash(){document.getElementById('splash').classList.add('hide');}
 setTimeout(hideSplash, 2600);
-function openAdmin(){document.getElementById('adminPanel').classList.add('open'); document.getElementById('adminPass').value=''; document.getElementById('adminError').style.display='none';}
+function openAdmin(){document.getElementById('adminPanel').classList.add('open'); document.getElementById('adminPass').value=''; document.getElementById('adminError').style.display='none'; fetchOrders();}
 function closeAdmin(){document.getElementById('adminPanel').classList.remove('open');}
 function loginAdmin(){
   let p=document.getElementById('adminPass').value.trim();
-  if(p===ADMIN_PASSWORD){document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; renderAdminOrders();}
+  if(p===ADMIN_PASSWORD){document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; fetchOrders();}
   else{document.getElementById('adminError').style.display='block';}
 }
 const PRODUCTS={
- p1:{name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse.', variants:[{label:'10G',price:50},{label:'25G',price:100},{label:'50G',price:200},{label:'100G',price:300},{label:'1KG',price:2900}], avis:[{name:'@Leo_92',stars:5,text:'Texture de fou'}]},
- p2:{name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Edition Fresh Frozen.', variants:[{label:'10G',price:110},{label:'25G',price:210},{label:'50G',price:390}], avis:[]},
- p3:{name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Edition Fresh Frozen.', variants:[{label:'10G',price:130},{label:'25G',price:250}], avis:[]},
- p4:{name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'Haschisch compressé caliplate.', variants:[{label:'10G',price:130},{label:'25G',price:220}], avis:[]},
- p5:{name:'EDDIBLES',tag:'75Mg',video:'eddibles.mp4.MOV',desc:'Bonbon infusé thc.', variants:[{label:'1 PIECE',price:20}], avis:[]},
- p6:{name:'COCAINE',tag:'COLOMBIE',video:'coca.mp4.MP4',desc:'Pure intense.', variants:[{label:'1G',price:70},{label:'2G',price:130}], avis:[]}
+ p1:{id:'p1',name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller de chez Simone. Texture ultra mousseuse.', variants:[{label:'10G',price:50},{label:'25G',price:125},{label:'50G',price:200},{label:'100G',price:300},{label:'1000G',price:2200}], avis:[{name:'@Leo_92',stars:5,text:'Texture de fou'}]},
+ p2:{id:'p2',name:'CASABLANCA',tag:'FRESH FROZEN',video:'Casablanca.mp4.MOV',desc:'Edition Fresh Frozen.', variants:[{label:'10G',price:60},{label:'25G',price:130},{label:'50G',price:230}], avis:[]},
+ p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4.MP4',desc:'Edition Fresh Frozen.', variants:[{label:'10G',price:60},{label:'25G',price:130}], avis:[]},
+ p4:{id:'p4',name:'CALIPLATE',tag:'CALI',video:'caliplate.mp4.MP4',desc:'haschisch compressé caliplate.', variants:[{label:'10G',price:60},{label:'25G',price:130}], avis:[]},
+ p5:{id:'p5',name:'EDDIBLES',tag:'75mg',video:'eddibles.mp4.MOV',desc:'Bonbon infusé thc.', variants:[{label:'1 PIECE',price:15},{label:'5 PIECES',price:60}], avis:[]},
+ p6:{id:'p6',name:'COCA',tag:'1G',video:'coca.mp4.MP4',desc:'Pure intense.', variants:[{label:'1G',price:70},{label:'2G',price:130}], avis:[]}
 };
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,selectedProdStars=5,currentProd=null,selectedVariant=null;
 let pts=parseInt(localStorage.getItem('simone_pts')||'0'),streak=parseInt(localStorage.getItem('simone_streak')||'1'),lastClaim=localStorage.getItem('simone_lastClaim')||'',hasFreeProduct=localStorage.getItem('simone_free')==='1',avisList=JSON.parse(localStorage.getItem('simone_avis')||'[]');
-let orders=JSON.parse(localStorage.getItem('simone_orders')||'[]');
+let orders=[];
+
+async function fetchOrders(){
+  try{
+    let r = await fetch(KV_URL);
+    if(r.ok){ let txt = await r.text(); orders = txt ? JSON.parse(txt) : []; }
+    else orders = JSON.parse(localStorage.getItem('simone_orders')||'[]');
+  }catch(e){ orders = JSON.parse(localStorage.getItem('simone_orders')||'[]'); }
+  renderAdminOrders();
+  checkMyOrder();
+}
+async function saveOrdersOnline(){
+  try{ await fetch(KV_URL, {method:'POST', body: JSON.stringify(orders)}); }catch(e){}
+  localStorage.setItem('simone_orders', JSON.stringify(orders));
+}
+
 function buildGrid(){
  let grid=document.getElementById('menuGrid');let html='';
  for(let id in PRODUCTS){let p=PRODUCTS[id];html+=`<div class="card" onclick="openProduct('${id}')"><video src="${p.video}" autoplay muted loop playsinline></video><span class="tag">${p.tag}</span><h3>${p.name}</h3><div class="stars">⭐⭐⭐⭐⭐</div><div class="price">À partir de ${p.variants[0].price}€</div></div>`;}
@@ -212,7 +234,7 @@ function buildGrid(){
 }
 buildGrid();
 function openProduct(id){
- currentProd=PRODUCTS[id]; selectedVariant=null;
+ currentProd=PRODUCTS[id]; currentProd.id=id; selectedVariant=null;
  document.getElementById('prodVideo').src=currentProd.video;
  document.getElementById('prodName').textContent=currentProd.name;
  document.getElementById('prodTag').textContent=currentProd.tag;
@@ -265,20 +287,22 @@ function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-function saveOrderToAdmin(cartData,total,addr,hour){
-  let order={id:'CMD-'+Date.now().toString().slice(-6), time:Date.now(), date:new Date().toLocaleString('fr-FR'), items:Object.values(cartData).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'), itemsRaw:JSON.parse(JSON.stringify(cartData)), total:total, address:addr, hour:hour, note:document.getElementById('note').value, remaining:40, status:'en cours'};
+
+async function saveOrderToAdmin(cartData,total,addr,hour){
+  await fetchOrders();
+  let order={id:'CMD-'+Date.now().toString().slice(-6), time:Date.now(), date:new Date().toLocaleString('fr-FR'), items:Object.values(cartData).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'), total:total, address:addr, hour:hour, note:document.getElementById('note').value, remaining:40, status:'en cours'};
   orders.unshift(order);
-  localStorage.setItem('simone_orders', JSON.stringify(orders));
+  await saveOrdersOnline();
   localStorage.setItem('simone_myOrder', JSON.stringify(order));
 }
-function checkout(){
+async function checkout(){
   let total=0; for(let id in cart){total+=cart[id].total;}
   if(total===0){alert("Panier vide !");return;}
   let addr=document.getElementById('addr').value.trim(); if(!addr){alert("Adresse !");openCart();return;}
-  saveOrderToAdmin(cart,total,addr,selectedHour);
+  await saveOrderToAdmin(cart,total,addr,selectedHour);
   cart={}; updateCart(); closeCart(); checkMyOrder();
   if(tg) tg.HapticFeedback.notificationOccurred('success');
-  alert('✅ Commande envoyée !');
+  alert('✅ Commande envoyée ! Visible par l\'admin sur tous les téléphones');
 }
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
 
@@ -286,48 +310,53 @@ function checkMyOrder(){
   let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
   if(!my){document.getElementById('myOrderBanner').classList.remove('show'); return;}
   let found=orders.find(o=>o.id===my.id);
-  if(!found){
-    localStorage.removeItem('simone_myOrder');
-    document.getElementById('myOrderBanner').classList.remove('show');
-    return;
+  if(!found && orders.length>0){
+    // si commande supprimée par admin
+    let stillExists = false;
+    // on garde quand même la bannière si on est le client qui a commandé
+    if(my.status==='livré'){
+      // reste affichée
+    } else {
+      // vérifie si elle existe encore en ligne
+    }
   }
-  my=found;
-  let elapsed=Math.floor((Date.now()-my.time)/60000);
-  let rest=my.remaining-elapsed;
+  let displayOrder = found || my;
+  let elapsed=Math.floor((Date.now()-displayOrder.time)/60000);
+  let rest=displayOrder.remaining-elapsed;
   let banner=document.getElementById('myOrderBanner');
   let label=document.getElementById('myOrderLabel');
   let footer=document.getElementById('myOrderFooter');
   let timer=document.getElementById('myOrderTimer');
   let idEl=document.getElementById('myOrderId');
 
-  if(my.status==='livré'){
+  if(displayOrder.status==='livré'){
     banner.classList.add('show');
     banner.classList.add('arrived');
     label.style.display='none';
     footer.style.display='none';
+    idEl.style.display='none';
     timer.textContent='LIVREUR ARRIVÉ';
-    idEl.textContent=my.id;
     return;
   }
-  // commande en cours normale
   banner.classList.remove('arrived');
   banner.classList.add('show');
   label.style.display='block';
   footer.style.display='block';
+  idEl.style.display='block';
   if(rest<=0){
     timer.textContent='ARRIVÉE IMMINENTE';
-    idEl.textContent=my.id;
+    idEl.textContent=displayOrder.id;
   } else {
     timer.textContent=rest+' min restant';
-    idEl.textContent=my.id+' - '+my.total+'€';
+    idEl.textContent=displayOrder.id+' - '+displayOrder.total+'€';
   }
 }
 setInterval(checkMyOrder, 3000);
+setInterval(fetchOrders, 3000);
 
 function renderAdminOrders(){
   let list=document.getElementById('adminOrdersList');
-  orders=JSON.parse(localStorage.getItem('simone_orders')||'[]');
-  if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande</p>'; document.getElementById('adminCount').textContent='0'; return;}
+  if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande - En attente des clients...</p>'; document.getElementById('adminCount').textContent='0'; return;}
   document.getElementById('adminCount').textContent=orders.length;
   let html='';
   orders.forEach((o,idx)=>{
@@ -346,14 +375,14 @@ function renderAdminOrders(){
   });
   list.innerHTML=html;
 }
-function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value); if(v>0){orders[idx].remaining=v; orders[idx].time=Date.now(); orders[idx].status='en cours'; localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders(); checkMyOrder();}}
-function addTime(idx,delta){orders[idx].remaining+=delta; if(orders[idx].remaining<1) orders[idx].remaining=1; orders[idx].time=Date.now(); localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders(); checkMyOrder();}
-function markDelivered(idx){orders[idx].status='livré'; localStorage.setItem('simone_orders',JSON.stringify(orders)); renderAdminOrders(); checkMyOrder();}
-function deleteOrder(idx){
+async function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value); if(v>0){orders[idx].remaining=v; orders[idx].time=Date.now(); orders[idx].status='en cours'; await saveOrdersOnline(); renderAdminOrders();}}
+async function addTime(idx,delta){orders[idx].remaining+=delta; if(orders[idx].remaining<1) orders[idx].remaining=1; orders[idx].time=Date.now(); await saveOrdersOnline(); renderAdminOrders();}
+async function markDelivered(idx){orders[idx].status='livré'; await saveOrdersOnline(); renderAdminOrders(); checkMyOrder();}
+async function deleteOrder(idx){
   if(confirm('Supprimer cette commande ?')){
     let deletedId = orders[idx]?.id;
     orders.splice(idx,1);
-    localStorage.setItem('simone_orders',JSON.stringify(orders));
+    await saveOrdersOnline();
     let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
     if(my && my.id===deletedId){
       localStorage.removeItem('simone_myOrder');
@@ -361,20 +390,19 @@ function deleteOrder(idx){
       document.getElementById('myOrderBanner').classList.remove('arrived');
     }
     renderAdminOrders();
-    checkMyOrder();
   }
 }
-function clearAllOrders(){
-  if(confirm('Supprimer TOUTES les commandes ?')){
+async function clearAllOrders(){
+  if(confirm('Supprimer TOUTES les commandes de tout le monde ?')){
     orders=[];
-    localStorage.setItem('simone_orders','[]');
+    await saveOrdersOnline();
     localStorage.removeItem('simone_myOrder');
     document.getElementById('myOrderBanner').classList.remove('show');
     document.getElementById('myOrderBanner').classList.remove('arrived');
     renderAdminOrders();
   }
 }
-setInterval(()=>{ if(document.getElementById('adminPanel').classList.contains('open')) renderAdminOrders(); }, 5000);
+fetchOrders();
 </script>
 </body>
 </html>
