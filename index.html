@@ -6,40 +6,28 @@
 <title>Coffee Simone</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:#070707 url('./simone-bg.jpg') no-repeat center center fixed;
-  background-size:cover;
-  color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:90px;overflow-x:hidden;
-  position:relative;
-}
-body::before{
-  content:"";
-  position:fixed;top:0;left:0;right:0;bottom:0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.4) 30%, rgba(7,7,7,0.95) 75%);
-  z-index:-1;
-  pointer-events:none;
-}
+body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:90px;overflow-x:hidden}
 .admin-btn-top{position:fixed;top:10px;left:10px;z-index:400;background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer}
-.my-order-banner{display:none;margin:12px;border-radius:16px;padding:18px;text-align:center;border:1px solid #ff3b3b;transition:0.3s;backdrop-filter:blur(10px)}
+.my-order-banner{display:none;margin:12px;border-radius:16px;padding:18px;text-align:center;border:1px solid #ff3b3b;transition:0.3s}
 .my-order-banner.show{display:block}
-.my-order-banner.banned{background:rgba(17,17,17,0.9);border-color:#ff1a1a}
-.my-order-banner.canceled{background:rgba(34,34,34,0.9);border-color:#666}
+.my-order-banner.banned{background:#111;border-color:#ff1a1a}
+.my-order-banner.canceled{background:#222;border-color:#666}
 .my-order-banner.arrived{background:linear-gradient(135deg,#25D366,#128C7E)!important;border-color:#25D366!important}
-.my-order-banner.closed{background:rgba(51,51,51,0.9);border-color:#666}
-.header{text-align:center;padding:40px 15px 22px;background:radial-gradient(circle at top,rgba(42,10,10,0.8),rgba(0,0,0,0.6));border-bottom:1px solid #222;backdrop-filter:blur(5px)}
+.my-order-banner.closed{background:#333;border-color:#666}
+.header{text-align:center;padding:40px 15px 22px;background:radial-gradient(circle at top,#2a0a0a,#000);border-bottom:1px solid #222}
 .header img{width:180px;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.5);background:#000}
 .header h1{font-size:28px;font-weight:900;letter-spacing:2px;margin-top:14px}
 .header h1 span{color:#ff1a1a}
 .section-title{padding:18px 15px 8px;font-size:11px;letter-spacing:2px;opacity:0.6;font-weight:800}
 .menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 12px}
-.card{background:rgba(22,22,22,0.85);border:1px solid #222;border-radius:18px;padding:10px;cursor:pointer;backdrop-filter:blur(10px)}
+.card{background:#161616;border:1px solid #222;border-radius:18px;padding:10px;cursor:pointer}
 .card video{width:100%;height:130px;border-radius:12px;object-fit:cover;background:#000;display:block;pointer-events:none}
 .card h3{font-size:12px;margin:8px 0 2px}
 .tag{display:inline-block;font-size:8px;padding:3px 6px;border-radius:8px;font-weight:800;background:#ff1a1a}
 .price{font-size:13px;font-weight:900;color:#ff3b3b;margin-top:4px}
 .avis-section{padding:12px}
-.avis-card{background:rgba(22,22,22,0.85);border:1px solid #222;border-radius:15px;padding:12px;margin-bottom:8px;font-size:12px;backdrop-filter:blur(10px)}
-.info-box{background:rgba(22,22,22,0.85);border:1px solid #222;border-radius:15px;padding:14px;margin-bottom:10px;backdrop-filter:blur(10px)}
+.avis-card{background:#161616;border:1px solid #222;border-radius:15px;padding:12px;margin-bottom:8px;font-size:12px}
+.info-box{background:#161616;border:1px solid #222;border-radius:15px;padding:14px;margin-bottom:10px}
 .input,.textarea{width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px;border-radius:11px;margin-top:8px;font-size:13px;outline:none}
 .cart-float{position:fixed;bottom:18px;right:18px;background:#ff1a1a;color:#fff;width:62px;height:62px;border-radius:50%;display:none;align-items:center;justify-content:center;z-index:200;cursor:pointer;font-size:22px}
 .cart-float.show{display:flex}
@@ -164,6 +152,8 @@ async function checkout(){
   if(ok){ localStorage.setItem('simone_myOrder',JSON.stringify(order)); cart={};updateCart();closeCart(); checkMyOrder(); alert('✅ Commande envoyée !'); }
 }
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
+
+// FIX DEMANDÉ: Livreur en route = uniquement si tu mets un temps, Arrivée imminente = uniquement à 0
 function checkMyOrder(){
   let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
   let banner=document.getElementById('myOrderBanner');
@@ -177,11 +167,15 @@ function checkMyOrder(){
   }
   let d = found || my;
   if(d.status==='annulé'){banner.classList.remove('show'); banner.classList.remove('arrived'); canceled.classList.add('show'); document.getElementById('canceledId').textContent=d.id; return;}
+
   let elapsed=Math.floor((Date.now()-d.time)/60000);
   let rest=d.remaining - elapsed;
   if(rest<0) rest=0;
+
   let step = d.statusStep || 1;
   document.getElementById('myOrderId').textContent = d.id+' - '+d.total+'€';
+
+  // LOGIQUE DEMANDÉE
   if(d.status==='en attente'){
     document.getElementById('myOrderStatus').textContent = '📦 COMMANDE EN ATTENTE';
     document.getElementById('myOrderTimer').textContent = 'EN ATTENTE DE CONFIRMATION';
@@ -203,11 +197,14 @@ function checkMyOrder(){
     document.getElementById('myOrderTimer').textContent = 'LIVREUR ARRIVÉ ✅';
     banner.classList.add('arrived');
   }
+
   let stepsEl=document.getElementById('mySteps'); if(stepsEl){ let html=''; for(let i=1;i<=4;i++){ html+=`<div class="${i<step?'done':''} ${i===step?'active':''}"></div>`; } stepsEl.innerHTML=html; }
   banner.classList.add('show'); canceled.classList.remove('show');
 }
+
 setInterval(()=>{checkMyOrder(); checkBanned(); checkOpen();}, 1000); 
 setInterval(fetchAll, 5000);
+
 function renderAdminOrders(){
   let list=document.getElementById('adminOrdersList'); if(!list)return;
   if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande</p>';document.getElementById('adminCount').textContent='0';return;}
