@@ -42,7 +42,9 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .btn-main{background:linear-gradient(135deg,#ff1a1a,#b30000);color:#fff;border:none;padding:14px;border-radius:12px;font-weight:800;width:100%;font-size:14px;cursor:pointer;margin-top:10px}
 .admin-panel{position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0a0a;z-index:5000;overflow:auto;transform:translateY(100%);transition:0.4s;padding:16px}
 .admin-panel.open{transform:translateY(0)}
-.admin-order{background:#161616;border:1px solid #222;border-radius:16px;padding:14px;margin-bottom:12px}
+.admin-order{background:#161616;border:1px solid #222;border-radius:16px;padding:14px;margin-bottom:12px;position:relative}
+.admin-order.urgent{border-color:#ffaa00;box-shadow:0 0 15px rgba(255,170,0,0.3);animation:urgentPulse 1s infinite}
+@keyframes urgentPulse{0%,100%{border-color:#ffaa00}50%{border-color:#ff1a1a}}
 .admin-timer{font-size:22px;font-weight:900;color:#ffcc00}
 .admin-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
 .admin-actions button{padding:8px 10px;border-radius:10px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:11px;font-weight:800;cursor:pointer}
@@ -61,6 +63,11 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .status-steps div.done{background:#25D366}
 .top-client{background:#1a1a1a;border:1px solid #333;border-radius:14px;padding:12px;margin-bottom:8px;display:flex;justify-content:space-between;align-items:center}
 .ban-box{background:rgba(255,26,26,0.1);border:1px dashed #ff1a1a;border-radius:12px;padding:10px;margin-top:10px}
+.stats-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-bottom:14px}
+.stat-box{background:linear-gradient(135deg,#1a1a1a,#111);border:1px solid #333;border-radius:14px;padding:12px;text-align:center}
+.stat-box b{font-size:20px;display:block;color:#ffcc00}
+.stat-box span{font-size:10px;opacity:0.6}
+.livreur-mode-btn{position:fixed;bottom:80px;left:10px;z-index:400;background:#25D366;color:#fff;padding:8px 12px;border-radius:20px;font-size:11px;font-weight:800;border:none;cursor:pointer}
 </style>
 </head>
 <body>
@@ -75,9 +82,19 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
 <div id="cartDrawer" class="cart-drawer"><div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div><div id="cartList"></div><div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div><input id="addr" class="input" placeholder="📍 Adresse + code postal"><div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">11h-13h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-23h</button></div><input id="note" class="input" placeholder="Note livreur"><button class="btn-main" onclick="checkout()">Commander 🚀</button></div>
 <div id="productModal" class="product-modal"><div style="display:flex;justify-content:space-between;padding:14px;border-bottom:1px solid #222"><button onclick="closeProduct()" style="background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button><span style="font-weight:800;font-size:12px">DÉTAIL PRODUIT</span><span style="width:36px"></span></div><div style="background:#000;position:relative"><video id="prodVideo" src="" autoplay muted loop playsinline style="width:100%;height:42vh;object-fit:cover"></video><span id="prodTag" style="position:absolute;top:14px;left:14px;background:#ff1a1a;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:900">NOUVEAU</span></div><div style="padding:16px"><h2 id="prodName">PRODUIT</h2><div id="prodDesc" style="font-size:13px;opacity:0.8;margin-top:10px;background:#151515;border:1px solid #222;border-radius:12px;padding:12px"></div><div style="margin-top:18px"><div style="font-size:11px;opacity:0.6;font-weight:800;margin-bottom:10px">SÉLECTIONNER LA QUANTITÉ</div><div id="qteGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div></div></div><div style="position:sticky;bottom:0;background:#070707;padding:14px 18px 20px;border-top:1px solid #222;margin-top:auto"><button id="prodAddBtn" class="btn-main" style="margin:0;opacity:0.3;pointer-events:none">Sélectionnez une quantité</button></div></div>
-<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div><div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabOrders" class="active" onclick="switchAdminTab('orders')">📦 Commandes (<span id="adminCount">0</span>)</button><button id="tabTop" onclick="switchAdminTab('top')">👑 Top Clients</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 Bans (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ Avis (<span id="adminAvisCount">0</span>)</button></div><div id="adminOrdersView"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Toutes les commandes</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div></div><div id="adminTopView" style="display:none"><h3>👑 Top Clients</h3><div id="adminTopList"></div><h3 style="margin-top:20px">📊 Tous les clients</h3><div id="adminAllClientsList" style="margin-top:8px"></div></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Utilisateurs bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Tous les avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
+<div id="adminPanel" class="admin-panel">
+<div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div>
+<div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div>
+<div id="adminContent" style="display:none">
+<div class="stats-grid"><div class="stat-box"><b id="statCA">0€</b><span>CA AUJOURD'HUI</span></div><div class="stat-box"><b id="statNb">0</b><span>COMMANDES</span></div><div class="stat-box"><b id="statMoy">0€</b><span>PANIER MOY</span></div></div>
+<div class="admin-tabs"><button id="tabOrders" class="active" onclick="switchAdminTab('orders')">📦 Commandes (<span id="adminCount">0</span>)</button><button id="tabTop" onclick="switchAdminTab('top')">👑 Top Clients</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 Bans (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ Avis (<span id="adminAvisCount">0</span>)</button></div>
+<div id="adminOrdersView"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>📦 En attente en haut</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div></div>
+<div id="adminTopView" style="display:none"><h3>👑 Top Clients</h3><div id="adminTopList"></div><h3 style="margin-top:20px">📊 Tous les clients</h3><div id="adminAllClientsList" style="margin-top:8px"></div></div>
+<div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Utilisateurs bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div>
+<div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Tous les avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div>
+</div></div>
 <script>
-// --- DONNEES CACHEES (encodées base64) ---
+// --- DONNEES CACHEES ---
 const _0xenc = {
   p: "Tm9yYmVyOTMxMDAvLw==",
   t: [
@@ -95,7 +112,6 @@ function getDeviceId(){let id=localStorage.getItem('simone_device'); if(!id){ id
 let DEVICE_ID=getDeviceId();
 function getTelegramUser(){try{ let tg=window.Telegram?.WebApp; if(tg) tg.ready(); let u=tg?.initDataUnsafe?.user; if(u) return u; }catch(e){} return null;}
 function getTelegramName(){let u=getTelegramUser(); if(u){ let name=(u.first_name||'')+(u.last_name?' '+u.last_name:''); if(u.username) name+=' @'+u.username; return name.trim(); } return 'Client';}
-
 async function sendTelegramMsgToClient(telegramId, message){
   if(!telegramId) return false;
   let tokens = getBotTokens();
@@ -120,7 +136,6 @@ function notifyLivreurArrive(){
     if(navigator.vibrate) navigator.vibrate([300,100,300,100,500]);
   }catch(e){ alert('✅ LIVREUR ARRIVÉ !'); }
 }
-
 function openAdmin(){document.getElementById('adminPanel').classList.add('open'); fetchAll();}
 function closeAdmin(){document.getElementById('adminPanel').classList.remove('open');}
 function loginAdmin(){let p=document.getElementById('adminPass').value.trim(); if(p===ADMIN_PASSWORD){document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; fetchAll();} else{document.getElementById('adminError').style.display='block';}}
@@ -143,6 +158,17 @@ let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,currentProd=null,sel
 let orders=[],avisList=[],prodAvisMap={},bannedList=[];
 let hasFetchedOnce=false;
 let lastNotifiedStatus=null;
+let prevOrdersCount=0;
+let soundEnabled=true;
+function toggleSound(){soundEnabled=!soundEnabled; document.getElementById('soundBtn').textContent=soundEnabled?'🔊 SON ON':'🔇 SON OFF';}
+function playNewOrderSound(){
+  if(!soundEnabled) return;
+  try{
+    let audio=new Audio('https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg');
+    audio.play().catch(()=>{});
+    if(navigator.vibrate) navigator.vibrate([200,100,200]);
+  }catch(e){}
+}
 async function fetchAll(){
   try{
     let r=await fetch(NPOINT_URL+"?_="+Date.now());
@@ -150,6 +176,11 @@ async function fetchAll(){
     if(Array.isArray(data)){orders=data;avisList=[];prodAvisMap={};bannedList=[];}
     else{orders=data.orders||[];avisList=data.avis||[];prodAvisMap=data.prodAvis||{};bannedList=data.banned||[];}
     bannedList=bannedList.filter(b=>!b.until||b.until>Date.now());
+    if(orders.length > prevOrdersCount && prevOrdersCount!==0 && hasFetchedOnce){
+      playNewOrderSound();
+      if(window.Telegram?.WebApp?.HapticFeedback) window.Telegram.WebApp.HapticFeedback.notificationOccurred('success');
+    }
+    prevOrdersCount=orders.length;
   }catch(e){}
   hasFetchedOnce=true;
   renderAdminOrders();renderAdminAvis();renderAdminBans();renderTopClients();renderAvis();checkBanned();checkMyOrder();checkOpen();
@@ -185,7 +216,7 @@ async function checkout(){
   if(!addr){alert("Adresse !");openCart();return;}
   let tgUser=getTelegramUser();
   let custName=getTelegramName();
-  let order={id:'CMD-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'),total:total,customerName:custName,telegramId:tgUser?.id||null,telegramUsername:tgUser?.username||null,address:addr,hour:selectedHour,note:document.getElementById('note').value,remaining:40,status:'en attente',statusStep:1,deviceId:DEVICE_ID};
+  let order={id:'CMD-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'),total:total,customerName:custName,telegramId:tgUser?.id||null,telegramUsername:tgUser?.username||null,address:addr,hour:selectedHour,note:document.getElementById('note').value,remaining:40,status:'en attente',statusStep:1,deviceId:DEVICE_ID,adminNote:'',livreur:'',enRouteTime:null};
   orders.unshift(order);
   let ok=await saveAll();
   if(ok){localStorage.setItem('simone_myOrder',JSON.stringify(order));lastNotifiedStatus='en attente';cart={};updateCart();closeCart();checkMyOrder();alert('✅ Commande envoyée !');}
@@ -214,15 +245,74 @@ function checkMyOrder(){
 }
 setInterval(()=>{checkMyOrder();checkBanned();checkOpen();},1000);
 setInterval(fetchAll,3000);
+
+function copyAddr(text){navigator.clipboard.writeText(text).then(()=>alert('📋 Adresse copiée: '+text));}
+function openWaze(addr){window.open('https://waze.com/ul?q='+encodeURIComponent(addr),'_blank');}
+function openTGChat(username, telegramId){
+  if(username) window.open('https://t.me/'+username,'_blank');
+  else if(telegramId) alert('ID Telegram: '+telegramId+' - cherche le dans tes bots');
+  else alert('Pas de Telegram pour ce client');
+}
+async function saveAdminNote(idx, val){orders[idx].adminNote=val; await saveAll();}
+async function saveLivreur(idx, val){orders[idx].livreur=val; await saveAll();}
+function nextStep(idx){
+  let o=orders[idx];
+  if(o.status==='en attente') updateStatus(idx,'en préparation',2);
+  else if(o.status==='en préparation') updateStatus(idx,'en route',3);
+  else if(o.status==='en route') updateStatus(idx,'livré',4);
+  else if(o.status==='livré') alert('Déjà arrivé');
+}
+
 function renderAdminOrders(){
   let list=document.getElementById('adminOrdersList');if(!list)return;
-  if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande</p>';document.getElementById('adminCount').textContent='0';return;}
+  // STATS
+  let today=new Date().toDateString();
+  let todayOrders=orders.filter(o=> new Date(o.time).toDateString()===today);
+  let ca=todayOrders.reduce((s,o)=>s+(o.total||0),0);
+  let nb=todayOrders.length;
+  let moy=nb?Math.round(ca/nb):0;
+  document.getElementById('statCA').textContent=ca+'€';
+  document.getElementById('statNb').textContent=nb;
+  document.getElementById('statMoy').textContent=moy+'€';
   document.getElementById('adminCount').textContent=orders.length;
-  let html='';orders.forEach((o,idx)=>{
-    let elapsed=Math.floor((Date.now()-o.time)/60000);let rest=o.remaining-elapsed;if(rest<0)rest=0;
-    let statusColor=o.status==='annulé'?'#888':o.status==='livré'?'#25D366':'#ffcc00';
-    html+=`<div class="admin-order" style="${o.status==='livré'?'border-color:#25D366':''}"><div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div><div style="background:#ff1a1a20;padding:8px;border-radius:10px;margin:6px 0;border:1px solid #ff1a1a40"><b style="color:#ffcc00">👤 ${o.customerName||'INCONNU'}</b>${o.telegramUsername?' <small>@'+o.telegramUsername+'</small>':''}<br><small style="opacity:0.6">ID TG: ${o.telegramId||'?'} | Device: ${o.deviceId||'?'}</small></div><div style="font-size:12px;margin-top:6px">${o.items}</div><div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${statusColor}">${o.status.toUpperCase()}</b> - ${rest} min</div><div style="font-size:12px;margin-top:4px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div><div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="admin-timer">${rest} min</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})">OK</button></div><div class="admin-actions"><button onclick="updateStatus(${idx},'en attente',1)" style="${o.status==='en attente'?'background:#ff1a1a;color:#fff':''}">En attente</button><button onclick="updateStatus(${idx},'en préparation',2)" style="${o.status==='en préparation'?'background:#ffaa00;color:#000':''}">Prépa</button><button onclick="updateStatus(${idx},'en route',3)" style="${o.status==='en route'?'background:#0096ff;color:#fff':''}">En route ${rest}m</button><button onclick="updateStatus(${idx},'livré',4)" style="background:#25D366;color:#fff;border:none">🔔 Arrivé + Notifier</button></div><div class="ban-box"><div style="font-size:10px;font-weight:900;margin-bottom:6px">🚫 BANNIR :</div><div class="admin-actions" style="margin:0"><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUserByOrder(${idx},60)">Ban 1H</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUserByOrder(${idx},1440)">Ban 24H</button><button style="background:#000;color:#ff1a1a;border:1px solid #ff1a1a" onclick="banUserByOrder(${idx},0)">Ban Déf</button></div></div><div class="admin-actions"><button onclick="addTime(${idx},5)">+5</button><button onclick="addTime(${idx},-5)">-5</button><button style="background:#ffaa00;color:#000;border:none" onclick="cancelOrder(${idx})">ANNULER</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteOrder(${idx})">Suppr</button><button style="background:#111;color:#25D366;border:1px solid #25D366" onclick="openMaps('${encodeURIComponent(o.address)}')">MAPS</button></div></div>`;
+
+  if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande</p>';return;}
+
+  // TRI: en attente d'abord
+  let orderPriority={ 'en attente':0, 'en préparation':1, 'en route':2, 'livré':3, 'annulé':4 };
+  let sorted=[...orders].map((o,i)=>({...o,_idx:i})).sort((a,b)=>{
+    let pa=orderPriority[a.status]??5; let pb=orderPriority[b.status]??5;
+    if(pa!==pb) return pa-pb;
+    return b.time-a.time;
+  });
+
+  let html=''; sorted.forEach((o)=>{
+    let idx=o._idx;
+    let elapsed=Math.floor((Date.now()-o.time)/60000); let rest=o.remaining-elapsed; if(rest<0)rest=0;
+    let isUrgent = o.status==='en attente' && elapsed>=3;
+    let statusColor=o.status==='annulé'?'#888':o.status==='livré'?'#25D366':o.status==='en attente'?'#ff1a1a':'#ffcc00';
+    let nextLabel=o.status==='en attente'?'✅ CONFIRMER → PRÉPA':o.status==='en préparation'?'🛵 ENVOYER → EN ROUTE':o.status==='en route'?'🔔 LIVREUR ARRIVÉ':'';
+    let enRouteChrono=o.enRouteTime ? Math.floor((Date.now()-o.enRouteTime)/60000)+' min en route' : '';
+    html+=`<div class="admin-order ${isUrgent?'urgent':''}" style="${o.status==='livré'?'border-color:#25D366':''}">
+      ${isUrgent?'<div style="position:absolute;top:-8px;right:10px;background:#ffaa00;color:#000;font-size:9px;padding:3px 8px;border-radius:10px;font-weight:900">⚠️ URGENT '+elapsed+' MIN</div>':''}
+      <div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date} ${enRouteChrono?'- '+enRouteChrono:''}</span></div>
+      <div style="background:#ff1a1a20;padding:8px;border-radius:10px;margin:6px 0;border:1px solid #ff1a1a40;cursor:pointer" onclick="showClientHistory('${o.deviceId}')"><b style="color:#ffcc00">👤 ${o.customerName||'INCONNU'}</b>${o.telegramUsername?' <small>@'+o.telegramUsername+'</small>':''}<br><small style="opacity:0.6">ID TG: ${o.telegramId||'?'} | Device: ${o.deviceId||'?'} - clique pour historique</small></div>
+      <div style="font-size:12px;margin-top:6px">${o.items}</div><div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${statusColor}">${o.status.toUpperCase()}</b> - ${rest} min</div><div style="font-size:12px;margin-top:4px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 Client: '+o.note:''}</div>
+      ${o.adminNote?'<div style="font-size:11px;background:#222;padding:6px;border-radius:8px;margin-top:6px">📝 Note: '+o.adminNote+'</div>':''}
+      <div style="display:flex;gap:6px;margin-top:8px"><input class="input" style="margin:0;font-size:11px;padding:8px" placeholder="Note admin (code porte...)" value="${o.adminNote||''}" onchange="saveAdminNote(${idx},this.value)"><input class="input" style="margin:0;font-size:11px;padding:8px;width:100px" placeholder="Livreur" value="${o.livreur||''}" onchange="saveLivreur(${idx},this.value)"></div>
+      ${nextLabel?'<button onclick="nextStep('+idx+')" style="width:100%;margin-top:10px;background:linear-gradient(135deg,#ff1a1a,#ff6600);color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900;font-size:13px">⏭️ '+nextLabel+'</button>':''}
+      <div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="admin-timer">${rest} min</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})">OK</button></div>
+      <div class="admin-actions"><button onclick="updateStatus(${idx},'en attente',1)" style="${o.status==='en attente'?'background:#ff1a1a;color:#fff':''}">En attente</button><button onclick="updateStatus(${idx},'en préparation',2)" style="${o.status==='en préparation'?'background:#ffaa00;color:#000':''}">Prépa</button><button onclick="updateStatus(${idx},'en route',3)" style="${o.status==='en route'?'background:#0096ff;color:#fff':''}">En route ${rest}m</button><button onclick="updateStatus(${idx},'livré',4)" style="background:#25D366;color:#fff;border:none">🔔 Arrivé + Notifier</button></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-top:10px"><button onclick="copyAddr('${o.address.replace(/'/g,"\\'")}')" style="background:#111;border:1px solid #333;color:#fff;padding:8px;border-radius:10px;font-size:10px">📋 Copier</button><button onclick="openMaps('${encodeURIComponent(o.address)}')" style="background:#111;border:1px solid #25D366;color:#25D366;padding:8px;border-radius:10px;font-size:10px">🗺️ Maps</button><button onclick="openWaze('${encodeURIComponent(o.address)}')" style="background:#111;border:1px solid #00ccff;color:#00ccff;padding:8px;border-radius:10px;font-size:10px">Waze</button><button onclick="openTGChat('${o.telegramUsername||''}','${o.telegramId||''}')" style="background:#0088cc;border:none;color:#fff;padding:8px;border-radius:10px;font-size:10px">💬 TG</button></div>
+      <div class="ban-box"><div style="font-size:10px;font-weight:900;margin-bottom:6px">🚫 BANNIR :</div><div class="admin-actions" style="margin:0"><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUserByOrder(${idx},60)">Ban 1H</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUserByOrder(${idx},1440)">Ban 24H</button><button style="background:#000;color:#ff1a1a;border:1px solid #ff1a1a" onclick="banUserByOrder(${idx},0)">Ban Déf</button></div></div>
+      <div class="admin-actions"><button onclick="addTime(${idx},5)">+5</button><button onclick="addTime(${idx},-5)">-5</button><button style="background:#ffaa00;color:#000;border:none" onclick="cancelOrder(${idx})">ANNULER</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteOrder(${idx})">Suppr</button></div></div>`;
   });list.innerHTML=html;
+}
+function showClientHistory(deviceId){
+  let hist=orders.filter(o=>o.deviceId===deviceId);
+  let total=hist.reduce((s,o)=>s+o.total,0);
+  let msg=`👤 Historique client\nDevice: ${deviceId}\n\n${hist.length} commandes - Total ${total}€\n\n`+hist.map(o=>`${o.date} - ${o.id} - ${o.total}€ - ${o.status}`).join('\n');
+  alert(msg);
 }
 function renderTopClients(){
   let topList=document.getElementById('adminTopList');let allList=document.getElementById('adminAllClientsList');if(!topList) return;
@@ -242,6 +332,7 @@ async function clearAllBans(){if(confirm('Débannir tout ?')){bannedList=[];awai
 async function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value);if(v>0){orders[idx].remaining=v;orders[idx].time=Date.now();await saveAll();renderAdminOrders();}}
 async function addTime(idx,d){orders[idx].remaining+=d;if(orders[idx].remaining<1)orders[idx].remaining=0;orders[idx].time=Date.now();await saveAll();renderAdminOrders();}
 async function updateStatus(idx,status,step){
+  if(status==='en route' && !orders[idx].enRouteTime) orders[idx].enRouteTime=Date.now();
   orders[idx].status=status;orders[idx].statusStep=step;if(status==='livré') orders[idx].remaining=0;await saveAll();renderAdminOrders();checkMyOrder();
   if(status==='livré'){
     let o=orders[idx];
