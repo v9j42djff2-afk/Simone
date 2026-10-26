@@ -13,7 +13,8 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .my-order-banner.show{display:block}
 .my-order-banner.banned{background:#111;border-color:#ff1a1a}
 .my-order-banner.canceled{background:#222;border-color:#666}
-.my-order-banner.arrived{background:linear-gradient(135deg,#25D366,#128C7E)!important;border-color:#25D366!important}
+.my-order-banner.arrived{background:linear-gradient(135deg,#25D366,#128C7E)!important;border-color:#25D366!important;animation: pulse 1.5s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.7)}70%{box-shadow:0 0 0 15px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 .my-order-banner.closed{background:#333;border-color:#666}
 .header{text-align:center;padding:40px 15px 22px;background:radial-gradient(circle at top,#2a0a0a,#000);border-bottom:1px solid #222}
 .header img{width:180px;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.5);background:#000}
@@ -81,21 +82,12 @@ const NPOINT_URL = "https://api.npoint.io/2d35186dfe62583dd8a9";
 function getDeviceId(){let id=localStorage.getItem('simone_device'); if(!id){ id='DEV-'+Date.now()+Math.random().toString(36).slice(2,7); localStorage.setItem('simone_device',id); } return id;}
 let DEVICE_ID=getDeviceId();
 function getTelegramUser(){
-  try{
-    let tg = window.Telegram?.WebApp;
-    if(tg) tg.ready();
-    let u = tg?.initDataUnsafe?.user;
-    if(u) return u;
-  }catch(e){}
+  try{ let tg = window.Telegram?.WebApp; if(tg) tg.ready(); let u = tg?.initDataUnsafe?.user; if(u) return u; }catch(e){}
   return null;
 }
 function getTelegramName(){
   let u = getTelegramUser();
-  if(u){
-    let name = (u.first_name||'') + (u.last_name ? ' '+u.last_name : '');
-    if(u.username) name += ' @'+u.username;
-    return name.trim() || 'Client Telegram';
-  }
+  if(u){ let name = (u.first_name||'') + (u.last_name ? ' '+u.last_name : ''); if(u.username) name += ' @'+u.username; return name.trim() || 'Client Telegram'; }
   return 'Client';
 }
 function openAdmin(){document.getElementById('adminPanel').classList.add('open'); fetchAll();}
@@ -119,6 +111,8 @@ const PRODUCTS={
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,currentProd=null,selectedVariant=null;
 let orders=[], avisList=[], prodAvisMap={}, bannedList=[];
 let hasFetchedOnce=false;
+let lastNotifiedStatus=null;
+
 async function fetchAll(){
   try{
     let r = await fetch(NPOINT_URL + "?_=" + Date.now());
@@ -152,6 +146,23 @@ function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
+
+function notifyLivreurArrive(){
+  try{
+    let tg = window.Telegram?.WebApp;
+    // Vibration Telegram
+    if(tg?.HapticFeedback){ tg.HapticFeedback.notificationOccurred('success'); tg.HapticFeedback.impactOccurred('heavy'); }
+    // Popup Telegram
+    if(tg?.showAlert){ tg.showAlert('✅ LIVREUR ARRIVÉ !\n\nTon livreur est devant chez toi, descends vite ! 🛵'); }
+    else { alert('✅ LIVREUR ARRIVÉ ! Descends vite ! 🛵'); }
+    // Son
+    let audio = new Audio('https://actions.google.com/sounds/v1/alarms/beep_short.ogg');
+    audio.play().catch(()=>{});
+    // Vibration navigateur
+    if(navigator.vibrate) navigator.vibrate([200,100,200,100,400]);
+  }catch(e){ alert('✅ LIVREUR ARRIVÉ !'); }
+}
+
 async function checkout(){
   if(isBanned()){alert('🚫 Tu es banni');return;}
   if(isClosed()){alert('🔒 Fermé 11h-23h');return;}
@@ -182,22 +193,32 @@ async function checkout(){
   };
   orders.unshift(order);
   let ok=await saveAll();
-  if(ok){ localStorage.setItem('simone_myOrder',JSON.stringify(order)); cart={};updateCart();closeCart(); checkMyOrder(); alert('✅ Commande envoyée !'); }
+  if(ok){ localStorage.setItem('simone_myOrder',JSON.stringify(order)); lastNotifiedStatus='en attente'; cart={};updateCart();closeCart(); checkMyOrder(); alert('✅ Commande envoyée !'); }
 }
 document.getElementById('prodAddBtn').addEventListener('click', addProdToCart);
+
 function checkMyOrder(){
   let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
   let banner=document.getElementById('myOrderBanner');
   let canceled=document.getElementById('canceledBanner');
-  if(!my){banner.classList.remove('show'); banner.classList.remove('arrived'); canceled.classList.remove('show'); return;}
+  if(!my){banner.classList.remove('show'); banner.classList.remove('arrived'); canceled.classList.remove('show'); lastNotifiedStatus=null; return;}
   if(isBanned()){banner.classList.remove('show'); banner.classList.remove('arrived'); return;}
   let found=orders.find(o=>o.id===my.id);
   if(!found && hasFetchedOnce && (Date.now() - my.time) > 15000){
     localStorage.removeItem('simone_myOrder');
-    banner.classList.remove('show'); banner.classList.remove('arrived'); canceled.classList.remove('show'); return;
+    banner.classList.remove('show'); banner.classList.remove('arrived'); canceled.classList.remove('show'); lastNotifiedStatus=null; return;
   }
   let d = found || my;
   if(d.status==='annulé'){banner.classList.remove('show'); banner.classList.remove('arrived'); canceled.classList.add('show'); document.getElementById('canceledId').textContent=d.id; return;}
+
+  // NOTIFICATION LIVREUR ARRIVE
+  if(d.status==='livré' && lastNotifiedStatus!=='livré'){
+    lastNotifiedStatus='livré';
+    notifyLivreurArrive();
+  } else if(d.status!=='livré'){
+    lastNotifiedStatus=d.status;
+  }
+
   let elapsed=Math.floor((Date.now()-d.time)/60000);
   let rest=d.remaining - elapsed;
   if(rest<0) rest=0;
@@ -217,14 +238,15 @@ function checkMyOrder(){
     banner.classList.remove('arrived');
   } else if(d.status==='livré'){
     document.getElementById('myOrderStatus').textContent = '✅ LIVREUR ARRIVÉ';
-    document.getElementById('myOrderTimer').textContent = 'LIVREUR ARRIVÉ ✅';
+    document.getElementById('myOrderTimer').textContent = 'LIVREUR ARRIVÉ ✅ DESCENDS !';
     banner.classList.add('arrived');
   }
   let stepsEl=document.getElementById('mySteps'); if(stepsEl){ let html=''; for(let i=1;i<=4;i++){ html+=`<div class="${i<step?'done':''} ${i===step?'active':''}"></div>`; } stepsEl.innerHTML=html; }
   banner.classList.add('show'); canceled.classList.remove('show');
 }
 setInterval(()=>{checkMyOrder(); checkBanned(); checkOpen();}, 1000); 
-setInterval(fetchAll, 5000);
+setInterval(fetchAll, 3000);
+
 function renderAdminOrders(){
   let list=document.getElementById('adminOrdersList'); if(!list)return;
   if(orders.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande</p>';document.getElementById('adminCount').textContent='0';return;}
@@ -237,8 +259,8 @@ function renderAdminOrders(){
       <div style="background:#ff1a1a20;padding:8px;border-radius:10px;margin:6px 0;border:1px solid #ff1a1a40"><b style="color:#ffcc00">👤 ${o.customerName||'INCONNU'}</b>${o.telegramUsername?' <small>@'+o.telegramUsername+'</small>':''}<br><small style="opacity:0.6">ID TG: ${o.telegramId||'?'} | Device: ${o.deviceId||'?'}</small></div>
       <div style="font-size:12px;margin-top:6px">${o.items}</div><div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${statusColor}">${o.status.toUpperCase()}</b> - ${rest} min</div><div style="font-size:12px;margin-top:4px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div>
       <div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="admin-timer">${rest} min</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})">OK</button></div>
-      <div class="admin-actions"><button onclick="updateStatus(${idx},'en attente',1)" style="${o.status==='en attente'?'background:#ff1a1a;color:#fff':''}">En attente</button><button onclick="updateStatus(${idx},'en préparation',2)" style="${o.status==='en préparation'?'background:#ffaa00;color:#000':''}">Prépa</button><button onclick="updateStatus(${idx},'en route',3)" style="${o.status==='en route'?'background:#0096ff;color:#fff':''}">En route ${rest}m</button><button onclick="updateStatus(${idx},'livré',4)" style="background:#25D366;color:#fff;border:none">Arrivé ✅</button></div>
-      <div class="ban-box"><div style="font-size:10px;font-weight:900;margin-bottom:6px">🚫 BANNIR CE CLIENT :</div><div class="admin-actions" style="margin:0"><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUserByOrder(${idx},60)">Ban 1H</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUserByOrder(${idx},1440)">Ban 24H</button><button style="background:#000;color:#ff1a1a;border:1px solid #ff1a1a" onclick="banUserByOrder(${idx},0)">Ban Définitif</button></div></div>
+      <div class="admin-actions"><button onclick="updateStatus(${idx},'en attente',1)" style="${o.status==='en attente'?'background:#ff1a1a;color:#fff':''}">En attente</button><button onclick="updateStatus(${idx},'en préparation',2)" style="${o.status==='en préparation'?'background:#ffaa00;color:#000':''}">Prépa</button><button onclick="updateStatus(${idx},'en route',3)" style="${o.status==='en route'?'background:#0096ff;color:#fff':''}">En route ${rest}m</button><button onclick="updateStatus(${idx},'livré',4)" style="background:#25D366;color:#fff;border:none">🔔 Arrivé + Notifier client</button></div>
+      <div class="ban-box"><div style="font-size:10px;font-weight:900;margin-bottom:6px">🚫 BANNIR :</div><div class="admin-actions" style="margin:0"><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUserByOrder(${idx},60)">1H</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUserByOrder(${idx},1440)">24H</button><button style="background:#000;color:#ff1a1a;border:1px solid #ff1a1a" onclick="banUserByOrder(${idx},0)">Déf</button></div></div>
       <div class="admin-actions"><button onclick="addTime(${idx},5)">+5</button><button onclick="addTime(${idx},-5)">-5</button><button style="background:#ffaa00;color:#000;border:none" onclick="cancelOrder(${idx})">ANNULER</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteOrder(${idx})">Suppr</button><button style="background:#111;color:#25D366;border:1px solid #25D366" onclick="openMaps('${encodeURIComponent(o.address)}')">MAPS</button></div></div>`;
   }); list.innerHTML=html;
 }
