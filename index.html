@@ -77,8 +77,9 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div id="productModal" class="product-modal"><div style="display:flex;justify-content:space-between;padding:14px;border-bottom:1px solid #222"><button onclick="closeProduct()" style="background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button><span style="font-weight:800;font-size:12px">DÉTAIL PRODUIT</span><span style="width:36px"></span></div><div style="background:#000;position:relative"><video id="prodVideo" src="" autoplay muted loop playsinline style="width:100%;height:42vh;object-fit:cover"></video><span id="prodTag" style="position:absolute;top:14px;left:14px;background:#ff1a1a;padding:5px 10px;border-radius:20px;font-size:10px;font-weight:900">NOUVEAU</span></div><div style="padding:16px"><h2 id="prodName">PRODUIT</h2><div id="prodDesc" style="font-size:13px;opacity:0.8;margin-top:10px;background:#151515;border:1px solid #222;border-radius:12px;padding:12px"></div><div style="margin-top:18px"><div style="font-size:11px;opacity:0.6;font-weight:800;margin-bottom:10px">SÉLECTIONNER LA QUANTITÉ</div><div id="qteGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:10px"></div></div></div><div style="position:sticky;bottom:0;background:#070707;padding:14px 18px 20px;border-top:1px solid #222;margin-top:auto"><button id="prodAddBtn" class="btn-main" style="margin:0;opacity:0.3;pointer-events:none">Sélectionnez une quantité</button></div></div>
 <div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabOrders" class="active" onclick="switchAdminTab('orders')">📦 Commandes (<span id="adminCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 Historique 30</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 Bans (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ Avis (<span id="adminAvisCount">0</span>)</button></div><div id="adminOrdersView"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Commandes en cours</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique 30 dernières commandes</h3><p style="font-size:10px;opacity:0.5;margin-bottom:10px">Ne se supprime jamais - même si tu supprimes en cours</p><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Utilisateurs bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Tous les avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
 <script>
+// SÉCURISÉ - HASH SHA-256 DE Norber93100// - impossible à décoder avec atob()
+const ADMIN_HASH = "64f7cfd5160f121adb14ed900c271ff21fbca8edb5e13a139076ae32eca010fe";
 const _0xenc = {
-  p: "Tm9yYmVyOTMxMDAvLw==",
   t: [
     "ODk2NjM5Nzk3MjpBQUdUUnN1TFU4VHFTbkxuT3RWQ2NpSlh4dkZrMF9YS2FYSQ==",
     "ODk4NTc4ODkyNTpBQUV4c1lJckhSV0F5QmQ2ajlVakEzRVFyRWpmQWtXQXdsQQ==",
@@ -87,10 +88,14 @@ const _0xenc = {
   a: "ODE3NTMwNjc4Mw=="
 };
 function _0xdec(s){ try{ return atob(s); }catch(e){ return ""; } }
-const ADMIN_PASSWORD = _0xdec(_0xenc.p);
 const ADMIN_ID = _0xdec(_0xenc.a);
 function getBotTokens(){ return _0xenc.t.map(_0xdec); }
 const NPOINT_URL = "https://api.npoint.io/2d35186dfe62583dd8a9";
+
+async function sha256(str){
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join('');
+}
 
 function getDeviceId(){let id=localStorage.getItem('simone_device'); if(!id){ id='DEV-'+Date.now()+Math.random().toString(36).slice(2,7); localStorage.setItem('simone_device',id); } return id;}
 let DEVICE_ID=getDeviceId();
@@ -126,7 +131,17 @@ function notifyLivreurArrive(){
 }
 function openAdmin(){document.getElementById('adminPanel').classList.add('open'); fetchAll();}
 function closeAdmin(){document.getElementById('adminPanel').classList.remove('open');}
-function loginAdmin(){let p=document.getElementById('adminPass').value.trim(); if(p===ADMIN_PASSWORD){document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; fetchAll();} else{document.getElementById('adminError').style.display='block';}}
+async function loginAdmin(){
+  let p=document.getElementById('adminPass').value.trim();
+  let hash = await sha256(p);
+  if(hash===ADMIN_HASH){
+    document.getElementById('adminLogin').style.display='none';
+    document.getElementById('adminContent').style.display='block';
+    fetchAll();
+  } else {
+    document.getElementById('adminError').style.display='block';
+  }
+}
 function switchAdminTab(tab){
   document.querySelectorAll('.admin-tabs button').forEach(b=>b.classList.remove('active'));
   document.getElementById('tabOrders').classList.toggle('active', tab==='orders');
@@ -168,14 +183,12 @@ async function fetchAll(){
       if(fullHistory.length===0 && orders.length>0) fullHistory=[...orders];
     }
     bannedList=bannedList.filter(b=>!b.until||b.until>Date.now());
-    // Ajoute les nouvelles commandes à l'historique sans jamais les enlever
     for(let o of orders){
       if(!fullHistory.find(h=>h.id===o.id)){
         fullHistory.unshift(o);
       }
     }
     if(fullHistory.length>100) fullHistory=fullHistory.slice(0,100);
-
     if(orders.length > prevOrdersCount && prevOrdersCount!==0 && hasFetchedOnce){
       let newOnes=orders.filter(o=> !oldOrders.find(oo=>oo.id===o.id));
       for(let o of newOnes){ await notifyAdminNewOrder(o); }
@@ -250,7 +263,6 @@ function checkMyOrder(){
 }
 setInterval(()=>{checkMyOrder();checkBanned();checkOpen();},1000);
 setInterval(fetchAll,3000);
-
 function renderAdminOrders(){
   let list=document.getElementById('adminOrdersList');if(!list)return;
   document.getElementById('adminCount').textContent=orders.length;
@@ -267,7 +279,6 @@ function renderAdminOrders(){
       <div class="ban-box"><div class="admin-actions" style="margin:0"><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUserByOrder(${idx},60)">Ban 1H</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="banUserByOrder(${idx},1440)">Ban 24H</button><button style="background:#000;color:#ff1a1a;border:1px solid #ff1a1a" onclick="banUserByOrder(${idx},0)">Ban Déf</button><button style="background:#ffaa00;color:#000;border:none" onclick="cancelOrder(${idx})">Annuler</button><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteOrder(${idx})">Suppr</button></div></div></div>`;
   });list.innerHTML=html;
 }
-
 function renderHist(){
   let list=document.getElementById('adminHistList'); if(!list) return;
   let last30 = fullHistory.slice(0,30);
@@ -289,10 +300,8 @@ function renderHist(){
   });
   list.innerHTML=html;
 }
-
 async function banDevice(deviceId, name){ if(!deviceId) return alert('Pas de device'); await fetchAll(); bannedList=bannedList.filter(b=>b.deviceId!==deviceId); bannedList.push({deviceId,name,until:null,date:new Date().toLocaleString('fr-FR')}); await saveAll(); renderAdminBans(); alert('✅ Banni '+name); }
 async function banDeviceTemp(deviceId, minutes){ if(!deviceId) return; let until=Date.now()+minutes*60000; await fetchAll(); bannedList=bannedList.filter(b=>b.deviceId!==deviceId); bannedList.push({deviceId,name:'',until,date:new Date().toLocaleString('fr-FR')}); await saveAll(); renderAdminBans(); alert('✅ Ban '+minutes+' min'); }
-
 function renderAdminBans(){let list=document.getElementById('adminBansList');if(!list) return;document.getElementById('adminBansCount').textContent=bannedList.length;if(bannedList.length===0){list.innerHTML='<p style="opacity:0.5">Aucun banni</p>';return;}let html='';bannedList.forEach((b,idx)=>{let untilText=b.until?new Date(b.until).toLocaleString('fr-FR'):'DEFINITIF';html+=`<div class="admin-order"><b style="color:#ff1a1a">${b.name||''} - ${b.deviceId}</b><br><small>Fin: ${untilText}</small><br><div class="admin-actions"><button style="background:#25D366;color:#fff;border:none" onclick="unbanUser(${idx})">DÉBANNIR ✅</button></div></div>`;});list.innerHTML=html;}
 function renderAdminAvis(){let list=document.getElementById('adminAvisList');if(!list) return;if(avisList.length===0){list.innerHTML='<p style="opacity:0.5">Aucun avis</p>';return;}let html='';avisList.forEach((a,i)=>{html+=`<div class="admin-order"><b>${a.name}</b> - ${a.stars}⭐<br>${a.text}<br><small>${a.date} - ${a.deviceId}</small><div class="admin-actions"><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteAvis(${i})">Supprimer</button><button style="background:#000;border:1px solid #ff1a1a;color:#ff1a1a" onclick="banDevice('${a.deviceId}','${a.name}')">Ban 🚫</button></div></div>`});list.innerHTML=html;}
 function openMaps(addr){window.open('https://www.google.com/maps/search/?api=1&query='+addr,'_blank');}
@@ -302,7 +311,6 @@ async function unbanUser(idx){bannedList.splice(idx,1);await saveAll();renderAdm
 async function clearAllBans(){if(confirm('Débannir tout ?')){bannedList=[];await saveAll();renderAdminBans();}}
 async function updateRemaining(idx){let v=parseInt(document.getElementById('input-'+idx).value);if(v>0){orders[idx].remaining=v;orders[idx].time=Date.now();await saveAll();renderAdminOrders();}}
 async function addTime(idx,d){orders[idx].remaining+=d;if(orders[idx].remaining<1)orders[idx].remaining=0;orders[idx].time=Date.now();await saveAll();renderAdminOrders();}
-
 async function updateStatus(idx,status,step){
   orders[idx].status=status;orders[idx].statusStep=step;if(status==='livré') orders[idx].remaining=0;
   await saveAll();renderAdminOrders();checkMyOrder();
@@ -311,8 +319,6 @@ async function updateStatus(idx,status,step){
     if(o.telegramId){ let msg=`✅ LIVREUR ARRIVÉ !\n\n🛵 SIMONE est devant !\n📦 ${o.id} - ${o.total}€\n📍 ${o.address}`; await sendTelegramMsg(o.telegramId,msg); }
   }
 }
-
-// CORRIGÉ : ne supprime QUE des commandes en cours, garde historique
 async function deleteOrder(idx){
   if(confirm('Supprimer cette commande des commandes en cours ? (Elle restera dans Historique)')){
     orders.splice(idx,1);
@@ -320,7 +326,6 @@ async function deleteOrder(idx){
     renderAdminOrders();
   }
 }
-// CORRIGÉ : vide que les commandes en cours, pas l'historique
 async function clearAllOrders(){
   if(confirm('Vider toutes les commandes en cours ? Historique gardé.')){
     orders=[];
@@ -336,7 +341,6 @@ async function clearHist(){
     renderHist();
   }
 }
-
 async function cancelOrder(idx){orders[idx].status='annulé';await saveAll();renderAdminOrders();checkMyOrder();}
 async function deleteAvis(idx){avisList.splice(idx,1);await saveAll();renderAdminAvis();renderAvis();}
 async function clearAllAvis(){if(confirm('Supprimer tous les avis ?')){avisList=[];prodAvisMap={};await saveAll();renderAdminAvis();renderAvis();}}
