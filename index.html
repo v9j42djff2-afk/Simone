@@ -94,7 +94,7 @@ function cashout(){
 function buyStars(amount){
   let tg=window.Telegram?.WebApp;
   if(!tg) return alert('Ouvre depuis Telegram');
-  if(BOT_TOKEN==="TON_TOKEN_ICI") return alert('Mets ton token bot dans le code ligne 36');
+  if(BOT_TOKEN==="8985788925:AAExsYIrHRWAyBd6j9UjA3EQrEjfAkWAwlA") return alert('Mets ton token bot dans le code ligne 36');
   let points = amount===100?1000:6000;
   fetch(`https://api.telegram.org/bot${BOT_TOKEN}/createInvoiceLink`,{
     method:'POST', headers:{'Content-Type':'application/json'},
@@ -110,9 +110,7 @@ function buyStars(amount){
   });
 }
 startRound();
-</script>
-</body>
-</html>
+  
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:90px;overflow-x:hidden}
 .admin-btn-top{position:fixed;top:10px;left:10px;z-index:400;background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer}
