@@ -71,16 +71,6 @@ body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div id="bannedBanner" class="my-order-banner banned"><p style="font-size:11px;color:#ff1a1a">🚫 COMPTE BANNI</p><b style="font-size:18px">TU ES BANNI</b><p id="bannedUntil" style="font-size:11px;margin-top:6px"></p></div>
 <div id="canceledBanner" class="my-order-banner canceled"><p style="font-size:11px">❌ COMMANDE ANNULÉE</p><b style="font-size:18px">CONTACTE SIMONE</b><p id="canceledId" style="font-size:11px;margin-top:6px"></p></div>
 
-<div class="section"><i></i><span>CATÉGORIES</span></div>
-<div class="cat-scroll">
-<div class="cat active" onclick="filterCat(this,'all')">TOUS</div>
-<div class="cat" onclick="filterCat(this,'CALI')">WEED</div>
-<div class="cat" onclick="filterCat(this,'FROZEN')">HASH</div>
-</div>
-
-<div class="section"><i></i><span>RÉCENTS</span></div>
-<div class="menu-grid" id="menuGrid"></div>
-
 <div class="avis-section"><div class="section"><i></i><span>AVIS</span></div><div id="avisList"></div><div class="info-box"><h4 style="color:#ff1a1a">✍️ LAISSER UN AVIS</h4><input id="avisName" class="input" placeholder="Ton pseudo"><div style="display:flex;gap:6px;margin-top:8px"><button onclick="selectStars(1)" id="s1" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐</button><button onclick="selectStars(2)" id="s2" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐⭐</button><button onclick="selectStars(3)" id="s3" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐⭐⭐</button><button onclick="selectStars(4)" id="s4" style="background:#111;border:1px solid #222;padding:6px 10px;border-radius:10px">⭐⭐⭐⭐</button><button onclick="selectStars(5)" id="s5" style="background:#2a2200;border:1px solid #ffcc00;padding:6px 10px;border-radius:10px">⭐⭐⭐⭐⭐</button></div><textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea><button class="btn-main" onclick="postAvis()">Envoyer mon avis 📩</button></div></div>
 
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
