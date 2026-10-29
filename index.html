@@ -7,7 +7,7 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#0a0a0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:90px;overflow-x:hidden}
+body{background:#070707;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:90px;overflow-x:hidden}
 .admin-btn-top{position:fixed;top:10px;left:10px;z-index:400;background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:20px;font-size:11px;font-weight:800;cursor:pointer}
 .my-order-banner{display:none;margin:12px;border-radius:16px;padding:18px;text-align:center;border:1px solid #ff3b3b;transition:0.3s}
 .my-order-banner.show{display:block}
@@ -16,39 +16,25 @@ body{background:#0a0a0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .my-order-banner.arrived{background:linear-gradient(135deg,#25D366,#128C7E)!important;border-color:#25D366!important;animation:pulse 1.5s infinite}
 @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,0.7)}70%{box-shadow:0 0 0 15px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
 .my-order-banner.closed{background:#333;border-color:#666}
-.hero{position:relative;width:100%;height:50vh;min-height:380px;background:url('simone2.jpg') center 20%/cover no-repeat;border-radius:0 0 28px 28px;overflow:hidden;border-bottom:1px solid #222}
-.hero::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%, rgba(0,0,0,0) 40%, rgba(10,10,15,0.95) 100%)}
-.top-bar{position:absolute;top:14px;left:12px;right:12px;display:flex;justify-content:space-between;align-items:center;z-index:10}
-.btn-fermer{background:rgba(25,25,25,0.9);border:1px solid #333;color:#fff;padding:8px 14px;border-radius:20px;font-size:13px;font-weight:700}
-.btn-telegram{background:#2a9cff;color:#fff;padding:7px 14px;border-radius:20px;font-size:11px;font-weight:900;letter-spacing:0.8px}
-.hero-icons{position:absolute;bottom:16px;right:14px;display:flex;gap:10px;z-index:10}
-.hero-icons div{width:38px;height:38px;background:rgba(35,35,40,0.85);border:1px solid rgba(255,255,255,0.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;backdrop-filter:blur(10px)}
-.cali-card{background:linear-gradient(90deg,#ff9a3d,#ff7a00);margin:12px;border-radius:16px;padding:18px;border:none}
-.cali-card.red{background:linear-gradient(90deg,#ff2b2b,#b30000)}
-.cali-card small{font-size:10px;opacity:.8;letter-spacing:1px;text-transform:uppercase}
-.cali-card b{display:block;font-size:16px;font-weight:900;margin:4px 0}
-.section{padding:18px 14px 8px;display:flex;align-items:center;gap:8px}
-.section i{width:3px;height:16px;background:#ff1a1a;border-radius:10px;display:block}
-.section span{font-size:11px;letter-spacing:2px;font-weight:900;opacity:0.7}
-.cat-scroll{display:flex;gap:10px;padding:0 14px 6px;overflow-x:auto}
-.cat-scroll::-webkit-scrollbar{display:none}
-.cat{white-space:nowrap;background:#1a1a22;border:1px solid #222;padding:10px 16px;border-radius:20px;font-size:12px;font-weight:700;cursor:pointer}
-.cat.active{background:#ff1a1a;border-color:#ff1a1a}
-.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 14px}
-.card{background:#16161e;border:1px solid #222;border-radius:20px;padding:0;overflow:hidden;cursor:pointer;position:relative}
-.card video{width:100%;height:160px;border-radius:0;object-fit:cover;background:#000;display:block;pointer-events:none}
-.card h3{font-size:12px;margin:0}
-.card-info{padding:10px 12px 12px;display:flex;justify-content:space-between;align-items:center}
-.tag{display:inline-block;font-size:8px;padding:3px 6px;border-radius:8px;font-weight:800;background:#ff1a1a;position:absolute;top:8px;left:8px;z-index:2}
-.price{font-size:12px;font-weight:900;color:#ff3b3b;margin-top:2px}
+.header{text-align:center;padding:40px 15px 22px;background:radial-gradient(circle at top,#2a0a0a,#000);border-bottom:1px solid #222}
+.header img{width:180px;border-radius:20px;box-shadow:0 0 30px rgba(255,0,0,0.5);background:#000}
+.header h1{font-size:28px;font-weight:900;letter-spacing:2px;margin-top:14px}
+.header h1 span{color:#ff1a1a}
+.section-title{padding:18px 15px 8px;font-size:11px;letter-spacing:2px;opacity:0.6;font-weight:800}
+.menu-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px 12px}
+.card{background:#161616;border:1px solid #222;border-radius:18px;padding:10px;cursor:pointer}
+.card video{width:100%;height:130px;border-radius:12px;object-fit:cover;background:#000;display:block;pointer-events:none}
+.card h3{font-size:12px;margin:8px 0 2px}
+.tag{display:inline-block;font-size:8px;padding:3px 6px;border-radius:8px;font-weight:800;background:#ff1a1a}
+.price{font-size:13px;font-weight:900;color:#ff3b3b;margin-top:4px}
 .avis-section{padding:12px}
-.avis-card{background:#16161e;border:1px solid #222;border-radius:15px;padding:12px;margin-bottom:8px;font-size:12px}
-.info-box{background:#16161e;border:1px solid #222;border-radius:15px;padding:14px;margin-bottom:10px}
-.input,.textarea{width:100%;background:#1a1a22;border:1px solid #333;color:#fff;padding:12px;border-radius:11px;margin-top:8px;font-size:13px;outline:none}
+.avis-card{background:#161616;border:1px solid #222;border-radius:15px;padding:12px;margin-bottom:8px;font-size:12px}
+.info-box{background:#161616;border:1px solid #222;border-radius:15px;padding:14px;margin-bottom:10px}
+.input,.textarea{width:100%;background:#1a1a1a;border:1px solid #333;color:#fff;padding:12px;border-radius:11px;margin-top:8px;font-size:13px;outline:none}
 .cart-float{position:fixed;bottom:18px;right:18px;background:#ff1a1a;color:#fff;width:62px;height:62px;border-radius:50%;display:none;align-items:center;justify-content:center;z-index:200;cursor:pointer;font-size:22px}
 .cart-float.show{display:flex}
 .cart-float .badge{position:absolute;top:-4px;right:-4px;background:#fff;color:#000;font-size:11px;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800}
-.cart-drawer{position:fixed;bottom:0;left:0;right:0;background:#121218;border-top:1px solid #222;border-radius:22px 22px 0 0;padding:20px;transform:translateY(110%);transition:0.35s;z-index:300;max-height:92vh;overflow:auto}
+.cart-drawer{position:fixed;bottom:0;left:0;right:0;background:#121212;border-top:1px solid #222;border-radius:22px 22px 0 0;padding:20px;transform:translateY(110%);transition:0.35s;z-index:300;max-height:92vh;overflow:auto}
 .cart-drawer.open{transform:translateY(0)}
 .hours{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
 .hours button{padding:8px 12px;border-radius:20px;border:1px solid #333;background:#1a1a1a;color:#fff;font-size:11px;cursor:pointer}
@@ -79,12 +65,7 @@ body{background:#0a0a0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </head>
 <body>
 <button class="admin-btn-top" onclick="openAdmin()">🔐 ADMIN</button>
-
-<div class="cali-card red">
-<b>🌿 Bienvenue chez Simone Paris! 🌿</b>
-<span style="font-size:13px;line-height:1.4;display:block;margin-top:6px">La meilleure qualité disponible à Paris. Commande rapide, livraison 11H-23H.</span>
-</div>
-
+<div class="header"><img src="logo.png.jpg"><h1>COFFEE <span>SIMONE</span></h1><p>COLLECTION EXCLUSIVE</p></div>
 <div id="closedBanner" class="my-order-banner closed"><p>🔒 FERMÉ</p><b style="font-size:18px">OUVERT 11H-23H</b></div>
 <div id="myOrderBanner" class="my-order-banner" style="background:linear-gradient(135deg,#ff1a1a,#b30000)"><p style="font-size:11px;opacity:0.8" id="myOrderStatus">📦 COMMANDE EN ATTENTE</p><b id="myOrderTimer">En attente</b><div class="status-steps" id="mySteps"><div class="active"></div><div></div><div></div><div></div></div><p id="myOrderId" style="font-size:11px;margin-top:8px;opacity:0.7"></p></div>
 <div id="bannedBanner" class="my-order-banner banned"><p style="font-size:11px;color:#ff1a1a">🚫 COMPTE BANNI</p><b style="font-size:18px">TU ES BANNI</b><p id="bannedUntil" style="font-size:11px;margin-top:6px"></p></div>
