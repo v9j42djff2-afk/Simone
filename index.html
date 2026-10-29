@@ -98,10 +98,8 @@ body{background:#0a0a0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="section"><i></i><span>CATÉGORIES</span></div>
 <div class="cat-scroll">
 <div class="cat active" onclick="filterCat(this,'all')">TOUS</div>
-<div class="cat" onclick="filterCat(this,'TOP')">HASH</div>
-<div class="cat" onclick="filterCat(this,'SS')">WEED</div>
-<div class="cat" onclick="filterCat(this,'CALI')">CALI</div>
-<div class="cat" onclick="filterCat(this,'FROZEN')">FROZEN</div>
+<div class="cat" onclick="filterCat(this,'CALI')">WEED</div>
+<div class="cat" onclick="filterCat(this,'FROZEN')">HASH</div>
 </div>
 
 <div class="section"><i></i><span>RÉCENTS</span></div>
@@ -135,7 +133,7 @@ function openAdmin(){document.getElementById('adminPanel').classList.add('open')
 function closeAdmin(){document.getElementById('adminPanel').classList.remove('open');}
 function loginAdmin(){let p=document.getElementById('adminPass').value.trim();if(p===ADMIN_PASSWORD){document.getElementById('adminLogin').style.display='none';document.getElementById('adminContent').style.display='block';fetchAll();}else{document.getElementById('adminError').style.display='block';}}
 function switchAdminTab(tab){document.querySelectorAll('.admin-tabs button').forEach(b=>b.classList.remove('active'));document.getElementById('tabOrders').classList.toggle('active',tab==='orders');document.getElementById('tabHist').classList.toggle('active',tab==='hist');document.getElementById('tabBans').classList.toggle('active',tab==='bans');document.getElementById('tabAvis').classList.toggle('active',tab==='avis');document.getElementById('adminOrdersView').style.display=tab==='orders'?'block':'none';document.getElementById('adminHistView').style.display=tab==='hist'?'block':'none';document.getElementById('adminBansView').style.display=tab==='bans'?'block':'none';document.getElementById('adminAvisView').style.display=tab==='avis'?'block':'none';if(tab==='hist')renderHist();}
-const PRODUCTS={p1:{id:'p1',name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller.',cat:'HASH',variants:[{label:'10G',price:50},{label:'50G',price:170},{label:'100G',price:300}]},p2:{id:'p2',name:'AMNESIA',tag:'SOMA SEDS',video:'amn.MP4',desc:'Weeds.',cat:'WEED',variants:[{label:'5G',price:50}]},p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4',desc:'Fresh.',cat:'FROZEN',variants:[{label:'50G',price:400}]},p4:{id:'p4',name:'PINEAPPLE RUNTZ',tag:'CALI US',video:'caliab .mov',desc:'Caliweed.',cat:'CALI',variants:[{label:'10G',price:100}]},};
+const PRODUCTS={p1:{id:'p1',name:'MOUSSEUX',tag:'TOP DU TOP',video:'mousseux.mp4.MP4',desc:'Best-seller.',cat:'HASH',variants:[{label:'10G',price:50},{label:'50G',price:170},{label:'100G',price:300}]},p2:{id:'p2',name:'AMNESIA',tag:'SOMA SEDS',video:'amn.MP4',desc:'Weed.',cat:'WEED',variants:[{label:'5G',price:50}]},p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4',desc:'Fresh.',cat:'HASH',variants:[{label:'50G',price:400}]},p4:{id:'p4',name:'PINEAPPLE RUNTZ',tag:'CALI US',video:'caliab .mov',desc:'Caliweed.',cat:'WEED',variants:[{label:'10G',price:100}]},};
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,currentProd=null,selectedVariant=null;let orders=[],avisList=[],prodAvisMap={},bannedList=[];let hasFetchedOnce=false;let lastNotifiedStatus=null;let prevOrdersCount=0;let soundEnabled=true;let fullHistory=[];
 function toggleSound(){soundEnabled=!soundEnabled;document.getElementById('soundBtn').textContent=soundEnabled?'🔊 SON ON':'🔇 SON OFF';}
 function playNewOrderSound(){if(!soundEnabled)return;try{let audio=new Audio('https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg');audio.play().catch(()=>{});if(navigator.vibrate)navigator.vibrate([200,100,200]);}catch(e){}}
