@@ -97,6 +97,15 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="hero-content"><h1>SIMONE<br>PARIS</h1><p>Qualité premium • Livraison 11H-23H<br>Paiment uniquement en Espece</p></div>
 </div>
 <div class="welcome"><div class="dot"></div><div><b id="profileUsername">Bienvenue chez Simone 🌿</b><span>En ligne • Réponse rapide</span></div></div>
+
+<!-- === AJOUT LOGIN TELEGRAM SANS TOUCHER AU RESTE === -->
+<div id="telegramLoginContainer" style="margin:0 14px 10px;background:#15151d;border:1px solid #1f1f25;border-radius:22px;padding:14px;text-align:center">
+  <div style="font-size:11px;font-weight:800;opacity:0.6;margin-bottom:8px;letter-spacing:1px">CONNEXION TELEGRAM</div>
+  <div id="tgLoginBtn"></div>
+  <div id="tgLogged" style="display:none;font-size:13px;font-weight:800;color:#25D366"></div>
+  <div style="font-size:10px;opacity:0.4;margin-top:6px">Connecte-toi pour être notifié quand le livreur arrive</div>
+</div>
+
 <div class="socials">
 <a class="social-btn telegram" onclick="openLink('https://t.me/simone750')"><div class="ico">✈️</div><div><div>Contact Direct</div><small>@SIMONE750</small></div></a>
 <a class="social-btn telegram2" onclick="openLink('https://t.me/simoneparis75')"><div class="ico">📢</div><div><div>Canal Officiel</div><small>SIMONE PARIS 75</small></div></a>
@@ -128,9 +137,59 @@ function getBotTokens(){return _0xenc.t.map(_0xdec);}
 const NPOINT_URL="https://api.npoint.io/2d35186dfe62583dd8a9";
 function getDeviceId(){let id=localStorage.getItem('simone_device');if(!id){id='DEV-'+Date.now()+Math.random().toString(36).slice(2,7);localStorage.setItem('simone_device',id);}return id;}
 let DEVICE_ID=getDeviceId();
-function getTelegramUser(){try{let tg=window.Telegram?.WebApp;if(tg)tg.ready();let u=tg?.initDataUnsafe?.user;if(u)return u;}catch(e){}return null;}
-function getTelegramName(){let u=getTelegramUser();if(u){let name=(u.first_name||'')+(u.last_name?' '+u.last_name:'');if(u.username)name+=' @'+u.username;return name.trim();}return 'Client';}
-function updateCaliProfile(){try{let u=getTelegramUser();if(u&&u.username){let el=document.getElementById('profileUsername');if(el)el.innerText='Bienvenue @'+u.username.toUpperCase()+' 🌿';}}catch(e){}}
+
+// === AJOUT LOGIN : ON SAUVE LE USER TELEGRAM LOGIN WIDGET ===
+function getStoredTgUser(){
+  try{return JSON.parse(localStorage.getItem('simone_tg_user')||'null');}catch(e){return null;}
+}
+function onTelegramAuth(user){
+  localStorage.setItem('simone_tg_user', JSON.stringify(user));
+  let el=document.getElementById('tgLogged');
+  let btn=document.getElementById('tgLoginBtn');
+  if(el){el.style.display='block'; el.textContent='✅ Connecté @'+user.username;}
+  if(btn)btn.style.display='none';
+  updateCaliProfile();
+}
+function getTelegramUser(){
+  try{
+    let tg=window.Telegram?.WebApp;
+    if(tg)tg.ready();
+    let u=tg?.initDataUnsafe?.user;
+    if(u) return u;
+  }catch(e){}
+  // fallback login widget
+  let stored=getStoredTgUser();
+  if(stored) return {id:stored.id, username:stored.username, first_name:stored.first_name, last_name:stored.last_name};
+  return null;
+}
+function getTelegramName(){
+  let u=getTelegramUser();
+  if(u){
+    let name=(u.first_name||'')+(u.last_name?' '+u.last_name:'');
+    if(u.username) name+=' @'+u.username;
+    return name.trim();
+  }
+  let s=getStoredTgUser();
+  if(s) return s.first_name+' @'+s.username;
+  return 'Client';
+}
+function updateCaliProfile(){
+  try{
+    let u=getTelegramUser();
+    if(u && u.username){
+      let el=document.getElementById('profileUsername');
+      if(el) el.innerText='Bienvenue @'+u.username.toUpperCase()+' 🌿';
+    }
+    let stored=getStoredTgUser();
+    if(stored){
+      let l=document.getElementById('tgLogged');
+      let b=document.getElementById('tgLoginBtn');
+      if(l){l.style.display='block'; l.textContent='✅ Connecté @'+stored.username;}
+      if(b) b.style.display='none';
+    }
+  }catch(e){}
+}
+
 function openLink(url){try{let tg=window.Telegram?.WebApp;if(tg&&tg.openLink){tg.openLink(url);return;}if(tg&&tg.openTelegramLink){tg.openTelegramLink(url);return;}}catch(e){}window.open(url,'_blank');}
 function filterCat(el,cat){document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));el.classList.add('active');buildGrid(cat);}
 async function sendTelegramMsg(id,msg){if(!id)return false;let tokens=getBotTokens();for(let token of tokens){try{let res=await fetch(`https://api.telegram.org/bot${token}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:id,text:msg,parse_mode:'HTML'})});if(res.ok)return true;}catch(e){}}return false;}
@@ -185,6 +244,19 @@ async function cancelOrder(i){orders[i].status='annulé';await saveAll();renderA
 async function deleteAvis(i){avisList.splice(i,1);await saveAll();renderAdminAvis();renderAvis();}
 async function clearAllAvis(){if(confirm('Supprimer tous les avis ?')){avisList=[];await saveAll();renderAdminAvis();renderAvis();}}
 fetchAll();
+
+// === CHARGEMENT DU WIDGET TELEGRAM (ne touche rien d'autre) ===
+(function(){
+  let s=document.createElement('script');
+  s.async=true;
+  s.src="https://telegram.org/js/telegram-widget.js?22";
+  s.setAttribute('data-telegram-login','SimoneParisBot'); // <-- REMPLACE ICI PAR TON BOT
+  s.setAttribute('data-size','large');
+  s.setAttribute('data-radius','12');
+  s.setAttribute('data-onauth','onTelegramAuth(user)');
+  s.setAttribute('data-request-access','write');
+  document.getElementById('tgLoginBtn').appendChild(s);
+})();
 </script>
 </body>
 </html>
