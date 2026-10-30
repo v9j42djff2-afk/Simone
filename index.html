@@ -124,7 +124,7 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div>
 <div id="cartList"></div>
 <div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div>
-<div id="starsCalc" class="stars-info" style="display:none"><div style="display:flex;justify-content:space-between"><span>💱 Conversion Stars:</span><span id="starsEquiv">0 Stars</span></div><div style="font-size:11px;opacity:0.6;margin-top:4px">Taux: 1€ = 2 ⭐ - Payé direct sur l'app</div></div>
+<div id="starsCalc" class="stars-info" style="display:none"><div style="display:flex;justify-content:space-between"><span>💱 Conversion:</span><span id="starsEquiv">0 Stars</span></div><div style="font-size:11px;opacity:0.6;margin-top:4px">50€ = 2000 ⭐ | Taux: 1€ = 40 ⭐</div></div>
 <input id="addr" class="input" placeholder="📍 Adresse + code postal">
 <div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">11h-13h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-23h</button></div>
 <input id="note" class="input" placeholder="Note livreur">
@@ -137,12 +137,13 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div id="productModal" class="product-modal"><div style="display:flex;justify-content:space-between;padding:14px;border-bottom:1px solid #222"><button onclick="closeProduct()" style="background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button><span style="font-weight:800;font-size:12px">DÉTAIL PRODUIT</span><span style="width:36px"></span></div><div style="background:#000;position:relative"><video id="prodVideo" src="" autoplay muted loop playsinline style="width:100%;height:44vh;object-fit:cover"></video><span id="prodTag" style="position:absolute;top:14px;left:14px;background:#fff;color:#000;padding:6px 12px;border-radius:100px;font-size:10px;font-weight:900">NOUVEAU</span></div><div style="padding:18px"><h2 id="prodName" style="font-size:22px;font-weight:900;letter-spacing:-0.5px">PRODUIT</h2><div id="prodDesc" style="font-size:13px;opacity:0.6;margin-top:10px;background:#15151d;border:1px solid #1f1f25;border-radius:14px;padding:14px"></div><div style="margin-top:20px"><div style="font-size:11px;opacity:0.4;font-weight:800;margin-bottom:12px;letter-spacing:1px">SÉLECTIONNER LA QUANTITÉ</div><div id="qteGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"></div></div></div><div style="position:sticky;bottom:0;background:#08080a;padding:14px 18px 22px;border-top:1px solid #1a1a1a;margin-top:auto"><button id="prodAddBtn" class="btn-main" style="margin:0;opacity:0.3;pointer-events:none">Sélectionnez une quantité</button></div></div>
 <div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#ffcc00">Mot de passe</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabOrders" class="active" onclick="switchAdminTab('orders')">📦 Commandes (<span id="adminCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 Historique 30</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 Bans (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ Avis (<span id="adminAvisCount">0</span>)</button></div><div id="adminOrdersView"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Commandes en cours</h3><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminOrdersList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique 30 dernières commandes</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Utilisateurs bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Tous les avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
 <script>
-// === CONFIG - PAS D'ENVOI TELEGRAM ===
-const BOT_TOKEN = "TON_NOUVEAU_TOKEN_ICI"; // Mets ton token @BotFather ici pour que Stars marche, sinon ça bloque
-const ADMIN_PASSWORD = "Norber93100//";
-const NPOINT_URL = "https://api.npoint.io/2d35186dfe62583dd8a9";
-const STARS_RATE = 2; // 1€ = 2 Stars - modifie ici
-const ENABLE_TELEGRAM_NOTIFY = false; // <-- MIS A FALSE = N'ENVOIE PLUS DE MESSAGE A SIMONE
+const _0xenc={p:"Tm9yYmVyOTMxMDAvLw==",t:["ODk2NjM5Nzk3MjpBQUdUUnN1TFU4VHFTbkxuT3RWQ2NpSlh4dkZrMF9YS2FYSQ==","ODk4NTc4ODkyNTpBQUV4c1lJckhSV0F5QmQ2ajlVakEzRVFyRWpmQWtXQXdsQQ==","ODkwNDgwMDA1OTpBQUhpdHVlb0hZQzFnOV9WeWZpbDMzSWJBNWlqMGxjT3d3Zw=="],a:"ODE3NTMwNjc4Mw=="};
+function _0xdec(s){try{return atob(s);}catch(e){return "";}}
+const ADMIN_PASSWORD=_0xdec(_0xenc.p);
+const ADMIN_ID=_0xdec(_0xenc.a);
+function getBotTokens(){return _0xenc.t.map(_0xdec);}
+const NPOINT_URL="https://api.npoint.io/2d35186dfe62583dd8a9";
+const STARS_RATE = 40; // CORRIGÉ: 1€ = 40 Stars => 50€ = 2000 Stars
 
 function getDeviceId(){let id=localStorage.getItem('simone_device');if(!id){id='DEV-'+Date.now()+Math.random().toString(36).slice(2,7);localStorage.setItem('simone_device',id);}return id;}
 let DEVICE_ID=getDeviceId();
@@ -151,12 +152,9 @@ function getTelegramName(){let u=getTelegramUser();if(u){let name=(u.first_name|
 function updateCaliProfile(){try{let u=getTelegramUser();if(u&&u.username){let el=document.getElementById('profileUsername');if(el)el.innerText='Bienvenue @'+u.username.toUpperCase()+' 🌿';}}catch(e){}}
 function openLink(url){try{let tg=window.Telegram?.WebApp;if(tg&&tg.openLink){tg.openLink(url);return;}if(tg&&tg.openTelegramLink){tg.openTelegramLink(url);return;}}catch(e){}window.open(url,'_blank');}
 function filterCat(el,cat){document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));el.classList.add('active');buildGrid(cat);}
-
-// PLUS D'ENVOI TELEGRAM - DESACTIVE
+// PAS DE MESSAGE TELEGRAM - DESACTIVÉ COMME TU VEUX
 async function sendTelegramMsg(id,msg){return false;}
-async function notifyAdminNewOrder(o){
-  if(!ENABLE_TELEGRAM_NOTIFY) return; // Ne fait rien
-}
+async function notifyAdminNewOrder(o){return;}
 
 function notifyLivreurArrive(){try{let tg=window.Telegram?.WebApp;if(tg?.HapticFeedback){tg.HapticFeedback.notificationOccurred('success');}if(tg?.showAlert){tg.showAlert('✅ LIVREUR ARRIVÉ ! Descends vite ! 🛵');}else{alert('✅ LIVREUR ARRIVÉ !');}}catch(e){alert('✅ LIVREUR ARRIVÉ !');}}
 function openAdmin(){document.getElementById('adminPanel').classList.add('open');fetchAll();}
@@ -181,11 +179,11 @@ function checkOpen(){let b=document.getElementById('closedBanner');if(b)b.classL
 function checkBanned(){let b=bannedList.find(x=>x.deviceId===DEVICE_ID);let banBanner=document.getElementById('bannedBanner');if(b){banBanner.classList.add('show');document.getElementById('myOrderBanner').classList.remove('show');document.getElementById('bannedUntil').textContent=b.until?'Jusqu\'à '+new Date(b.until).toLocaleString('fr-FR'):'Définitif';return true;}else{banBanner.classList.remove('show');return false;}}
 async function postAvis(){if(isBanned()){alert('Tu es banni');return;}let name=document.getElementById('avisName').value.trim()||getTelegramName(),text=document.getElementById('avisText').value.trim();if(!text){alert('Remplis ton avis !');return;}await fetchAll();if(isBanned()){alert('Tu es banni');return;}avisList.unshift({name,text,stars:selectedStars,date:new Date().toLocaleString('fr-FR'),id:Date.now(),deviceId:DEVICE_ID});await saveAll();document.getElementById('avisName').value='';document.getElementById('avisText').value='';renderAvis();renderAdminAvis();alert('✅ Avis envoyé !');}
 function renderAvis(){let html='';avisList.forEach(a=>{html+=`<div class="avis-card"><b>${a.name}</b> - <span style="color:#ffcc00">${'⭐'.repeat(a.stars)}</span><br>${a.text}<br><small style="opacity:0.4">${a.date||''}</small></div>`;});document.getElementById('avisList').innerHTML=html;let c=document.getElementById('adminAvisCount');if(c)c.textContent=avisList.length;}
-function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=cart[id].qty;l+=`<div style="display:flex;justify-content:space-between;margin:8px 0;font-size:13px;background:#0f0f14;padding:12px;border-radius:14px"><span><b>${cart[id].name}</b><br><small style="opacity:0.6">${cart[id].qteLabel} x${cart[id].qty}</small></span><span style="font-weight:900">${cart[id].total}€<br><small style="color:#FFD700">${cart[id].total*STARS_RATE} ⭐</small></span></div>`}document.getElementById('cartBadge').textContent=c;document.getElementById('cartList').innerHTML=l||'Panier vide';document.getElementById('cartTotal').textContent=t+'€';document.getElementById('starsEquiv').textContent=t*STARS_RATE+' Stars';document.getElementById('starsCalc').style.display=c>0?'block':'none';document.getElementById('btnStars').innerHTML=c>0?`⭐ Payer ${t*STARS_RATE} Stars (${t}€) sur l'app`:`⭐ Payer en Stars sur l'app`;document.getElementById('btnEspece').innerHTML=c>0?`💵 Payer ${t}€ en Espèces sur l'app`:`💵 Payer en Espèces`;document.getElementById('cartFloat').classList.toggle('show',c>0);}
+function updateCart(){let t=0,c=0,l='';for(let id in cart){t+=cart[id].total;c+=cart[id].qty;l+=`<div style="display:flex;justify-content:space-between;margin:8px 0;font-size:13px;background:#0f0f14;padding:12px;border-radius:14px"><span><b>${cart[id].name}</b><br><small style="opacity:0.6">${cart[id].qteLabel} x${cart[id].qty}</small></span><span style="font-weight:900">${cart[id].total}€<br><small style="color:#FFD700">${cart[id].total*STARS_RATE} ⭐</small></span></div>`}document.getElementById('cartBadge').textContent=c;document.getElementById('cartList').innerHTML=l||'Panier vide';document.getElementById('cartTotal').textContent=t+'€';document.getElementById('starsEquiv').textContent=t*STARS_RATE+' Stars';document.getElementById('starsCalc').style.display=c>0?'block':'none';document.getElementById('btnStars').innerHTML=c>0?`⭐ Payer ${t*STARS_RATE} Stars (${t}€) sur l'app`:`⭐ Payer en Stars sur l'app`;document.getElementById('btnEspece').innerHTML=c>0?`💵 Payer ${t}€ en Espèces`:`💵 Payer en Espèces sur l'app`;document.getElementById('cartFloat').classList.toggle('show',c>0);}
 function openCart(){document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-async function checkoutCash(){if(isBanned()){alert('🚫 Tu es banni');return;}if(isClosed()){alert('🔒 Fermé 11h-23h');return;}let total=0;for(let id in cart){total+=cart[id].total;}if(total===0){alert("Panier vide !");return;}let addr=document.getElementById('addr').value.trim();if(!addr){alert("Adresse !");openCart();return;}let tgUser=getTelegramUser();let custName=getTelegramName();let order={id:'CMD-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'),total:total,customerName:custName,telegramId:tgUser?.id||null,telegramUsername:tgUser?.username||null,address:addr,hour:selectedHour,note:document.getElementById('note').value,remaining:40,status:'en attente',statusStep:1,deviceId:DEVICE_ID,paymentMethod:'ESPECES 💵 - SUR L\'APP'};orders.unshift(order);fullHistory.unshift(order);let ok=await saveAll();if(ok){localStorage.setItem('simone_myOrder',JSON.stringify(order));lastNotifiedStatus='en attente';cart={};updateCart();closeCart();checkMyOrder();alert('✅ Commande envoyée ! Paiement en espèces sur l\'app - Va dans panel admin');}}
+async function checkoutCash(){if(isBanned()){alert('🚫 Tu es banni');return;}if(isClosed()){alert('🔒 Fermé 11h-23h');return;}let total=0;for(let id in cart){total+=cart[id].total;}if(total===0){alert("Panier vide !");return;}let addr=document.getElementById('addr').value.trim();if(!addr){alert("Adresse !");openCart();return;}let tgUser=getTelegramUser();let custName=getTelegramName();let order={id:'CMD-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'),total:total,customerName:custName,telegramId:tgUser?.id||null,telegramUsername:tgUser?.username||null,address:addr,hour:selectedHour,note:document.getElementById('note').value,remaining:40,status:'en attente',statusStep:1,deviceId:DEVICE_ID,paymentMethod:'ESPECES 💵'};orders.unshift(order);fullHistory.unshift(order);let ok=await saveAll();if(ok){localStorage.setItem('simone_myOrder',JSON.stringify(order));lastNotifiedStatus='en attente';cart={};updateCart();closeCart();checkMyOrder();alert('✅ Commande envoyée ! Paiement en espèces');}}
 async function checkoutStars(){
  let total=0;for(let id in cart){total+=cart[id].total;}
  if(total===0){alert("Panier vide !");return;}
@@ -195,34 +193,27 @@ async function checkoutStars(){
  if(!addr){alert("Adresse !");openCart();return;}
  let tg=window.Telegram?.WebApp;
  if(!tg){alert("Ouvre depuis Telegram pour payer en Stars");return;}
- let starsAmount = Math.max(1, Math.round(total * STARS_RATE));
- if(BOT_TOKEN.includes("TON_NOUVEAU_TOKEN") || BOT_TOKEN.length < 20){
-   // Mode demo sans token - crée quand même la commande en Stars pour test panel admin
-   if(confirm(`Mode test (token non configuré) - Simuler paiement de ${starsAmount} Stars pour ${total}€ ?\n\n8718509167:AAG588HsNS39acVl_gLd9qvuG0YbTLYYh-E`)){
-     let order={id:'CMD-STAR-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'),total:total,starsPaid:starsAmount,customerName:getTelegramName(),telegramId:getTelegramUser()?.id||null,telegramUsername:getTelegramUser()?.username||null,address:addr,hour:selectedHour,note:document.getElementById('note').value,remaining:40,status:'en attente',statusStep:1,deviceId:DEVICE_ID,paymentMethod:`STARS ⭐ ${starsAmount} Stars - SUR L'APP`};
-     orders.unshift(order);fullHistory.unshift(order);await saveAll();localStorage.setItem('simone_myOrder',JSON.stringify(order));cart={};updateCart();closeCart();checkMyOrder();alert(`✅ Commande Stars simulée ! ${starsAmount} Stars - Va voir panel admin`);
-     return;
-   } else return;
- }
+ let starsAmount = Math.round(total * STARS_RATE); // 50€ * 40 = 2000 Stars
+ let token = getBotTokens()[0];
  try{
-   let resp = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/createInvoiceLink`,{
+   let resp = await fetch(`https://api.telegram.org/bot${token}/createInvoiceLink`,{
      method:'POST',
      headers:{'Content-Type':'application/json'},
      body:JSON.stringify({
        title: "Commande Simone Paris",
-       description: `Commande ${total}€ - ${addr}`,
+       description: `Commande ${total}€ - ${addr} - ${starsAmount} Stars`,
        payload: "stars_"+Date.now(),
        currency: "XTR",
-       prices: [{label: `Commande ${total}€`, amount: starsAmount}]
+       prices: [{label: `Commande ${total}€ = ${starsAmount} Stars`, amount: starsAmount}]
      })
    });
    let data = await resp.json();
-   if(!data.ok){alert("Erreur Stars: "+data.description+"\nVa sur @BotFather -> recrée ton token");return;}
+   if(!data.ok){alert("Erreur Stars: "+data.description+"\nVérifie ton token @BotFather");return;}
    tg.openInvoice(data.result, async function(status){
      if(status==='paid'){
-       let order={id:'CMD-STAR-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'),total:total,starsPaid:starsAmount,customerName:getTelegramName(),telegramId:getTelegramUser()?.id||null,telegramUsername:getTelegramUser()?.username||null,address:addr,hour:selectedHour,note:document.getElementById('note').value,remaining:40,status:'en attente',statusStep:1,deviceId:DEVICE_ID,paymentMethod:`STARS ⭐ ${starsAmount} Stars - SUR L'APP`};
+       let order={id:'CMD-STAR-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${i.name} - ${i.qteLabel} x${i.qty} = ${i.total}€`).join('<br>'),total:total,starsPaid:starsAmount,customerName:getTelegramName(),telegramId:getTelegramUser()?.id||null,telegramUsername:getTelegramUser()?.username||null,address:addr,hour:selectedHour,note:document.getElementById('note').value,remaining:40,status:'en attente',statusStep:1,deviceId:DEVICE_ID,paymentMethod:`STARS ⭐ ${starsAmount} Stars`};
        orders.unshift(order);fullHistory.unshift(order);await saveAll();localStorage.setItem('simone_myOrder',JSON.stringify(order));cart={};updateCart();closeCart();checkMyOrder();
-       if(tg.showAlert) tg.showAlert(`✅ Payé ${starsAmount} Stars sur l'app ! Commande dans panel admin`); else alert(`✅ Payé ${starsAmount} Stars !`);
+       if(tg.showAlert) tg.showAlert(`✅ Payé ${starsAmount} Stars !`); else alert(`✅ Payé ${starsAmount} Stars !`);
      } else if(status==='failed' || status==='cancelled'){
        alert("Paiement annulé");
      }
