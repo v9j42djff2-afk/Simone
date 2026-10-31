@@ -90,43 +90,37 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .status-steps div.done{background:#25D366}
 #fullBanScreen{display:none;position:fixed;inset:0;background:#000;z-index:99999;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px}
 #fullBanScreen.show{display:flex}
-
-/* V11 FIX VIDEO + AUTRES PRODUITS */
-.premium-modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #1a1a1a;background:rgba(8,8,10,0.95);backdrop-filter:blur(20px);position:sticky;top:0;z-index:20}
-.premium-video-wrap{position:relative;background:#000;width:100%;height:52vh;min-height:380px;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.premium-video-wrap video{width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#000}
-.p-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.75);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:6px 12px;border-radius:100px;font-size:9px;font-weight:900;letter-spacing:0.8px;z-index:2}
+/* V12 FINAL FIX */
+.p-header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #1a1a1a;background:rgba(8,8,10,0.95);backdrop-filter:blur(20px);position:sticky;top:0;z-index:20}
+.p-video{position:relative;background:#000;width:100%;height:50vh;min-height:380px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.p-video video{width:100%;height:100%;object-fit:cover;display:block;background:#000}
+.p-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.75);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:6px 12px;border-radius:100px;font-size:9px;font-weight:900;letter-spacing:0.8px;z-index:2}
 .p-badge.live{left:auto;right:14px;background:rgba(37,211,102,0.2);border-color:rgba(37,211,102,0.4);color:#25D366}
-.p-badge.stock{top:46px;background:rgba(255,26,26,0.25);border-color:rgba(255,26,26,0.4);color:#ff8a8a;animation:pulseBadge 1.5s infinite}
-@keyframes pulseBadge{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-.premium-content{padding:18px 14px;background:#08080a}
-.premium-title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.premium-title-row h2{font-size:22px;font-weight:900;letter-spacing:-0.5px;line-height:1}
-.premium-rating{background:#1a1a00;border:1px solid #ffcc00;color:#ffcc00;padding:5px 10px;border-radius:100px;font-size:10px;font-weight:900}
-.premium-desc{background:#15151d;border:1px solid #1f1f25;border-radius:14px;padding:12px;font-size:12px;line-height:1.5;opacity:0.7;margin-top:10px}
-.premium-tarifs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
-@media(max-width:400px){.premium-tarifs{grid-template-columns:1fr 1fr}}
-.premium-tarif{position:relative;background:#15151d;border:1px solid #222;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;transition:0.2s}
-.premium-tarif.active{background:#102216;border-color:#25D366;box-shadow:0 0 0 1px #25D366,0 8px 20px rgba(37,211,102,0.2)}
-.premium-tarif .check{position:absolute;top:6px;right:6px;width:18px;height:18px;background:#25D366;border-radius:50%;display:none;align-items:center;justify-content:center;color:#000;font-size:10px;font-weight:900}
-.premium-tarif.active .check{display:flex}
-.premium-tarif b{font-size:13px;font-weight:900;display:block}
-.premium-tarif .label{font-size:11px;opacity:0.6;margin-top:2px;font-weight:700}
-.quantity-total-v9{margin-top:16px;background:#0f0f14;border:1px solid #222;border-radius:18px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
-.qte-ctrl-v9{display:flex;align-items:center;gap:0;background:#1a1a22;border:1px solid #2a2a35;border-radius:12px;padding:3px}
-.qte-btn-v9{width:36px;height:32px;background:#1e1e28;border:none;color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;cursor:pointer}
-.qte-btn-v9:active{background:#fff;color:#000}
-.qte-num-v9{font-size:14px;font-weight:900;min-width:30px;text-align:center}
-.total-price-v9{font-size:22px;font-weight:900}
-.btn-add-v9{width:100%;background:#fff;color:#000;border:none;padding:16px;border-radius:16px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-top:12px;transition:0.2s}
-.btn-add-v9:disabled{opacity:0.3;pointer-events:none}
-.btn-add-v9.active{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;box-shadow:0 10px 25px rgba(37,211,102,0.3)}
+.p-badge.stock{top:46px;background:rgba(255,26,26,0.25);border-color:rgba(255,26,26,0.4);color:#ff8a8a}
+.p-content{padding:16px 14px;background:#08080a}
+.p-tarifs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:14px}
+@media(max-width:400px){.p-tarifs{grid-template-columns:1fr 1fr}}
+.p-tarif{position:relative;background:#15151d;border:1.5px solid #222;border-radius:14px;padding:14px 6px;text-align:center;cursor:pointer;transition:0.2s;user-select:none}
+.p-tarif.active{background:#102216;border-color:#25D366;box-shadow:0 0 0 1px #25D366,0 8px 20px rgba(37,211,102,0.25)}
+.p-tarif .ck{position:absolute;top:5px;right:5px;width:18px;height:18px;background:#25D366;border-radius:50%;display:none;align-items:center;justify-content:center;color:#000;font-size:10px;font-weight:900}
+.p-tarif.active .ck{display:flex}
+.p-tarif b{font-size:13px;font-weight:900;display:block;pointer-events:none}
+.p-tarif span{font-size:11px;opacity:0.6;font-weight:700;pointer-events:none}
+.p-qte-total{margin-top:16px;background:#0f0f14;border:1px solid #222;border-radius:18px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.p-qte-ctrl{display:flex;align-items:center;background:#1a1a22;border:1px solid #2a2a35;border-radius:12px;padding:3px}
+.p-qte-btn{width:36px;height:32px;background:#1e1e28;border:none;color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;cursor:pointer;user-select:none}
+.p-qte-btn:active{background:#fff;color:#000;transform:scale(0.95)}
+.p-qte-num{font-size:14px;font-weight:900;min-width:32px;text-align:center;user-select:none}
+.p-total{font-size:22px;font-weight:900}
+.p-add{width:100%;background:#222;color:#666;border:1px solid #2a2a2a;padding:16px;border-radius:16px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-top:12px;transition:0.2s;pointer-events:none;opacity:0.4}
+.p-add.active{background:#fff;color:#000;border-color:#fff;opacity:1;pointer-events:auto;box-shadow:0 10px 25px rgba(255,255,255,0.15)}
+.p-add.active.green{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border-color:#25D366;box-shadow:0 10px 25px rgba(37,211,102,0.3)}
 .autres-section{margin-top:22px;padding-top:16px;border-top:1px solid #1a1a1a}
 .autres-title{font-size:12px;font-weight:900;letter-spacing:2px;opacity:0.6;margin-bottom:12px}
-.autres-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
+.autres-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px}
 .autres-scroll::-webkit-scrollbar{display:none}
-.autres-card{min-width:140px;width:140px;background:#15151d;border:1px solid #1f1f25;border-radius:16px;overflow:hidden;cursor:pointer;flex-shrink:0;scroll-snap-align:start}
-.autres-card video{width:100%;height:100px;object-fit:cover;background:#000;display:block}
+.autres-card{min-width:140px;width:140px;background:#15151d;border:1px solid #1f1f25;border-radius:16px;overflow:hidden;cursor:pointer;flex-shrink:0}
+.autres-card video{width:100%;height:100px;object-fit:cover;background:#000;display:block;pointer-events:none}
 .autres-card-info{padding:8px 10px}
 .autres-card-info b{font-size:10px;font-weight:800;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .autres-card-info small{font-size:9px;opacity:0.5}
@@ -154,35 +148,40 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
 <div id="cartDrawer" class="cart-drawer"><div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div><div id="cartList"></div><div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div><input id="addr" class="input" placeholder="📍 Adresse + code postal"><div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">11h-13h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-23h</button></div><input id="note" class="input" placeholder="Note livreur"><button class="btn-main" onclick="checkout()">Commander 🚀</button></div>
 
-<!-- PRODUCT MODAL V11 FIX VIDEO + AUTRES PRODUITS -->
+<!-- PRODUCT MODAL V12 FINAL -->
 <div id="productModal" class="product-modal">
-  <div class="premium-modal-header">
+  <div class="p-header">
     <button onclick="closeProduct()" style="background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer">✕</button>
     <div style="display:flex;gap:6px;align-items:center"><span style="width:6px;height:6px;background:#25D366;border-radius:50%;box-shadow:0 0 10px #25D366;animation:pulse 2s infinite"></span><span style="font-weight:800;font-size:10px;letter-spacing:1px" id="viewersCount">23 EN LIGNE</span></div>
     <span style="width:36px"></span>
   </div>
-  <div class="premium-video-wrap" onclick="this.querySelector('video').requestFullscreen?.()">
-    <video id="prodVideo" src="" autoplay muted loop playsinline webkit-playsinline></video>
-    <span class="p-badge" id="prodTag">CBD PREMIUM</span>
+  <div class="p-video">
+    <video id="prodVideo" src="" autoplay muted loop playsinline webkit-playsinline preload="auto"></video>
+    <span class="p-badge" id="prodTag">PREMIUM</span>
     <span class="p-badge live">👁️ <span id="liveBadge">23</span> regardent</span>
     <span class="p-badge stock" id="stockBadge">🔥 PLUS QUE 3</span>
   </div>
-  <div class="premium-content">
-    <div class="premium-title-row"><h2 id="prodName">PRODUIT</h2><div class="premium-rating">4.9 ★ (227)</div></div>
-    <div id="prodDesc" class="premium-desc"></div>
-    <div style="margin-top:12px;display:flex;gap:8px"><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">🚚 60MIN</span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">💶 ESPÈCES</span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">🔒 Discret</span></div>
+  <div class="p-content">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px"><h2 id="prodName" style="font-size:20px;font-weight:900;letter-spacing:-0.5px;line-height:1">PRODUIT</h2><div style="background:#1a1a00;border:1px solid #ffcc00;color:#ffcc00;padding:5px 10px;border-radius:100px;font-size:10px;font-weight:900">4.9 ★</div></div>
+    <div id="prodDesc" style="font-size:12px;opacity:0.6;margin-top:8px;background:#15151d;border:1px solid #1f1f25;border-radius:14px;padding:12px"></div>
+    <div style="margin-top:12px;display:flex;gap:8px"><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">🚚 60MIN</span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">💶 ESPÈCES</span></div>
     
-    <div style="font-size:10px;letter-spacing:2px;opacity:0.4;font-weight:900;margin:18px 0 10px;display:flex;justify-content:space-between"><span>TARIFS</span><span style="color:#25D366" id="popularHint">• LE 50G EST LE PLUS CHOISI</span></div>
-    <div class="premium-tarifs" id="qteGrid"></div>
+    <div style="font-size:10px;letter-spacing:2px;opacity:0.4;font-weight:900;margin:18px 0 10px">TARIFS</div>
+    <div class="p-tarifs" id="qteGrid"></div>
 
-    <div class="quantity-total-v9">
-      <div><span style="font-size:9px;font-weight:900;letter-spacing:1.5px;opacity:0.4">QUANTITÉ</span><div class="qte-ctrl-v9" style="margin-top:6px"><div class="qte-btn-v9" onclick="changeQte(-1)">−</div><div class="qte-num-v9" id="qteNum">1</div><div class="qte-btn-v9" onclick="changeQte(1)">+</div></div></div>
-      <div style="text-align:right"><span style="font-size:9px;font-weight:900;letter-spacing:1.5px;opacity:0.4">TOTAL</span><div class="total-price-v9" id="totalPrice" style="margin-top:4px">0.00€</div></div>
+    <div class="p-qte-total">
+      <div><div style="font-size:9px;font-weight:900;letter-spacing:1.5px;opacity:0.4">QUANTITÉ</div>
+        <div class="p-qte-ctrl" style="margin-top:6px">
+          <button type="button" class="p-qte-btn" onclick="changeQte(-1)">−</button>
+          <div class="p-qte-num" id="qteNum">1</div>
+          <button type="button" class="p-qte-btn" onclick="changeQte(1)">+</button>
+        </div>
+      </div>
+      <div style="text-align:right"><div style="font-size:9px;font-weight:900;letter-spacing:1.5px;opacity:0.4">TOTAL</div><div class="p-total" id="totalPrice" style="margin-top:4px">0.00€</div></div>
     </div>
 
-    <button id="prodAddBtn" class="btn-add-v9" disabled><span>🛒</span> <span id="btnText">Choisis un format 👆</span></button>
+    <button type="button" id="prodAddBtn" class="p-add"><span>🛒</span> <span id="btnText">Choisis un format</span></button>
 
-    <!-- AUTRES PRODUITS  -->
     <div class="autres-section">
       <div class="autres-title">AUTRES PRODUITS</div>
       <div class="autres-scroll" id="autresGrid"></div>
@@ -190,7 +189,7 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
   </div>
 </div>
 
-<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN V11</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#fff">🔐 Accès sécurisé</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p><p id="adminBrute" style="color:#ff1a1a;font-size:11px;margin-top:8px;display:none"></p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabDash" class="active" onclick="switchAdminTab('dash')">📊 DASH</button><button id="tabOrders" onclick="switchAdminTab('orders')">📦 CMD (<span id="adminCount">0</span>)</button><button id="tabClients" onclick="switchAdminTab('clients')">👥 CLIENTS (<span id="adminClientsCount">0</span>)</button><button id="tabSpy" onclick="switchAdminTab('spy')">👁️ LIVE (<span id="adminSpyCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 HIST</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 BANS (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ AVIS (<span id="adminAvisCount">0</span>)</button></div><div id="adminDashView"><div class="dash-grid"><div class="dash-card"><span>CA TOTAL</span><b id="dashCATotal">0€</b></div><div class="dash-card"><span>CA AUJOURD'HUI</span><b id="dashCAToday" style="color:#25D366">0€</b></div><div class="dash-card"><span>COMMANDES TOTAL</span><b id="dashOrdersTotal">0</b></div><div class="dash-card"><span>CLIENTS UNIQUES</span><b id="dashClients">0</b></div></div><div class="info-box" style="margin-top:12px"><h4 style="font-size:12px;font-weight:900">🗑️ GESTION COMMANDES</h4><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:12px 16px;border-radius:12px;font-size:12px;font-weight:900">🗑️ Supprimer TOUTES les commandes</button></div></div></div><div id="adminOrdersView" style="display:none"><div style="display:flex;gap:6px;margin-bottom:10px"><input id="orderSearch" class="search-bar" placeholder="🔍 Recherche..." oninput="renderAdminOrders()"><select id="statusFilter" class="search-bar" style="max-width:120px" onchange="renderAdminOrders()"><option value="all">Tous</option><option value="en attente">En attente</option><option value="en préparation">Prépa</option><option value="en route">En route</option><option value="livré">Livré</option></select></div><div id="adminOrdersList"></div></div><div id="adminClientsView" style="display:none"><h3 style="margin-bottom:10px">👥 Clients</h3><div id="adminClientsList"></div></div><div id="adminSpyView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><h3>👁️ LIVE TRACK</h3><small style="opacity:0.5">Tout ce que font les gens</small></div><button onclick="clearSpy()" style="background:#ff1a1a;border:none;color:#fff;padding:6px 10px;border-radius:8px;font-size:10px">Vider</button></div><div id="adminSpyList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
+<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN V12</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#fff">🔐 Accès sécurisé</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p><p id="adminBrute" style="color:#ff1a1a;font-size:11px;margin-top:8px;display:none"></p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabDash" class="active" onclick="switchAdminTab('dash')">📊 DASH</button><button id="tabOrders" onclick="switchAdminTab('orders')">📦 CMD (<span id="adminCount">0</span>)</button><button id="tabClients" onclick="switchAdminTab('clients')">👥 CLIENTS (<span id="adminClientsCount">0</span>)</button><button id="tabSpy" onclick="switchAdminTab('spy')">👁️ LIVE (<span id="adminSpyCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 HIST</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 BANS (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ AVIS (<span id="adminAvisCount">0</span>)</button></div><div id="adminDashView"><div class="dash-grid"><div class="dash-card"><span>CA TOTAL</span><b id="dashCATotal">0€</b></div><div class="dash-card"><span>CA AUJOURD'HUI</span><b id="dashCAToday" style="color:#25D366">0€</b></div><div class="dash-card"><span>COMMANDES TOTAL</span><b id="dashOrdersTotal">0</b></div><div class="dash-card"><span>CLIENTS UNIQUES</span><b id="dashClients">0</b></div></div><div class="info-box" style="margin-top:12px"><h4 style="font-size:12px;font-weight:900">🗑️ GESTION COMMANDES</h4><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:12px 16px;border-radius:12px;font-size:12px;font-weight:900">🗑️ Supprimer TOUTES les commandes</button></div></div></div><div id="adminOrdersView" style="display:none"><div style="display:flex;gap:6px;margin-bottom:10px"><input id="orderSearch" class="search-bar" placeholder="🔍 Recherche..." oninput="renderAdminOrders()"><select id="statusFilter" class="search-bar" style="max-width:120px" onchange="renderAdminOrders()"><option value="all">Tous</option><option value="en attente">En attente</option><option value="en préparation">Prépa</option><option value="en route">En route</option><option value="livré">Livré</option></select></div><div id="adminOrdersList"></div></div><div id="adminClientsView" style="display:none"><h3 style="margin-bottom:10px">👥 Clients</h3><div id="adminClientsList"></div></div><div id="adminSpyView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><h3>👁️ LIVE TRACK</h3><small style="opacity:0.5">Tout ce que font les gens</small></div><button onclick="clearSpy()" style="background:#ff1a1a;border:none;color:#fff;padding:6px 10px;border-radius:8px;font-size:10px">Vider</button></div><div id="adminSpyList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
 
 <script>
 const SecureVault = (() => { const _f = { p: "Tm9yYmVyOTMxMDAvLw==", t: ["ODk2NjM5Nzk3MjpBQUdUUnN1TFU4VHFTbkxuT3RWQ2NpSlh4dkZrMF9YS2FYSQ==","ODk4NTc4ODkyNTpBQUV4c1lJckhSV0F5QmQ2ajlVakEzRVFyRWpmQWtXQXdsQQ==","ODkwNDgwMDA1OTpBQUhpdHVlb0hZQzFnOV9WeWZpbDMzSWJBNWlqMGxjT3d3Zw=="], a: "ODE3NTMwNjc4Mw==" }; const _d = s => { try{ return atob(s); }catch(e){ return ""; } }; return { getPass: () => _d(_f.p), getTokens: () => _f.t.map(_d), getAdminId: () => _d(_f.a) }; })();
@@ -232,14 +231,19 @@ async function saveAll(){let payload={orders,avis:avisList,prodAvis:prodAvisMap,
 function buildGrid(filter='all'){ if(isBanned()) return; let g=document.getElementById('menuGrid');let h=''; for(let id in PRODUCTS){ let p=PRODUCTS[id]; if(p.disabled) continue; if(filter!=='all'&&p.cat!==filter)continue; h+=`<div class="card" onclick="openProduct('${id}')"><span class="tag">${escapeHtml(p.tag)}</span><video src="${escapeHtml(p.video)}" autoplay muted loop playsinline preload="metadata"></video><div class="card-info"><div><h3>${escapeHtml(p.name)}</h3><div class="price-row"><div style="font-size:10px;opacity:0.5">Dès</div><div class="price">${p.variants[0].price}€</div></div></div></div></div>`; } g.innerHTML=h||'<p style="padding:20px;opacity:0.5;text-align:center">Aucun produit</p>'; }
 buildGrid();
 
-// V11 FIX
-let qteCount=1; let selectedVariant=null;
+/* V12 FIX QUANTITE */
+let qteCount=1; 
+let selectedVariant=null;
 function openProduct(id){
  if(isBanned()) return; 
  trackAction('view','Ouverture produit: '+PRODUCTS[id].name); 
- currentProd=PRODUCTS[id]; qteCount=1; selectedVariant=null;
+ currentProd=PRODUCTS[id]; 
+ qteCount=1; 
+ selectedVariant=null;
  let vid=document.getElementById('prodVideo');
- vid.src=currentProd.video; vid.load(); vid.play().catch(()=>{});
+ vid.src=currentProd.video; 
+ vid.load(); 
+ vid.play().catch(()=>{});
  document.getElementById('prodName').textContent=currentProd.name;
  document.getElementById('prodTag').textContent=currentProd.tag;
  document.getElementById('prodDesc').textContent=currentProd.desc;
@@ -248,45 +252,46 @@ function openProduct(id){
  document.getElementById('stockBadge').textContent=currentProd.stock<=3?`🔥 PLUS QUE ${currentProd.stock}`:'✅ EN STOCK';
  let html=''; 
  currentProd.variants.forEach(v=>{
-  html+=`<div class="premium-tarif" onclick="selectVariant(this,'${v.label}',${v.price})"><div class="check">✓</div><b>${v.label}</b><div class="label">${v.price}€</div></div>`;
+  html+=`<div class="p-tarif" onclick="selectTarif(this,'${v.label}',${v.price})"><div class="ck">✓</div><b>${v.label}</b><span>${v.price}€</span></div>`;
  });
  document.getElementById('qteGrid').innerHTML=html;
- document.getElementById('qteNum').textContent=qteCount;
- document.getElementById('totalPrice').textContent='0.00€';
- document.getElementById('btnText').textContent='Choisis un format 👆';
- document.getElementById('prodAddBtn').disabled=true;
- document.getElementById('prodAddBtn').classList.remove('active');
+ document.getElementById('qteNum').innerText=qteCount;
+ document.getElementById('totalPrice').innerText='0.00€';
+ document.getElementById('btnText').innerText='Choisis un format';
+ document.getElementById('prodAddBtn').classList.remove('active','green');
  buildAutres(id);
  document.getElementById('productModal').classList.add('open');
 }
-function closeProduct(){document.getElementById('productModal').classList.remove('open');let v=document.getElementById('prodVideo');v.pause();v.src='';}
-function selectVariant(el,label,price){
+function closeProduct(){document.getElementById('productModal').classList.remove('open');let v=document.getElementById('prodVideo');try{v.pause();}catch(e){}}
+function selectTarif(el,label,price){
  if(isBanned()) return;
- trackAction('cart','Sélection variante: '+currentProd.name+' '+label+' '+price+'€');
- document.querySelectorAll('.premium-tarif').forEach(b=>b.classList.remove('active'));
+ trackAction('cart','Sélection: '+currentProd.name+' '+label);
+ document.querySelectorAll('.p-tarif').forEach(b=>b.classList.remove('active'));
  el.classList.add('active');
  selectedVariant={label,price};
- updateTotal();
+ refreshTotal();
 }
 function changeQte(dir){
  if(isBanned()) return;
- qteCount+=dir; if(qteCount<1) qteCount=1; if(qteCount>10) qteCount=10;
- document.getElementById('qteNum').textContent=qteCount;
- updateTotal();
+ qteCount+=dir;
+ if(qteCount<1) qteCount=1;
+ if(qteCount>20) qteCount=20;
+ document.getElementById('qteNum').innerText=qteCount;
+ refreshTotal();
 }
-function updateTotal(){
+function refreshTotal(){
  if(!selectedVariant){
-  document.getElementById('totalPrice').textContent='0.00€';
-  document.getElementById('btnText').textContent='Choisis un format 👆';
-  document.getElementById('prodAddBtn').disabled=true;
-  document.getElementById('prodAddBtn').classList.remove('active');
+  document.getElementById('totalPrice').innerText='0.00€';
+  document.getElementById('btnText').innerText='Choisis un format';
+  document.getElementById('prodAddBtn').classList.remove('active','green');
   return;
  }
  let total=selectedVariant.price*qteCount;
- document.getElementById('totalPrice').textContent=total.toFixed(2)+'€';
- document.getElementById('btnText').textContent=`Ajouter au panier • ${total}€`;
- document.getElementById('prodAddBtn').disabled=false;
- document.getElementById('prodAddBtn').classList.add('active');
+ document.getElementById('totalPrice').innerText=total.toFixed(2)+'€';
+ document.getElementById('btnText').innerText=`Ajouter au panier • ${total}€`;
+ let btn=document.getElementById('prodAddBtn');
+ btn.classList.add('active');
+ btn.classList.add('green');
 }
 function buildAutres(currentId){
  let html='';
@@ -307,6 +312,7 @@ function addProdToCart(){
  updateCart();closeProduct();openCart();
 }
 document.getElementById('prodAddBtn').addEventListener('click',addProdToCart);
+
 function selectStars(n){if(isBanned()) return; selectedStars=n;for(let i=1;i<=5;i++){let el=document.getElementById('s'+i);if(el)el.style.borderColor=i===n?'#ffcc00':'#222';el.style.background=i===n?'#2a2200':'#111';}}
 function getBannedEntry(){let u=getTelegramUser();let entry=bannedList.find(x=>x.deviceId===DEVICE_ID);if(!entry&&u?.id){entry=bannedList.find(x=>x.telegramId===u.id||x.deviceId==='TG-'+u.id);}return entry||null;}
 function isBanned(){return !!getBannedEntry();}
