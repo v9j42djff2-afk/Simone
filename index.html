@@ -164,7 +164,7 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
   <div class="premium-content">
     <div class="premium-title-row"><h2 id="prodName">PRODUIT</h2><div class="premium-rating">4.9 ★ (227)</div></div>
     <div id="prodDesc" class="premium-desc"></div>
-    <div style="margin-top:12px;display:flex;gap:8px"><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">✅ THC &lt;>/span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">🚚 60MIN</span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">💶 ESPÈCES</span></div>
+    <div style="margin-top:12px;display:flex;gap:8px"><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800"> &lt;>/span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">🚚 60MIN</span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">💶 ESPÈCES</span></div>
     <div style="margin-top:20px"><div style="font-size:10px;letter-spacing:2px;opacity:0.4;font-weight:900;display:flex;justify-content:space-between"><span>TARIFS</span><span style="color:#25D366" id="popularHint">• LE 50G EST LE PLUS CHOISI</span></div><div class="premium-tarifs" id="qteGrid"></div></div>
     <div class="quantity-total-v9">
       <div class="qte-side"><span style="font-size:9px;font-weight:900;letter-spacing:1.5px;opacity:0.4">QUANTITÉ</span><div class="qte-ctrl-v9"><div class="qte-btn-v9" onclick="changeQte(-1)">−</div><div class="qte-num-v9" id="qteNum">1</div><div class="qte-btn-v9" onclick="changeQte(1)">+</div></div></div>
@@ -204,10 +204,10 @@ function switchAdminTab(tab){ document.querySelectorAll('.admin-tabs button').fo
 // CBD LEGAL PRODUCTS - MEME PRIX
 const BASE_PRODUCTS={
 p1:{id:'p1',name:'MOUSSEUX',tag:'TOP',video:'mousseux.mp4.MP4',desc:'Hash Mousseux- Détente profonde.',cat:'HASH',stock:3,variants:[{label:'10G',price:50},{label:'50G',price:170},{label:'100G',price:300}]},
-p2:{id:'p2',name:'AMNESIA',tag:'FLEUR',video:'amn.MP4',desc:'Fleur Amnesia Indoor - Arôme puissant.',cat:'WEED',stock:7,variants:[{label:'5G',price:50}]},
+p2:{id:'p2',name:'AMNESIA',tag:'SOMA SEDS',video:'amn.MP4',desc:'Fleur Amnesia Indoor - Arôme puissant.',cat:'FLEUR',stock:7,variants:[{label:'5G',price:50}]},
 p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4',desc:'Hash Fresh Frozen - Extraction à froid.',cat:'HASH',stock:2,variants:[{label:'50G',price:400}]},
-p4:{id:'p4',name:'CALI',tag:'CALI',video:'dosi.MOV',desc:'Fleur Cali US - Génétique US.',cat:'WEED',stock:5,variants:[{label:'10G',price:110}]},
-p5:{id:'p5',name:'PINEAPPLE RUNTZ',tag:'CALI US',video:'caliab .mov',desc:'Fleur Pineapple Runtz - Saveur tropicale.',cat:'WEED',stock:4,variants:[{label:'10G',price:120}]},
+p4:{id:'p4',name:'CALI',tag:'CALI',video:'dosi.MOV',desc:'Fleur Cali US - Génétique US.',cat:'FLEUR',stock:5,variants:[{label:'10G',price:110}]},
+p5:{id:'p5',name:'PINEAPPLE RUNTZ',tag:'CALI US',video:'caliab .mov',desc:'Fleur Pineapple Runtz - Saveur tropicale.',cat:'FLEUR',stock:4,variants:[{label:'10G',price:120}]},
 };
 let PRODUCTS=JSON.parse(JSON.stringify(BASE_PRODUCTS));
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,currentProd=null;let orders=[],avisList=[],prodAvisMap={},bannedList=[];let hasFetchedOnce=false;let lastNotifiedStatus=null;let prevOrdersCount=0;let soundEnabled=true;let fullHistory=[];let activityLog=[];let shopSettings={forceOpen:true,defaultTime:40};
