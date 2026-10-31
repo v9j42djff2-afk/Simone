@@ -90,40 +90,46 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .status-steps div.done{background:#25D366}
 #fullBanScreen{display:none;position:fixed;inset:0;background:#000;z-index:99999;align-items:center;justify-content:center;flex-direction:column;text-align:center;padding:20px}
 #fullBanScreen.show{display:flex}
-/* ===== V9 PREMIUM MEILLEUR QUE CALICLUB ===== */
-.premium-modal-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;border-bottom:1px solid #1a1a1a;background:rgba(10,10,10,0.9);backdrop-filter:blur(20px);position:sticky;top:0;z-index:10}
-.premium-video-wrap{position:relative;background:#000;overflow:hidden}
-.premium-video-wrap video{width:100%;height:46vh;object-fit:cover;display:block}
-.p-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.7);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.1);color:#fff;padding:6px 12px;border-radius:100px;font-size:9px;font-weight:900;letter-spacing:0.8px}
+
+/* V11 FIX VIDEO + AUTRES PRODUITS */
+.premium-modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid #1a1a1a;background:rgba(8,8,10,0.95);backdrop-filter:blur(20px);position:sticky;top:0;z-index:20}
+.premium-video-wrap{position:relative;background:#000;width:100%;height:52vh;min-height:380px;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.premium-video-wrap video{width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#000}
+.p-badge{position:absolute;top:14px;left:14px;background:rgba(0,0,0,0.75);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.15);color:#fff;padding:6px 12px;border-radius:100px;font-size:9px;font-weight:900;letter-spacing:0.8px;z-index:2}
 .p-badge.live{left:auto;right:14px;background:rgba(37,211,102,0.2);border-color:rgba(37,211,102,0.4);color:#25D366}
-.p-badge.stock{top:46px;background:rgba(255,26,26,0.2);border-color:rgba(255,26,26,0.4);color:#ff4d4d;animation:pulseBadge 1.5s infinite}
+.p-badge.stock{top:46px;background:rgba(255,26,26,0.25);border-color:rgba(255,26,26,0.4);color:#ff8a8a;animation:pulseBadge 1.5s infinite}
 @keyframes pulseBadge{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
-.premium-content{padding:20px 18px}
+.premium-content{padding:18px 14px;background:#08080a}
 .premium-title-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.premium-title-row h2{font-size:26px;font-weight:900;letter-spacing:-1px;line-height:0.9}
-.premium-rating{background:#1a1a00;border:1px solid #ffcc00;color:#ffcc00;padding:4px 8px;border-radius:100px;font-size:10px;font-weight:900}
-.premium-desc{background:linear-gradient(145deg,#15151d,#0f0f14);border:1px solid #1f1f25;border-radius:18px;padding:14px;font-size:13px;line-height:1.5;opacity:0.8;margin-top:14px}
-.premium-tarifs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
-.premium-tarif{position:relative;background:linear-gradient(145deg,#15151d,#0f0f14);border:1px solid #222;border-radius:18px;padding:18px 14px;text-align:center;cursor:pointer;transition:all 0.25s cubic-bezier(0.16,1,0.3,1)}
-.premium-tarif.active{border-color:#25D366;background:radial-gradient(100% 100% at 50% 0%, rgba(37,211,102,0.15), rgba(37,211,102,0.02)), linear-gradient(145deg,#15151d,#0f0f14);box-shadow:0 0 0 1px #25D366, 0 10px 30px rgba(37,211,102,0.2);transform:translateY(-2px) scale(1.02)}
-.premium-tarif .check{position:absolute;top:8px;right:8px;width:20px;height:20px;background:#25D366;border-radius:50%;display:none;align-items:center;justify-content:center;color:#000;font-size:11px;font-weight:900}
+.premium-title-row h2{font-size:22px;font-weight:900;letter-spacing:-0.5px;line-height:1}
+.premium-rating{background:#1a1a00;border:1px solid #ffcc00;color:#ffcc00;padding:5px 10px;border-radius:100px;font-size:10px;font-weight:900}
+.premium-desc{background:#15151d;border:1px solid #1f1f25;border-radius:14px;padding:12px;font-size:12px;line-height:1.5;opacity:0.7;margin-top:10px}
+.premium-tarifs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:16px}
+@media(max-width:400px){.premium-tarifs{grid-template-columns:1fr 1fr}}
+.premium-tarif{position:relative;background:#15151d;border:1px solid #222;border-radius:14px;padding:14px 8px;text-align:center;cursor:pointer;transition:0.2s}
+.premium-tarif.active{background:#102216;border-color:#25D366;box-shadow:0 0 0 1px #25D366,0 8px 20px rgba(37,211,102,0.2)}
+.premium-tarif .check{position:absolute;top:6px;right:6px;width:18px;height:18px;background:#25D366;border-radius:50%;display:none;align-items:center;justify-content:center;color:#000;font-size:10px;font-weight:900}
 .premium-tarif.active .check{display:flex}
-.premium-tarif b{font-size:18px;font-weight:900;display:block}
-.premium-tarif .label{font-size:11px;opacity:0.5;margin-top:2px;font-weight:700;letter-spacing:1px}
-.premium-tarif .save{margin-top:8px;background:linear-gradient(90deg,#FFD700,#FF8C00);color:#000;font-size:8px;font-weight:900;padding:3px 8px;border-radius:100px;display:inline-block}
-.premium-tarif.active b{color:#25D366}
-.quantity-total-v9{margin-top:18px;background:#08080a;border:1px solid #1f1f25;border-radius:20px;padding:16px;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden}
-.quantity-total-v9::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,#25D366,transparent);opacity:0.5}
-.qte-ctrl-v9{display:flex;align-items:center;gap:10px;margin-top:8px;background:#15151d;border:1px solid #222;border-radius:100px;padding:4px}
-.qte-btn-v9{width:36px;height:36px;background:#0f0f14;border:1px solid #222;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;cursor:pointer}
-.qte-btn-v9:active{background:#fff;color:#000;transform:scale(0.9)}
-.qte-num-v9{font-size:16px;font-weight:900;min-width:24px;text-align:center}
-.total-price-v9{font-size:28px;font-weight:900;letter-spacing:-1.5px;line-height:1}
-.total-price-v9 .old{font-size:12px;opacity:0.4;text-decoration:line-through;font-weight:600;margin-right:6px}
-.btn-add-v9{width:100%;background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;padding:18px;border-radius:18px;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;gap:10px;cursor:pointer;box-shadow:0 12px 30px rgba(37,211,102,0.35);position:relative;overflow:hidden;margin-top:16px}
-.btn-add-v9::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.4),transparent);transform:skewX(-20deg);animation:shineV9 3s infinite}
-@keyframes shineV9{0%{left:-100%}60%,100%{left:200%}}
+.premium-tarif b{font-size:13px;font-weight:900;display:block}
+.premium-tarif .label{font-size:11px;opacity:0.6;margin-top:2px;font-weight:700}
+.quantity-total-v9{margin-top:16px;background:#0f0f14;border:1px solid #222;border-radius:18px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center}
+.qte-ctrl-v9{display:flex;align-items:center;gap:0;background:#1a1a22;border:1px solid #2a2a35;border-radius:12px;padding:3px}
+.qte-btn-v9{width:36px;height:32px;background:#1e1e28;border:none;color:#fff;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:900;cursor:pointer}
+.qte-btn-v9:active{background:#fff;color:#000}
+.qte-num-v9{font-size:14px;font-weight:900;min-width:30px;text-align:center}
+.total-price-v9{font-size:22px;font-weight:900}
+.btn-add-v9{width:100%;background:#fff;color:#000;border:none;padding:16px;border-radius:16px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-top:12px;transition:0.2s}
 .btn-add-v9:disabled{opacity:0.3;pointer-events:none}
+.btn-add-v9.active{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;box-shadow:0 10px 25px rgba(37,211,102,0.3)}
+.autres-section{margin-top:22px;padding-top:16px;border-top:1px solid #1a1a1a}
+.autres-title{font-size:12px;font-weight:900;letter-spacing:2px;opacity:0.6;margin-bottom:12px}
+.autres-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px;scroll-snap-type:x mandatory}
+.autres-scroll::-webkit-scrollbar{display:none}
+.autres-card{min-width:140px;width:140px;background:#15151d;border:1px solid #1f1f25;border-radius:16px;overflow:hidden;cursor:pointer;flex-shrink:0;scroll-snap-align:start}
+.autres-card video{width:100%;height:100px;object-fit:cover;background:#000;display:block}
+.autres-card-info{padding:8px 10px}
+.autres-card-info b{font-size:10px;font-weight:800;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.autres-card-info small{font-size:9px;opacity:0.5}
 </style>
 </head>
 <body>
@@ -141,41 +147,50 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div id="bannedBanner" class="my-order-banner banned"><p style="font-size:11px;color:#ff1a1a">🚫 COMPTE BANNI</p><b style="font-size:18px">TU ES BANNI</b><p id="bannedUntil" style="font-size:11px;margin-top:6px"></p></div>
 <div id="canceledBanner" class="my-order-banner canceled"><p style="font-size:11px">❌ COMMANDE ANNULÉE</p><b style="font-size:18px">CONTACTE SIMONE</b><p id="canceledId" style="font-size:11px;margin-top:6px"></p></div>
 <div class="section"><span class="t">CATÉGORIES</span><span class="l"></span></div>
-<div class="cat-scroll"><div class="cat active" onclick="filterCat(this,'all')"><span>🔥</span> Tous</div><div class="cat" onclick="filterCat(this,'FLEUR')"><span>🌿</span> WEED</div><div class="cat" onclick="filterCat(this,'HASH')"><span>🧊</span> HASH</div></div>
+<div class="cat-scroll"><div class="cat active" onclick="filterCat(this,'all')"><span>🔥</span> Tous</div><div class="cat" onclick="filterCat(this,'FLEUR')"><span>🌿</span> FLEUR</div><div class="cat" onclick="filterCat(this,'HASH')"><span>🧊</span> HASH</div></div>
 <div class="section"><span class="t">RÉCENTS</span><span class="l"></span></div>
 <div class="menu-grid" id="menuGrid"></div>
 <div class="avis-section"><div class="section" style="padding-left:0"><span class="t">AVIS CLIENTS</span><span class="l"></span></div><div id="avisList"></div><div class="info-box"><h4 style="font-size:13px;font-weight:900">✍️ LAISSER UN AVIS</h4><input id="avisName" class="input" placeholder="Ton pseudo"><div style="display:flex;gap:6px;margin-top:10px"><button onclick="selectStars(1)" id="s1" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐</button><button onclick="selectStars(2)" id="s2" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐⭐</button><button onclick="selectStars(3)" id="s3" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐⭐⭐</button><button onclick="selectStars(4)" id="s4" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐⭐⭐⭐</button><button onclick="selectStars(5)" id="s5" style="background:#2a2200;border:1px solid #ffcc00;padding:8px 10px;border-radius:12px">⭐⭐⭐⭐⭐</button></div><textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea><button class="btn-main" id="avisBtn" onclick="postAvis()" style="background:#fff;color:#000">Envoyer mon avis 📩</button></div></div>
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
 <div id="cartDrawer" class="cart-drawer"><div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div><div id="cartList"></div><div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div><input id="addr" class="input" placeholder="📍 Adresse + code postal"><div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">11h-13h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-23h</button></div><input id="note" class="input" placeholder="Note livreur"><button class="btn-main" onclick="checkout()">Commander 🚀</button></div>
 
-<!-- PRODUCT MODAL V9 MEILLEUR QUE CALICLUB -->
+<!-- PRODUCT MODAL V11 FIX VIDEO + AUTRES PRODUITS -->
 <div id="productModal" class="product-modal">
   <div class="premium-modal-header">
     <button onclick="closeProduct()" style="background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer">✕</button>
     <div style="display:flex;gap:6px;align-items:center"><span style="width:6px;height:6px;background:#25D366;border-radius:50%;box-shadow:0 0 10px #25D366;animation:pulse 2s infinite"></span><span style="font-weight:800;font-size:10px;letter-spacing:1px" id="viewersCount">23 EN LIGNE</span></div>
     <span style="width:36px"></span>
   </div>
-  <div class="premium-video-wrap">
+  <div class="premium-video-wrap" onclick="this.querySelector('video').requestFullscreen?.()">
     <video id="prodVideo" src="" autoplay muted loop playsinline webkit-playsinline></video>
-    <span class="p-badge" id="prodTag">HASH PREMIUM</span>
-    <span class="p-badge live" id="liveBadge">👁️ 23 regardent</span>
+    <span class="p-badge" id="prodTag">CBD PREMIUM</span>
+    <span class="p-badge live">👁️ <span id="liveBadge">23</span> regardent</span>
     <span class="p-badge stock" id="stockBadge">🔥 PLUS QUE 3</span>
   </div>
   <div class="premium-content">
     <div class="premium-title-row"><h2 id="prodName">PRODUIT</h2><div class="premium-rating">4.9 ★ (227)</div></div>
     <div id="prodDesc" class="premium-desc"></div>
-    <div style="margin-top:12px;display:flex;gap:8px"><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800"> &lt;>/span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">🚚 60MIN</span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">💶 ESPÈCES</span></div>
-    <div style="margin-top:20px"><div style="font-size:10px;letter-spacing:2px;opacity:0.4;font-weight:900;display:flex;justify-content:space-between"><span>TARIFS</span><span style="color:#25D366" id="popularHint">• LE 50G EST LE PLUS CHOISI</span></div><div class="premium-tarifs" id="qteGrid"></div></div>
+    <div style="margin-top:12px;display:flex;gap:8px"><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">🚚 60MIN</span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">💶 ESPÈCES</span><span style="background:#15151d;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:10px;font-weight:800">🔒 Discret</span></div>
+    
+    <div style="font-size:10px;letter-spacing:2px;opacity:0.4;font-weight:900;margin:18px 0 10px;display:flex;justify-content:space-between"><span>TARIFS</span><span style="color:#25D366" id="popularHint">• LE 50G EST LE PLUS CHOISI</span></div>
+    <div class="premium-tarifs" id="qteGrid"></div>
+
     <div class="quantity-total-v9">
-      <div class="qte-side"><span style="font-size:9px;font-weight:900;letter-spacing:1.5px;opacity:0.4">QUANTITÉ</span><div class="qte-ctrl-v9"><div class="qte-btn-v9" onclick="changeQte(-1)">−</div><div class="qte-num-v9" id="qteNum">1</div><div class="qte-btn-v9" onclick="changeQte(1)">+</div></div></div>
-      <div style="text-align:right"><span style="font-size:9px;font-weight:900;letter-spacing:1.5px;opacity:0.4">TOTAL</span><div class="total-price-v9" id="totalBox"><span class="old" id="oldPrice"></span><span id="totalPrice">0.00€</span></div><span style="font-size:9px;color:#25D366;font-weight:800;margin-top:2px;display:block" id="saveText"></span></div>
+      <div><span style="font-size:9px;font-weight:900;letter-spacing:1.5px;opacity:0.4">QUANTITÉ</span><div class="qte-ctrl-v9" style="margin-top:6px"><div class="qte-btn-v9" onclick="changeQte(-1)">−</div><div class="qte-num-v9" id="qteNum">1</div><div class="qte-btn-v9" onclick="changeQte(1)">+</div></div></div>
+      <div style="text-align:right"><span style="font-size:9px;font-weight:900;letter-spacing:1.5px;opacity:0.4">TOTAL</span><div class="total-price-v9" id="totalPrice" style="margin-top:4px">0.00€</div></div>
     </div>
-    <button id="prodAddBtn" class="btn-add-v9" disabled><span style="background:rgba(0,0,0,0.2);width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center">🛒</span><span id="btnText">Choisis un format 👆</span></button>
-    <p style="font-size:10px;text-align:center;opacity:0.3;margin-top:10px">🔒 Stock réservé 10 min après ajout • Livraison discrète</p>
+
+    <button id="prodAddBtn" class="btn-add-v9" disabled><span>🛒</span> <span id="btnText">Choisis un format 👆</span></button>
+
+    <!-- AUTRES PRODUITS  -->
+    <div class="autres-section">
+      <div class="autres-title">AUTRES PRODUITS</div>
+      <div class="autres-scroll" id="autresGrid"></div>
+    </div>
   </div>
 </div>
 
-<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN V9</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#fff">🔐 Accès sécurisé</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p><p id="adminBrute" style="color:#ff1a1a;font-size:11px;margin-top:8px;display:none"></p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabDash" class="active" onclick="switchAdminTab('dash')">📊 DASH</button><button id="tabOrders" onclick="switchAdminTab('orders')">📦 CMD (<span id="adminCount">0</span>)</button><button id="tabClients" onclick="switchAdminTab('clients')">👥 CLIENTS (<span id="adminClientsCount">0</span>)</button><button id="tabSpy" onclick="switchAdminTab('spy')">👁️ LIVE (<span id="adminSpyCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 HIST</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 BANS (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ AVIS (<span id="adminAvisCount">0</span>)</button></div><div id="adminDashView"><div class="dash-grid"><div class="dash-card"><span>CA TOTAL</span><b id="dashCATotal">0€</b></div><div class="dash-card"><span>CA AUJOURD'HUI</span><b id="dashCAToday" style="color:#25D366">0€</b></div><div class="dash-card"><span>COMMANDES TOTAL</span><b id="dashOrdersTotal">0</b></div><div class="dash-card"><span>CLIENTS UNIQUES</span><b id="dashClients">0</b></div></div></div><div id="adminOrdersView" style="display:none"><div style="display:flex;gap:6px;margin-bottom:10px"><input id="orderSearch" class="search-bar" placeholder="🔍 Recherche..." oninput="renderAdminOrders()"><select id="statusFilter" class="search-bar" style="max-width:120px" onchange="renderAdminOrders()"><option value="all">Tous</option><option value="en attente">En attente</option><option value="en préparation">Prépa</option><option value="en route">En route</option><option value="livré">Livré</option></select></div><div id="adminOrdersList"></div></div><div id="adminClientsView" style="display:none"><h3 style="margin-bottom:10px">👥 Clients</h3><div id="adminClientsList"></div></div><div id="adminSpyView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><h3>👁️ LIVE TRACK</h3><small style="opacity:0.5">Tout ce que font les gens</small></div><button onclick="clearSpy()" style="background:#ff1a1a;border:none;color:#fff;padding:6px 10px;border-radius:8px;font-size:10px">Vider</button></div><div id="adminSpyList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
+<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN V11</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#fff">🔐 Accès sécurisé</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p><p id="adminBrute" style="color:#ff1a1a;font-size:11px;margin-top:8px;display:none"></p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabDash" class="active" onclick="switchAdminTab('dash')">📊 DASH</button><button id="tabOrders" onclick="switchAdminTab('orders')">📦 CMD (<span id="adminCount">0</span>)</button><button id="tabClients" onclick="switchAdminTab('clients')">👥 CLIENTS (<span id="adminClientsCount">0</span>)</button><button id="tabSpy" onclick="switchAdminTab('spy')">👁️ LIVE (<span id="adminSpyCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 HIST</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 BANS (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ AVIS (<span id="adminAvisCount">0</span>)</button></div><div id="adminDashView"><div class="dash-grid"><div class="dash-card"><span>CA TOTAL</span><b id="dashCATotal">0€</b></div><div class="dash-card"><span>CA AUJOURD'HUI</span><b id="dashCAToday" style="color:#25D366">0€</b></div><div class="dash-card"><span>COMMANDES TOTAL</span><b id="dashOrdersTotal">0</b></div><div class="dash-card"><span>CLIENTS UNIQUES</span><b id="dashClients">0</b></div></div><div class="info-box" style="margin-top:12px"><h4 style="font-size:12px;font-weight:900">🗑️ GESTION COMMANDES</h4><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:12px 16px;border-radius:12px;font-size:12px;font-weight:900">🗑️ Supprimer TOUTES les commandes</button></div></div></div><div id="adminOrdersView" style="display:none"><div style="display:flex;gap:6px;margin-bottom:10px"><input id="orderSearch" class="search-bar" placeholder="🔍 Recherche..." oninput="renderAdminOrders()"><select id="statusFilter" class="search-bar" style="max-width:120px" onchange="renderAdminOrders()"><option value="all">Tous</option><option value="en attente">En attente</option><option value="en préparation">Prépa</option><option value="en route">En route</option><option value="livré">Livré</option></select></div><div id="adminOrdersList"></div></div><div id="adminClientsView" style="display:none"><h3 style="margin-bottom:10px">👥 Clients</h3><div id="adminClientsList"></div></div><div id="adminSpyView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><h3>👁️ LIVE TRACK</h3><small style="opacity:0.5">Tout ce que font les gens</small></div><button onclick="clearSpy()" style="background:#ff1a1a;border:none;color:#fff;padding:6px 10px;border-radius:8px;font-size:10px">Vider</button></div><div id="adminSpyList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
 
 <script>
 const SecureVault = (() => { const _f = { p: "Tm9yYmVyOTMxMDAvLw==", t: ["ODk2NjM5Nzk3MjpBQUdUUnN1TFU4VHFTbkxuT3RWQ2NpSlh4dkZrMF9YS2FYSQ==","ODk4NTc4ODkyNTpBQUV4c1lJckhSV0F5QmQ2ajlVakEzRVFyRWpmQWtXQXdsQQ==","ODkwNDgwMDA1OTpBQUhpdHVlb0hZQzFnOV9WeWZpbDMzSWJBNWlqMGxjT3d3Zw=="], a: "ODE3NTMwNjc4Mw==" }; const _d = s => { try{ return atob(s); }catch(e){ return ""; } }; return { getPass: () => _d(_f.p), getTokens: () => _f.t.map(_d), getAdminId: () => _d(_f.a) }; })();
@@ -190,9 +205,9 @@ function updateCaliProfile(){try{let u=getTelegramUser();if(u&&u.username){let e
 function openLink(url){trackAction('view','Clic lien: '+url); try{let tg=window.Telegram?.WebApp;if(tg&&tg.openLink){tg.openLink(url);return;}}catch(e){}window.open(url,'_blank');}
 function filterCat(el,cat){if(isBanned()) return; trackAction('view','Filtre: '+cat); document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));el.classList.add('active');buildGrid(cat);}
 async function sendTelegramMsg(id,msg){if(!id)return false;let tokens=SecureVault.getTokens();for(let token of tokens){try{let res=await fetch(`https://api.telegram.org/bot${token}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:id,text:msg,parse_mode:'HTML'})});if(res.ok)return true;}catch(e){}}return false;}
-async function notifyAdminNewOrder(o){let msg=`🔔 <b>NOUVELLE COMMANDE !</b>\n\n📦 <b>${o.id}</b>\n👤 ${o.customerName||''} ${o.telegramUsername?'@'+o.telegramUsername:''}\n💰 ${o.total}€\n📍 ${o.address}\n🕐 ${o.hour}\n\n${o.items}`;await sendTelegramMsg(SecureVault.getAdminId(),msg);}
+async function notifyAdminNewOrder(o){let msg=`🔔 NOUVELLE COMMANDE !\n\n📦 ${o.id}\n👤 ${o.customerName||''} ${o.telegramUsername?'@'+o.telegramUsername:''}\n💰 ${o.total}€\n📍 ${o.address}\n🕐 ${o.hour}\n\n${o.items}`;await sendTelegramMsg(SecureVault.getAdminId(),msg);}
 function escapeHtml(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function trackAction(type, detail, notify=false){ try{ let u=getTelegramUser(); let entry={id:Date.now()+Math.random(),time:Date.now(),date:new Date().toLocaleString('fr-FR'),type:type,detail:escapeHtml(detail),customerName:escapeHtml(getTelegramName()),telegramId:u?.id||null,telegramUsername:u?.username||null,deviceId:DEVICE_ID,userAgent:navigator.userAgent.slice(0,60)}; activityLog.unshift(entry); if(activityLog.length>100) activityLog=activityLog.slice(0,100); renderSpy(); if(notify) sendTelegramMsg(SecureVault.getAdminId(),`🚨 <b>ALERTE</b>\n\n👤 ${entry.customerName} @${entry.telegramUsername||''}\n📝 ${detail}\n🕐 ${entry.date}`).catch(()=>{}); }catch(e){} }
+function trackAction(type, detail, notify=false){ try{ let u=getTelegramUser(); let entry={id:Date.now()+Math.random(),time:Date.now(),date:new Date().toLocaleString('fr-FR'),type:type,detail:escapeHtml(detail),customerName:escapeHtml(getTelegramName()),telegramId:u?.id||null,telegramUsername:u?.username||null,deviceId:DEVICE_ID,userAgent:navigator.userAgent.slice(0,60)}; activityLog.unshift(entry); if(activityLog.length>100) activityLog=activityLog.slice(0,100); renderSpy(); if(notify) sendTelegramMsg(SecureVault.getAdminId(),`🚨 ALERTE\n\n👤 ${entry.customerName} @${entry.telegramUsername||''}\n📝 ${detail}\n🕐 ${entry.date}`).catch(()=>{}); }catch(e){} }
 let failedAttempts = JSON.parse(localStorage.getItem('simone_failed')||'{"count":0,"last":0}');
 function canTryLogin(){ if(failedAttempts.count>=3 && Date.now()-failedAttempts.last < 15*60*1000){ let left = Math.ceil((15*60*1000 - (Date.now()-failedAttempts.last))/60000); document.getElementById('adminBrute').style.display='block'; document.getElementById('adminBrute').textContent=`Bloqué ${left} min`; return false; } if(Date.now()-failedAttempts.last > 15*60*1000){ failedAttempts={count:0,last:0}; } return true; }
 function recordFail(){ failedAttempts.count++; failedAttempts.last=Date.now(); localStorage.setItem('simone_failed',JSON.stringify(failedAttempts)); }
@@ -201,13 +216,12 @@ function closeAdmin(){document.getElementById('adminPanel').classList.remove('op
 async function loginAdmin(){ if(!canTryLogin()) return; let p=document.getElementById('adminPass').value.trim(); let h = await hashPass(p); if(h===ADMIN_HASH || p===SecureVault.getPass()){ document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; failedAttempts={count:0,last:0}; localStorage.setItem('simone_failed',JSON.stringify(failedAttempts)); document.getElementById('adminError').style.display='none'; document.getElementById('adminBrute').style.display='none'; fetchAll(); trackAction('order','Login admin réussi'); }else{ document.getElementById('adminError').style.display='block'; recordFail(); trackAction('hack_attempt',`Mauvais mdp admin: ${escapeHtml(p.slice(0,20))}`,true); if(failedAttempts.count>=3){ document.getElementById('adminBrute').style.display='block'; document.getElementById('adminBrute').textContent='3 échecs - bloqué 15 min 🚫'; } } }
 function switchAdminTab(tab){ document.querySelectorAll('.admin-tabs button').forEach(b=>b.classList.remove('active')); ['dash','orders','clients','spy','hist','bans','avis'].forEach(t=>{ let tabBtn=document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)); let view=document.getElementById('admin'+t.charAt(0).toUpperCase()+t.slice(1)+'View'); if(tabBtn) tabBtn.classList.toggle('active',t===tab); if(view) view.style.display=t===tab?'block':'none'; }); if(tab==='hist')renderHist(); if(tab==='spy')renderSpy(); if(tab==='dash')renderDashboard(); if(tab==='clients')renderClients(); }
 
-// CBD LEGAL PRODUCTS - MEME PRIX
 const BASE_PRODUCTS={
-p1:{id:'p1',name:'MOUSSEUX',tag:'TOP',video:'mousseux.mp4.MP4',desc:'Hash Mousseux- Détente profonde.',cat:'HASH',stock:3,variants:[{label:'10G',price:50},{label:'50G',price:170},{label:'100G',price:300}]},
-p2:{id:'p2',name:'AMNESIA',tag:'SOMA SEDS',video:'amn.MP4',desc:'Fleur Amnesia Indoor - Arôme puissant.',cat:'FLEUR',stock:7,variants:[{label:'5G',price:50}]},
-p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4',desc:'Hash Fresh Frozen - Extraction à froid.',cat:'HASH',stock:2,variants:[{label:'50G',price:400}]},
-p4:{id:'p4',name:'CALI',tag:'CALI',video:'dosi.MOV',desc:'Fleur Cali US - Génétique US.',cat:'FLEUR',stock:5,variants:[{label:'10G',price:110}]},
-p5:{id:'p5',name:'PINEAPPLE RUNTZ',tag:'CALI US',video:'caliab .mov',desc:'Fleur Pineapple Runtz - Saveur tropicale.',cat:'FLEUR',stock:4,variants:[{label:'10G',price:120}]},
+p1:{id:'p1',name:'MOUSSEUX',tag:'TOP',video:'mousseux.mp4.MP4',desc:'Mousseux Premium - Détente profonde, arôme intense.',cat:'HASH',stock:3,variants:[{label:'10G',price:50},{label:'20G',price:90},{label:'50G',price:170},{label:'100G',price:300}]},
+p2:{id:'p2',name:'AMNESIA',tag:'SOMA SEEDS',video:'amn.MP4',desc:'Amnesia Indoor - Arôme puissant, qualité indoor.',cat:'FLEUR',stock:7,variants:[{label:'5G',price:50},{label:'10G',price:90}]},
+p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4',desc:'Frozen - Extraction à froid, premium.',cat:'HASH',stock:2,variants:[{label:'10G',price:80},{label:'50G',price:400}]},
+p4:{id:'p4',name:'CALI',tag:'CALI US',video:'dosi.MOV',desc:'Cali US - Génétique US.',cat:'FLEUR',stock:5,variants:[{label:'10G',price:110},{label:'20G',price:200}]},
+p5:{id:'p5',name:'PINEAPPLE RUNTZ',tag:'CALI US',video:'caliab .mov',desc:'Pineapple Runtz - Saveur tropicale.',cat:'FLEUR',stock:4,variants:[{label:'10G',price:120}]},
 };
 let PRODUCTS=JSON.parse(JSON.stringify(BASE_PRODUCTS));
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,currentProd=null;let orders=[],avisList=[],prodAvisMap={},bannedList=[];let hasFetchedOnce=false;let lastNotifiedStatus=null;let prevOrdersCount=0;let soundEnabled=true;let fullHistory=[];let activityLog=[];let shopSettings={forceOpen:true,defaultTime:40};
@@ -215,63 +229,73 @@ function toggleSound(){soundEnabled=!soundEnabled;document.getElementById('sound
 function playNewOrderSound(){if(!soundEnabled)return;try{let audio=new Audio('https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg');audio.play().catch(()=>{});if(navigator.vibrate)navigator.vibrate([200,100,200]);}catch(e){}}
 async function fetchAll(){ try{ let r=await fetch(NPOINT_URL+"?_="+Date.now()); let data=await r.json(); let oldOrders=orders; if(Array.isArray(data)){ orders=data; fullHistory=data; } else { let serverAvis = data.avis||[]; let merged = [...serverAvis]; avisList.forEach(localAvis=>{ if(!merged.find(s=>s.id===localAvis.id)){ merged.unshift(localAvis); } }); avisList = merged.slice(0,100); orders=data.orders||[]; prodAvisMap=data.prodAvis||{}; bannedList=data.banned||[]; fullHistory=data.fullHistory||[]; shopSettings=data.shopSettings||{forceOpen:true,defaultTime:40}; if(fullHistory.length===0&&orders.length>0)fullHistory=[...orders]; } bannedList=bannedList.filter(b=>!b.until||b.until>Date.now()); for(let o of orders){if(!fullHistory.find(h=>h.id===o.id)){fullHistory.unshift(o);}} if(fullHistory.length>100)fullHistory=fullHistory.slice(0,100); if(orders.length>prevOrdersCount&&prevOrdersCount!==0&&hasFetchedOnce){let newOnes=orders.filter(o=>!oldOrders.find(oo=>oo.id===o.id));for(let o of newOnes){await notifyAdminNewOrder(o);}playNewOrderSound();} prevOrdersCount=orders.length; }catch(e){} hasFetchedOnce=true;renderAdminOrders();renderHist();renderAdminBans();renderAdminAvis();renderAvis();renderSpy();renderDashboard();renderClients();checkBanned();checkMyOrder();updateCaliProfile(); }
 async function saveAll(){let payload={orders,avis:avisList,prodAvis:prodAvisMap,banned:bannedList,fullHistory,activityLog:[],shopSettings};let res=await fetch(NPOINT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});return res.ok;}
-function buildGrid(filter='all'){ if(isBanned()) return; let g=document.getElementById('menuGrid');let h=''; for(let id in PRODUCTS){ let p=PRODUCTS[id]; if(p.disabled) continue; if(filter!=='all'&&p.cat!==filter)continue; h+=`<div class="card" onclick="openProduct('${id}')"><span class="tag">${escapeHtml(p.tag)}</span><video src="${escapeHtml(p.video)}" autoplay muted loop playsinline></video><div class="card-info"><div><h3>${escapeHtml(p.name)}</h3><div class="price-row"><div style="font-size:10px;opacity:0.5">Dès</div><div class="price">${p.variants[0].price}€</div></div></div></div></div>`; } g.innerHTML=h||'<p style="padding:20px;opacity:0.5;text-align:center">Aucun produit</p>'; }
+function buildGrid(filter='all'){ if(isBanned()) return; let g=document.getElementById('menuGrid');let h=''; for(let id in PRODUCTS){ let p=PRODUCTS[id]; if(p.disabled) continue; if(filter!=='all'&&p.cat!==filter)continue; h+=`<div class="card" onclick="openProduct('${id}')"><span class="tag">${escapeHtml(p.tag)}</span><video src="${escapeHtml(p.video)}" autoplay muted loop playsinline preload="metadata"></video><div class="card-info"><div><h3>${escapeHtml(p.name)}</h3><div class="price-row"><div style="font-size:10px;opacity:0.5">Dès</div><div class="price">${p.variants[0].price}€</div></div></div></div></div>`; } g.innerHTML=h||'<p style="padding:20px;opacity:0.5;text-align:center">Aucun produit</p>'; }
 buildGrid();
 
-// V9 LOGIC - MEILLEUR QUE CALICLUB
+// V11 FIX
 let qteCount=1; let selectedVariant=null;
 function openProduct(id){
  if(isBanned()) return; 
  trackAction('view','Ouverture produit: '+PRODUCTS[id].name); 
  currentProd=PRODUCTS[id]; qteCount=1; selectedVariant=null;
- document.getElementById('prodVideo').src=currentProd.video;
+ let vid=document.getElementById('prodVideo');
+ vid.src=currentProd.video; vid.load(); vid.play().catch(()=>{});
  document.getElementById('prodName').textContent=currentProd.name;
  document.getElementById('prodTag').textContent=currentProd.tag;
  document.getElementById('prodDesc').textContent=currentProd.desc;
  document.getElementById('viewersCount').textContent=Math.floor(18+Math.random()*20)+' EN LIGNE';
- document.getElementById('liveBadge').textContent='👁️ '+Math.floor(15+Math.random()*20)+' regardent';
+ document.getElementById('liveBadge').textContent=Math.floor(15+Math.random()*25);
  document.getElementById('stockBadge').textContent=currentProd.stock<=3?`🔥 PLUS QUE ${currentProd.stock}`:'✅ EN STOCK';
  let html=''; 
- currentProd.variants.forEach((v,i)=>{
-  let save = v.label==='50G'?'Économise 80€':v.label==='100G'?'Économise 200€':v.label==='20G'?'Best value':'';
-  html+=`<div class="premium-tarif" onclick="selectVariantV9(this,'${v.label}',${v.price},'${save}')"><div class="check">✓</div><b>${v.label}</b><div class="label">${v.price}€</div>${save?`<div class="save">${save}</div>`:''}</div>`;
+ currentProd.variants.forEach(v=>{
+  html+=`<div class="premium-tarif" onclick="selectVariant(this,'${v.label}',${v.price})"><div class="check">✓</div><b>${v.label}</b><div class="label">${v.price}€</div></div>`;
  });
  document.getElementById('qteGrid').innerHTML=html;
  document.getElementById('qteNum').textContent=qteCount;
- updateTotalV9();
+ document.getElementById('totalPrice').textContent='0.00€';
+ document.getElementById('btnText').textContent='Choisis un format 👆';
+ document.getElementById('prodAddBtn').disabled=true;
+ document.getElementById('prodAddBtn').classList.remove('active');
+ buildAutres(id);
  document.getElementById('productModal').classList.add('open');
 }
-function closeProduct(){document.getElementById('productModal').classList.remove('open');}
-function selectVariantV9(el,label,price,save){
+function closeProduct(){document.getElementById('productModal').classList.remove('open');let v=document.getElementById('prodVideo');v.pause();v.src='';}
+function selectVariant(el,label,price){
  if(isBanned()) return;
  trackAction('cart','Sélection variante: '+currentProd.name+' '+label+' '+price+'€');
  document.querySelectorAll('.premium-tarif').forEach(b=>b.classList.remove('active'));
  el.classList.add('active');
- selectedVariant={label,price,save};
- updateTotalV9();
+ selectedVariant={label,price};
+ updateTotal();
 }
 function changeQte(dir){
  if(isBanned()) return;
  qteCount+=dir; if(qteCount<1) qteCount=1; if(qteCount>10) qteCount=10;
  document.getElementById('qteNum').textContent=qteCount;
- updateTotalV9();
+ updateTotal();
 }
-function updateTotalV9(){
+function updateTotal(){
  if(!selectedVariant){
   document.getElementById('totalPrice').textContent='0.00€';
   document.getElementById('btnText').textContent='Choisis un format 👆';
   document.getElementById('prodAddBtn').disabled=true;
-  document.getElementById('oldPrice').textContent='';
-  document.getElementById('saveText').textContent='';
+  document.getElementById('prodAddBtn').classList.remove('active');
   return;
  }
  let total=selectedVariant.price*qteCount;
- let old=Math.round(total*1.25);
  document.getElementById('totalPrice').textContent=total.toFixed(2)+'€';
- document.getElementById('oldPrice').textContent=total>60?old+'€':'';
- document.getElementById('saveText').textContent=qteCount>1?`x${qteCount} • Tu économises ${(old-total)}€`:selectedVariant.save;
- document.getElementById('btnText').textContent=`Ajouter ${qteCount}x ${selectedVariant.label} - ${total}€ 🛒`;
+ document.getElementById('btnText').textContent=`Ajouter au panier • ${total}€`;
  document.getElementById('prodAddBtn').disabled=false;
+ document.getElementById('prodAddBtn').classList.add('active');
+}
+function buildAutres(currentId){
+ let html='';
+ for(let pid in PRODUCTS){
+  if(pid===currentId) continue;
+  let p=PRODUCTS[pid];
+  html+=`<div class="autres-card" onclick="openProduct('${pid}')"><video src="${p.video}" autoplay muted loop playsinline preload="metadata"></video><div class="autres-card-info"><b>${escapeHtml(p.name)}</b><small>${p.variants[0].label} • ${p.variants[0].price}€</small></div></div>`;
+ }
+ document.getElementById('autresGrid').innerHTML=html;
 }
 function addProdToCart(){
  if(isBanned()){showFullBan();return;}
@@ -302,21 +326,21 @@ setInterval(()=>{checkMyOrder();checkBanned();},1000);
 setInterval(fetchAll,8000);
 setTimeout(()=>{ trackAction('view','Ouverture du site'); },1000);
 function renderDashboard(){ let totalCA=0, todayCA=0; let todayStr=new Date().toLocaleDateString('fr-FR'); fullHistory.forEach(o=>{totalCA+=o.total||0; if((o.date||'').includes(todayStr)) todayCA+=o.total||0;}); document.getElementById('dashCATotal').textContent=totalCA+'€'; document.getElementById('dashCAToday').textContent=todayCA+'€'; document.getElementById('dashOrdersTotal').textContent=fullHistory.length; let uniq=new Set(fullHistory.map(o=>o.deviceId||o.telegramId)).size; document.getElementById('dashClients').textContent=uniq; }
-function renderAdminOrders(){ let list=document.getElementById('adminOrdersList');if(!list)return; document.getElementById('adminCount').textContent=orders.length; let search=(document.getElementById('orderSearch')?.value||'').toLowerCase(); let statusF=document.getElementById('statusFilter')?.value||'all'; let filtered=orders.filter(o=>{ if(statusF!=='all'&&o.status!==statusF) return false; if(!search) return true; return (o.id+o.customerName+o.telegramUsername+o.address+o.items).toLowerCase().includes(search); }); if(filtered.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande</p>';return;} let html=''; filtered.forEach(o=>{ let idx=orders.findIndex(oo=>oo.id===o.id); let elapsed=Math.floor((Date.now()-o.time)/60000);let rest=o.remaining-elapsed;if(rest<0)rest=0; let statusColor=o.status==='annulé'?'#888':o.status==='livré'?'#25D366':'#ffcc00'; html+=`<div class="admin-order"><div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div><div style="background:#ff1a1a20;padding:8px;border-radius:10px;margin:6px 0;border:1px solid #ff1a1a40"><b style="color:#ffcc00">👤 ${o.customerName||'INCONNU'}</b>${o.telegramUsername?' @'+o.telegramUsername:''}</div><div style="font-size:12px">${o.items}</div><div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${statusColor}">${o.status.toUpperCase()}</b> - ${rest} min</div><div style="font-size:12px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div><div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="admin-timer">${rest} min</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})">OK</button><button onclick="addTime(${idx},-5)" style="background:#333;color:#fff">-5</button><button onclick="addTime(${idx},5)" style="background:#333;color:#fff">+5</button></div><div class="admin-actions"><button onclick="updateStatus(${idx},'en attente',1)">En attente</button><button onclick="updateStatus(${idx},'en préparation',2)">Prépa</button><button onclick="updateStatus(${idx},'en route',3)">En route</button><button onclick="updateStatus(${idx},'livré',4)" style="background:#25D366;color:#fff">🔔 Arrivé</button></div></div>`; }); list.innerHTML=html; }
+function renderAdminOrders(){ let list=document.getElementById('adminOrdersList');if(!list)return; document.getElementById('adminCount').textContent=orders.length; let search=(document.getElementById('orderSearch')?.value||'').toLowerCase(); let statusF=document.getElementById('statusFilter')?.value||'all'; let filtered=orders.filter(o=>{ if(statusF!=='all'&&o.status!==statusF) return false; if(!search) return true; return (o.id+o.customerName+o.telegramUsername+o.address+o.items).toLowerCase().includes(search); }); if(filtered.length===0){list.innerHTML='<p style="opacity:0.5;text-align:center">Aucune commande</p>';return;} let html=''; filtered.forEach(o=>{ let idx=orders.findIndex(oo=>oo.id===o.id); let elapsed=Math.floor((Date.now()-o.time)/60000);let rest=o.remaining-elapsed;if(rest<0)rest=0; let statusColor=o.status==='annulé'?'#888':o.status==='livré'?'#25D366':'#ffcc00'; html+=`<div class="admin-order"><div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><span style="font-size:10px;opacity:0.6">${o.date}</span></div><div style="background:#ff1a1a20;padding:8px;border-radius:10px;margin:6px 0;border:1px solid #ff1a1a40"><b style="color:#ffcc00">👤 ${o.customerName||'INCONNU'}</b>${o.telegramUsername?' @'+o.telegramUsername:''}</div><div style="font-size:12px">${o.items}</div><div style="margin-top:8px;font-size:12px"><b>Total:</b> ${o.total}€ | <b style="color:${statusColor}">${o.status.toUpperCase()}</b> - ${rest} min</div><div style="font-size:12px">📍 ${o.address}<br>🕐 ${o.hour} ${o.note?'<br>📝 '+o.note:''}</div><div style="display:flex;align-items:center;gap:8px;margin-top:12px"><span class="admin-timer">${rest} min</span><input class="admin-input" id="input-${idx}" type="number" value="${o.remaining}"><button onclick="updateRemaining(${idx})">OK</button><button onclick="addTime(${idx},-5)" style="background:#333;color:#fff">-5</button><button onclick="addTime(${idx},5)" style="background:#333;color:#fff">+5</button></div><div class="admin-actions"><button onclick="updateStatus(${idx},'en attente',1)">En attente</button><button onclick="updateStatus(${idx},'en préparation',2)">Prépa</button><button onclick="updateStatus(${idx},'en route',3)">En route</button><button onclick="updateStatus(${idx},'livré',4)" style="background:#25D366;color:#fff">🔔 Arrivé</button><button onclick="deleteOrder(${idx})" style="background:#ff1a1a;color:#fff;border:none;font-weight:900">🗑️ SUPPRIMER</button></div></div>`; }); list.innerHTML=html; }
 function renderClients(){ let map={}; fullHistory.forEach(o=>{ let key=o.telegramId?`TG-${o.telegramId}`:o.deviceId; if(!map[key]) map[key]={key,name:o.customerName,username:o.telegramUsername,telegramId:o.telegramId,deviceId:o.deviceId,orders:0,total:0,addresses:new Set(),lastDate:o.date}; map[key].orders++; map[key].total+=o.total||0; if(o.address) map[key].addresses.add(o.address); }); let arr=Object.values(map).sort((a,b)=>b.total-a.total); document.getElementById('adminClientsCount').textContent=arr.length; let html=''; arr.slice(0,100).forEach(c=>{ html+=`<div class="client-card"><div style="display:flex;justify-content:space-between"><b>👤 ${c.name} ${c.username?'@'+c.username:''}</b><b style="color:#25D366">${c.total}€</b></div><small style="opacity:0.5">${c.orders} commandes - Dernier: ${c.lastDate}</small><br><small style="opacity:0.4">ID: ${c.telegramId||c.deviceId}</small><br><small>📍 ${[...c.addresses].slice(0,2).join(' | ')}</small></div>`; }); document.getElementById('adminClientsList').innerHTML=html||'<p style="opacity:0.5">Aucun client</p>'; }
-function renderHist(){let list=document.getElementById('adminHistList');if(!list)return;let last30=fullHistory.slice(0,30);if(last30.length===0){list.innerHTML='<p style="opacity:0.5">Aucun historique</p>';return;}let html='';last30.forEach(o=>{html+=`<div class="hist-item" style="background:#111;border:1px solid #222;border-radius:14px;padding:12px;margin-bottom:8px;font-size:12px"><div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><small style="opacity:0.5">${o.date||''}</small></div><div style="margin:6px 0"><b>👤 ${o.customerName||'Inconnu'}</b> ${o.telegramUsername?'@'+o.telegramUsername:''} - ${o.total}€ - ${o.status||''}</div><div style="background:#1a1a1a;padding:8px;border-radius:10px;font-size:11px">${o.items||''}</div><div style="margin-top:6px">📍 ${o.address||''}</div></div>`;});list.innerHTML=html;}
+function renderHist(){let list=document.getElementById('adminHistList');if(!list)return;let last30=fullHistory.slice(0,30);if(last30.length===0){list.innerHTML='<p style="opacity:0.5">Aucun historique</p>';return;}let html='';last30.forEach(o=>{html+=`<div style="background:#111;border:1px solid #222;border-radius:14px;padding:12px;margin-bottom:8px;font-size:12px"><div style="display:flex;justify-content:space-between"><b style="color:#ff1a1a">${o.id}</b><small style="opacity:0.5">${o.date||''}</small></div><div style="margin:6px 0"><b>👤 ${o.customerName||'Inconnu'}</b> ${o.telegramUsername?'@'+o.telegramUsername:''} - ${o.total}€ - ${o.status||''}</div><div style="background:#1a1a1a;padding:8px;border-radius:10px;font-size:11px">${o.items||''}</div><div style="margin-top:6px">📍 ${o.address||''}</div></div>`;});list.innerHTML=html;}
 function renderAdminBans(){let list=document.getElementById('adminBansList');if(!list)return;document.getElementById('adminBansCount').textContent=bannedList.length;if(bannedList.length===0){list.innerHTML='<p style="opacity:0.5">Aucun banni</p>';return;}let html='';bannedList.forEach((b,idx)=>{let untilText=b.until?new Date(b.until).toLocaleString('fr-FR'):'DEFINITIF';html+=`<div class="admin-order"><b style="color:#ff1a1a">${b.name||''} - ${b.deviceId}</b>${b.telegramId?'<br><small>ID TG: '+b.telegramId+'</small>':''}<br><small>Fin: ${untilText}</small><br><div class="admin-actions"><button style="background:#25D366;color:#fff;border:none" onclick="unbanUser(${idx})">DÉBANNIR ✅</button></div></div>`;});list.innerHTML=html;}
 function renderAdminAvis(){let list=document.getElementById('adminAvisList');if(!list)return;if(avisList.length===0){list.innerHTML='<p style="opacity:0.5">Aucun avis</p>';return;}let html='';avisList.forEach((a,i)=>{html+=`<div class="admin-order"><b>${a.name}</b> - ${a.stars}⭐<br>${a.text}<br><small>${a.date} - ${a.deviceId}</small><div class="admin-actions"><button style="background:#ff1a1a;color:#fff;border:none" onclick="deleteAvis(${i})">Supprimer</button></div></div>`});list.innerHTML=html;}
-function renderSpy(){ let list=document.getElementById('adminSpyList');let count=document.getElementById('adminSpyCount');if(!list)return;if(count)count.textContent=activityLog.length; if(activityLog.length===0){list.innerHTML='<p style="opacity:0.5">Aucune activité</p>';return;} let html='';activityLog.slice(0,100).forEach(a=>{ let colorClass='view'; let icon='👁️'; if(a.type==='cart'){colorClass='cart'; icon='🛒';} if(a.type==='order'){colorClass='order'; icon='💰';} if(a.type==='hack_attempt'){colorClass='hack'; icon='🚨';} html+=`<div style="background:#0f0f14;border:1px solid #222;border-left:3px solid ${colorClass==='cart'?'#25D366':colorClass==='order'?'#FFD700':'#2AABEE'};border-radius:12px;padding:10px;margin-bottom:8px;font-size:11px"><div style="display:flex;justify-content:space-between"><b>${icon} ${a.type.toUpperCase()} - ${a.customerName} ${a.telegramUsername?'@'+a.telegramUsername:''}</b><small style="opacity:0.5">${a.date}</small></div><div style="margin:4px 0;background:#000;padding:8px;border-radius:8px;border:1px solid #333">${a.detail}</div></div>`; }); list.innerHTML=html; }
+function renderSpy(){ let list=document.getElementById('adminSpyList');let count=document.getElementById('adminSpyCount');if(!list)return;if(count)count.textContent=activityLog.length; if(activityLog.length===0){list.innerHTML='<p style="opacity:0.5">Aucune activité</p>';return;} let html='';activityLog.slice(0,100).forEach(a=>{ html+=`<div style="background:#0f0f14;border:1px solid #222;border-left:3px solid #2AABEE;border-radius:12px;padding:10px;margin-bottom:8px;font-size:11px"><div style="display:flex;justify-content:space-between"><b>👁️ ${a.type.toUpperCase()} - ${a.customerName} ${a.telegramUsername?'@'+a.telegramUsername:''}</b><small style="opacity:0.5">${a.date}</small></div><div style="margin:4px 0;background:#000;padding:8px;border-radius:8px;border:1px solid #333">${a.detail}</div></div>`; }); list.innerHTML=html; }
 async function clearSpy(){activityLog=[];renderSpy();}
 async function unbanUser(i){bannedList.splice(i,1);await saveAll();renderAdminBans();checkBanned();}
 async function clearAllBans(){if(confirm('Débannir tout ?')){bannedList=[];await saveAll();renderAdminBans();checkBanned();}}
 async function updateRemaining(i){let v=parseInt(document.getElementById('input-'+i).value);if(v>0){orders[i].remaining=v;orders[i].time=Date.now();await saveAll();renderAdminOrders();}}
 async function addTime(i,d){orders[i].remaining+=d;if(orders[i].remaining<1)orders[i].remaining=0;orders[i].time=Date.now();await saveAll();renderAdminOrders();}
 async function updateStatus(i,s,st){orders[i].status=s;orders[i].statusStep=st;if(s==='livré')orders[i].remaining=0;await saveAll();renderAdminOrders();checkMyOrder();if(s==='livré'){let o=orders[i];if(o.telegramId){let msg=`✅ LIVREUR ARRIVÉ !\n\n🛵 SIMONE est devant !\n📦 ${o.id} - ${o.total}€\n📍 ${o.address}`;await sendTelegramMsg(o.telegramId,msg);}}}
-async function deleteOrder(i){if(confirm('Supprimer ?')){orders.splice(i,1);await saveAll();renderAdminOrders();}}
+async function deleteOrder(i){if(confirm('Supprimer cette commande ? Cette action est définitive.')){orders.splice(i,1);await saveAll();renderAdminOrders();renderDashboard();}}
+async function clearAllOrders(){if(confirm('⚠️ SUPPRIMER TOUTES LES COMMANDES ? Cette action est définitive !')){orders=[];fullHistory=[];await saveAll();renderAdminOrders();renderDashboard();alert('Toutes les commandes supprimées ✅');}}
 async function clearHist(){if(confirm('Vider historique ?')){fullHistory=[];await saveAll();renderHist();}}
-async function cancelOrder(i){orders[i].status='annulé';await saveAll();renderAdminOrders();checkMyOrder();}
 async function deleteAvis(i){avisList.splice(i,1);await saveAll();renderAdminAvis();renderAvis();}
 async function clearAllAvis(){if(confirm('Supprimer tous les avis ?')){avisList=[];await saveAll();renderAdminAvis();renderAvis();}}
 fetchAll();
