@@ -75,6 +75,7 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .hours button.active{background:#fff;color:#000;border-color:#fff;font-weight:800}
 .btn-main{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border:none;padding:16px;border-radius:16px;font-weight:900;width:100%;font-size:14px;cursor:pointer;margin-top:12px;box-shadow:0 8px 20px rgba(37,211,102,0.3);transition:0.2s}
 .btn-main:active{transform:scale(0.97)}
+.btn-main:disabled{opacity:0.6;pointer-events:none}
 .admin-panel{position:fixed;top:0;left:0;right:0;bottom:0;background:#0a0a0a;z-index:5000;overflow:auto;transform:translateY(100%);transition:0.4s;padding:16px}
 .admin-panel.open{transform:translateY(0)}
 .admin-order{background:#161616;border:1px solid #222;border-radius:16px;padding:14px;margin-bottom:12px}
@@ -122,7 +123,6 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 .p-total{font-size:22px;font-weight:900}
 .p-add{width:100%;background:#222;color:#666;border:1px solid #2a2a2a;padding:16px;border-radius:16px;font-weight:900;font-size:14px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;margin-top:12px;transition:0.2s;pointer-events:none;opacity:0.4}
 .p-add.active{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border-color:#25D366;opacity:1;pointer-events:auto;box-shadow:0 10px 25px rgba(37,211,102,0.35)}
-.p-add.active.green{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;border-color:#25D366;box-shadow:0 10px 25px rgba(37,211,102,0.3)}
 .autres-section{margin-top:22px;padding-top:16px;border-top:1px solid #1a1a1a}
 .autres-title{font-size:12px;font-weight:900;letter-spacing:2px;opacity:0.6;margin-bottom:12px}
 .autres-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:10px}
@@ -154,7 +154,7 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="menu-grid" id="menuGrid"></div>
 <div class="avis-section"><div class="section" style="padding-left:0"><span class="t">AVIS CLIENTS</span><span class="l"></span></div><div id="avisList"></div><div class="info-box"><h4 style="font-size:13px;font-weight:900">✍️ LAISSER UN AVIS</h4><input id="avisName" class="input" placeholder="Ton pseudo"><div style="display:flex;gap:6px;margin-top:10px"><button onclick="selectStars(1)" id="s1" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐</button><button onclick="selectStars(2)" id="s2" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐⭐</button><button onclick="selectStars(3)" id="s3" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐⭐⭐</button><button onclick="selectStars(4)" id="s4" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐⭐⭐⭐</button><button onclick="selectStars(5)" id="s5" style="background:#2a2200;border:1px solid #ffcc00;padding:8px 10px;border-radius:12px">⭐⭐⭐⭐⭐</button></div><textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea><button class="btn-main" id="avisBtn" onclick="postAvis()">Envoyer mon avis 📩</button></div></div>
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
-<div id="cartDrawer" class="cart-drawer"><div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div><div id="cartList"></div><div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div><input id="addr" class="input" placeholder="📍 Adresse + code postal"><div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">11h-13h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-23h</button></div><input id="note" class="input" placeholder="Note livreur"><button class="btn-main" onclick="checkout()">Commander 🚀</button></div>
+<div id="cartDrawer" class="cart-drawer"><div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div><div id="cartList"></div><div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div><input id="addr" class="input" placeholder="📍 Adresse + code postal"><div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">11h-13h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-23h</button></div><input id="note" class="input" placeholder="Note livreur"><button id="checkoutBtn" class="btn-main" onclick="checkout()">Commander 🚀</button></div>
 <div id="productModal" class="product-modal">
   <div class="p-header">
     <button onclick="closeProduct()" style="background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer">✕</button>
@@ -192,6 +192,39 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
   </div>
 </div>
 <div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN V13</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#fff">🔐 Accès sécurisé</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p><p id="adminBrute" style="color:#ff1a1a;font-size:11px;margin-top:8px;display:none"></p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabDash" class="active" onclick="switchAdminTab('dash')">📊 DASH</button><button id="tabOrders" onclick="switchAdminTab('orders')">📦 CMD (<span id="adminCount">0</span>)</button><button id="tabClients" onclick="switchAdminTab('clients')">👥 CLIENTS (<span id="adminClientsCount">0</span>)</button><button id="tabSpy" onclick="switchAdminTab('spy')">👁️ LIVE (<span id="adminSpyCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 HIST</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 BANS (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ AVIS (<span id="adminAvisCount">0</span>)</button><button id="tabBroadcast" onclick="switchAdminTab('broadcast')">📢 BROADCAST</button></div><div id="adminDashView"><div class="dash-grid"><div class="dash-card"><span>CA TOTAL</span><b id="dashCATotal">0€</b></div><div class="dash-card"><span>CA AUJOURD'HUI</span><b id="dashCAToday" style="color:#25D366">0€</b></div><div class="dash-card"><span>COMMANDES TOTAL</span><b id="dashOrdersTotal">0</b></div><div class="dash-card"><span>CLIENTS UNIQUES</span><b id="dashClients">0</b></div></div><div class="info-box" style="margin-top:12px"><h4 style="font-size:12px;font-weight:900">🗑️ GESTION COMMANDES</h4><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:12px 16px;border-radius:12px;font-size:12px;font-weight:900">🗑️ Supprimer TOUTES les commandes</button></div></div></div><div id="adminOrdersView" style="display:none"><div style="display:flex;gap:6px;margin-bottom:10px"><input id="orderSearch" class="search-bar" placeholder="🔍 Recherche..." oninput="renderAdminOrders()"><select id="statusFilter" class="search-bar" style="max-width:120px" onchange="renderAdminOrders()"><option value="all">Tous</option><option value="en attente">En attente</option><option value="en préparation">Prépa</option><option value="en route">En route</option><option value="livré">Livré</option></select></div><div id="adminOrdersList"></div></div><div id="adminClientsView" style="display:none"><h3 style="margin-bottom:10px">👥 Clients</h3><div id="adminClientsList"></div></div><div id="adminSpyView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><h3>👁️ LIVE TRACK</h3><small style="opacity:0.5">Tout ce que font les gens</small></div><button onclick="clearSpy()" style="background:#ff1a1a;border:none;color:#fff;padding:6px 10px;border-radius:8px;font-size:10px">Vider</button></div><div id="adminSpyList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div><div id="adminBroadcastView" style="display:none"><div class="info-box"><h4>📢 BROADCAST & MESSAGES</h4><textarea id="broadcastMsg" class="textarea" placeholder="Promo du jour..."></textarea><button class="btn-main" onclick="sendBroadcast()" style="margin-top:10px">Envoyer à TOUS ✈️</button></div></div></div></div>
+
+<!-- MAP LIVE LIVREURS CORRIGEE -->
+<div class="section" style="margin-top:40px;"><span class="t">🗺️ LIVREURS EN DIRECT</span><span class="l"></span></div>
+<div style="margin:0 14px;background:#15151d;border:1px solid #1f1f25;border-radius:22px;overflow:hidden">
+  <div style="padding:14px;display:flex;justify-content:space-between;align-items:center">
+    <div><b style="font-size:13px">🛵 <span id="liveCount">3</span> livreurs autour</b><br><small style="opacity:0.5;font-size:10px">Pos. actualisée toutes les 15s</small></div>
+    <div style="background:#25D366;padding:5px 12px;border-radius:100px;font-size:10px;font-weight:900;animation:pulse 2s infinite">● LIVE</div>
+  </div>
+  <div style="padding:10px 14px;background:#0f0f14;display:flex;gap:8px">
+    <input id="cpInput" placeholder="Code postal: 75001" style="flex:1;background:#15151d;border:1px solid #222;color:#fff;padding:10px 12px;border-radius:12px;font-size:12px;outline:none" maxlength="5" onkeyup="if(event.key==='Enter')checkCP()">
+    <button onclick="checkCP()" style="background:#fff;color:#000;border:none;padding:10px 16px;border-radius:12px;font-size:12px;font-weight:900">OK</button>
+  </div>
+  <div id="mapContainer" style="background:#0a0a0f;position:relative;width:100%;height:260px;overflow:hidden">
+    <svg viewBox="0 0 200 200" style="width:100%;height:100%;position:absolute;top:0;left:0"><circle cx="100" cy="100" r="75" fill="none" stroke="#1e1e28" stroke-width="1" stroke-dasharray="3 5"/></svg>
+    <div id="courierLayer" style="position:absolute;top:0;left:0;width:100%;height:100%"></div>
+  </div>
+  <div id="zoneInfo" style="display:none;margin:10px;background:#1a1a1a;border:1px solid #25D366;border-radius:14px;padding:12px">
+    <b id="zTitle" style="font-size:13px"></b> <span id="zTime" style="float:right;background:#25D366;color:#000;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:900"></span>
+    <div id="zDesc" style="font-size:11px;opacity:0.6;margin-top:4px"></div><div id="zExtra" style="font-size:10px;margin-top:6px;color:#25D366;font-weight:700"></div>
+  </div>
+  <div id="courierAdmin" style="display:none;padding:10px;background:#111;border-top:1px solid #222">
+    <small style="font-size:10px;opacity:0.5;font-weight:900">🔧 PANEL LIVREURS (ADMIN) - Clique sur map puis PLACER</small>
+    <div style="display:flex;gap:6px;margin-top:6px">
+      <input id="courierName" placeholder="Nom: Karim 75" style="flex:1;background:#15151d;border:1px solid #333;color:#fff;padding:8px;border-radius:8px;font-size:11px">
+      <select id="courierStatus" style="background:#15151d;border:1px solid #333;color:#fff;padding:8px;border-radius:8px;font-size:11px"><option value="free">🟢 Libre</option><option value="busy">🟡 En course</option></select>
+    </div>
+    <div style="display:flex;gap:6px;margin-top:6px">
+      <button onclick="saveCourier()" style="flex:1;background:#25D366;color:#000;border:none;padding:8px;border-radius:8px;font-size:11px;font-weight:900">PLACER LIVREUR</button>
+      <button onclick="clearCouriers()" style="background:#222;color:#fff;border:1px solid #333;padding:8px 12px;border-radius:8px;font-size:11px">Clear</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const SecureVault = (() => { const _f = { p: "Tm9yYmVyOTMxMDAvLw==", t: ["ODk2NjM5Nzk3MjpBQUdUUnN1TFU4VHFTbkxuT3RWQ2NpSlh4dkZrMF9YS2FYSQ==","ODk4NTc4ODkyNTpBQUV4c1lJckhSV0F5QmQ2ajlVakEzRVFyRWpmQWtXQXdsQQ==","ODkwNDgwMDA1OTpBQUhpdHVlb0hZQzFnOV9WeWZpbDMzSWJBNWlqMGxjT3d3Zw=="], a: "ODE3NTMwNjc4Mw==" }; const _d = s => { try{ return atob(s); }catch(e){ return ""; } }; return { getPass: () => _d(_f.p), getTokens: () => _f.t.map(_d), getAdminId: () => _d(_f.a) }; })();
 async function hashPass(s){ const enc=new TextEncoder().encode(s); const buf=await crypto.subtle.digest('SHA-256',enc); return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''); }
@@ -231,11 +264,11 @@ async function saveAll(){let payload={orders,avis:avisList,prodAvis:prodAvisMap,
 function buildGrid(filter='all'){ if(isBanned()) return; let g=document.getElementById('menuGrid');let h=''; for(let id in PRODUCTS){ let p=PRODUCTS[id]; if(p.disabled) continue; if(filter!=='all'&&p.cat!==filter)continue; h+=`<div class="card" onclick="openProduct('${id}')"><span class="tag">${escapeHtml(p.tag)}</span><video src="${escapeHtml(p.video)}" autoplay muted loop playsinline preload="metadata"></video><div class="smoke-layer"><div class="smoke"></div><div class="smoke smoke2"></div></div><div class="shine"></div><div class="card-info"><div><h3>${escapeHtml(p.name)}</h3><div class="price-row"><div style="font-size:10px;opacity:0.5">Dès</div><div class="price">${p.variants[0].price}€</div></div></div></div></div>`; } g.innerHTML=h||'<p style="padding:20px;opacity:0.5;text-align:center">Aucun produit</p>'; }
 buildGrid();
 let qteCount=1; let selectedVariant=null;
-function openProduct(id){ if(isBanned()) return; trackAction('view','Ouverture produit: '+PRODUCTS[id].name); currentProd=PRODUCTS[id]; qteCount=1; selectedVariant=null; let vid=document.getElementById('prodVideo'); vid.src=currentProd.video; vid.load(); vid.play().catch(()=>{}); document.getElementById('prodName').textContent=currentProd.name; document.getElementById('prodTag').textContent=currentProd.tag; document.getElementById('prodDesc').textContent=currentProd.desc; document.getElementById('viewersCount').textContent=Math.floor(18+Math.random()*20)+' EN LIGNE'; document.getElementById('liveBadge').textContent=Math.floor(15+Math.random()*25); document.getElementById('stockBadge').textContent=currentProd.stock<=3?`🔥 PLUS QUE ${currentProd.stock}`:'✅ EN STOCK'; let html=''; currentProd.variants.forEach(v=>{ html+=`<div class="p-tarif" onclick="selectTarif(this,'${v.label}',${v.price})"><div class="ck">✓</div><b>${v.label}</b><span>${v.price}€</span></div>`; }); document.getElementById('qteGrid').innerHTML=html; document.getElementById('qteNum').innerText=qteCount; document.getElementById('totalPrice').innerText='0.00€'; document.getElementById('btnText').innerText='Choisis un format'; document.getElementById('prodAddBtn').classList.remove('active','green'); buildAutres(id); document.getElementById('productModal').classList.add('open');}
+function openProduct(id){ if(isBanned()) return; trackAction('view','Ouverture produit: '+PRODUCTS[id].name); currentProd=PRODUCTS[id]; qteCount=1; selectedVariant=null; let vid=document.getElementById('prodVideo'); vid.src=currentProd.video; vid.load(); vid.play().catch(()=>{}); document.getElementById('prodName').textContent=currentProd.name; document.getElementById('prodTag').textContent=currentProd.tag; document.getElementById('prodDesc').textContent=currentProd.desc; document.getElementById('viewersCount').textContent=Math.floor(18+Math.random()*20)+' EN LIGNE'; document.getElementById('liveBadge').textContent=Math.floor(15+Math.random()*25); document.getElementById('stockBadge').textContent=currentProd.stock<=3?`🔥 PLUS QUE ${currentProd.stock}`:'✅ EN STOCK'; let html=''; currentProd.variants.forEach(v=>{ html+=`<div class="p-tarif" onclick="selectTarif(this,'${v.label}',${v.price})"><div class="ck">✓</div><b>${v.label}</b><span>${v.price}€</span></div>`; }); document.getElementById('qteGrid').innerHTML=html; document.getElementById('qteNum').innerText=qteCount; document.getElementById('totalPrice').innerText='0.00€'; document.getElementById('btnText').innerText='Choisis un format'; document.getElementById('prodAddBtn').classList.remove('active'); buildAutres(id); document.getElementById('productModal').classList.add('open');}
 function closeProduct(){document.getElementById('productModal').classList.remove('open');let v=document.getElementById('prodVideo');try{v.pause();}catch(e){}}
 function selectTarif(el,label,price){ if(isBanned()) return; trackAction('cart','Sélection: '+currentProd.name+' '+label); document.querySelectorAll('.p-tarif').forEach(b=>b.classList.remove('active')); el.classList.add('active'); selectedVariant={label,price}; refreshTotal();}
 function changeQte(dir){ if(isBanned()) return; qteCount+=dir; if(qteCount<1) qteCount=1; if(qteCount>20) qteCount=20; document.getElementById('qteNum').innerText=qteCount; refreshTotal();}
-function refreshTotal(){ if(!selectedVariant){ document.getElementById('totalPrice').innerText='0.00€'; document.getElementById('btnText').innerText='Choisis un format'; document.getElementById('prodAddBtn').classList.remove('active','green'); return; } let total=selectedVariant.price*qteCount; document.getElementById('totalPrice').innerText=total.toFixed(2)+'€'; document.getElementById('btnText').innerText=`Ajouter au panier • ${total}€`; let btn=document.getElementById('prodAddBtn'); btn.classList.add('active'); btn.classList.add('green');}
+function refreshTotal(){ if(!selectedVariant){ document.getElementById('totalPrice').innerText='0.00€'; document.getElementById('btnText').innerText='Choisis un format'; document.getElementById('prodAddBtn').classList.remove('active'); return; } let total=selectedVariant.price*qteCount; document.getElementById('totalPrice').innerText=total.toFixed(2)+'€'; document.getElementById('btnText').innerText=`Ajouter au panier • ${total}€`; let btn=document.getElementById('prodAddBtn'); btn.classList.add('active');}
 function buildAutres(currentId){ let html=''; for(let pid in PRODUCTS){ if(pid===currentId) continue; let p=PRODUCTS[pid]; html+=`<div class="autres-card" onclick="openProduct('${pid}')"><video src="${p.video}" autoplay muted loop playsinline preload="metadata"></video><div class="smoke-layer"><div class="smoke"></div></div><div class="autres-card-info"><b>${escapeHtml(p.name)}</b><small>${p.variants[0].label} • ${p.variants[0].price}€</small></div></div>`; } document.getElementById('autresGrid').innerHTML=html;}
 function addProdToCart(){ if(isBanned()){showFullBan();return;} if(!selectedVariant){alert('Choisis un format !');return;} let id=currentProd.id+'_'+selectedVariant.label; if(!cart[id])cart[id]={name:currentProd.name,qteLabel:selectedVariant.label,price:selectedVariant.price,qty:qteCount,total:selectedVariant.price*qteCount}; else{cart[id].qty+=qteCount;cart[id].total=cart[id].qty*cart[id].price;} trackAction('cart','Ajout panier: '+currentProd.name+' '+selectedVariant.label+' x'+qteCount); updateCart();closeProduct();openCart();}
 document.getElementById('prodAddBtn').addEventListener('click',addProdToCart);
@@ -252,7 +285,60 @@ function removeItem(id){ trackAction('cart','Suppression: '+id); delete cart[id]
 function openCart(){if(isBanned()){showFullBan();return;} trackAction('view','Ouverture panier'); document.getElementById('cartDrawer').classList.add('open');}
 function closeCart(){document.getElementById('cartDrawer').classList.remove('open');}
 function selectHour(el){if(isBanned()) return; trackAction('view','Horaire: '+el.textContent); document.querySelectorAll('.hours button').forEach(b=>b.classList.remove('active'));el.classList.add('active');selectedHour=el.textContent;}
-async function checkout(){ if(isBanned()){showFullBan();return;} let total=0;for(let id in cart){total+=cart[id].total;} if(total===0){alert("Panier vide !");return;} let realTotal=0; for(let id in cart){ let prodId=id.split('_')[0]; let realProd=PRODUCTS[prodId]; if(!realProd){ alert('Produit invalide'); return; } let variant=realProd.variants.find(v=>v.label===cart[id].qteLabel); if(!variant || variant.price!==cart[id].price){ alert('Prix modifié détecté 🚫'); trackAction('hack_attempt','Modif prix: '+id,true); return; } realTotal+=variant.price*cart[id].qty; } if(realTotal!==total){ alert('Erreur panier'); return; } let addr=document.getElementById('addr').value.trim();if(!addr||addr.length<8){alert("Adresse trop courte !");openCart();return;} trackAction('order','Tentative commande: '+total+'€ - '+addr.slice(0,30)); let tgUser=getTelegramUser();let custName=getTelegramName(); let order={id:'CMD-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${escapeHtml(i.name)} - ${escapeHtml(i.qteLabel)} x${i.qty} = ${i.total}€`).join('<br>'),total:total,customerName:escapeHtml(custName),telegramId:tgUser?.id||null,telegramUsername:tgUser?.username||null,address:escapeHtml(addr),hour:escapeHtml(selectedHour),note:escapeHtml(document.getElementById('note').value),remaining:shopSettings.defaultTime||40,status:'en attente',statusStep:1,deviceId:DEVICE_ID}; orders.unshift(order);fullHistory.unshift(order);let ok=await saveAll();if(ok){await notifyAdminNewOrder(order);localStorage.setItem('simone_myOrder',JSON.stringify(order));lastNotifiedStatus='en attente';cart={};updateCart();closeCart();checkMyOrder();alert('✅ Commande envoyée !'); trackAction('order','Commande validée: '+order.id+' '+total+'€');} }
+
+// ✅ CHECKOUT CORRIGE ANTI DOUBLE CLIC
+let isOrdering=false,lastOrderTime=0;
+async function checkout(){
+  if(isBanned()){showFullBan();return;}
+  if(isOrdering) return;
+  let total=0;for(let id in cart){total+=cart[id].total;}
+  if(total===0){alert("Panier vide !");return;}
+  if(Date.now()-lastOrderTime < 10000){alert("Ta commande est déjà en cours d'envoi ⏳ Attends 10 sec");return;}
+  let realTotal=0;
+  for(let id in cart){
+    let prodId=id.split('_')[0];
+    let realProd=PRODUCTS[prodId];
+    if(!realProd){alert('Produit invalide');return;}
+    let variant=realProd.variants.find(v=>v.label===cart[id].qteLabel);
+    if(!variant || variant.price!==cart[id].price){alert('Prix modifié 🚫');trackAction('hack_attempt','Modif prix: '+id,true);return;}
+    realTotal+=variant.price*cart[id].qty;
+  }
+  if(realTotal!==total){alert('Erreur panier');return;}
+  let addr=document.getElementById('addr').value.trim();
+  if(!addr||addr.length<8){alert("Adresse trop courte !");openCart();return;}
+  isOrdering=true;
+  let btn=document.getElementById('checkoutBtn');
+  let oldText=btn.innerHTML;
+  btn.disabled=true;
+  btn.style.opacity='0.5';
+  btn.innerHTML='⏳ Envoi...';
+  lastOrderTime=Date.now();
+  try{
+    trackAction('order','Tentative commande: '+total+'€ - '+addr.slice(0,30));
+    let tgUser=getTelegramUser();
+    let custName=getTelegramName();
+    let order={id:'CMD-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${escapeHtml(i.name)} - ${escapeHtml(i.qteLabel)} x${i.qty} = ${i.total}€`).join('<br>'),total:total,customerName:escapeHtml(custName),telegramId:tgUser?.id||null,telegramUsername:tgUser?.username||null,address:escapeHtml(addr),hour:escapeHtml(selectedHour),note:escapeHtml(document.getElementById('note').value),remaining:shopSettings.defaultTime||40,status:'en attente',statusStep:1,deviceId:DEVICE_ID};
+    orders.unshift(order);fullHistory.unshift(order);
+    let ok=await saveAll();
+    if(ok){
+      await notifyAdminNewOrder(order);
+      localStorage.setItem('simone_myOrder',JSON.stringify(order));
+      lastNotifiedStatus='en attente';
+      cart={};updateCart();closeCart();checkMyOrder();
+      btn.innerHTML='✅ Envoyé !';
+      setTimeout(()=>alert('✅ Commande envoyée !'),300);
+      trackAction('order','Commande validée: '+order.id+' '+total+'€');
+    }else{
+      orders.shift();fullHistory.shift();
+      alert('Erreur réseau, réessaie');
+      lastOrderTime=0;
+    }
+  }catch(e){alert('Erreur, réessaie');lastOrderTime=0;}
+  finally{
+    setTimeout(()=>{isOrdering=false;if(btn){btn.disabled=false;btn.style.opacity='1';btn.innerHTML=oldText;}},3000);
+  }
+}
+
 function checkMyOrder(){if(isBanned()){showFullBan();return;}let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');let banner=document.getElementById('myOrderBanner');let canceled=document.getElementById('canceledBanner');if(!my){banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.remove('show');lastNotifiedStatus=null;return;}let found=orders.find(o=>o.id===my.id);if(!found&&hasFetchedOnce&&(Date.now()-my.time)>15000){localStorage.removeItem('simone_myOrder');banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.remove('show');lastNotifiedStatus=null;return;}let d=found||my;if(d.status==='annulé'){banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.add('show');document.getElementById('canceledId').textContent=d.id;return;}let elapsed=Math.floor((Date.now()-d.time)/60000);let rest=d.remaining-elapsed;if(rest<0)rest=0;let step=d.statusStep||1;document.getElementById('myOrderId').textContent=d.id+' - '+d.total+'€';if(d.status==='en attente'){document.getElementById('myOrderStatus').textContent='📦 COMMANDE EN ATTENTE';document.getElementById('myOrderTimer').textContent='EN ATTENTE DE CONFIRMATION';banner.classList.remove('arrived');}else if(d.status==='en préparation'){document.getElementById('myOrderStatus').textContent='👨‍🍳 EN PRÉPARATION';document.getElementById('myOrderTimer').textContent='PRÉPARATION EN COURS';banner.classList.remove('arrived');}else if(d.status==='en route'){document.getElementById('myOrderStatus').textContent='🛵 LIVREUR EN ROUTE';document.getElementById('myOrderTimer').textContent=rest===0?'ARRIVÉE IMMINENTE':'LIVREUR EN ROUTE - '+rest+' MIN';banner.classList.remove('arrived');}else if(d.status==='livré'){document.getElementById('myOrderStatus').textContent='✅ LIVREUR ARRIVÉ';document.getElementById('myOrderTimer').textContent='LIVREUR ARRIVÉ ✅ DESCENDS !';banner.classList.add('arrived');}let stepsEl=document.getElementById('mySteps');if(stepsEl){let html='';for(let i=1;i<=4;i++){html+=`<div class="${i<step?'done':''} ${i===step?'active':''}"></div>`;}stepsEl.innerHTML=html;}banner.classList.add('show');canceled.classList.remove('show');}
 setInterval(()=>{checkMyOrder();checkBanned();},1000);
 setInterval(fetchAll,8000);
@@ -295,8 +381,8 @@ async function clearAllBans(){if(confirm('Débannir tout ?')){bannedList=[];awai
 async function updateRemaining(i){let v=parseInt(document.getElementById('input-'+i).value);if(v>0){orders[i].remaining=v;orders[i].time=Date.now();await saveAll();renderAdminOrders();}}
 async function addTime(i,d){orders[i].remaining+=d;if(orders[i].remaining<1)orders[i].remaining=0;orders[i].time=Date.now();await saveAll();renderAdminOrders();}
 async function updateStatus(i,s,st){orders[i].status=s;orders[i].statusStep=st;if(s==='livré')orders[i].remaining=0;await saveAll();renderAdminOrders();checkMyOrder();if(s==='livré'){let o=orders[i];if(o.telegramId){let msg=`✅ LIVREUR ARRIVÉ !\n\n🛵 SIMONE est devant !\n📦 ${o.id} - ${o.total}€\n📍 ${o.address}`;await sendTelegramMsg(o.telegramId,msg);}}}
-async function deleteOrder(i){if(confirm('Supprimer cette commande ? Cette action est définitive.')){orders.splice(i,1);await saveAll();renderAdminOrders();renderDashboard();}}
-async function clearAllOrders(){if(confirm('⚠️ SUPPRIMER TOUTES LES COMMANDES ? Cette action est définitive !')){orders=[];fullHistory=[];await saveAll();renderAdminOrders();renderDashboard();alert('Toutes les commandes supprimées ✅');}}
+async function deleteOrder(i){if(confirm('Supprimer cette commande ?')){orders.splice(i,1);await saveAll();renderAdminOrders();renderDashboard();}}
+async function clearAllOrders(){if(confirm('⚠️ SUPPRIMER TOUTES LES COMMANDES ?')){orders=[];fullHistory=[];await saveAll();renderAdminOrders();renderDashboard();alert('Toutes les commandes supprimées ✅');}}
 async function clearHist(){if(confirm('Vider historique ?')){fullHistory=[];await saveAll();renderHist();}}
 async function deleteAvis(i){avisList.splice(i,1);await saveAll();renderAdminAvis();renderAvis();}
 async function clearAllAvis(){if(confirm('Supprimer tous les avis ?')){avisList=[];await saveAll();renderAdminAvis();renderAvis();}}
@@ -304,76 +390,67 @@ async function replyToClient(i){ let o=orders[i]; if(!o.telegramId){alert('Ce cl
 async function sendDirectToId(tgId){ if(!tgId||tgId==='null'){alert('Pas de TG ID');return;} let msg=prompt('Message à envoyer:'); if(!msg)return; let ok=await sendTelegramMsg(tgId,msg); if(ok)alert('✅ Envoyé'); else alert('❌ Erreur');}
 async function banClient(i){ let o=orders[i]; let reason=prompt('Motif du ban ?', 'Comportement suspect'); if(reason===null)return; let days=prompt('Durée en jours ? 0 = définitif','7'); if(days===null)return; let until= days==0 ? null : Date.now()+parseInt(days)*24*60*60*1000; bannedList.push({deviceId:o.deviceId,telegramId:o.telegramId,name:o.customerName,reason:reason,until:until,date:new Date().toLocaleString('fr-FR')}); await saveAll(); renderAdminBans(); if(o.telegramId) await sendTelegramMsg(o.telegramId,`🚫 Banni de Simone Paris\nMotif: ${reason}\nDurée: ${days==0?'Définitif':days+' jours'}`); alert('🚫 Client banni');}
 async function sendBroadcast(){ let msg=document.getElementById('broadcastMsg').value.trim(); if(!msg){alert('Message vide');return;} let ids=[...new Set(orders.concat(fullHistory).map(o=>o.telegramId).filter(Boolean))]; if(ids.length===0){alert('Aucun client Telegram trouvé');return;} if(!confirm(`Envoyer à ${ids.length} clients ?`))return; let c=0; for(let id of ids){ let ok=await sendTelegramMsg(id,`📢 SIMONE PARIS\n\n${msg}`); if(ok)c++; await new Promise(r=>setTimeout(r,400)); } alert(`Broadcast envoyé à ${c}/${ids.length} clients ✅`);}
-fetchAll();
-checkBanned();
-</script>
-<div class="section" style="margin-top:40px;"><span class="t">🗺️ ZONES LIVRAISON LIVE</span><span class="l"></span></div>
-<div style="margin:0 14px;background:#15151d;border:1px solid #1f1f25;border-radius:22px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.3)">
-  <div style="padding:14px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#15151d,#1a1a24)">
-    <div><b style="font-size:13px">📍 Paris & IDF</b><br><small style="opacity:0.5;font-size:10px">Clique ta zone = délai instantané</small></div>
-    <div style="background:#25D366;padding:5px 12px;border-radius:100px;font-size:10px;font-weight:900;box-shadow:0 0 10px #25D36688">● EN LIGNE</div>
-  </div>
-  
-  <!-- Recherche code postal -->
-  <div style="padding:10px 14px;background:#0f0f14;display:flex;gap:8px">
-    <input id="cpInput" placeholder="Ton code postal: 75001" style="flex:1;background:#15151d;border:1px solid #222;color:#fff;padding:10px 12px;border-radius:12px;font-size:12px;outline:none" maxlength="5" onkeyup="if(event.key==='Enter')checkCP()">
-    <button onclick="checkCP()" style="background:#fff;color:#000;border:none;padding:10px 16px;border-radius:12px;font-size:12px;font-weight:900">OK</button>
-  </div>
 
-  <div style="background:#0a0a0f;padding:14px;position:relative">
-    <svg viewBox="0 0 200 200" style="width:100%;height:220px">
-      <circle cx="100" cy="100" r="78" fill="none" stroke="#1e1e28" stroke-width="1" stroke-dasharray="3 5"/>
-      <!-- 75-93 centre rapide -->
-      <g style="cursor:pointer" onclick="showZone('75-93','15-25 min','⚡ ULTRA RAPIDE','Paris centre + Hauts-de-Seine • Livreur à 5min')">
-        <circle cx="100" cy="68" r="22" fill="#25D366" opacity="0.2"/><circle cx="100" cy="68" r="8" fill="#25D366" style="filter:drop-shadow(0 0 8px #25D366)"/><text x="100" y="72" text-anchor="middle" font-size="7" fill="#fff" font-weight="900">75-93</text>
-      </g>
-      <g style="cursor:pointer" onclick="showZone('94 Val-de-Marne','30-40 min','🚀 RAPIDE','Créteil / Vitry • Stock local')">
-        <circle cx="65" cy="100" r="18" fill="#25D366" opacity="0.2" stroke="#25D366" stroke-width="1"/><text x="65" y="104" text-anchor="middle" font-size="8" fill="#fff" font-weight="800">94</text>
-      </g>
-      <g style="cursor:pointer" onclick="showZone('92 Hauts-de-Seine','25-40 min','🚀 RAPIDE','Nanterre / Boulogne • Scooter')">
-        <circle cx="135" cy="100" r="18" fill="#25D366" opacity="0.2" stroke="#25D366" stroke-width="1"/><text x="135" y="104" text-anchor="middle" font-size="8" fill="#fff" font-weight="800">92</text>
-      </g>
-      <g style="cursor:pointer" onclick="showZone('91-95 Essonne/VO','50-70 min','✅ STANDARD','+10€ express • 1h max')">
-        <circle cx="138" cy="135" r="18" fill="#FFD700" opacity="0.2" stroke="#FFD700" stroke-width="1"/><text x="138" y="139" text-anchor="middle" font-size="7" fill="#fff" font-weight="800">91-95</text>
-      </g>
-      <g style="cursor:pointer" onclick="showZone('78-77 Yvelines/77','60-120 min','⏳ LONG TRAJET','Versailles / Melun • Sur RDV')">
-        <circle cx="62" cy="138" r="18" fill="#ff6b00" opacity="0.2" stroke="#ff6b00" stroke-width="1"/><text x="62" y="142" text-anchor="middle" font-size="7" fill="#fff" font-weight="800">78-77</text>
-      </g>
-    </svg>
-    
-    <div id="zoneInfo" style="display:none;background:linear-gradient(135deg,#1e1e24,#15151d);border:1px solid #25D366;border-radius:16px;padding:14px;margin-top:4px;animation:pop 0.3s">
-      <div style="display:flex;justify-content:space-between;align-items:center"><b id="zTitle" style="font-size:14px"></b><span id="zTime" style="background:#25D366;color:#000;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:900"></span></div>
-      <div id="zExtra" style="font-size:11px;margin-top:6px;color:#25D366;font-weight:700"></div>
-      <div id="zDesc" style="font-size:11px;opacity:0.6;margin-top:4px;line-height:1.4"></div>
-    </div>
-
-    <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
-      <span style="font-size:9px;background:#25D36622;border:1px solid #25D36655;color:#25D366;padding:4px 8px;border-radius:100px">🟢 15-40min</span>
-      <span style="font-size:9px;background:#FFD70022;border:1px solid #FFD70055;color:#FFD700;padding:4px 8px;border-radius:100px">🟡 50-70min</span>
-      <span style="font-size:9px;background:#ff6b0022;border:1px solid #ff6b0055;color:#ff6b00;padding:4px 8px;border-radius:100px">🟠 1-2h</span>
-    </div>
-  </div>
-</div>
-
-<script>
+// MAP LIVE LIVREURS LOGIQUE
+let couriers = JSON.parse(localStorage.getItem('simone_couriers')||'[{"name":"Karim 75","x":48,"y":35,"status":"free"},{"name":"Yanis 92","x":68,"y":55,"status":"free"},{"name":"Sofiane 94","x":35,"y":62,"status":"busy"}]');
+let tempPos=null;
+function renderCouriers(){
+  let layer=document.getElementById('courierLayer');
+  if(!layer) return;
+  layer.innerHTML='';
+  document.getElementById('liveCount').textContent=couriers.length;
+  couriers.forEach((c,i)=>{
+    let d=document.createElement('div');
+    d.style.cssText=`position:absolute;left:${c.x}%;top:${c.y}%;transform:translate(-50%,-50%);transition:all 1s ease;cursor:pointer`;
+    d.innerHTML=`<div style="position:relative;text-align:center" onclick="showCourier(${i})"><div style="width:28px;height:28px;background:${c.status==='free'?'#25D366':'#FFD700'};border:2px solid #000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;box-shadow:0 0 12px ${c.status==='free'?'#25D366':'#FFD700'}">🛵</div><div style="background:rgba(0,0,0,0.85);color:#fff;font-size:7px;padding:2px 5px;border-radius:100px;margin-top:2px;white-space:nowrap;font-weight:800">${c.name}</div></div>`;
+    layer.appendChild(d);
+  });
+  localStorage.setItem('simone_couriers', JSON.stringify(couriers));
+}
+function showCourier(i){
+  let c=couriers[i];
+  let box=document.getElementById('zoneInfo');
+  document.getElementById('zTitle').textContent='🛵 '+c.name;
+  document.getElementById('zTime').textContent=c.status==='free'?'15-25 min':'30-45 min';
+  document.getElementById('zDesc').textContent=c.status==='free'?'Disponible maintenant':'En course, bientôt dispo';
+  document.getElementById('zExtra').textContent=c.status==='free'?'⚡ ULTRA RAPIDE':'⏳ En livraison';
+  box.style.display='block';
+}
 function showZone(arr,time,speed,desc){
-  let b=document.getElementById('zoneInfo');
+  let box=document.getElementById('zoneInfo');
   document.getElementById('zTitle').textContent=arr;
   document.getElementById('zTime').textContent=time;
-  document.getElementById('zDesc').textContent=desc;
-  document.getElementById('zExtra').textContent=speed;
-  b.style.display='block';
+  document.getElementById('zDesc').textContent=desc||'';
+  document.getElementById('zExtra').textContent=speed||'';
+  box.style.display='block';
 }
 function checkCP(){
   let cp=document.getElementById('cpInput').value.trim();
   if(!cp) return;
   let c=parseInt(cp.substring(0,2));
-  if([75,92,93].includes(c) || cp.startsWith('75')) showZone('75-93','15-25 min','⚡ ULTRA RAPIDE','Ton CP '+cp+' = zone prioritaire, livreur à 5min');
-  else if(cp.startsWith('94')) showZone('94','30-40 min','🚀 RAPIDE','Ton CP '+cp+' = 30-40min');
-  else if(cp.startsWith('92')) showZone('92','25-40 min','🚀 RAPIDE','Ton CP '+cp+' = 25-40min');
-  else if([91,95].includes(c)) showZone('91-95','50-70 min','✅ STANDARD','Ton CP '+cp+' = 50-70min, +10€ express possible');
-  else showZone(cp,'60-120 min','⏳ LONG TRAJET','Ton CP '+cp+' = 1-2h sur RDV Telegram');
+  if([75,92,93].includes(c) || cp.startsWith('75')) showZone('Zone '+cp,'15-25 min','⚡ ULTRA RAPIDE','Paris centre • 15-25 min');
+  else if(cp.startsWith('94')) showZone('Zone '+cp,'30-40 min','🚀 RAPIDE','94 • 30-40 min');
+  else if(cp.startsWith('92')) showZone('Zone '+cp,'25-40 min','🚀 RAPIDE','92 • 25-40 min');
+  else if([91,95].includes(c)) showZone('Zone '+cp,'50-70 min','✅ STANDARD','91-95 • 50-70 min');
+  else showZone('Zone '+cp,'60-120 min','⏳ LONG TRAJET','Sur RDV');
 }
+document.getElementById('mapContainer').addEventListener('click',function(e){
+  let rect=e.currentTarget.getBoundingClientRect();
+  tempPos={x:((e.clientX-rect.left)/rect.width*100).toFixed(1), y:((e.clientY-rect.top)/rect.height*100).toFixed(1)};
+});
+function saveCourier(){
+  if(!tempPos) return alert('Clique d\'abord sur la map');
+  let name=document.getElementById('courierName').value||'Livreur '+(couriers.length+1);
+  let status=document.getElementById('courierStatus').value;
+  couriers.push({name:name,x:parseFloat(tempPos.x),y:parseFloat(tempPos.y),status:status});
+  tempPos=null; document.getElementById('courierName').value='';
+  renderCouriers();
+}
+function clearCouriers(){ if(confirm('Supprimer tous les livreurs ?')){ couriers=[]; renderCouriers(); } }
+setTimeout(()=>{ document.getElementById('courierAdmin').style.display='block'; renderCouriers(); setInterval(()=>{ couriers.forEach(c=>{ if(c.status==='free' && Math.random()>0.6){ c.x=Math.min(90,Math.max(10,c.x+(Math.random()-0.5)*3)); c.y=Math.min(90,Math.max(10,c.y+(Math.random()-0.5)*3)); }}); renderCouriers(); },5000); },800);
+
+fetchAll();
+checkBanned();
 </script>
-<style>@keyframes pop{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1}}</style>
-      
+</body>
+</html>
