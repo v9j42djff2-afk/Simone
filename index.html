@@ -137,21 +137,24 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </head>
 <body>
 <div id="fullBanScreen"><div style="font-size:80px">🚫</div><h1 style="font-size:52px;font-weight:900;letter-spacing:-2px;color:#fff;line-height:0.9">TU ES<span style="color:#ff1a1a;display:block;margin-top:10px">BANNI</span></h1><p style="margin-top:20px;font-size:14px;opacity:0.6;letter-spacing:1px">ACCÈS REFUSÉ</p><div id="fullBanUntil" style="margin-top:30px;font-size:11px;opacity:0.3;background:#111;border:1px solid #222;padding:10px 16px;border-radius:100px"></div></div>
-<div id="actuTicker" style="position:fixed;top:0;left:0;right:0;z-index:350;background:linear-gradient(90deg,#ff1a1a,#b30000);color:#fff;padding:6px 0;overflow:hidden;white-space:nowrap;display:none"><div id="actuTrack" style="display:inline-block;animation:scrollActu 25s linear infinite;font-size:11px;font-weight:900;letter-spacing:0.5px"></div></div>
+
+<!-- ACTU TICKER EN HAUT -->
+<div id="actuTicker" style="position:fixed;top:0;left:0;right:0;z-index:350;background:linear-gradient(90deg,#ff1a1a,#b30000);color:#fff;padding:6px 0;overflow:hidden;white-space:nowrap;display:none">
+  <div id="actuTrack" style="display:inline-block;animation:scrollActu 25s linear infinite;font-size:11px;font-weight:900;letter-spacing:0.5px"></div>
+</div>
+
 <button id="adminBtn" class="admin-btn-top" onclick="openAdmin()">🔐 ADMIN</button>
 <div class="hero"><div class="smoke-layer"><div class="smoke"></div><div class="smoke smoke2"></div></div><div class="shine"></div><div class="top-bar"><div class="btn-fermer">✕ Fermer</div><div class="btn-telegram">SIMONE PARIS</div></div><div class="hero-content"><h1>SIMONE<br>PARIS</h1><p>Qualité premium • Livraison 24H/24<br>Paiement uniquement en Espèce</p></div></div>
 <div class="welcome"><div class="dot"></div><div><b id="profileUsername">Bienvenue chez Simone 🌿</b><span>En ligne • Réponse rapide</span></div></div>
 <div class="socials">
-<a class="social-btn telegram" onclick="openTelegramDirect('https://t.me/simone750')"><div class="ico">✈️</div><div><div>Contact Direct</div><small>@SIMONE750</small></div></a>
-<a class="social-btn telegram2" onclick="openTelegramDirect('https://t.me/simoneparis75')"><div class="ico">📢</div><div><div>Canal Officiel</div><small>SIMONE PARIS 75</small></div></a>
-<a class="social-btn vip" onclick="openTelegramDirect('https://t.me/+fMVJpuuy_KRhZjVk')"><div class="ico">👑</div><div><div>Canal VIP</div><small>ACCÈS EXCLUSIF</small></div></a>
+<a class="social-btn telegram" onclick="openLink('https://t.me/simone750')"><div class="ico">✈️</div><div><div>Contact Direct</div><small>@SIMONE750</small></div></a>
+<a class="social-btn telegram2" onclick="openLink('https://t.me/simoneparis75')"><div class="ico">📢</div><div><div>Canal Officiel</div><small>SIMONE PARIS 75</small></div></a>
+<a class="social-btn vip" onclick="openLink('https://t.me/+fMVJpuuy_KRhZjVk')"><div class="ico">👑</div><div><div>Canal VIP</div><small>ACCÈS EXCLUSIF</small></div></a>
 <a class="social-btn insta" onclick="openLink('https://www.instagram.com/simonecoffee57')"><div class="ico">📸</div><div><div>Instagram</div><small>@SIMONECOFFEE57</small></div></a>
 </div>
-
 <div id="myOrderBanner" class="my-order-banner" style="background:linear-gradient(135deg,#ff1a1a,#b30000)"><p style="font-size:11px;opacity:0.8" id="myOrderStatus">📦 COMMANDE EN ATTENTE</p><b id="myOrderTimer">En attente</b><div class="status-steps" id="mySteps"><div class="active"></div><div></div><div></div><div></div></div><p id="myOrderId" style="font-size:11px;margin-top:8px;opacity:0.7"></p></div>
 <div id="bannedBanner" class="my-order-banner banned"><p style="font-size:11px;color:#ff1a1a">🚫 COMPTE BANNI</p><b style="font-size:18px">TU ES BANNI</b><p id="bannedUntil" style="font-size:11px;margin-top:6px"></p></div>
 <div id="canceledBanner" class="my-order-banner canceled"><p style="font-size:11px">❌ COMMANDE ANNULÉE</p><b style="font-size:18px">CONTACTE SIMONE</b><p id="canceledId" style="font-size:11px;margin-top:6px"></p></div>
-
 <div class="section"><span class="t">CATÉGORIES</span><span class="l"></span></div>
 <div class="cat-scroll"><div class="cat active" onclick="filterCat(this,'all')"><span>🔥</span> Tous</div><div class="cat" onclick="filterCat(this,'FLEUR')"><span>🌿</span> FLEUR</div><div class="cat" onclick="filterCat(this,'HASH')"><span>🍫</span> HASH</div></div>
 <div class="section"><span class="t">RÉCENTS</span><span class="l"></span></div>
@@ -195,33 +198,36 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
     </div>
   </div>
 </div>
-<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN V13</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#fff">🔐 Accès sécurisé</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p><p id="adminBrute" style="color:#ff1a1a;font-size:11px;margin-top:8px;display:none"></p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabDash" class="active" onclick="switchAdminTab('dash')">📊 DASH</button><button id="tabOrders" onclick="switchAdminTab('orders')">📦 CMD (<span id="adminCount">0</span>)</button><button id="tabClients" onclick="switchAdminTab('clients')">👥 CLIENTS (<span id="adminClientsCount">0</span>)</button><button id="tabSpy" onclick="switchAdminTab('spy')">👁️ LIVE (<span id="adminSpyCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 HIST</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 BANS (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ AVIS (<span id="adminAvisCount">0</span>)</button><button id="tabBroadcast" onclick="switchAdminTab('broadcast')">📢 BROADCAST</button><button id="tabCouriers" onclick="switchAdminTab('couriers')">🛵 LIVREURS (<span id="adminCouriersCount">0</span>)</button><button id="tabActu" onclick="switchAdminTab('actu')">🔴 ACTU</button></div><div id="adminDashView"><div class="dash-grid"><div class="dash-card"><span>CA TOTAL</span><b id="dashCATotal">0€</b></div><div class="dash-card"><span>CA AUJOURD'HUI</span><b id="dashCAToday" style="color:#25D366">0€</b></div><div class="dash-card"><span>COMMANDES TOTAL</span><b id="dashOrdersTotal">0</b></div><div class="dash-card"><span>CLIENTS UNIQUES</span><b id="dashClients">0</b></div></div><div class="info-box" style="margin-top:12px"><h4 style="font-size:12px;font-weight:900">🗑️ GESTION COMMANDES</h4><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:12px 16px;border-radius:12px;font-size:12px;font-weight:900">🗑️ Supprimer TOUTES les commandes</button></div></div></div><div id="adminOrdersView" style="display:none"><div style="display:flex;gap:6px;margin-bottom:10px"><input id="orderSearch" class="search-bar" placeholder="🔍 Recherche..." oninput="renderAdminOrders()"><select id="statusFilter" class="search-bar" style="max-width:120px" onchange="renderAdminOrders()"><option value="all">Tous</option><option value="en attente">En attente</option><option value="en préparation">Prépa</option><option value="en route">En route</option><option value="livré">Livré</option></select></div><div id="adminOrdersList"></div></div><div id="adminClientsView" style="display:none"><h3 style="margin-bottom:10px">👥 Clients</h3><div id="adminClientsList"></div></div><div id="adminSpyView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><h3>👁️ LIVE TRACK</h3><small style="opacity:0.5">Tout ce que font les gens</small></div><button onclick="clearSpy()" style="background:#ff1a1a;border:none;color:#fff;padding:6px 10px;border-radius:8px;font-size:10px">Vider</button></div><div id="adminSpyList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div><div id="adminBroadcastView" style="display:none"><div class="info-box"><h4>📢 BROADCAST & MESSAGES</h4><textarea id="broadcastMsg" class="textarea" placeholder="Promo du jour..."></textarea><button class="btn-main" onclick="sendBroadcast()" style="margin-top:10px">Envoyer à TOUS ✈️</button></div></div>
-<div id="adminCouriersView" style="display:none"><h3>🛵 Gestion Livreurs</h3><small style="opacity:0.5">Clique sur la map pour placer</small><div style="margin:12px 0;display:flex;gap:6px"><input id="courierNameAdmin" placeholder="Nom: Karim 75" style="flex:1;background:#000;border:1px solid #333;color:#fff;padding:10px;border-radius:10px;font-size:12px"><select id="courierStatusAdmin" style="background:#000;border:1px solid #333;color:#fff;padding:10px;border-radius:10px;font-size:11px"><option value="free">🟢 Libre - 15min</option><option value="busy">🟡 En course - 35min</option></select></div><div style="display:flex;gap:6px;margin-bottom:10px"><button onclick="saveCourierFromAdmin()" style="flex:1;background:#25D366;color:#000;border:none;padding:12px;border-radius:12px;font-weight:900">📍 PLACER SUR MAP</button><button onclick="clearCouriers()" style="background:#222;color:#fff;border:1px solid #333;padding:12px;border-radius:12px">Clear</button></div><div id="mapContainerAdmin" style="background:#0a0a0f;position:relative;width:100%;height:320px;border:1px solid #222;border-radius:16px;overflow:hidden;cursor:crosshair"><svg viewBox="0 0 200 200" style="width:100%;height:100%;position:absolute;top:0;left:0"><circle cx="100" cy="100" r="75" fill="none" stroke="#1e1e28" stroke-width="1" stroke-dasharray="3 5"/></svg><div id="courierLayerAdmin" style="position:absolute;top:0;left:0;width:100%;height:100%"></div><div id="tempMarkerAdmin" style="display:none;position:absolute;width:14px;height:14px;background:#fff;border:3px solid #25D366;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none"></div></div><div style="margin-top:10px"><small style="opacity:0.5">Livreurs actifs:</small><div id="adminCouriersList" style="margin-top:6px"></div></div></div>
-<div id="adminActuView" style="display:none"><h3>🔴 Actu Live</h3><small style="opacity:0.5">Bandeau en haut du site</small><div class="info-box" style="margin-top:12px"><input id="actuText" class="input" placeholder="Ex: PROMO -20% sur FROZEN jusqu'à minuit !"><select id="actuType" class="input" style="margin-top:8px"><option value="🔥 PROMO">🔥 PROMO</option><option value="📦 STOCK">📦 STOCK</option><option value="🚨 ALERTE">🚨 ALERTE</option><option value="🛵 LIVRAISON">🛵 LIVRAISON</option><option value="⏰ HORAIRES">⏰ HORAIRES</option></select><div style="display:flex;gap:6px;margin-top:8px"><button onclick="addActu()" style="flex:1;background:#ff1a1a;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900">📢 PUBLIER</button><button onclick="clearActu()" style="background:#222;color:#fff;border:1px solid #333;padding:12px;border-radius:12px">Clear</button></div></div><div style="margin-top:12px"><b style="font-size:11px;opacity:0.5">ACTUS:</b><div id="adminActuList" style="margin-top:8px"></div></div></div>
+<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN V13</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#fff">🔐 Accès sécurisé</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p><p id="adminBrute" style="color:#ff1a1a;font-size:11px;margin-top:8px;display:none"></p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabDash" class="active" onclick="switchAdminTab('dash')">📊 DASH</button><button id="tabOrders" onclick="switchAdminTab('orders')">📦 CMD (<span id="adminCount">0</span>)</button><button id="tabClients" onclick="switchAdminTab('clients')">👥 CLIENTS (<span id="adminClientsCount">0</span>)</button><button id="tabSpy" onclick="switchAdminTab('spy')">👁️ LIVE (<span id="adminSpyCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 HIST</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 BANS (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ AVIS (<span id="adminAvisCount">0</span>)</button><button id="tabBroadcast" onclick="switchAdminTab('broadcast')">📢 BROADCAST</button><button id="tabCouriers" onclick="switchAdminTab('couriers')">🛵 LIVREURS (<span id="adminCouriersCount">0</span>)</button><button id="tabActu" onclick="switchAdminTab('actu')">🔴 ACTU LIVE</button></div><div id="adminDashView"><div class="dash-grid"><div class="dash-card"><span>CA TOTAL</span><b id="dashCATotal">0€</b></div><div class="dash-card"><span>CA AUJOURD'HUI</span><b id="dashCAToday" style="color:#25D366">0€</b></div><div class="dash-card"><span>COMMANDES TOTAL</span><b id="dashOrdersTotal">0</b></div><div class="dash-card"><span>CLIENTS UNIQUES</span><b id="dashClients">0</b></div></div><div class="info-box" style="margin-top:12px"><h4 style="font-size:12px;font-weight:900">🗑️ GESTION COMMANDES</h4><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:12px 16px;border-radius:12px;font-size:12px;font-weight:900">🗑️ Supprimer TOUTES les commandes</button></div></div></div><div id="adminOrdersView" style="display:none"><div style="display:flex;gap:6px;margin-bottom:10px"><input id="orderSearch" class="search-bar" placeholder="🔍 Recherche..." oninput="renderAdminOrders()"><select id="statusFilter" class="search-bar" style="max-width:120px" onchange="renderAdminOrders()"><option value="all">Tous</option><option value="en attente">En attente</option><option value="en préparation">Prépa</option><option value="en route">En route</option><option value="livré">Livré</option></select></div><div id="adminOrdersList"></div></div><div id="adminClientsView" style="display:none"><h3 style="margin-bottom:10px">👥 Clients</h3><div id="adminClientsList"></div></div><div id="adminSpyView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><h3>👁️ LIVE TRACK</h3><small style="opacity:0.5">Tout ce que font les gens</small></div><button onclick="clearSpy()" style="background:#ff1a1a;border:none;color:#fff;padding:6px 10px;border-radius:8px;font-size:10px">Vider</button></div><div id="adminSpyList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div><div id="adminBroadcastView" style="display:none"><div class="info-box"><h4>📢 BROADCAST & MESSAGES</h4><textarea id="broadcastMsg" class="textarea" placeholder="Promo du jour..."></textarea><button class="btn-main" onclick="sendBroadcast()" style="margin-top:10px">Envoyer à TOUS ✈️</button></div></div>
+<div id="adminCouriersView" style="display:none">
+  <h3>🛵 Gestion Livreurs - Style Blot</h3><small style="opacity:0.5">Clique sur la map pour placer</small>
+  <div style="margin:12px 0;display:flex;gap:6px"><input id="courierNameAdmin" placeholder="Nom: Karim 75" style="flex:1;background:#000;border:1px solid #333;color:#fff;padding:10px;border-radius:10px;font-size:12px"><select id="courierStatusAdmin" style="background:#000;border:1px solid #333;color:#fff;padding:10px;border-radius:10px;font-size:11px"><option value="free">🟢 Libre - 15min</option><option value="busy">🟡 En course - 35min</option></select></div>
+  <div style="display:flex;gap:6px;margin-bottom:10px"><button onclick="saveCourierFromAdmin()" style="flex:1;background:#25D366;color:#000;border:none;padding:12px;border-radius:12px;font-weight:900">📍 PLACER SUR MAP</button><button onclick="clearCouriers()" style="background:#222;color:#fff;border:1px solid #333;padding:12px;border-radius:12px">Clear</button></div>
+  <div id="mapContainerAdmin" style="background:#0a0a0f;position:relative;width:100%;height:320px;border:1px solid #222;border-radius:16px;overflow:hidden;cursor:crosshair"><svg viewBox="0 0 200 200" style="width:100%;height:100%;position:absolute;top:0;left:0"><circle cx="100" cy="100" r="75" fill="none" stroke="#1e1e28" stroke-width="1" stroke-dasharray="3 5"/></svg><div id="courierLayerAdmin" style="position:absolute;top:0;left:0;width:100%;height:100%"></div><div id="tempMarkerAdmin" style="display:none;position:absolute;width:14px;height:14px;background:#fff;border:3px solid #25D366;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none"></div></div>
+  <div style="margin-top:10px"><small style="opacity:0.5">Livreurs actifs:</small><div id="adminCouriersList" style="margin-top:6px"></div></div>
+</div>
+<div id="adminActuView" style="display:none">
+  <h3>🔴 Service Actualités en Direct</h3><small style="opacity:0.5">Bandeau qui défile en haut du site</small>
+  <div class="info-box" style="margin-top:12px">
+    <input id="actuText" class="input" placeholder="Ex: PROMO -20% sur FROZEN jusqu'à minuit !">
+    <select id="actuType" class="input" style="margin-top:8px"><option value="🔥 PROMO">🔥 PROMO</option><option value="📦 STOCK">📦 STOCK</option><option value="🚨 ALERTE">🚨 ALERTE</option><option value="🛵 LIVRAISON">🛵 LIVRAISON</option><option value="⏰ HORAIRES">⏰ HORAIRES</option></select>
+    <div style="display:flex;gap:6px;margin-top:8px"><button onclick="addActu()" style="flex:1;background:#ff1a1a;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900">📢 PUBLIER EN DIRECT</button><button onclick="clearActu()" style="background:#222;color:#fff;border:1px solid #333;padding:12px;border-radius:12px">Clear</button></div>
+  </div>
+  <div style="margin-top:12px"><b style="font-size:11px;opacity:0.5">ACTUS ACTIVES:</b><div id="adminActuList" style="margin-top:8px"></div></div>
+</div>
 </div></div>
+
 <div class="section" style="margin-top:40px;"><span class="t">🗺️ LIVREURS EN DIRECT</span><span class="l"></span></div>
 <div style="margin:0 14px;background:#15151d;border:1px solid #1f1f25;border-radius:22px;overflow:hidden">
-  <div style="padding:14px;display:flex;justify-content:space-between;align-items:center"><div><b style="font-size:13px">🛵 <span id="liveCount">0</span> livreurs autour</b><br><small style="opacity:0.5;font-size:10px">Pos. actualisée toutes les 15s</small></div><div style="background:#25D366;padding:5px 12px;border-radius:100px;font-size:10px;font-weight:900;animation:pulse 2s infinite">● LIVE</div></div>
-  <div id="mapContainer" style="background:#0a0a0f;position:relative;width:100%;height:260px;overflow:hidden"><svg viewBox="0 0 200 200" style="width:100%;height:100%;position:absolute;top:0;left:0"><circle cx="100" cy="100" r="75" fill="none" stroke="#1e1e28" stroke-width="1" stroke-dasharray="3 5"/></svg><div id="courierLayer" style="position:absolute;top:0;left:0;width:100%;height:100%"></div></div>
+  <div style="padding:14px;display:flex;justify-content:space-between;align-items:center">
+    <div><b style="font-size:13px">🛵 <span id="liveCount">0</span> livreurs autour</b><br><small style="opacity:0.5;font-size:10px">Pos. actualisée toutes les 15s</small></div>
+    <div style="background:#25D366;padding:5px 12px;border-radius:100px;font-size:10px;font-weight:900;animation:pulse 2s infinite">● LIVE</div>
+  </div>
+  <div id="mapContainer" style="background:#0a0a0f;position:relative;width:100%;height:260px;overflow:hidden">
+    <svg viewBox="0 0 200 200" style="width:100%;height:100%;position:absolute;top:0;left:0"><circle cx="100" cy="100" r="75" fill="none" stroke="#1e1e28" stroke-width="1" stroke-dasharray="3 5"/></svg>
+    <div id="courierLayer" style="position:absolute;top:0;left:0;width:100%;height:100%"></div>
+  </div>
   <div id="zoneInfo" style="display:none;margin:10px;background:#1a1a1a;border:1px solid #25D366;border-radius:14px;padding:12px"><b id="zTitle" style="font-size:13px"></b> <span id="zTime" style="float:right;background:#25D366;color:#000;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:900"></span><div id="zDesc" style="font-size:11px;opacity:0.6;margin-top:4px"></div></div>
-</div>
-
-<div style="margin:30px 14px 10px;background:linear-gradient(135deg,#15151d,#0f0f14);border:1px solid #1f1f25;border-radius:22px;padding:20px;text-align:center">
-  <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px">
-    <div style="width:44px;height:44px;background:linear-gradient(135deg,#fff,#ccc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:14px">S</div>
-    <div style="text-align:left"><div style="display:flex;align-items:center;gap:6px"><b style="font-size:15px;letter-spacing:0.5px">SIMONE PARIS 75</b><span style="background:#2AABEE;color:#fff;padding:2px 6px;border-radius:100px;font-size:8px;font-weight:900;display:flex;align-items:center;gap:2px">✓ CERTIFIÉ</span></div><small style="opacity:0.5;font-size:10px">Boutique officielle • Depuis 2023</small></div>
-  </div>
-  <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0">
-    <span style="background:#0f0f14;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:9px;font-weight:800">✅ QUALITÉ PREMIUM</span>
-    <span style="background:#0f0f14;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:9px;font-weight:800">🚚 LIVRAISON 24/24</span>
-    <span style="background:#0f0f14;border:1px solid #222;padding:6px 10px;border-radius:100px;font-size:9px;font-weight:800">🔒 PAIEMENT ESPÈCES</span>
-    <span style="background:#0f0f14;border:1px solid #1f5c2e;padding:6px 10px;border-radius:100px;font-size:9px;font-weight:800;color:#25D366">📍 PARIS & IDF</span>
-  </div>
-  <div style="margin-top:12px;padding-top:12px;border-top:1px solid #1a1a1a;font-size:9px;opacity:0.35;letter-spacing:1px;line-height:1.6">
-    SIMONE PARIS 75 • SIMONECOFFEE57 • @SIMONE750 • @SIMONEPARIS75<br>
-    Site officiel certifié • Service officiel - Disponible pour vous aider.<br>
-    <span style="opacity:0.6">🔒 Sécurisé • Chiffrement Telegram • Livraison discrète</span>
-  </div>
 </div>
 
 <script>
@@ -234,25 +240,7 @@ let DEVICE_ID=getDeviceId();
 function getTelegramUser(){try{let tg=window.Telegram?.WebApp;if(tg)tg.ready();let u=tg?.initDataUnsafe?.user;if(u)return u;}catch(e){}return null;}
 function getTelegramName(){let u=getTelegramUser();if(u){let name=(u.first_name||'')+(u.last_name?' '+u.last_name:'');if(u.username)name+=' @'+u.username;return name.trim();}return 'Client';}
 function updateCaliProfile(){try{let u=getTelegramUser();if(u&&u.username){let el=document.getElementById('profileUsername');if(el)el.innerText='Bienvenue @'+u.username.toUpperCase()+' 🌿';}}catch(e){}}
-
-// FIX TELEGRAM DIRECT - RESTE DANS TELEGRAM
-function openTelegramDirect(url){
-  trackAction('view','Clic Telegram: '+url);
-  try{
-    let tg=window.Telegram?.WebApp;
-    if(tg){
-      if(tg.openTelegramLink){ tg.openTelegramLink(url); return; }
-      if(tg.openLink){ tg.openLink(url); return; }
-    }
-  }catch(e){}
-  window.location.href=url;
-}
-function openLink(url){
-  trackAction('view','Clic lien: '+url);
-  if(url.includes('t.me')){ openTelegramDirect(url); return; }
-  try{ let tg=window.Telegram?.WebApp; if(tg && tg.openLink){ tg.openLink(url); return; } }catch(e){}
-  window.open(url,'_blank');
-}
+function openLink(url){trackAction('view','Clic lien: '+url); try{let tg=window.Telegram?.WebApp;if(tg&&tg.openLink){tg.openLink(url);return;}}catch(e){}window.open(url,'_blank');}
 function filterCat(el,cat){if(isBanned()) return; trackAction('view','Filtre: '+cat); document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));el.classList.add('active');buildGrid(cat);}
 async function sendTelegramMsg(id,msg){if(!id)return false;let tokens=SecureVault.getTokens();for(let token of tokens){try{let res=await fetch(`https://api.telegram.org/bot${token}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:id,text:msg,parse_mode:'HTML'})});if(res.ok)return true;}catch(e){}}return false;}
 async function notifyAdminNewOrder(o){let msg=`🔔 NOUVELLE COMMANDE !\n\n📦 ${o.id}\n👤 ${o.customerName||''} ${o.telegramUsername?'@'+o.telegramUsername:''}\n💰 ${o.total}€\n📍 ${o.address}\n🕐 ${o.hour}\n\n${o.items}`;await sendTelegramMsg(SecureVault.getAdminId(),msg);}
@@ -337,30 +325,7 @@ async function checkout(){
   }catch(e){alert('Erreur');lastOrderTime=0;}
   finally{setTimeout(()=>{isOrdering=false;if(btn){btn.disabled=false;btn.style.opacity='1';btn.innerHTML=oldText;}},3000);}
 }
-function checkMyOrder(){
-  if(isBanned()){showFullBan();return;}
-  let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
-  let banner=document.getElementById('myOrderBanner');
-  let canceled=document.getElementById('canceledBanner');
-  if(!my){banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.remove('show');lastNotifiedStatus=null;return;}
-  let found=orders.find(o=>o.id===my.id);
-  if(!found&&hasFetchedOnce&&(Date.now()-my.time)>15000){localStorage.removeItem('simone_myOrder');banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.remove('show');lastNotifiedStatus=null;return;}
-  let d=found||my;
-  if(d.status==='annulé'){banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.add('show');document.getElementById('canceledId').textContent=d.id;return;}
-  let elapsed=Math.floor((Date.now()-d.time)/60000);
-  let rest=d.remaining-elapsed;
-  if(rest<0)rest=0;
-  let step=d.statusStep||1;
-  document.getElementById('myOrderId').textContent=d.id+' - '+d.total+'€';
-  if(d.status==='en attente'){document.getElementById('myOrderStatus').textContent='📦 COMMANDE EN ATTENTE';document.getElementById('myOrderTimer').textContent='EN ATTENTE DE CONFIRMATION';banner.classList.remove('arrived');}
-  else if(d.status==='en préparation'){document.getElementById('myOrderStatus').textContent='👨‍🍳 EN PRÉPARATION';document.getElementById('myOrderTimer').textContent='PRÉPARATION EN COURS';banner.classList.remove('arrived');}
-  else if(d.status==='en route'){document.getElementById('myOrderStatus').textContent='🛵 LIVREUR EN ROUTE';document.getElementById('myOrderTimer').textContent=rest===0?'ARRIVÉE IMMINENTE':'LIVREUR EN ROUTE - '+rest+' MIN';banner.classList.remove('arrived');}
-  else if(d.status==='livré'){document.getElementById('myOrderStatus').textContent='✅ LIVREUR ARRIVÉ';document.getElementById('myOrderTimer').textContent='LIVREUR ARRIVÉ ✅ DESCENDS !';banner.classList.add('arrived');}
-  let stepsEl=document.getElementById('mySteps');
-  if(stepsEl){let html='';for(let i=1;i<=4;i++){html+=`<div class="${i<step?'done':''} ${i===step?'active':''}"></div>`;}stepsEl.innerHTML=html;}
-  banner.classList.add('show');
-  canceled.classList.remove('show');
-}
+function checkMyOrder(){if(isBanned()){showFullBan();return;}let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');let banner=document.getElementById('myOrderBanner');let canceled=document.getElementById('canceledBanner');if(!my){banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.remove('show');lastNotifiedStatus=null;return;}let found=orders.find(o=>o.id===my.id);if(!found&&hasFetchedOnce&&(Date.now()-my.time)>15000){localStorage.removeItem('simone_myOrder');banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.remove('show');lastNotifiedStatus=null;return;}let d=found||my;if(d.status==='annulé'){banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.add('show');document.getElementById('canceledId').textContent=d.id;return;}let elapsed=Math.floor((Date.now()-d.time)/60000);let rest=d.remaining-elapsed;if(rest<0)rest=0;let step=d.statusStep||1;document.getElementById('myOrderId').textContent=d.id+' - '+d.total+'€';if(d.status==='en attente'){document.getElementById('myOrderStatus').textContent='📦 COMMANDE EN ATTENTE';document.getElementById('myOrderTimer').textContent='EN ATTENTE DE CONFIRMATION';banner.classList.remove('arrived');}else if(d.status==='en préparation'){document.getElementById('myOrderStatus').textContent='👨‍🍳 EN PRÉPARATION';document.getElementById('myOrderTimer').textContent='PRÉPARATION EN COURS';banner.classList.remove('arrived');}else if(d.status==='en route'){document.getElementById('myOrderStatus').textContent='🛵 LIVREUR EN ROUTE';document.getElementById('myOrderTimer').textContent=rest===0?'ARRIVÉE IMMINENTE':'LIVREUR EN ROUTE - '+rest+' MIN';banner.classList.remove('arrived');}else if(d.status==='livré'){document.getElementById('myOrderStatus').textContent='✅ LIVREUR ARRIVÉ';document.getElementById('myOrderTimer').textContent='LIVREUR ARRIVÉ ✅ DESCENDS !';banner.classList.add('arrived');}let stepsEl=document.getElementById('mySteps');if(stepsEl){let html='';for(let i=1;i<=4;i++){html+=`<div class="${i<step?'done':''} ${i===step?'active':''}"></div>`;}stepsEl.innerHTML=html;}banner.classList.add('show');canceled.classList.remove('show');}
 setInterval(()=>{checkMyOrder();checkBanned();},1000);
 setInterval(fetchAll,8000);
 setTimeout(()=>{ trackAction('view','Ouverture du site'); },1000);
@@ -401,107 +366,4 @@ async function unbanUser(i){bannedList.splice(i,1);await saveAll();renderAdminBa
 async function clearAllBans(){if(confirm('Débannir tout ?')){bannedList=[];await saveAll();renderAdminBans();checkBanned();}}
 async function updateRemaining(i){let v=parseInt(document.getElementById('input-'+i).value);if(v>0){orders[i].remaining=v;orders[i].time=Date.now();await saveAll();renderAdminOrders();}}
 async function addTime(i,d){orders[i].remaining+=d;if(orders[i].remaining<1)orders[i].remaining=0;orders[i].time=Date.now();await saveAll();renderAdminOrders();}
-async function updateStatus(i,s,st){orders[i].status=s;orders[i].statusStep=st;if(s==='livré')orders[i].remaining=0;await saveAll();renderAdminOrders();checkMyOrder();if(s==='livré'){let o=orders[i];if(o.telegramId){let msg=`✅ LIVREUR ARRIVÉ !\n\n🛵 SIMONE est devant !\n📦 ${o.id} - ${o.total}€\n📍 ${o.address}`;await sendTelegramMsg(o.telegramId,msg);}}}
-async function deleteOrder(i){if(confirm('Supprimer cette commande ?')){orders.splice(i,1);await saveAll();renderAdminOrders();renderDashboard();}}
-async function clearAllOrders(){if(confirm('⚠️ SUPPRIMER TOUTES LES COMMANDES ?')){orders=[];fullHistory=[];await saveAll();renderAdminOrders();renderDashboard();alert('Toutes les commandes supprimées ✅');}}
-async function clearHist(){if(confirm('Vider historique ?')){fullHistory=[];await saveAll();renderHist();}}
-async function deleteAvis(i){avisList.splice(i,1);await saveAll();renderAdminAvis();renderAvis();}
-async function clearAllAvis(){if(confirm('Supprimer tous les avis ?')){avisList=[];await saveAll();renderAdminAvis();renderAvis();}}
-async function replyToClient(i){ let o=orders[i]; if(!o.telegramId){alert('Ce client n\'a pas de Telegram ID');return;} let msg=prompt(`💬 Répondre à ${o.customerName} @${o.telegramUsername||''} (${o.id}):`); if(!msg)return; let ok=await sendTelegramMsg(o.telegramId,`📦 SIMONE PARIS - ${o.id}\n\n${msg}\n\n💰 ${o.total}€`); if(ok)alert('✅ Message envoyé !'); else alert('❌ Erreur');}
-async function sendDirectToId(tgId){ if(!tgId||tgId==='null'){alert('Pas de TG ID');return;} let msg=prompt('Message à envoyer:'); if(!msg)return; let ok=await sendTelegramMsg(tgId,msg); if(ok)alert('✅ Envoyé'); else alert('❌ Erreur');}
-async function banClient(i){ let o=orders[i]; let reason=prompt('Motif du ban ?', 'Comportement suspect'); if(reason===null)return; let days=prompt('Durée en jours ? 0 = définitif','7'); if(days===null)return; let until= days==0 ? null : Date.now()+parseInt(days)*24*60*60*1000; bannedList.push({deviceId:o.deviceId,telegramId:o.telegramId,name:o.customerName,reason:reason,until:until,date:new Date().toLocaleString('fr-FR')}); await saveAll(); renderAdminBans(); if(o.telegramId) await sendTelegramMsg(o.telegramId,`🚫 Banni de Simone Paris\nMotif: ${reason}\nDurée: ${days==0?'Définitif':days+' jours'}`); alert('🚫 Client banni');}
-async function sendBroadcast(){ let msg=document.getElementById('broadcastMsg').value.trim(); if(!msg){alert('Message vide');return;} let ids=[...new Set(orders.concat(fullHistory).map(o=>o.telegramId).filter(Boolean))]; if(ids.length===0){alert('Aucun client Telegram trouvé');return;} if(!confirm(`Envoyer à ${ids.length} clients ?`))return; let c=0; for(let id of ids){ let ok=await sendTelegramMsg(id,`📢 SIMONE PARIS\n\n${msg}`); if(ok)c++; await new Promise(r=>setTimeout(r,400)); } alert(`Broadcast envoyé à ${c}/${ids.length} clients ✅`);}
-
-// LIVREURS
-let couriers = JSON.parse(localStorage.getItem('simone_couriers')||'[{"name":"Karim 75","x":48,"y":35,"status":"free"},{"name":"Yanis 92","x":68,"y":55,"status":"free"},{"name":"Sofiane 94","x":35,"y":62,"status":"busy"}]');
-let tempPos=null, tempPosAdmin=null;
-function renderCouriers(){
-  let layer=document.getElementById('courierLayer');
-  let layerAdmin=document.getElementById('courierLayerAdmin');
-  let count=document.getElementById('liveCount');
-  let countAdmin=document.getElementById('adminCouriersCount');
-  let listAdmin=document.getElementById('adminCouriersList');
-  if(count) count.textContent=couriers.length;
-  if(countAdmin) countAdmin.textContent=couriers.length;
-  let html='';
-  couriers.forEach((c,i)=>{ html+=`<div style="display:flex;justify-content:space-between;align-items:center;background:#111;border:1px solid #222;padding:8px 10px;border-radius:10px;margin-bottom:6px;font-size:11px"><span>🛵 ${c.name} - ${c.status==='free'?'🟢 Libre':'🟡 En course'}</span><button onclick="deleteCourier(${i})" style="background:#ff1a1a;border:none;color:#fff;padding:4px 8px;border-radius:6px;font-size:10px">✕</button></div>`; });
-  if(listAdmin) listAdmin.innerHTML=html||'<small style="opacity:0.5">Aucun livreur</small>';
-  [layer, layerAdmin].forEach(l=>{
-    if(!l) return;
-    l.innerHTML='';
-    couriers.forEach((c,i)=>{
-      let d=document.createElement('div');
-      d.style.cssText=`position:absolute;left:${c.x}%;top:${c.y}%;transform:translate(-50%,-50%);transition:all 1s ease;cursor:pointer`;
-      d.innerHTML=`<div style="text-align:center" onclick="showCourierInfo(${i})"><div style="width:26px;height:26px;background:${c.status==='free'?'#25D366':'#FFD700'};border:2px solid #000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;box-shadow:0 0 10px ${c.status==='free'?'#25D366':'#FFD700'}">🛵</div><div style="background:rgba(0,0,0,0.8);color:#fff;font-size:7px;padding:1px 4px;border-radius:100px;margin-top:1px;font-weight:800">${c.name}</div></div>`;
-      l.appendChild(d);
-    });
-  });
-  localStorage.setItem('simone_couriers', JSON.stringify(couriers));
-}
-function showCourierInfo(i){
-  let c=couriers[i];
-  let box=document.getElementById('zoneInfo');
-  document.getElementById('zTitle').textContent='🛵 '+c.name;
-  document.getElementById('zTime').textContent=c.status==='free'?'15-25 min':'30-45 min';
-  document.getElementById('zDesc').textContent=c.status==='free'?'Disponible maintenant':'En course';
-  box.style.display='block';
-}
-function deleteCourier(i){ if(confirm('Supprimer '+couriers[i].name+' ?')){ couriers.splice(i,1); renderCouriers(); } }
-function clearCouriers(){ if(confirm('Supprimer TOUS les livreurs ?')){ couriers=[]; renderCouriers(); } }
-document.addEventListener('DOMContentLoaded',()=>{
-  let mapAdmin=document.getElementById('mapContainerAdmin');
-  if(mapAdmin){
-    mapAdmin.addEventListener('click',function(e){
-      let rect=e.currentTarget.getBoundingClientRect();
-      tempPosAdmin={x:((e.clientX-rect.left)/rect.width*100).toFixed(1), y:((e.clientY-rect.top)/rect.height*100).toFixed(1)};
-      let marker=document.getElementById('tempMarkerAdmin');
-      marker.style.display='block';
-      marker.style.left=tempPosAdmin.x+'%';
-      marker.style.top=tempPosAdmin.y+'%';
-      tempPos=tempPosAdmin;
-    });
-  }
-});
-function saveCourierFromAdmin(){
-  if(!tempPosAdmin) return alert('Clique d\'abord sur la map admin');
-  let name=document.getElementById('courierNameAdmin').value||'Livreur '+(couriers.length+1);
-  let status=document.getElementById('courierStatusAdmin').value;
-  couriers.push({name:name,x:parseFloat(tempPosAdmin.x),y:parseFloat(tempPosAdmin.y),status:status});
-  tempPosAdmin=null;
-  document.getElementById('tempMarkerAdmin').style.display='none';
-  document.getElementById('courierNameAdmin').value='';
-  renderCouriers();
-}
-
-// ACTU LIVE
-let actus = JSON.parse(localStorage.getItem('simone_actus')||'[]');
-function renderActu(){
-  let ticker=document.getElementById('actuTicker');
-  let track=document.getElementById('actuTrack');
-  let list=document.getElementById('adminActuList');
-  if(actus.length===0){
-    if(ticker) ticker.style.display='none';
-    if(list) list.innerHTML='<small style="opacity:0.5">Aucune actu</small>';
-    return;
-  }
-  if(ticker){
-    ticker.style.display='block';
-    if(track) track.innerHTML = actus.map(a=>` <span style="margin-right:50px">🔴 LIVE • ${a.type}: ${a.text}</span> `).join(' • ');
-  }
-  if(list){
-    let h='';
-    actus.forEach((a,i)=>{ h+=`<div style="display:flex;justify-content:space-between;background:#111;border:1px solid #222;padding:8px 10px;border-radius:10px;margin-bottom:6px;font-size:11px"><span>${a.type}: ${a.text}</span><button onclick="deleteActu(${i})" style="background:#ff1a1a;border:none;color:#fff;padding:3px 8px;border-radius:6px">✕</button></div>`; });
-    list.innerHTML=h;
-  }
-  localStorage.setItem('simone_actus', JSON.stringify(actus));
-}
-function addActu(){ let text=document.getElementById('actuText').value.trim(); let type=document.getElementById('actuType').value; if(!text) return alert('Écris une actu'); actus.unshift({type:type,text:text}); if(actus.length>5) actus=actus.slice(0,5); document.getElementById('actuText').value=''; renderActu(); }
-function deleteActu(i){ actus.splice(i,1); renderActu(); }
-function clearActu(){ if(confirm('Supprimer toutes les actus ?')){ actus=[]; renderActu(); } }
-
-fetchAll();
-checkBanned();
-setTimeout(()=>{renderCouriers();renderActu();},1000);
-</script>
-</body>
-</html>
+async function updateStatus(i,s,st){orders[i].status=s;orders[i].statusStep=st;if(s==='livré')orders[i].remaining=0;await saveAll();renderAdminOrders()
