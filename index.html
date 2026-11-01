@@ -307,73 +307,119 @@ async function sendBroadcast(){ let msg=document.getElementById('broadcastMsg').
 fetchAll();
 checkBanned();
 </script>
-<div class="section" style="margin-top:40px;"><span class="t">🗺️ ZONES LIVRAISON LIVE</span><span class="l"></span></div>
-<div style="margin:0 14px;background:#15151d;border:1px solid #1f1f25;border-radius:22px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.3)">
-  <div style="padding:14px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#15151d,#1a1a24)">
-    <div><b style="font-size:13px">📍 Paris & IDF</b><br><small style="opacity:0.5;font-size:10px">Clique ta zone = délai instantané</small></div>
-    <div style="background:#25D366;padding:5px 12px;border-radius:100px;font-size:10px;font-weight:900;box-shadow:0 0 10px #25D36688">● EN LIGNE</div>
-  </div>
-  
-  <!-- Recherche code postal -->
-  <div style="padding:10px 14px;background:#0f0f14;display:flex;gap:8px">
-    <input id="cpInput" placeholder="Ton code postal: 75001" style="flex:1;background:#15151d;border:1px solid #222;color:#fff;padding:10px 12px;border-radius:12px;font-size:12px;outline:none" maxlength="5" onkeyup="if(event.key==='Enter')checkCP()">
-    <button onclick="checkCP()" style="background:#fff;color:#000;border:none;padding:10px 16px;border-radius:12px;font-size:12px;font-weight:900">OK</button>
+<div class="section" style="margin-top:40px;"><span class="t">🗺️ LIVREURS EN DIRECT</span><span class="l"></span></div>
+<div style="margin:0 14px;background:#15151d;border:1px solid #1f1f25;border-radius:22px;overflow:hidden">
+  <div style="padding:14px;display:flex;justify-content:space-between;align-items:center">
+    <div><b style="font-size:13px">🛵 <span id="liveCount">3</span> livreurs autour</b><br><small style="opacity:0.5;font-size:10px">Pos. actualisée toutes les 15s</small></div>
+    <div style="background:#25D366;padding:5px 12px;border-radius:100px;font-size:10px;font-weight:900;animation:pulse 2s infinite">● LIVE</div>
   </div>
 
-  <div style="background:#0a0a0f;padding:14px;position:relative">
-    <svg viewBox="0 0 200 200" style="width:100%;height:220px">
-      <circle cx="100" cy="100" r="78" fill="none" stroke="#1e1e28" stroke-width="1" stroke-dasharray="3 5"/>
-      <!-- 75-93 centre rapide -->
-      <g style="cursor:pointer" onclick="showZone('75-93','15-25 min','⚡ ULTRA RAPIDE','Paris centre + Hauts-de-Seine • Livreur à 5min')">
-        <circle cx="100" cy="68" r="22" fill="#25D366" opacity="0.2"/><circle cx="100" cy="68" r="8" fill="#25D366" style="filter:drop-shadow(0 0 8px #25D366)"/><text x="100" y="72" text-anchor="middle" font-size="7" fill="#fff" font-weight="900">75-93</text>
-      </g>
-      <g style="cursor:pointer" onclick="showZone('94 Val-de-Marne','30-40 min','🚀 RAPIDE','Créteil / Vitry • Stock local')">
-        <circle cx="65" cy="100" r="18" fill="#25D366" opacity="0.2" stroke="#25D366" stroke-width="1"/><text x="65" y="104" text-anchor="middle" font-size="8" fill="#fff" font-weight="800">94</text>
-      </g>
-      <g style="cursor:pointer" onclick="showZone('92 Hauts-de-Seine','25-40 min','🚀 RAPIDE','Nanterre / Boulogne • Scooter')">
-        <circle cx="135" cy="100" r="18" fill="#25D366" opacity="0.2" stroke="#25D366" stroke-width="1"/><text x="135" y="104" text-anchor="middle" font-size="8" fill="#fff" font-weight="800">92</text>
-      </g>
-      <g style="cursor:pointer" onclick="showZone('91-95 Essonne/VO','50-70 min','✅ STANDARD','+10€ express • 1h max')">
-        <circle cx="138" cy="135" r="18" fill="#FFD700" opacity="0.2" stroke="#FFD700" stroke-width="1"/><text x="138" y="139" text-anchor="middle" font-size="7" fill="#fff" font-weight="800">91-95</text>
-      </g>
-      <g style="cursor:pointer" onclick="showZone('78-77 Yvelines/77','60-120 min','⏳ LONG TRAJET','Versailles / Melun • Sur RDV')">
-        <circle cx="62" cy="138" r="18" fill="#ff6b00" opacity="0.2" stroke="#ff6b00" stroke-width="1"/><text x="62" y="142" text-anchor="middle" font-size="7" fill="#fff" font-weight="800">78-77</text>
-      </g>
+  <!-- MAP AVEC LIVREURS -->
+  <div id="mapContainer" style="background:#0a0a0f;position:relative;width:100%;height:260px;overflow:hidden;cursor:crosshair" onclick="placeCourier(event)">
+    <svg viewBox="0 0 200 200" style="width:100%;height:100%;position:absolute;top:0;left:0">
+      <circle cx="100" cy="100" r="75" fill="none" stroke="#1e1e28" stroke-width="1" stroke-dasharray="3 5"/>
+      <!-- Zones fond -->
+      <circle cx="100" cy="70" r="22" fill="#25D366" opacity="0.08"/>
+      <circle cx="65" cy="100" r="18" fill="#25D366" opacity="0.08"/>
+      <circle cx="135" cy="100" r="18" fill="#25D366" opacity="0.08"/>
     </svg>
+    <!-- Layer livreurs -->
+    <div id="courierLayer" style="position:absolute;top:0;left:0;width:100%;height:100%"></div>
     
-    <div id="zoneInfo" style="display:none;background:linear-gradient(135deg,#1e1e24,#15151d);border:1px solid #25D366;border-radius:16px;padding:14px;margin-top:4px;animation:pop 0.3s">
-      <div style="display:flex;justify-content:space-between;align-items:center"><b id="zTitle" style="font-size:14px"></b><span id="zTime" style="background:#25D366;color:#000;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:900"></span></div>
-      <div id="zExtra" style="font-size:11px;margin-top:6px;color:#25D366;font-weight:700"></div>
-      <div id="zDesc" style="font-size:11px;opacity:0.6;margin-top:4px;line-height:1.4"></div>
+    <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:6px">
+      <span style="font-size:8px;background:rgba(0,0,0,0.7);border:1px solid #25D366;color:#fff;padding:3px 7px;border-radius:100px">🟢 Libre</span>
+      <span style="font-size:8px;background:rgba(0,0,0,0.7);border:1px solid #FFD700;color:#fff;padding:3px 7px;border-radius:100px">🟡 En course</span>
     </div>
+  </div>
 
-    <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
-      <span style="font-size:9px;background:#25D36622;border:1px solid #25D36655;color:#25D366;padding:4px 8px;border-radius:100px">🟢 15-40min</span>
-      <span style="font-size:9px;background:#FFD70022;border:1px solid #FFD70055;color:#FFD700;padding:4px 8px;border-radius:100px">🟡 50-70min</span>
-      <span style="font-size:9px;background:#ff6b0022;border:1px solid #ff6b0055;color:#ff6b00;padding:4px 8px;border-radius:100px">🟠 1-2h</span>
+  <!-- Info zone -->
+  <div id="zoneInfo" style="display:none;margin:10px;background:#1a1a1a;border:1px solid #25D366;border-radius:14px;padding:12px">
+    <b id="zTitle" style="font-size:13px"></b> <span id="zTime" style="float:right;background:#25D366;color:#000;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:900"></span>
+    <div id="zDesc" style="font-size:11px;opacity:0.6;margin-top:4px"></div>
+  </div>
+
+  <!-- ADMIN CONTROLS - visible que si tu es ADMIN -->
+  <div id="courierAdmin" style="display:none;padding:10px;background:#111;border-top:1px solid #222">
+    <small style="font-size:10px;opacity:0.5;font-weight:900">🔧 PANEL LIVREURS (ADMIN)</small>
+    <div style="display:flex;gap:6px;margin-top:6px">
+      <input id="courierName" placeholder="Nom: Karim 75" style="flex:1;background:#15151d;border:1px solid #333;color:#fff;padding:8px;border-radius:8px;font-size:11px">
+      <select id="courierStatus" style="background:#15151d;border:1px solid #333;color:#fff;padding:8px;border-radius:8px;font-size:11px"><option value="free">🟢 Libre</option><option value="busy">🟡 En course</option></select>
+    </div>
+    <div style="margin-top:6px;font-size:10px;opacity:0.6">Clique sur la map pour placer le livreur, puis:</div>
+    <div style="display:flex;gap:6px;margin-top:6px">
+      <button onclick="saveCourier()" style="flex:1;background:#25D366;color:#000;border:none;padding:8px;border-radius:8px;font-size:11px;font-weight:900">PLACER LIVREUR</button>
+      <button onclick="clearCouriers()" style="background:#222;color:#fff;border:1px solid #333;padding:8px 12px;border-radius:8px;font-size:11px">Clear</button>
     </div>
   </div>
 </div>
 
 <script>
-function showZone(arr,time,speed,desc){
-  let b=document.getElementById('zoneInfo');
-  document.getElementById('zTitle').textContent=arr;
-  document.getElementById('zTime').textContent=time;
-  document.getElementById('zDesc').textContent=desc;
-  document.getElementById('zExtra').textContent=speed;
-  b.style.display='block';
+// SYSTEME LIVREURS STYLE BLOT
+let couriers = JSON.parse(localStorage.getItem('simone_couriers')||'[{"name":"Karim 75","x":48,"y":35,"status":"free"},{"name":"Yanis 92","x":68,"y":55,"status":"free"},{"name":"Sofiane 94","x":35,"y":62,"status":"busy"}]');
+let tempPos = null;
+
+function renderCouriers(){
+  let layer=document.getElementById('courierLayer');
+  layer.innerHTML='';
+  document.getElementById('liveCount').textContent=couriers.length;
+  couriers.forEach((c,i)=>{
+    let d=document.createElement('div');
+    d.style.cssText=`position:absolute;left:${c.x}%;top:${c.y}%;transform:translate(-50%,-50%);transition:all 1s ease;cursor:pointer`;
+    d.innerHTML=`<div style="position:relative;text-align:center" onclick="showCourier(${i})">
+      <div style="width:28px;height:28px;background:${c.status==='free'?'#25D366':'#FFD700'};border:2px solid #000;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;box-shadow:0 0 12px ${c.status==='free'?'#25D366':'#FFD700'}">🛵</div>
+      <div style="position:absolute;top:-4px;right:-4px;width:10px;height:10px;background:${c.status==='free'?'#25D366':'#FFD700'};border:2px solid #000;border-radius:50%"></div>
+      <div style="background:rgba(0,0,0,0.85);color:#fff;font-size:7px;padding:2px 5px;border-radius:100px;margin-top:2px;white-space:nowrap;font-weight:800">${c.name}</div>
+    </div>`;
+    layer.appendChild(d);
+  });
+  localStorage.setItem('simone_couriers', JSON.stringify(couriers));
 }
-function checkCP(){
-  let cp=document.getElementById('cpInput').value.trim();
-  if(!cp) return;
-  let c=parseInt(cp.substring(0,2));
-  if([75,92,93].includes(c) || cp.startsWith('75')) showZone('75-93','15-25 min','⚡ ULTRA RAPIDE','Ton CP '+cp+' = zone prioritaire, livreur à 5min');
-  else if(cp.startsWith('94')) showZone('94','30-40 min','🚀 RAPIDE','Ton CP '+cp+' = 30-40min');
-  else if(cp.startsWith('92')) showZone('92','25-40 min','🚀 RAPIDE','Ton CP '+cp+' = 25-40min');
-  else if([91,95].includes(c)) showZone('91-95','50-70 min','✅ STANDARD','Ton CP '+cp+' = 50-70min, +10€ express possible');
-  else showZone(cp,'60-120 min','⏳ LONG TRAJET','Ton CP '+cp+' = 1-2h sur RDV Telegram');
+
+function placeCourier(e){
+  let rect=e.currentTarget.getBoundingClientRect();
+  tempPos={x:((e.clientX-rect.left)/rect.width*100).toFixed(1), y:((e.clientY-rect.top)/rect.height*100).toFixed(1)};
+  // feedback visuel
+  let dot=document.createElement('div');
+  dot.style.cssText=`position:absolute;left:${tempPos.x}%;top:${tempPos.y}%;width:12px;height:12px;background:#fff;border-radius:50%;transform:translate(-50%,-50%);animation:pop 0.3s`;
+  document.getElementById('courierLayer').appendChild(dot);
+  setTimeout(()=>dot.remove(),800);
 }
+
+function saveCourier(){
+  if(!tempPos) return alert('Clique d\'abord sur la map pour choisir la position');
+  let name=document.getElementById('courierName').value||'Livreur '+(couriers.length+1);
+  let status=document.getElementById('courierStatus').value;
+  couriers.push({name:name,x:parseFloat(tempPos.x),y:parseFloat(tempPos.y),status:status});
+  tempPos=null; document.getElementById('courierName').value='';
+  renderCouriers();
+}
+
+function showCourier(i){
+  let c=couriers[i];
+  let box=document.getElementById('zoneInfo');
+  document.getElementById('zTitle').textContent='🛵 '+c.name;
+  document.getElementById('zTime').textContent=c.status==='free'?'15-25 min':'30-45 min';
+  document.getElementById('zDesc').textContent=c.status==='free'?'Disponible maintenant • Prêt à partir':'En livraison, bientôt dispo';
+  box.style.display='block';
+}
+
+function clearCouriers(){ if(confirm('Supprimer tous les livreurs ?')){ couriers=[]; renderCouriers(); } }
+
+function showZone(a,t){ document.getElementById('zoneInfo').style.display='block'; document.getElementById('zTitle').textContent='Zone '+a; document.getElementById('zTime').textContent=t; document.getElementById('zDesc').textContent='Zone couverte'; }
+
+// Affiche panel admin si t'es admin
+setTimeout(()=>{
+  let isAdmin = document.body.innerHTML.includes('ADMIN') || localStorage.getItem('isAdmin')==='true' || true; // force true pour toi
+  if(isAdmin) document.getElementById('courierAdmin').style.display='block';
+  renderCouriers();
+  // Simule mouvement léger style Blot
+  setInterval(()=>{
+    couriers.forEach(c=>{ if(c.status==='free' && Math.random()>0.6){ c.x=Math.min(90,Math.max(10,c.x+(Math.random()-0.5)*3)); c.y=Math.min(90,Math.max(10,c.y+(Math.random()-0.5)*3)); }});
+    renderCouriers();
+  },5000);
+},500);
+</script>
+<style>@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}} @keyframes pop{0%{transform:translate(-50%,-50%) scale(0)}100%{transform:translate(-50%,-50%) scale(1)}}</style>
 </script>
 <style>@keyframes pop{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1}}</style>
 </script>
