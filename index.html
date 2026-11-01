@@ -148,19 +148,10 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <a class="social-btn insta" onclick="openLink('https://www.instagram.com/simonecoffee57')"><div class="ico">📸</div><div><div>Instagram</div><small>@SIMONECOFFEE57</small></div></a>
 </div>
 
-<!-- MESSAGERIE CLIENT -> ADMIN -->
-<div style="margin:12px 14px;background:#15151d;border:1px solid #1f1f25;border-radius:18px;padding:14px">
-  <div style="display:flex;justify-content:space-between;align-items:center"><b style="font-size:12px">💬 Message à Simone</b><span style="font-size:9px;background:#25D366;color:#000;padding:3px 8px;border-radius:100px;font-weight:900">RÉPONSE RAPIDE</span></div>
-  <div style="display:flex;gap:8px;margin-top:10px">
-    <input id="clientMsgInput" class="input" style="margin-top:0" placeholder="Écris ton message ici...">
-    <button onclick="sendClientMessage()" style="background:#fff;color:#000;border:none;padding:12px 16px;border-radius:12px;font-weight:900;font-size:12px">Envoyer</button>
-  </div>
-  <small style="opacity:0.4;font-size:9px;margin-top:6px;display:block">Réponse directe dans Telegram + dans ton panel admin</small>
-</div>
-
 <div id="myOrderBanner" class="my-order-banner" style="background:linear-gradient(135deg,#ff1a1a,#b30000)"><p style="font-size:11px;opacity:0.8" id="myOrderStatus">📦 COMMANDE EN ATTENTE</p><b id="myOrderTimer">En attente</b><div class="status-steps" id="mySteps"><div class="active"></div><div></div><div></div><div></div></div><p id="myOrderId" style="font-size:11px;margin-top:8px;opacity:0.7"></p></div>
 <div id="bannedBanner" class="my-order-banner banned"><p style="font-size:11px;color:#ff1a1a">🚫 COMPTE BANNI</p><b style="font-size:18px">TU ES BANNI</b><p id="bannedUntil" style="font-size:11px;margin-top:6px"></p></div>
 <div id="canceledBanner" class="my-order-banner canceled"><p style="font-size:11px">❌ COMMANDE ANNULÉE</p><b style="font-size:18px">CONTACTE SIMONE</b><p id="canceledId" style="font-size:11px;margin-top:6px"></p></div>
+
 <div class="section"><span class="t">CATÉGORIES</span><span class="l"></span></div>
 <div class="cat-scroll"><div class="cat active" onclick="filterCat(this,'all')"><span>🔥</span> Tous</div><div class="cat" onclick="filterCat(this,'FLEUR')"><span>🌿</span> FLEUR</div><div class="cat" onclick="filterCat(this,'HASH')"><span>🍫</span> HASH</div></div>
 <div class="section"><span class="t">RÉCENTS</span><span class="l"></span></div>
@@ -204,9 +195,7 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
     </div>
   </div>
 </div>
-<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN V13</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#fff">🔐 Accès sécurisé</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p><p id="adminBrute" style="color:#ff1a1a;font-size:11px;margin-top:8px;display:none"></p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabDash" class="active" onclick="switchAdminTab('dash')">📊 DASH</button><button id="tabOrders" onclick="switchAdminTab('orders')">📦 CMD (<span id="adminCount">0</span>)</button><button id="tabMsgs" onclick="switchAdminTab('msgs')">💬 MSGS (<span id="adminMsgsCount">0</span>)</button><button id="tabClients" onclick="switchAdminTab('clients')">👥 CLIENTS (<span id="adminClientsCount">0</span>)</button><button id="tabSpy" onclick="switchAdminTab('spy')">👁️ LIVE (<span id="adminSpyCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 HIST</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 BANS (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ AVIS (<span id="adminAvisCount">0</span>)</button><button id="tabBroadcast" onclick="switchAdminTab('broadcast')">📢 BROADCAST</button><button id="tabCouriers" onclick="switchAdminTab('couriers')">🛵 LIVREURS (<span id="adminCouriersCount">0</span>)</button><button id="tabActu" onclick="switchAdminTab('actu')">🔴 ACTU</button></div><div id="adminDashView"><div class="dash-grid"><div class="dash-card"><span>CA TOTAL</span><b id="dashCATotal">0€</b></div><div class="dash-card"><span>CA AUJOURD'HUI</span><b id="dashCAToday" style="color:#25D366">0€</b></div><div class="dash-card"><span>COMMANDES TOTAL</span><b id="dashOrdersTotal">0</b></div><div class="dash-card"><span>CLIENTS UNIQUES</span><b id="dashClients">0</b></div></div><div class="info-box" style="margin-top:12px"><h4 style="font-size:12px;font-weight:900">🗑️ GESTION COMMANDES</h4><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:12px 16px;border-radius:12px;font-size:12px;font-weight:900">🗑️ Supprimer TOUTES les commandes</button></div></div></div><div id="adminOrdersView" style="display:none"><div style="display:flex;gap:6px;margin-bottom:10px"><input id="orderSearch" class="search-bar" placeholder="🔍 Recherche..." oninput="renderAdminOrders()"><select id="statusFilter" class="search-bar" style="max-width:120px" onchange="renderAdminOrders()"><option value="all">Tous</option><option value="en attente">En attente</option><option value="en préparation">Prépa</option><option value="en route">En route</option><option value="livré">Livré</option></select></div><div id="adminOrdersList"></div></div>
-<div id="adminMsgsView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>💬 Messages Clients</h3><button onclick="clearMsgs()" style="background:#333;border:1px solid #555;color:#fff;padding:6px 10px;border-radius:8px;font-size:10px">Vider</button></div><div id="adminMsgsList"></div></div>
-<div id="adminClientsView" style="display:none"><h3 style="margin-bottom:10px">👥 Clients</h3><div id="adminClientsList"></div></div><div id="adminSpyView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><h3>👁️ LIVE TRACK</h3><small style="opacity:0.5">Tout ce que font les gens</small></div><button onclick="clearSpy()" style="background:#ff1a1a;border:none;color:#fff;padding:6px 10px;border-radius:8px;font-size:10px">Vider</button></div><div id="adminSpyList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div><div id="adminBroadcastView" style="display:none"><div class="info-box"><h4>📢 BROADCAST & MESSAGES</h4><textarea id="broadcastMsg" class="textarea" placeholder="Promo du jour..."></textarea><button class="btn-main" onclick="sendBroadcast()" style="margin-top:10px">Envoyer à TOUS ✈️</button></div></div>
+<div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN V13</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#fff">🔐 Accès sécurisé</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p><p id="adminBrute" style="color:#ff1a1a;font-size:11px;margin-top:8px;display:none"></p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabDash" class="active" onclick="switchAdminTab('dash')">📊 DASH</button><button id="tabOrders" onclick="switchAdminTab('orders')">📦 CMD (<span id="adminCount">0</span>)</button><button id="tabClients" onclick="switchAdminTab('clients')">👥 CLIENTS (<span id="adminClientsCount">0</span>)</button><button id="tabSpy" onclick="switchAdminTab('spy')">👁️ LIVE (<span id="adminSpyCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 HIST</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 BANS (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ AVIS (<span id="adminAvisCount">0</span>)</button><button id="tabBroadcast" onclick="switchAdminTab('broadcast')">📢 BROADCAST</button><button id="tabCouriers" onclick="switchAdminTab('couriers')">🛵 LIVREURS (<span id="adminCouriersCount">0</span>)</button><button id="tabActu" onclick="switchAdminTab('actu')">🔴 ACTU</button></div><div id="adminDashView"><div class="dash-grid"><div class="dash-card"><span>CA TOTAL</span><b id="dashCATotal">0€</b></div><div class="dash-card"><span>CA AUJOURD'HUI</span><b id="dashCAToday" style="color:#25D366">0€</b></div><div class="dash-card"><span>COMMANDES TOTAL</span><b id="dashOrdersTotal">0</b></div><div class="dash-card"><span>CLIENTS UNIQUES</span><b id="dashClients">0</b></div></div><div class="info-box" style="margin-top:12px"><h4 style="font-size:12px;font-weight:900">🗑️ GESTION COMMANDES</h4><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap"><button onclick="clearAllOrders()" style="background:#ff1a1a;border:none;color:#fff;padding:12px 16px;border-radius:12px;font-size:12px;font-weight:900">🗑️ Supprimer TOUTES les commandes</button></div></div></div><div id="adminOrdersView" style="display:none"><div style="display:flex;gap:6px;margin-bottom:10px"><input id="orderSearch" class="search-bar" placeholder="🔍 Recherche..." oninput="renderAdminOrders()"><select id="statusFilter" class="search-bar" style="max-width:120px" onchange="renderAdminOrders()"><option value="all">Tous</option><option value="en attente">En attente</option><option value="en préparation">Prépa</option><option value="en route">En route</option><option value="livré">Livré</option></select></div><div id="adminOrdersList"></div></div><div id="adminClientsView" style="display:none"><h3 style="margin-bottom:10px">👥 Clients</h3><div id="adminClientsList"></div></div><div id="adminSpyView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><div><h3>👁️ LIVE TRACK</h3><small style="opacity:0.5">Tout ce que font les gens</small></div><button onclick="clearSpy()" style="background:#ff1a1a;border:none;color:#fff;padding:6px 10px;border-radius:8px;font-size:10px">Vider</button></div><div id="adminSpyList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div><div id="adminBroadcastView" style="display:none"><div class="info-box"><h4>📢 BROADCAST & MESSAGES</h4><textarea id="broadcastMsg" class="textarea" placeholder="Promo du jour..."></textarea><button class="btn-main" onclick="sendBroadcast()" style="margin-top:10px">Envoyer à TOUS ✈️</button></div></div>
 <div id="adminCouriersView" style="display:none"><h3>🛵 Gestion Livreurs</h3><small style="opacity:0.5">Clique sur la map pour placer</small><div style="margin:12px 0;display:flex;gap:6px"><input id="courierNameAdmin" placeholder="Nom: Karim 75" style="flex:1;background:#000;border:1px solid #333;color:#fff;padding:10px;border-radius:10px;font-size:12px"><select id="courierStatusAdmin" style="background:#000;border:1px solid #333;color:#fff;padding:10px;border-radius:10px;font-size:11px"><option value="free">🟢 Libre - 15min</option><option value="busy">🟡 En course - 35min</option></select></div><div style="display:flex;gap:6px;margin-bottom:10px"><button onclick="saveCourierFromAdmin()" style="flex:1;background:#25D366;color:#000;border:none;padding:12px;border-radius:12px;font-weight:900">📍 PLACER SUR MAP</button><button onclick="clearCouriers()" style="background:#222;color:#fff;border:1px solid #333;padding:12px;border-radius:12px">Clear</button></div><div id="mapContainerAdmin" style="background:#0a0a0f;position:relative;width:100%;height:320px;border:1px solid #222;border-radius:16px;overflow:hidden;cursor:crosshair"><svg viewBox="0 0 200 200" style="width:100%;height:100%;position:absolute;top:0;left:0"><circle cx="100" cy="100" r="75" fill="none" stroke="#1e1e28" stroke-width="1" stroke-dasharray="3 5"/></svg><div id="courierLayerAdmin" style="position:absolute;top:0;left:0;width:100%;height:100%"></div><div id="tempMarkerAdmin" style="display:none;position:absolute;width:14px;height:14px;background:#fff;border:3px solid #25D366;border-radius:50%;transform:translate(-50%,-50%);pointer-events:none"></div></div><div style="margin-top:10px"><small style="opacity:0.5">Livreurs actifs:</small><div id="adminCouriersList" style="margin-top:6px"></div></div></div>
 <div id="adminActuView" style="display:none"><h3>🔴 Actu Live</h3><small style="opacity:0.5">Bandeau en haut du site</small><div class="info-box" style="margin-top:12px"><input id="actuText" class="input" placeholder="Ex: PROMO -20% sur FROZEN jusqu'à minuit !"><select id="actuType" class="input" style="margin-top:8px"><option value="🔥 PROMO">🔥 PROMO</option><option value="📦 STOCK">📦 STOCK</option><option value="🚨 ALERTE">🚨 ALERTE</option><option value="🛵 LIVRAISON">🛵 LIVRAISON</option><option value="⏰ HORAIRES">⏰ HORAIRES</option></select><div style="display:flex;gap:6px;margin-top:8px"><button onclick="addActu()" style="flex:1;background:#ff1a1a;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900">📢 PUBLIER</button><button onclick="clearActu()" style="background:#222;color:#fff;border:1px solid #333;padding:12px;border-radius:12px">Clear</button></div></div><div style="margin-top:12px"><b style="font-size:11px;opacity:0.5">ACTUS:</b><div id="adminActuList" style="margin-top:8px"></div></div></div>
 </div></div>
@@ -217,7 +206,6 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
   <div id="zoneInfo" style="display:none;margin:10px;background:#1a1a1a;border:1px solid #25D366;border-radius:14px;padding:12px"><b id="zTitle" style="font-size:13px"></b> <span id="zTime" style="float:right;background:#25D366;color:#000;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:900"></span><div id="zDesc" style="font-size:11px;opacity:0.6;margin-top:4px"></div></div>
 </div>
 
-<!-- FOOTER CERTIFIE SIMONE PARIS 75 -->
 <div style="margin:30px 14px 10px;background:linear-gradient(135deg,#15151d,#0f0f14);border:1px solid #1f1f25;border-radius:22px;padding:20px;text-align:center">
   <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:12px">
     <div style="width:44px;height:44px;background:linear-gradient(135deg,#fff,#ccc);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;color:#000;font-size:14px">S</div>
@@ -247,37 +235,24 @@ function getTelegramUser(){try{let tg=window.Telegram?.WebApp;if(tg)tg.ready();l
 function getTelegramName(){let u=getTelegramUser();if(u){let name=(u.first_name||'')+(u.last_name?' '+u.last_name:'');if(u.username)name+=' @'+u.username;return name.trim();}return 'Client';}
 function updateCaliProfile(){try{let u=getTelegramUser();if(u&&u.username){let el=document.getElementById('profileUsername');if(el)el.innerText='Bienvenue @'+u.username.toUpperCase()+' 🌿';}}catch(e){}}
 
-// FIX: TELEGRAM RESTE DANS TELEGRAM
+// FIX TELEGRAM DIRECT - RESTE DANS TELEGRAM
 function openTelegramDirect(url){
   trackAction('view','Clic Telegram: '+url);
   try{
     let tg=window.Telegram?.WebApp;
     if(tg){
-      if(tg.openTelegramLink){
-        tg.openTelegramLink(url);
-        return;
-      }
-      if(tg.openLink){
-        tg.openLink(url);
-        return;
-      }
+      if(tg.openTelegramLink){ tg.openTelegramLink(url); return; }
+      if(tg.openLink){ tg.openLink(url); return; }
     }
   }catch(e){}
   window.location.href=url;
 }
 function openLink(url){
   trackAction('view','Clic lien: '+url);
-  if(url.includes('t.me')){
-    openTelegramDirect(url);
-    return;
-  }
-  try{
-    let tg=window.Telegram?.WebApp;
-    if(tg && tg.openLink){ tg.openLink(url); return; }
-  }catch(e){}
+  if(url.includes('t.me')){ openTelegramDirect(url); return; }
+  try{ let tg=window.Telegram?.WebApp; if(tg && tg.openLink){ tg.openLink(url); return; } }catch(e){}
   window.open(url,'_blank');
 }
-
 function filterCat(el,cat){if(isBanned()) return; trackAction('view','Filtre: '+cat); document.querySelectorAll('.cat').forEach(c=>c.classList.remove('active'));el.classList.add('active');buildGrid(cat);}
 async function sendTelegramMsg(id,msg){if(!id)return false;let tokens=SecureVault.getTokens();for(let token of tokens){try{let res=await fetch(`https://api.telegram.org/bot${token}/sendMessage`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({chat_id:id,text:msg,parse_mode:'HTML'})});if(res.ok)return true;}catch(e){}}return false;}
 async function notifyAdminNewOrder(o){let msg=`🔔 NOUVELLE COMMANDE !\n\n📦 ${o.id}\n👤 ${o.customerName||''} ${o.telegramUsername?'@'+o.telegramUsername:''}\n💰 ${o.total}€\n📍 ${o.address}\n🕐 ${o.hour}\n\n${o.items}`;await sendTelegramMsg(SecureVault.getAdminId(),msg);}
@@ -289,7 +264,7 @@ function recordFail(){ failedAttempts.count++; failedAttempts.last=Date.now(); l
 function openAdmin(){ if(isBanned()){showFullBan();return;} trackAction('view','Ouverture panel admin'); document.getElementById('adminPanel').classList.add('open');fetchAll(); }
 function closeAdmin(){document.getElementById('adminPanel').classList.remove('open');}
 async function loginAdmin(){ if(!canTryLogin()) return; let p=document.getElementById('adminPass').value.trim(); let h = await hashPass(p); if(h===ADMIN_HASH || p===SecureVault.getPass()){ document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; failedAttempts={count:0,last:0}; localStorage.setItem('simone_failed',JSON.stringify(failedAttempts)); document.getElementById('adminError').style.display='none'; document.getElementById('adminBrute').style.display='none'; fetchAll(); trackAction('order','Login admin réussi'); }else{ document.getElementById('adminError').style.display='block'; recordFail(); trackAction('hack_attempt',`Mauvais mdp admin: ${escapeHtml(p.slice(0,20))}`,true); if(failedAttempts.count>=3){ document.getElementById('adminBrute').style.display='block'; document.getElementById('adminBrute').textContent='3 échecs - bloqué 15 min 🚫'; } } }
-function switchAdminTab(tab){ document.querySelectorAll('.admin-tabs button').forEach(b=>b.classList.remove('active')); ['dash','orders','msgs','clients','spy','hist','bans','avis','broadcast','couriers','actu'].forEach(t=>{ let tabBtn=document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)); let view=document.getElementById('admin'+t.charAt(0).toUpperCase()+t.slice(1)+'View'); if(tabBtn) tabBtn.classList.toggle('active',t===tab); if(view) view.style.display=t===tab?'block':'none'; }); if(tab==='hist')renderHist(); if(tab==='spy')renderSpy(); if(tab==='dash')renderDashboard(); if(tab==='clients')renderClients(); if(tab==='couriers'||tab==='actu'||tab==='msgs'){renderCouriers();renderActu();renderMsgs();} }
+function switchAdminTab(tab){ document.querySelectorAll('.admin-tabs button').forEach(b=>b.classList.remove('active')); ['dash','orders','clients','spy','hist','bans','avis','broadcast','couriers','actu'].forEach(t=>{ let tabBtn=document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)); let view=document.getElementById('admin'+t.charAt(0).toUpperCase()+t.slice(1)+'View'); if(tabBtn) tabBtn.classList.toggle('active',t===tab); if(view) view.style.display=t===tab?'block':'none'; }); if(tab==='hist')renderHist(); if(tab==='spy')renderSpy(); if(tab==='dash')renderDashboard(); if(tab==='clients')renderClients(); if(tab==='couriers'||tab==='actu'){renderCouriers();renderActu();} }
 const BASE_PRODUCTS={
 p1:{id:'p1',name:'MOUSSEUX',tag:'TOP',video:'mousseux.mp4.MP4',desc:'Mousseux Premium - Détente profonde, arôme intense.',cat:'HASH',stock:7,variants:[{label:'10G',price:50},{label:'25G',price:110},{label:'50G',price:170},{label:'100G',price:300}]},
 p2:{id:'p2',name:'AMNESIA',tag:'SOMA SEEDS',video:'amn.MP4',desc:'Amnesia Indoor - Arôme puissant, qualité indoor.',cat:'FLEUR',stock:10,variants:[{label:'5G',price:50},{label:'12G',price:100}]},
@@ -298,11 +273,11 @@ p4:{id:'p4',name:'CALI',tag:'CALI US',video:'dosi.MOV',desc:'Cali US - Génétiq
 p5:{id:'p5',name:'PINEAPPLE RUNTZ',tag:'CALI US',video:'caliab .mov',desc:'Pineapple Runtz - Saveur tropicale.',cat:'FLEUR',stock:2,variants:[{label:'10G',price:120}]},
 };
 let PRODUCTS=JSON.parse(JSON.stringify(BASE_PRODUCTS));
-let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,currentProd=null;let orders=[],avisList=[],prodAvisMap={},bannedList=[];let hasFetchedOnce=false;let lastNotifiedStatus=null;let prevOrdersCount=0;let soundEnabled=true;let fullHistory=[];let activityLog=[];let shopSettings={forceOpen:true,defaultTime:40};let clientMessages=[];
+let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,currentProd=null;let orders=[],avisList=[],prodAvisMap={},bannedList=[];let hasFetchedOnce=false;let lastNotifiedStatus=null;let prevOrdersCount=0;let soundEnabled=true;let fullHistory=[];let activityLog=[];let shopSettings={forceOpen:true,defaultTime:40};
 function toggleSound(){soundEnabled=!soundEnabled;document.getElementById('soundBtn').textContent=soundEnabled?'🔊 SON ON':'🔇 SON OFF';}
 function playNewOrderSound(){if(!soundEnabled)return;try{let audio=new Audio('https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg');audio.play().catch(()=>{});if(navigator.vibrate)navigator.vibrate([200,100,200]);}catch(e){}}
-async function fetchAll(){ try{ let r=await fetch(NPOINT_URL+"?_="+Date.now()); let data=await r.json(); let oldOrders=orders; if(Array.isArray(data)){ orders=data; fullHistory=data; } else { let serverAvis = data.avis||[]; let merged = [...serverAvis]; avisList.forEach(localAvis=>{ if(!merged.find(s=>s.id===localAvis.id)){ merged.unshift(localAvis); } }); avisList = merged.slice(0,100); orders=data.orders||[]; prodAvisMap=data.prodAvis||{}; bannedList=data.banned||[]; fullHistory=data.fullHistory||[]; clientMessages=data.clientMessages||[]; shopSettings=data.shopSettings||{forceOpen:true,defaultTime:40}; if(fullHistory.length===0&&orders.length>0)fullHistory=[...orders]; } bannedList=bannedList.filter(b=>!b.until||b.until>Date.now()); for(let o of orders){if(!fullHistory.find(h=>h.id===o.id)){fullHistory.unshift(o);}} if(fullHistory.length>100)fullHistory=fullHistory.slice(0,100); if(orders.length>prevOrdersCount&&prevOrdersCount!==0&&hasFetchedOnce){let newOnes=orders.filter(o=>!oldOrders.find(oo=>oo.id===o.id));for(let o of newOnes){await notifyAdminNewOrder(o);}playNewOrderSound();} prevOrdersCount=orders.length; }catch(e){} hasFetchedOnce=true;renderAdminOrders();renderHist();renderAdminBans();renderAdminAvis();renderAvis();renderSpy();renderDashboard();renderClients();renderMsgs();checkBanned();checkMyOrder();updateCaliProfile(); }
-async function saveAll(){let payload={orders,avis:avisList,prodAvis:prodAvisMap,banned:bannedList,fullHistory,activityLog:[],shopSettings,clientMessages};let res=await fetch(NPOINT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});return res.ok;}
+async function fetchAll(){ try{ let r=await fetch(NPOINT_URL+"?_="+Date.now()); let data=await r.json(); let oldOrders=orders; if(Array.isArray(data)){ orders=data; fullHistory=data; } else { let serverAvis = data.avis||[]; let merged = [...serverAvis]; avisList.forEach(localAvis=>{ if(!merged.find(s=>s.id===localAvis.id)){ merged.unshift(localAvis); } }); avisList = merged.slice(0,100); orders=data.orders||[]; prodAvisMap=data.prodAvis||{}; bannedList=data.banned||[]; fullHistory=data.fullHistory||[]; shopSettings=data.shopSettings||{forceOpen:true,defaultTime:40}; if(fullHistory.length===0&&orders.length>0)fullHistory=[...orders]; } bannedList=bannedList.filter(b=>!b.until||b.until>Date.now()); for(let o of orders){if(!fullHistory.find(h=>h.id===o.id)){fullHistory.unshift(o);}} if(fullHistory.length>100)fullHistory=fullHistory.slice(0,100); if(orders.length>prevOrdersCount&&prevOrdersCount!==0&&hasFetchedOnce){let newOnes=orders.filter(o=>!oldOrders.find(oo=>oo.id===o.id));for(let o of newOnes){await notifyAdminNewOrder(o);}playNewOrderSound();} prevOrdersCount=orders.length; }catch(e){} hasFetchedOnce=true;renderAdminOrders();renderHist();renderAdminBans();renderAdminAvis();renderAvis();renderSpy();renderDashboard();renderClients();checkBanned();checkMyOrder();updateCaliProfile(); }
+async function saveAll(){let payload={orders,avis:avisList,prodAvis:prodAvisMap,banned:bannedList,fullHistory,activityLog:[],shopSettings};let res=await fetch(NPOINT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});return res.ok;}
 function buildGrid(filter='all'){ if(isBanned()) return; let g=document.getElementById('menuGrid');let h=''; for(let id in PRODUCTS){ let p=PRODUCTS[id]; if(p.disabled) continue; if(filter!=='all'&&p.cat!==filter)continue; h+=`<div class="card" onclick="openProduct('${id}')"><span class="tag">${escapeHtml(p.tag)}</span><video src="${escapeHtml(p.video)}" autoplay muted loop playsinline preload="metadata"></video><div class="smoke-layer"><div class="smoke"></div><div class="smoke smoke2"></div></div><div class="shine"></div><div class="card-info"><div><h3>${escapeHtml(p.name)}</h3><div class="price-row"><div style="font-size:10px;opacity:0.5">Dès</div><div class="price">${p.variants[0].price}€</div></div></div></div></div>`; } g.innerHTML=h||'<p style="padding:20px;opacity:0.5;text-align:center">Aucun produit</p>'; }
 buildGrid();
 let qteCount=1; let selectedVariant=null;
@@ -362,7 +337,30 @@ async function checkout(){
   }catch(e){alert('Erreur');lastOrderTime=0;}
   finally{setTimeout(()=>{isOrdering=false;if(btn){btn.disabled=false;btn.style.opacity='1';btn.innerHTML=oldText;}},3000);}
 }
-function checkMyOrder(){if(isBanned()){showFullBan();return;}let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');let banner=document.getElementById('myOrderBanner');let canceled=document.getElementById('canceledBanner');if(!my){banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.remove('show');lastNotifiedStatus=null;return;}let found=orders.find(o=>o.id===my.id);if(!found&&hasFetchedOnce&&(Date.now()-my.time)>15000){localStorage.removeItem('simone_myOrder');banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.remove('show');lastNotifiedStatus=null;return;}let d=found||my;if(d.status==='annulé'){banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.add('show');document.getElementById('canceledId').textContent=d.id;return;}let elapsed=Math.floor((Date.now()-d.time)/60000);let rest=d.remaining-elapsed;if(rest<0)rest=0;let step=d.statusStep||1;document.getElementById('myOrderId').textContent=d.id+' - '+d.total+'€';if(d.status==='en attente'){document.getElementById('myOrderStatus').textContent='📦 COMMANDE EN ATTENTE';document.getElementById('myOrderTimer').textContent='EN ATTENTE DE CONFIRMATION';banner.classList.remove('arrived');}else if(d.status==='en préparation'){document.getElementById('myOrderStatus').textContent='👨‍🍳 EN PRÉPARATION';document.getElementById('myOrderTimer').textContent='PRÉPARATION EN COURS';banner.classList.remove('arrived');}else if(d.status==='en route'){document.getElementById('myOrderStatus').textContent='🛵 LIVREUR EN ROUTE';document.getElementById('myOrderTimer').textContent=rest===0?'ARRIVÉE IMMINENTE':'LIVREUR EN ROUTE - '+rest+' MIN';banner.classList.remove('arrived');}else if(d.status==='livré'){document.getElementById('myOrderStatus').textContent='✅ LIVREUR ARRIVÉ';document.getElementById('myOrderTimer').textContent='LIVREUR ARRIVÉ ✅ DESCENDS !';banner.classList.add('arrived');}let stepsEl=document.getElementById('mySteps');if(stepsEl){let html='';for(let i=1;i<=4;i++){html+=`<div class="${i<step?'done':''} ${i===step?'active':''}"></div>`;}stepsEl.innerHTML=html;}banner.classList.add('show');canceled.classList.remove('show');}
+function checkMyOrder(){
+  if(isBanned()){showFullBan();return;}
+  let my=JSON.parse(localStorage.getItem('simone_myOrder')||'null');
+  let banner=document.getElementById('myOrderBanner');
+  let canceled=document.getElementById('canceledBanner');
+  if(!my){banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.remove('show');lastNotifiedStatus=null;return;}
+  let found=orders.find(o=>o.id===my.id);
+  if(!found&&hasFetchedOnce&&(Date.now()-my.time)>15000){localStorage.removeItem('simone_myOrder');banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.remove('show');lastNotifiedStatus=null;return;}
+  let d=found||my;
+  if(d.status==='annulé'){banner.classList.remove('show');banner.classList.remove('arrived');canceled.classList.add('show');document.getElementById('canceledId').textContent=d.id;return;}
+  let elapsed=Math.floor((Date.now()-d.time)/60000);
+  let rest=d.remaining-elapsed;
+  if(rest<0)rest=0;
+  let step=d.statusStep||1;
+  document.getElementById('myOrderId').textContent=d.id+' - '+d.total+'€';
+  if(d.status==='en attente'){document.getElementById('myOrderStatus').textContent='📦 COMMANDE EN ATTENTE';document.getElementById('myOrderTimer').textContent='EN ATTENTE DE CONFIRMATION';banner.classList.remove('arrived');}
+  else if(d.status==='en préparation'){document.getElementById('myOrderStatus').textContent='👨‍🍳 EN PRÉPARATION';document.getElementById('myOrderTimer').textContent='PRÉPARATION EN COURS';banner.classList.remove('arrived');}
+  else if(d.status==='en route'){document.getElementById('myOrderStatus').textContent='🛵 LIVREUR EN ROUTE';document.getElementById('myOrderTimer').textContent=rest===0?'ARRIVÉE IMMINENTE':'LIVREUR EN ROUTE - '+rest+' MIN';banner.classList.remove('arrived');}
+  else if(d.status==='livré'){document.getElementById('myOrderStatus').textContent='✅ LIVREUR ARRIVÉ';document.getElementById('myOrderTimer').textContent='LIVREUR ARRIVÉ ✅ DESCENDS !';banner.classList.add('arrived');}
+  let stepsEl=document.getElementById('mySteps');
+  if(stepsEl){let html='';for(let i=1;i<=4;i++){html+=`<div class="${i<step?'done':''} ${i===step?'active':''}"></div>`;}stepsEl.innerHTML=html;}
+  banner.classList.add('show');
+  canceled.classList.remove('show');
+}
 setInterval(()=>{checkMyOrder();checkBanned();},1000);
 setInterval(fetchAll,8000);
 setTimeout(()=>{ trackAction('view','Ouverture du site'); },1000);
@@ -476,15 +474,20 @@ function saveCourierFromAdmin(){
 }
 
 // ACTU LIVE
-let actus = JSON.parse(localStorage.getItem('simone_actus')||'[{"type":"🔥 PROMO","text":"LIVRAISON GRATUITE ce soir jusqu\'à 2h"}]');
+let actus = JSON.parse(localStorage.getItem('simone_actus')||'[]');
 function renderActu(){
   let ticker=document.getElementById('actuTicker');
   let track=document.getElementById('actuTrack');
   let list=document.getElementById('adminActuList');
-  if(actus.length===0){ ticker.style.display='none'; document.body.style.paddingTop='0'; if(list) list.innerHTML='<small style="opacity:0.5">Aucune actu</small>'; return; }
-  ticker.style.display='block';
-  document.body.style.paddingTop='26px';
-  track.innerHTML = actus.map(a=>` <span style="margin-right:50px">🔴 LIVE • ${a.type}: ${a.text}</span> `).join(' • ');
+  if(actus.length===0){
+    if(ticker) ticker.style.display='none';
+    if(list) list.innerHTML='<small style="opacity:0.5">Aucune actu</small>';
+    return;
+  }
+  if(ticker){
+    ticker.style.display='block';
+    if(track) track.innerHTML = actus.map(a=>` <span style="margin-right:50px">🔴 LIVE • ${a.type}: ${a.text}</span> `).join(' • ');
+  }
   if(list){
     let h='';
     actus.forEach((a,i)=>{ h+=`<div style="display:flex;justify-content:space-between;background:#111;border:1px solid #222;padding:8px 10px;border-radius:10px;margin-bottom:6px;font-size:11px"><span>${a.type}: ${a.text}</span><button onclick="deleteActu(${i})" style="background:#ff1a1a;border:none;color:#fff;padding:3px 8px;border-radius:6px">✕</button></div>`; });
@@ -496,51 +499,9 @@ function addActu(){ let text=document.getElementById('actuText').value.trim(); l
 function deleteActu(i){ actus.splice(i,1); renderActu(); }
 function clearActu(){ if(confirm('Supprimer toutes les actus ?')){ actus=[]; renderActu(); } }
 
-// MESSAGES CLIENTS -> ADMIN
-async function sendClientMessage(){
-  let input=document.getElementById('clientMsgInput');
-  let text=input.value.trim();
-  if(!text) return;
-  if(text.length<3){alert('Message trop court');return;}
-  let tgUser=getTelegramUser();
-  let msg={id:Date.now(),date:new Date().toLocaleString('fr-FR'),text:escapeHtml(text),name:escapeHtml(getTelegramName()),telegramId:tgUser?.id||null,telegramUsername:tgUser?.username||null,deviceId:DEVICE_ID};
-  clientMessages.unshift(msg);
-  if(clientMessages.length>100) clientMessages=clientMessages.slice(0,100);
-  input.value='';
-  let ok=await saveAll();
-  if(ok){
-    await sendTelegramMsg(SecureVault.getAdminId(),`💬 NOUVEAU MESSAGE CLIENT\n\n👤 ${msg.name} @${msg.telegramUsername||''}\n📝 ${text}\n🕐 ${msg.date}`);
-    alert('✅ Message envoyé à Simone !');
-    trackAction('order','Message client: '+text.slice(0,40));
-  }else alert('Erreur réseau');
-  renderMsgs();
-}
-function renderMsgs(){
-  let list=document.getElementById('adminMsgsList');
-  let count=document.getElementById('adminMsgsCount');
-  if(!list) return;
-  if(count) count.textContent=clientMessages.length;
-  if(clientMessages.length===0){ list.innerHTML='<p style="opacity:0.5">Aucun message</p>'; return; }
-  let html='';
-  clientMessages.forEach((m,i)=>{
-    html+=`<div class="admin-order" style="border-left:3px solid #2AABEE"><div style="display:flex;justify-content:space-between"><b style="color:#2AABEE">💬 ${m.name} ${m.telegramUsername?'@'+m.telegramUsername:''}</b><small style="opacity:0.5">${m.date}</small></div><div style="background:#000;padding:10px;border-radius:10px;margin:8px 0;border:1px solid #222">${m.text}</div><div class="admin-actions"><button onclick="replyToMsg(${i})" style="background:#2AABEE;color:#fff;border:none">💬 Répondre sur Telegram</button><button onclick="deleteMsg(${i})" style="background:#ff1a1a;color:#fff;border:none">Suppr</button></div></div>`;
-  });
-  list.innerHTML=html;
-}
-async function replyToMsg(i){
-  let m=clientMessages[i];
-  let rep=prompt(`Répondre à ${m.name}:`);
-  if(!rep) return;
-  let ok=false;
-  if(m.telegramId) ok=await sendTelegramMsg(m.telegramId,`💬 SIMONE PARIS vous répond:\n\n${rep}`);
-  if(ok) alert('✅ Réponse envoyée sur Telegram !'); else alert('Pas de Telegram ID, réponds via @'+(m.telegramUsername||''));
-}
-async function deleteMsg(i){ clientMessages.splice(i,1); await saveAll(); renderMsgs(); }
-async function clearMsgs(){ if(confirm('Vider tous les messages ?')){ clientMessages=[]; await saveAll(); renderMsgs(); } }
-
 fetchAll();
 checkBanned();
-setTimeout(()=>{renderCouriers();renderActu();renderMsgs();},1000);
+setTimeout(()=>{renderCouriers();renderActu();},1000);
 </script>
 </body>
 </html>
