@@ -307,48 +307,75 @@ async function sendBroadcast(){ let msg=document.getElementById('broadcastMsg').
 fetchAll();
 checkBanned();
 </script>
-<div class="section" style="margin-top:40px;"><span class="t">🗺️ ZONES LIVRAISON</span><span class="l"></span></div>
-<div style="margin:0 14px;background:#15151d;border:1px solid #1f1f25;border-radius:22px;overflow:hidden">
-  <div style="padding:14px;display:flex;justify-content:space-between;align-items:center">
-    <div><b style="font-size:13px">VERT = RAPIDE • ROUGE = TARDIVE 👇</b></div>
-    <div style="background:#25D366;padding:4px 10px;border-radius:100px;font-size:10px;font-weight:900">● EN LIGNE</div>
+<div class="section" style="margin-top:40px;"><span class="t">🗺️ ZONES LIVRAISON LIVE</span><span class="l"></span></div>
+<div style="margin:0 14px;background:#15151d;border:1px solid #1f1f25;border-radius:22px;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,0.3)">
+  <div style="padding:14px;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#15151d,#1a1a24)">
+    <div><b style="font-size:13px">📍 Paris & IDF</b><br><small style="opacity:0.5;font-size:10px">Clique ta zone = délai instantané</small></div>
+    <div style="background:#25D366;padding:5px 12px;border-radius:100px;font-size:10px;font-weight:900;box-shadow:0 0 10px #25D36688">● EN LIGNE</div>
   </div>
-  <div style="background:#0f0f14;padding:10px">
-    <svg viewBox="0 0 200 200" style="width:100%;height:200px">
-      <circle cx="100" cy="100" r="75" fill="none" stroke="#222" stroke-width="1" stroke-dasharray="4 4"/>
-      <g style="cursor:pointer" onclick="showZone('75-93','15-25 min','⚡ Très rapide','Prioritaire')">
-        <circle cx="100" cy="70" r="20" fill="#25D366" opacity="0.3" stroke="#25D366" stroke-width="1.5"/><text x="100" y="74" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">75-93</text>
+  
+  <!-- Recherche code postal -->
+  <div style="padding:10px 14px;background:#0f0f14;display:flex;gap:8px">
+    <input id="cpInput" placeholder="Ton code postal: 75001" style="flex:1;background:#15151d;border:1px solid #222;color:#fff;padding:10px 12px;border-radius:12px;font-size:12px;outline:none" maxlength="5" onkeyup="if(event.key==='Enter')checkCP()">
+    <button onclick="checkCP()" style="background:#fff;color:#000;border:none;padding:10px 16px;border-radius:12px;font-size:12px;font-weight:900">OK</button>
+  </div>
+
+  <div style="background:#0a0a0f;padding:14px;position:relative">
+    <svg viewBox="0 0 200 200" style="width:100%;height:220px">
+      <circle cx="100" cy="100" r="78" fill="none" stroke="#1e1e28" stroke-width="1" stroke-dasharray="3 5"/>
+      <!-- 75-93 centre rapide -->
+      <g style="cursor:pointer" onclick="showZone('75-93','15-25 min','⚡ ULTRA RAPIDE','Paris centre + Hauts-de-Seine • Livreur à 5min')">
+        <circle cx="100" cy="68" r="22" fill="#25D366" opacity="0.2"/><circle cx="100" cy="68" r="8" fill="#25D366" style="filter:drop-shadow(0 0 8px #25D366)"/><text x="100" y="72" text-anchor="middle" font-size="7" fill="#fff" font-weight="900">75-93</text>
       </g>
-      <g style="cursor:pointer" onclick="showZone('94','30-60 min','🚀 Rapide','Efficace')">
-        <circle cx="70" cy="100" r="18" fill="#25D366" opacity="0.3" stroke="#25D366" stroke-width="1.5"/><text x="70" y="104" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">94</text>
+      <g style="cursor:pointer" onclick="showZone('94 Val-de-Marne','30-40 min','🚀 RAPIDE','Créteil / Vitry • Stock local')">
+        <circle cx="65" cy="100" r="18" fill="#25D366" opacity="0.2" stroke="#25D366" stroke-width="1"/><text x="65" y="104" text-anchor="middle" font-size="8" fill="#fff" font-weight="800">94</text>
       </g>
-      <g style="cursor:pointer" onclick="showZone('92','40-60 min','🚀 Rapide','Champs / Gare')">
-        <circle cx="130" cy="95" r="18" fill="#FFD700" opacity="0.3" stroke="#FFD700" stroke-width="1.5"/><text x="130" y="99" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">92</text>
+      <g style="cursor:pointer" onclick="showZone('92 Hauts-de-Seine','25-40 min','🚀 RAPIDE','Nanterre / Boulogne • Scooter')">
+        <circle cx="135" cy="100" r="18" fill="#25D366" opacity="0.2" stroke="#25D366" stroke-width="1"/><text x="135" y="104" text-anchor="middle" font-size="8" fill="#fff" font-weight="800">92</text>
       </g>
-      <g style="cursor:pointer" onclick="showZone('91-95','1h','✅ Standard','+10€ en express')">
-        <circle cx="135" cy="130" r="20" fill="#FFD700" opacity="0.3" stroke="#FFD700" stroke-width="1.5"/><text x="135" y="134" text-anchor="middle" font-size="7" fill="#fff" font-weight="900">91-95</text>
+      <g style="cursor:pointer" onclick="showZone('91-95 Essonne/VO','50-70 min','✅ STANDARD','+10€ express • 1h max')">
+        <circle cx="138" cy="135" r="18" fill="#FFD700" opacity="0.2" stroke="#FFD700" stroke-width="1"/><text x="138" y="139" text-anchor="middle" font-size="7" fill="#fff" font-weight="800">91-95</text>
       </g>
-      <g style="cursor:pointer" onclick="showZone('78-77','1-2h','⏳ Plus long','Nord / Est')">
-        <circle cx="65" cy="135" r="18" fill="#ff8c00" opacity="0.3" stroke="#ff8c00" stroke-width="1.5"/><text x="65" y="139" text-anchor="middle" font-size="7" fill="#fff" font-weight="900">78-77</text>
+      <g style="cursor:pointer" onclick="showZone('78-77 Yvelines/77','60-120 min','⏳ LONG TRAJET','Versailles / Melun • Sur RDV')">
+        <circle cx="62" cy="138" r="18" fill="#ff6b00" opacity="0.2" stroke="#ff6b00" stroke-width="1"/><text x="62" y="142" text-anchor="middle" font-size="7" fill="#fff" font-weight="800">78-77</text>
       </g>
     </svg>
-    <div id="zoneInfo" style="display:none;background:#1a1a1a;border:1px solid #25D366;border-radius:14px;padding:12px;margin-top:6px">
-      <div style="display:flex;justify-content:space-between"><b id="zTitle"></b><span id="zTime" style="background:#25D366;color:#000;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:900"></span></div>
-      <div id="zDesc" style="font-size:11px;opacity:0.6;margin-top:4px"></div>
-      <div id="zExtra" style="font-size:10px;margin-top:6px;color:#25D366;font-weight:700"></div>
+    
+    <div id="zoneInfo" style="display:none;background:linear-gradient(135deg,#1e1e24,#15151d);border:1px solid #25D366;border-radius:16px;padding:14px;margin-top:4px;animation:pop 0.3s">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b id="zTitle" style="font-size:14px"></b><span id="zTime" style="background:#25D366;color:#000;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:900"></span></div>
+      <div id="zExtra" style="font-size:11px;margin-top:6px;color:#25D366;font-weight:700"></div>
+      <div id="zDesc" style="font-size:11px;opacity:0.6;margin-top:4px;line-height:1.4"></div>
+    </div>
+
+    <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+      <span style="font-size:9px;background:#25D36622;border:1px solid #25D36655;color:#25D366;padding:4px 8px;border-radius:100px">🟢 15-40min</span>
+      <span style="font-size:9px;background:#FFD70022;border:1px solid #FFD70055;color:#FFD700;padding:4px 8px;border-radius:100px">🟡 50-70min</span>
+      <span style="font-size:9px;background:#ff6b0022;border:1px solid #ff6b0055;color:#ff6b00;padding:4px 8px;border-radius:100px">🟠 1-2h</span>
     </div>
   </div>
 </div>
 
 <script>
 function showZone(arr,time,speed,desc){
-  let box=document.getElementById('zoneInfo');
-  document.getElementById('zTitle').textContent='Paris '+arr;
+  let b=document.getElementById('zoneInfo');
+  document.getElementById('zTitle').textContent=arr;
   document.getElementById('zTime').textContent=time;
   document.getElementById('zDesc').textContent=desc;
-  document.getElementById('zExtra').textContent=speed+' • Cash • Scooter';
-  box.style.display='block';
+  document.getElementById('zExtra').textContent=speed;
+  b.style.display='block';
 }
+function checkCP(){
+  let cp=document.getElementById('cpInput').value.trim();
+  if(!cp) return;
+  let c=parseInt(cp.substring(0,2));
+  if([75,92,93].includes(c) || cp.startsWith('75')) showZone('75-93','15-25 min','⚡ ULTRA RAPIDE','Ton CP '+cp+' = zone prioritaire, livreur à 5min');
+  else if(cp.startsWith('94')) showZone('94','30-40 min','🚀 RAPIDE','Ton CP '+cp+' = 30-40min');
+  else if(cp.startsWith('92')) showZone('92','25-40 min','🚀 RAPIDE','Ton CP '+cp+' = 25-40min');
+  else if([91,95].includes(c)) showZone('91-95','50-70 min','✅ STANDARD','Ton CP '+cp+' = 50-70min, +10€ express possible');
+  else showZone(cp,'60-120 min','⏳ LONG TRAJET','Ton CP '+cp+' = 1-2h sur RDV Telegram');
+}
+</script>
+<style>@keyframes pop{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1}}</style>
 </script>
 <div class="section" style="margin-top:40px;"><span class="t">🔥 SIMONE 750</span><span class="l"></span></div>
 <div class="menu-grid" style="padding-bottom:80px;">
