@@ -336,4 +336,44 @@ checkBanned();
       <g style="cursor:pointer" onclick="showZone('91-95 Essonne/VO','50-70 min','✅ STANDARD','+10€ express • 1h max')">
         <circle cx="138" cy="135" r="18" fill="#FFD700" opacity="0.2" stroke="#FFD700" stroke-width="1"/><text x="138" y="139" text-anchor="middle" font-size="7" fill="#fff" font-weight="800">91-95</text>
       </g>
+      <g style="cursor:pointer" onclick="showZone('78-77 Yvelines/77','60-120 min','⏳ LONG TRAJET','Versailles / Melun • Sur RDV')">
+        <circle cx="62" cy="138" r="18" fill="#ff6b00" opacity="0.2" stroke="#ff6b00" stroke-width="1"/><text x="62" y="142" text-anchor="middle" font-size="7" fill="#fff" font-weight="800">78-77</text>
+      </g>
+    </svg>
+    
+    <div id="zoneInfo" style="display:none;background:linear-gradient(135deg,#1e1e24,#15151d);border:1px solid #25D366;border-radius:16px;padding:14px;margin-top:4px;animation:pop 0.3s">
+      <div style="display:flex;justify-content:space-between;align-items:center"><b id="zTitle" style="font-size:14px"></b><span id="zTime" style="background:#25D366;color:#000;padding:4px 10px;border-radius:100px;font-size:11px;font-weight:900"></span></div>
+      <div id="zExtra" style="font-size:11px;margin-top:6px;color:#25D366;font-weight:700"></div>
+      <div id="zDesc" style="font-size:11px;opacity:0.6;margin-top:4px;line-height:1.4"></div>
+    </div>
+
+    <div style="margin-top:12px;display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
+      <span style="font-size:9px;background:#25D36622;border:1px solid #25D36655;color:#25D366;padding:4px 8px;border-radius:100px">🟢 15-40min</span>
+      <span style="font-size:9px;background:#FFD70022;border:1px solid #FFD70055;color:#FFD700;padding:4px 8px;border-radius:100px">🟡 50-70min</span>
+      <span style="font-size:9px;background:#ff6b0022;border:1px solid #ff6b0055;color:#ff6b00;padding:4px 8px;border-radius:100px">🟠 1-2h</span>
+    </div>
+  </div>
+</div>
+
+<script>
+function showZone(arr,time,speed,desc){
+  let b=document.getElementById('zoneInfo');
+  document.getElementById('zTitle').textContent=arr;
+  document.getElementById('zTime').textContent=time;
+  document.getElementById('zDesc').textContent=desc;
+  document.getElementById('zExtra').textContent=speed;
+  b.style.display='block';
+}
+function checkCP(){
+  let cp=document.getElementById('cpInput').value.trim();
+  if(!cp) return;
+  let c=parseInt(cp.substring(0,2));
+  if([75,92,93].includes(c) || cp.startsWith('75')) showZone('75-93','15-25 min','⚡ ULTRA RAPIDE','Ton CP '+cp+' = zone prioritaire, livreur à 5min');
+  else if(cp.startsWith('94')) showZone('94','30-40 min','🚀 RAPIDE','Ton CP '+cp+' = 30-40min');
+  else if(cp.startsWith('92')) showZone('92','25-40 min','🚀 RAPIDE','Ton CP '+cp+' = 25-40min');
+  else if([91,95].includes(c)) showZone('91-95','50-70 min','✅ STANDARD','Ton CP '+cp+' = 50-70min, +10€ express possible');
+  else showZone(cp,'60-120 min','⏳ LONG TRAJET','Ton CP '+cp+' = 1-2h sur RDV Telegram');
+}
+</script>
+<style>@keyframes pop{from{transform:scale(0.92);opacity:0}to{transform:scale(1);opacity:1}}</style>
       
