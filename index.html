@@ -307,161 +307,50 @@ async function sendBroadcast(){ let msg=document.getElementById('broadcastMsg').
 fetchAll();
 checkBanned();
 </script>
-<!-- V2 MAP CLICABLE + FIDELITE -50% -->
-<div class="section" style="margin-top:30px;"><span class="t">🗺️ ZONES LIVRAISON</span><span class="l"></span></div>
+<div class="section" style="margin-top:40px;"><span class="t">🗺️ ZONES LIVRAISON</span><span class="l"></span></div>
 <div style="margin:0 14px;background:#15151d;border:1px solid #1f1f25;border-radius:22px;overflow:hidden">
   <div style="padding:14px;display:flex;justify-content:space-between;align-items:center">
-    <div><b style="font-size:13px">VERT = RAPIDE • ROUGE = TARDIVE 👇</b><br><small style="opacity:0.5;font-size:10px">Temps estimé en live</small></div>
+    <div><b style="font-size:13px">VERT = RAPIDE • ROUGE = TARDIVE 👇</b></div>
     <div style="background:#25D366;padding:4px 10px;border-radius:100px;font-size:10px;font-weight:900">● EN LIGNE</div>
   </div>
-  <div style="background:#0f0f14;padding:10px;position:relative">
-    <svg viewBox="0 0 200 200" style="width:100%;height:200px" id="parisMap">
+  <div style="background:#0f0f14;padding:10px">
+    <svg viewBox="0 0 200 200" style="width:100%;height:200px">
       <circle cx="100" cy="100" r="75" fill="none" stroke="#222" stroke-width="1" stroke-dasharray="4 4"/>
-      <!-- Zones cliquables -->
-      <g style="cursor:pointer" onclick="showZone('1-4','15-25 min','⚡ Très rapide','Livraison prioritaire')">
-        <circle cx="100" cy="70" r="20" fill="#25D366" opacity="0.25" stroke="#25D366" stroke-width="1.5"/><text x="100" y="74" text-anchor="middle" font-size="9" fill="#fff" font-weight="900">75-93</text>
+      <g style="cursor:pointer" onclick="showZone('75-93','15-25 min','⚡ Très rapide','Prioritaire')">
+        <circle cx="100" cy="70" r="20" fill="#25D366" opacity="0.3" stroke="#25D366" stroke-width="1.5"/><text x="100" y="74" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">75-93</text>
       </g>
-      <g style="cursor:pointer" onclick="showZone('5-7','30-60 min','🚀 Rapide','Efficace')">
-        <circle cx="70" cy="100" r="18" fill="#25D366" opacity="0.25" stroke="#25D366" stroke-width="1.5"/><text x="70" y="104" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">94</text>
+      <g style="cursor:pointer" onclick="showZone('94','30-60 min','🚀 Rapide','Efficace')">
+        <circle cx="70" cy="100" r="18" fill="#25D366" opacity="0.3" stroke="#25D366" stroke-width="1.5"/><text x="70" y="104" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">94</text>
       </g>
-      <g style="cursor:pointer" onclick="showZone('8-10','40-60 min','🚀 Rapide','Champs / Gare')">
-        <circle cx="130" cy="95" r="18" fill="#25D366" opacity="0.25" stroke="#25D366" stroke-width="1.5"/><text x="130" y="99" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">92</text>
+      <g style="cursor:pointer" onclick="showZone('92','40-60 min','🚀 Rapide','Champs / Gare')">
+        <circle cx="130" cy="95" r="18" fill="#FFD700" opacity="0.3" stroke="#FFD700" stroke-width="1.5"/><text x="130" y="99" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">92</text>
       </g>
-      <g style="cursor:pointer" onclick="showZone('11-16','1h ','✅ Standard','+ 10€ en expresse')">
-        <circle cx="135" cy="130" r="20" fill="#FFD700" opacity="0.25" stroke="#FFD700" stroke-width="1.5"/><text x="135" y="134" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">91-95</text>
+      <g style="cursor:pointer" onclick="showZone('91-95','1h','✅ Standard','+10€ en express')">
+        <circle cx="135" cy="130" r="20" fill="#FFD700" opacity="0.3" stroke="#FFD700" stroke-width="1.5"/><text x="135" y="134" text-anchor="middle" font-size="7" fill="#fff" font-weight="900">91-95</text>
       </g>
-      <g style="cursor:pointer" onclick="showZone('17-20','1-2 h','⏳ Un peu plus long','Nord / Est')">
-        <circle cx="65" cy="135" r="18" fill="#ff8c00" opacity="0.25" stroke="#ff8c00" stroke-width="1.5"/><text x="65" y="139" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">78-77</text>
-      </g>
-      <g style="cursor:pointer" onclick="showZone('92/93/94','40-60 min','🚗 Banlieue','Rapide🚀')">
-        <circle cx="100" cy="160" r="16" fill="#222" opacity="0.8" stroke="#555" stroke-width="1"/><text x="100" y="164" text-anchor="middle" font-size="7" fill="#fff">92-94</text>
+      <g style="cursor:pointer" onclick="showZone('78-77','1-2h','⏳ Plus long','Nord / Est')">
+        <circle cx="65" cy="135" r="18" fill="#ff8c00" opacity="0.3" stroke="#ff8c00" stroke-width="1.5"/><text x="65" y="139" text-anchor="middle" font-size="7" fill="#fff" font-weight="900">78-77</text>
       </g>
     </svg>
-    <!-- Info box qui s'affiche au clic -->
-    <div id="zoneInfo" style="display:none;background:linear-gradient(135deg,#1a1a1a,#111);border:1px solid #25D366;border-radius:16px;padding:12px;margin-top:6px;animation:pop 0.2s">
-      <div style="display:flex;justify-content:space-between"><b id="zTitle" style="font-size:13px"></b><span id="zTime" style="background:#25D366;color:#000;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:900"></span></div>
+    <div id="zoneInfo" style="display:none;background:#1a1a1a;border:1px solid #25D366;border-radius:14px;padding:12px;margin-top:6px">
+      <div style="display:flex;justify-content:space-between"><b id="zTitle"></b><span id="zTime" style="background:#25D366;color:#000;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:900"></span></div>
       <div id="zDesc" style="font-size:11px;opacity:0.6;margin-top:4px"></div>
       <div id="zExtra" style="font-size:10px;margin-top:6px;color:#25D366;font-weight:700"></div>
     </div>
   </div>
 </div>
 
-<div class="section" style="margin-top:20px;"><span class="t">👑 CARTE FIDELITÉ -50%</span><span class="l"></span></div>
-<div style="margin:0 14px;background:linear-gradient(135deg,#1a1a1a,#0e0e0e);border:2px solid #d4af37;border-radius:22px;padding:16px;box-shadow:0 0 20px rgba(212,175,55,0.15)">
-  <div style="display:flex;justify-content:space-between;align-items:center">
-    <div><b style="font-size:14px;letter-spacing:1px">SIMONE BLACK CARD</b><br><small id="loyaltyName2" style="opacity:0.5;font-size:10px">-50% à la 10ème commande</small></div>
-    <div style="background:#d4af37;color:#000;padding:6px 12px;border-radius:100px;font-size:11px;font-weight:900" id="loyaltyLevel2">NIVEAU 1</div>
-  </div>
-  <div style="margin-top:14px;display:flex;gap:6px" id="loyaltyDots2"></div>
-  <div style="margin-top:10px;display:flex;justify-content:space-between;font-size:11px">
-    <span id="loyaltyText2" style="opacity:0.6">0/10 commandes</span>
-    <span style="color:#d4af37;font-weight:900" id="loyaltyReward2">🎁 -50% à 10</span>
-  </div>
-  <div style="margin-top:8px;height:8px;background:#222;border-radius:10px;overflow:hidden">
-    <div id="loyaltyBar2" style="height:100%;width:0%;background:linear-gradient(90deg,#d4af37,#ffeaa7);transition:0.6s"></div>
-  </div>
-  <div id="loyaltyCodeBox" style="display:none;margin-top:12px;background:#000;border:1px dashed #d4af37;border-radius:12px;padding:10px;text-align:center">
-    <small style="font-size:9px;opacity:0.5">CODE FIDELITE -50%</small><br>
-    <b id="loyaltyCode" style="font-size:16px;letter-spacing:2px;color:#d4af37">SIMONE50</b><br>
-    <small style="font-size:10px">Copie ce code au checkout</small>
-  </div>
-</div>
-
-<div class="menu-grid" style="padding-bottom:80p
-<style>@keyframes pop{from{transform:scale(0.95);opacity:0}to{transform:scale(1);opacity:1}}</style>
 <script>
-function showZone(arr, time, speed, desc){
+function showZone(arr,time,speed,desc){
   let box=document.getElementById('zoneInfo');
   document.getElementById('zTitle').textContent='Paris '+arr;
   document.getElementById('zTime').textContent=time;
   document.getElementById('zDesc').textContent=desc;
-  document.getElementById('zExtra').textContent=speed+' • Paiement cash • Livreur en scooter';
+  document.getElementById('zExtra').textContent=speed+' • Cash • Scooter';
   box.style.display='block';
 }
-function initLoyalty2(){
-  let orders = parseInt(localStorage.getItem('simone_orders')||'0');
-  let dots = document.getElementById('loyaltyDots2');
-  if(!dots) return;
-  dots.innerHTML='';
-  for(let i=1;i<=10;i++){
-    let d=document.createElement('div');
-    let done = i<=orders;
-    d.style.cssText=`width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;border:1.5px solid ${done?'#d4af37':'#333'};background:${done?'#d4af37':'#15151d'};color:${done?'#000':'#666'};transition:0.3s`;
-    d.textContent=done?'✓':i;
-    dots.appendChild(d);
-  }
-  let pct = Math.min(orders/10*100,100);
-  document.getElementById('loyaltyBar2').style.width=pct+'%';
-  document.getElementById('loyaltyText2').textContent=orders+'/10 commandes';
-  if(orders>=10){
-    document.getElementById('loyaltyReward2').textContent='🔥 -50% DÉBLOQUÉ !';
-    document.getElementById('loyaltyReward2').style.color='#25D366';
-    document.getElementById('loyaltyLevel2').textContent='VIP -50%';
-    document.getElementById('loyaltyCodeBox').style.display='block';
-  } else {
-    document.getElementById('loyaltyReward2').textContent=`🎁 -50% dans ${10-orders} commandes`;
-    document.getElementById('loyaltyLevel2').textContent=orders>=5?'GOLD':'NIVEAU 1';
-    document.getElementById('loyaltyCodeBox').style.display='none';
-  }
-}
-function addLoyaltyOrder2(){
-  let n = parseInt(localStorage.getItem('simone_orders')||'0')+1;
-  localStorage.setItem('simone_orders', n);
-  initLoyalty2();
-}
-setTimeout(()=>{
-  initLoyalty2();
-  if(typeof checkout==='function' && !window._loyHook2){
-    let orig = checkout;
-    window.checkout = async function(){
-      let r = await orig.apply(this, arguments);
-      addLoyaltyOrder2();
-      return r;
-    };
-    window._loyHook2=true;
-  }
-},800);
 </script>
-  </div>
-</div>
-
-<div class="menu-grid" style="padding-bottom:80p
-<script>
-function initLoyalty(){
-  let orders = parseInt(localStorage.getItem('simone_orders')||'0');
-  let dots = document.getElementById('loyaltyDots');
-  if(!dots) return;
-  dots.innerHTML='';
-  for(let i=1;i<=10;i++){
-    let d=document.createElement('div');
-    d.style.cssText=`width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;border:1px solid ${i<=orders?'#d4af37':'#222'};background:${i<=orders?'#d4af37':'#15151d'};color:${i<=orders?'#000':'#555'}`;
-    d.textContent=i<=orders?'✓':i;
-    dots.appendChild(d);
-  }
-  let pct = Math.min(orders/10*100,100);
-  document.getElementById('loyaltyBar').style.width=pct+'%';
-  document.getElementById('loyaltyText').textContent=orders+'/10 commandes';
-  if(orders>=10){ document.getElementById('loyaltyReward').textContent='🎉 1 GRATUIT DISPO !'; document.getElementById('loyaltyLevel').textContent='BLACK VIP'; }
-}
-function addLoyaltyOrder(){
-  let n = parseInt(localStorage.getItem('simone_orders')||'0')+1;
-  localStorage.setItem('simone_orders', n);
-  initLoyalty();
-}
-// Auto-hook sur ton checkout existant - pas besoin de toucher ton code
-setTimeout(()=>{
-  initLoyalty();
-  if(typeof checkout==='function' && !window._loyHook){
-    let orig = checkout;
-    window.checkout = async function(){
-      let r = await orig.apply(this, arguments);
-      addLoyaltyOrder();
-      return r;
-    };
-    window._loyHook=true;
-  }
-},800);
-</script>
+<div class="section" style="margin-top:40px;"><span class="t">🔥 SIMONE 750</span><span class="l"></span></div>
 <div class="menu-grid" style="padding-bottom:80px;">
 <div style="position:relative;overflow:hidden;border-radius:22px;height:280px;border:1px solid #1a1a1a;background:#000"><img src="profilsimone .PNG" style="width:100%;height:100%;object-fit:cover"><div class="smoke-layer"><div class="smoke"></div><div class="smoke smoke2"></div></div><div class="shine"></div></div>
 <div style="position:relative;overflow:hidden;border-radius:22px;height:280px;border:1px solid #1a1a1a;background:#000"><img src="simoneaf .jpg" style="width:100%;height:100%;object-fit:cover"><div class="smoke-layer"><div class="smoke"></div><div class="smoke smoke2"></div></div><div class="shine"></div></div>
