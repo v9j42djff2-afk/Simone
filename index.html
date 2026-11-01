@@ -308,6 +308,77 @@ fetchAll();
 checkBanned();
 </script>
 <div class="section" style="margin-top:40px;"><span class="t">🔥 SIMONE 750</span><span class="l"></span></div>
+<!-- CODE SIMONE: MAP + FIDELITE - 1 SEUL BLOC -->
+<div class="section" style="margin-top:30px;"><span class="t">🗺️ ZONES LIVRAISON</span><span class="l"></span></div>
+<div style="margin:0 14px;background:#15151d;border:1px solid #1f1f25;border-radius:22px;overflow:hidden">
+  <div style="padding:14px;display:flex;justify-content:space-between;align-items:center">
+    <div><b style="font-size:13px">Paris 75 - 20/40 min</b><br><small style="opacity:0.5;font-size:10px">Vert = livré • Rouge = bientôt</small></div>
+    <div style="background:#25D366;padding:4px 10px;border-radius:100px;font-size:10px;font-weight:900">● EN LIGNE</div>
+  </div>
+  <div style="background:#0f0f14;padding:10px">
+    <svg viewBox="0 0 200 200" style="width:100%;height:180px">
+      <circle cx="100" cy="100" r="70" fill="none" stroke="#222" stroke-width="1" stroke-dasharray="4 4"/>
+      <circle cx="100" cy="85" r="18" fill="#25D366" opacity="0.3" stroke="#25D366" stroke-width="1.5"/><text x="100" y="89" text-anchor="middle" font-size="8" fill="#fff" font-weight="900">1-4</text>
+      <circle cx="70" cy="100" r="16" fill="#25D366" opacity="0.3" stroke="#25D366" stroke-width="1.5"/><text x="70" y="104" text-anchor="middle" font-size="7" fill="#fff" font-weight="900">8-9</text>
+      <circle cx="130" cy="100" r="16" fill="#25D366" opacity="0.3" stroke="#25D366" stroke-width="1.5"/><text x="130" y="104" text-anchor="middle" font-size="7" fill="#fff" font-weight="900">11-12</text>
+      <circle cx="100" cy="125" r="18" fill="#25D366" opacity="0.3" stroke="#25D366" stroke-width="1.5"/><text x="100" y="129" text-anchor="middle" font-size="7" fill="#fff" font-weight="900">13-14</text>
+    </svg>
+  </div>
+</div>
+
+<div class="section" style="margin-top:20px;"><span class="t">👑 CARTE FIDELITÉ</span><span class="l"></span></div>
+<div style="margin:0 14px;background:linear-gradient(135deg,#1a1a1a,#111);border:1px solid #d4af37;border-radius:22px;padding:16px;">
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <div><b style="font-size:14px;letter-spacing:1px">SIMONE BLACK CARD</b><br><small id="loyaltyName" style="opacity:0.5;font-size:10px">Client fidèle</small></div>
+    <div style="background:#d4af37;color:#000;padding:4px 10px;border-radius:100px;font-size:10px;font-weight:900" id="loyaltyLevel">NIVEAU 1</div>
+  </div>
+  <div style="margin-top:14px;display:flex;gap:6px" id="loyaltyDots"></div>
+  <div style="margin-top:10px;display:flex;justify-content:space-between;font-size:11px">
+    <span id="loyaltyText" style="opacity:0.6">0/10 commandes</span>
+    <span style="color:#d4af37;font-weight:900" id="loyaltyReward">🎁 -10% à 10</span>
+  </div>
+  <div style="margin-top:8px;height:6px;background:#222;border-radius:10px;overflow:hidden">
+    <div id="loyaltyBar" style="height:100%;width:0%;background:linear-gradient(90deg,#d4af37,#ffeaa7);transition:0.5s"></div>
+  </div>
+</div>
+
+<div class="menu-grid" style="padding-bottom:80p
+<script>
+function initLoyalty(){
+  let orders = parseInt(localStorage.getItem('simone_orders')||'0');
+  let dots = document.getElementById('loyaltyDots');
+  if(!dots) return;
+  dots.innerHTML='';
+  for(let i=1;i<=10;i++){
+    let d=document.createElement('div');
+    d.style.cssText=`width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;border:1px solid ${i<=orders?'#d4af37':'#222'};background:${i<=orders?'#d4af37':'#15151d'};color:${i<=orders?'#000':'#555'}`;
+    d.textContent=i<=orders?'✓':i;
+    dots.appendChild(d);
+  }
+  let pct = Math.min(orders/10*100,100);
+  document.getElementById('loyaltyBar').style.width=pct+'%';
+  document.getElementById('loyaltyText').textContent=orders+'/10 commandes';
+  if(orders>=10){ document.getElementById('loyaltyReward').textContent='🎉 1 GRATUIT DISPO !'; document.getElementById('loyaltyLevel').textContent='BLACK VIP'; }
+}
+function addLoyaltyOrder(){
+  let n = parseInt(localStorage.getItem('simone_orders')||'0')+1;
+  localStorage.setItem('simone_orders', n);
+  initLoyalty();
+}
+// Auto-hook sur ton checkout existant - pas besoin de toucher ton code
+setTimeout(()=>{
+  initLoyalty();
+  if(typeof checkout==='function' && !window._loyHook){
+    let orig = checkout;
+    window.checkout = async function(){
+      let r = await orig.apply(this, arguments);
+      addLoyaltyOrder();
+      return r;
+    };
+    window._loyHook=true;
+  }
+},800);
+</script>
 <div class="menu-grid" style="padding-bottom:80px;">
 <div style="position:relative;overflow:hidden;border-radius:22px;height:280px;border:1px solid #1a1a1a;background:#000"><img src="profilsimone .PNG" style="width:100%;height:100%;object-fit:cover"><div class="smoke-layer"><div class="smoke"></div><div class="smoke smoke2"></div></div><div class="shine"></div></div>
 <div style="position:relative;overflow:hidden;border-radius:22px;height:280px;border:1px solid #1a1a1a;background:#000"><img src="simoneaf .jpg" style="width:100%;height:100%;object-fit:cover"><div class="smoke-layer"><div class="smoke"></div><div class="smoke smoke2"></div></div><div class="shine"></div></div>
