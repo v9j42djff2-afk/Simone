@@ -160,7 +160,7 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div id="cartDrawer" class="cart-drawer"><div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div><div id="cartList"></div><div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div><input id="addr" class="input" placeholder="📍 Adresse + code postal"><div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">11h-13h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-23h</button></div><input id="note" class="input" placeholder="Note livreur"><button id="checkoutBtn" class="btn-main" onclick="checkout()">Commander 🚀</button></div>
 <!-- DEBUT SYSTEME FIDELITE 7 JOURS - A COLLER LIGNE 32 -->
 <div class="card" id="vipCard" style="border:1px solid #7CFC00;">
-<h3 style="margin:0; font-size:15px;">🔥 Fidélité - 7 jours = 1 cadeau</h3>
+<h3 style="margin:0; font-size:15px;">  Fidélité - 7 jours = 1 cadeau</h3>
 <div id="days" style="display:flex; gap:6px; margin:14px 0;"></div>
 <button class="btn" id="checkBtn" onclick="doCheckin()">Chargement...</button>
 <div id="checkMsg" style="font-size:12px; margin-top:8px; text-align:center; color:#888;"></div>
@@ -196,7 +196,7 @@ function renderDays(){
    return;
  }
  if(d.last===todayStr()){btn.disabled=true;btn.style.opacity="0.5";btn.innerText="Déjà fait aujourd'hui";gift.style.display="none";btn.style.display="block";}
- else{btn.disabled=false;btn.style.opacity="1";btn.innerText=`✅ Check-in Jour ${d.streak+1}/${NEED}`;gift.style.display="none";btn.style.display="block";}
+ else{btn.disabled=false;btn.style.opacity="1";btn.innerText=`✅ Clic ici ${d.streak+1}/${NEED}`;gift.style.display="none";btn.style.display="block";}
  document.getElementById('checkMsg').innerText=`${d.streak}/${NEED}`;
 }
 
