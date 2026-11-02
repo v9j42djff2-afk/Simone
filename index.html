@@ -158,7 +158,62 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 <div class="avis-section"><div class="section" style="padding-left:0"><span class="t">AVIS CLIENTS</span><span class="l"></span></div><div id="avisList"></div><div class="info-box"><h4 style="font-size:13px;font-weight:900">✍️ LAISSER UN AVIS</h4><input id="avisName" class="input" placeholder="Ton pseudo"><div style="display:flex;gap:6px;margin-top:10px"><button onclick="selectStars(1)" id="s1" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐</button><button onclick="selectStars(2)" id="s2" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐⭐</button><button onclick="selectStars(3)" id="s3" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐⭐⭐</button><button onclick="selectStars(4)" id="s4" style="background:#111;border:1px solid #222;padding:8px 10px;border-radius:12px">⭐⭐⭐⭐</button><button onclick="selectStars(5)" id="s5" style="background:#2a2200;border:1px solid #ffcc00;padding:8px 10px;border-radius:12px">⭐⭐⭐⭐⭐</button></div><textarea id="avisText" class="textarea" placeholder="Ton avis..."></textarea><button class="btn-main" id="avisBtn" onclick="postAvis()">Envoyer mon avis 📩</button></div></div>
 <div id="cartFloat" class="cart-float" onclick="openCart()">🛒<span id="cartBadge" class="badge">0</span></div>
 <div id="cartDrawer" class="cart-drawer"><div style="display:flex;justify-content:space-between"><h3>🛒 Panier</h3><button onclick="closeCart()" style="background:none;border:none;color:#fff;font-size:22px">✕</button></div><div id="cartList"></div><div style="display:flex;justify-content:space-between;margin:14px 0;font-weight:900"><span>Total</span><span id="cartTotal">0€</span></div><input id="addr" class="input" placeholder="📍 Adresse + code postal"><div class="hours"><button type="button" class="active" onclick="selectHour(this)">Au plus vite ⚡</button><button type="button" onclick="selectHour(this)">11h-13h</button><button type="button" onclick="selectHour(this)">18h-20h</button><button type="button" onclick="selectHour(this)">20h-23h</button></div><input id="note" class="input" placeholder="Note livreur"><button id="checkoutBtn" class="btn-main" onclick="checkout()">Commander 🚀</button></div>
+<!-- DEBUT SYSTEME FIDELITE 7 JOURS - A COLLER LIGNE 32 -->
+<div class="card" id="vipCard" style="border:1px solid #7CFC00;">
+<h3 style="margin:0; font-size:15px;">🔥 Fidélité - 7 jours = 1 cadeau</h3>
+<div id="days" style="display:flex; gap:6px; margin:14px 0;"></div>
+<button class="btn" id="checkBtn" onclick="doCheckin()">Chargement...</button>
+<div id="checkMsg" style="font-size:12px; margin-top:8px; text-align:center; color:#888;"></div>
+<div id="giftScreen" style="display:none; text-align:center; background:#000; border:2px solid #7CFC00; border-radius:16px; padding:18px; margin-top:12px;">
+<h2 style="margin:5px 0;">Bravo 🎉</h2>
+<h3 style="margin:5px 0;">tu as un produit offert</h3>
+<p style="font-size:12px; color:#aaa;">capture cette image et envoie la à un admin</p>
+<div id="giftCode" style="background:#111; border:1px dashed #7CFC00; padding:10px; border-radius:10px; font-family:monospace; font-size:18px; margin:10px 0; letter-spacing:2px;">VIP7-XXXX</div>
+<div id="giftDate" style="font-size:10px; color:#666;"></div>
+</div>
+</div>
 
+<script>
+const NEED=7;
+let KEY="simone_vip7_"+(Telegram.WebApp.initDataUnsafe?.user?.id||"guest");
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{streak:0,last:"",giftCode:""}}catch(e){return {streak:0,last:"",giftCode:""}}}
+function save(d){localStorage.setItem(KEY,JSON.stringify(d))}
+function todayStr(){return new Date().toISOString().split('T')[0]}
+function yestStr(){return new Date(Date.now()-86400000).toISOString().split('T')[0]}
+function genCode(){return "VIP7-"+Math.random().toString(36).substring(2,6).toUpperCase()+"-"+Date.now().toString().slice(-4)}
+
+function renderDays(){
+ let d=load();
+ let h="";
+ for(let i=1;i<=NEED;i++){let done=i<=d.streak; h+=`<div style="flex:1;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:bold;background:${done?'#7CFC00':'#222'};color:${done?'#000':'#666'};">${done?'✓':i}</div>`}
+ document.getElementById('days').innerHTML=h;
+ let btn=document.getElementById('checkBtn');
+ let gift=document.getElementById('giftScreen');
+ if(d.streak>=NEED){
+   btn.style.display="none"; gift.style.display="block";
+   document.getElementById('giftCode').innerText=d.giftCode;
+   document.getElementById('giftDate').innerText="Gagné le "+d.last;
+   return;
+ }
+ if(d.last===todayStr()){btn.disabled=true;btn.style.opacity="0.5";btn.innerText="Déjà fait aujourd'hui";gift.style.display="none";btn.style.display="block";}
+ else{btn.disabled=false;btn.style.opacity="1";btn.innerText=`✅ Check-in Jour ${d.streak+1}/${NEED}`;gift.style.display="none";btn.style.display="block";}
+ document.getElementById('checkMsg').innerText=`${d.streak}/${NEED}`;
+}
+
+function doCheckin(){
+ let d=load();
+ let t=todayStr(); let y=yestStr();
+ if(d.last===t) return;
+ if(d.last && d.last!==y && d.last!==t){d.streak=0}
+ d.streak+=1; d.last=t;
+ if(d.streak>=NEED && !d.giftCode){d.giftCode=genCode()}
+ save(d); renderDays();
+ if(d.streak>=NEED){try{Telegram.WebApp.sendData(JSON.stringify({action:"gift_7days",code:d.giftCode}))}catch(e){} Telegram.WebApp.HapticFeedback.notificationOccurred('success')}
+ else{try{Telegram.WebApp.sendData(JSON.stringify({action:"checkin",day:d.streak}))}catch(e){} Telegram.WebApp.HapticFeedback.impactOccurred('light')}
+}
+renderDays();
+</script>
+<!-- FIN SYSTEME FIDELITE -->
 <div id="productModal" class="product-modal">
   <div class="p-header">
     <button onclick="closeProduct()" style="background:#1a1a1a;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%;cursor:pointer">✕</button>
