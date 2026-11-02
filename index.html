@@ -196,7 +196,7 @@ function renderDays(){
    return;
  }
  if(d.last===todayStr()){btn.disabled=true;btn.style.opacity="0.5";btn.innerText="Déjà fait aujourd'hui ✓";gift.style.display="none";btn.style.display="block";}
- else{btn.disabled=false;btn.style.opacity="1";btn.innerText=`✅ Check Jour ${d.streak+1}/${NEED}`;gift.style.display="none";btn.style.display="block";}
+ else{btn.disabled=false;btn.style.opacity="1";btn.innerText=`✅ Clic Ici ${d.streak+1}/${NEED}`;gift.style.display="none";btn.style.display="block";}
  document.getElementById('checkMsg').innerText=`${d.streak}/${NEED}`;
 }
 function doCheckin(){
