@@ -351,23 +351,109 @@ function clearHist(){if(confirm('Vider historique?')){fullHistory=[];saveAll();r
 fetchAll();
 checkBanned();
 </script>
-<!-- FIDELITÉ EN BAS - VERSION QUI MARCHE - À COLLER AVANT </body> -->
-<div id="fidelBox" style="background:linear-gradient(135deg,#0f2e1f,#102216);border:1px solid #25D366;border-radius:24px;padding:18px;margin:14px;text-align:center">
-  <h2 style="font-size:16px;font-weight:900;color:#fff">💳 FIDÉLITÉ SIMONE</h2>
-  <p style="font-size:11px;opacity:0.7;margin-top:4px;color:#fff">1 clic par jour • Au 7ème = 1 cadeau offert 🎁</p>
-  <div style="display:flex;justify-content:center;gap:6px;margin:14px 0;flex-wrap:wrap">
-    <div class="f-jour" id="fj1">1<br>🌿</div>
-    <div class="f-jour" id="fj2">2<br>🌿</div>
-    <div class="f-jour" id="fj3">3<br>🌿</div>
-    <div class="f-jour" id="fj4">4<br>🌿</div>
-    <div class="f-jour" id="fj5">5<br>🌿</div>
-    <div class="f-jour" id="fj6">6<br>🌿</div>
-    <div class="f-jour" id="fj7">7<br>🎁</div>
+<!-- 👑🎰 SIMONE ROYALE - REMPLACE FIDÉLITÉ -->
+<div id="royaleBox" style="margin:14px;background:linear-gradient(135deg,#1a0f00,#000);border:2px solid #ffcc00;border-radius:24px;padding:18px;text-align:center">
+  <div style="font-size:11px;letter-spacing:2px;color:#ffcc00;font-weight:900">👑 SIMONE ROYALE 👑</div>
+  <h2 style="font-size:22px;margin:8px 0;color:#fff">🎰 CASINO VIP</h2>
+  <p id="royaleStatus" style="font-size:12px;opacity:.7;color:#fff">Jour 1/7 - Joue tous les jours</p>
+
+  <div style="background:#000;border:1px solid #ffcc00;border-radius:14px;padding:10px;margin:12px 0">
+    <div style="font-size:10px;opacity:.6;color:#fff">🔥 JACKPOT ACTUEL</div>
+    <div id="jackpotVal" style="font-size:28px;font-weight:900;color:#ffcc00">87€</div>
   </div>
-  <p id="fidelMsg" style="font-size:12px;font-weight:800;color:#fff">Jour 0 / 7</p>
-  <button id="fidelBtn" style="margin-top:12px;background:#25D366;border:none;color:#000;padding:14px;border-radius:100px;font-weight:900;cursor:pointer;width:100%;font-size:14px">✅ CLIQUER AUJOURD'HUI</button>
+
+  <div id="royaleWheel" style="width:150px;height:150px;margin:14px auto;background:#111;border:3px solid #ffcc00;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:60px;transition:transform 2s cubic-bezier(.1,.8,.1,1)">🎡</div>
+  <div id="royaleResult" style="font-weight:900;font-size:13px;min-height:20px;margin:8px 0;color:#fff">Tourne pour gagner 👇</div>
+
+  <div style="display:flex;gap:6px;justify-content:center;margin:10px 0">
+    <div id="fj1" style="width:32px;height:32px;background:#222;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px">1</div>
+    <div id="fj2" style="width:32px;height:32px;background:#222;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px">2</div>
+    <div id="fj3" style="width:32px;height:32px;background:#222;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px">3</div>
+    <div id="fj4" style="width:32px;height:32px;background:#222;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px">4</div>
+    <div id="fj5" style="width:32px;height:32px;background:#222;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px">5</div>
+    <div id="fj6" style="width:32px;height:32px;background:#222;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px">6</div>
+    <div id="fj7" style="width:32px;height:32px;background:#222;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:12px">7</div>
+  </div>
+
+  <div style="margin:8px 0;color:#fff;font-size:12px">🎟️ Jetons : <b id="jetonCount" style="color:#ffcc00">1</b></div>
+
+  <button id="royaleBtn" onclick="royaleAction()" style="width:100%;background:linear-gradient(135deg,#ffcc00,#ff9900);color:#000;border:none;padding:16px;border-radius:14px;font-weight:900;font-size:15px;cursor:pointer">✅ CHECK-IN DU JOUR</button>
+  <p style="font-size:10px;opacity:.5;margin-top:8px;color:#fff">1 check-in par jour = +1 jeton • 7/7 = VIP débloqué</p>
 </div>
 
+<script>
+let r_fidel = parseInt(localStorage.getItem('simone_royale_fidel') || '0');
+let r_jetons = parseInt(localStorage.getItem('simone_royale_jetons') || '1');
+let r_jackpot = parseInt(localStorage.getItem('simone_royale_jackpot') || '87');
+let r_last = localStorage.getItem('simone_royale_last') || '';
+let r_spinning = false;
+
+function royaleUpdate(){
+  document.getElementById('jetonCount').textContent = r_jetons;
+  document.getElementById('jackpotVal').textContent = r_jackpot + '€';
+  for(let i=1;i<=7;i++){
+    let el = document.getElementById('fj'+i);
+    if(i <= r_fidel){ el.style.background = '#ffcc00'; el.textContent = '✅'; }
+    else { el.style.background = '#222'; el.textContent = i; }
+  }
+  let btn = document.getElementById('royaleBtn');
+  let st = document.getElementById('royaleStatus');
+  let today = new Date().toDateString();
+  if(r_fidel >= 7){
+    st.textContent = '👑 VIP DÉBLOQUÉ - À toi de jouer !';
+    btn.textContent = '🎰 TOURNER LA ROUE (1 jeton)';
+  } else if(r_last === today){
+    st.textContent = '✅ Check-in fait ! Reviens demain - ' + r_fidel + '/7';
+    btn.textContent = '🎰 TOURNER LA ROUE (1 jeton)';
+  } else {
+    st.textContent = 'Jour ' + (r_fidel+1) + '/7 - Fais ton check-in';
+    btn.textContent = '✅ CHECK-IN DU JOUR';
+  }
+  localStorage.setItem('simone_royale_fidel', r_fidel);
+  localStorage.setItem('simone_royale_jetons', r_jetons);
+  localStorage.setItem('simone_royale_jackpot', r_jackpot);
+  localStorage.setItem('simone_royale_last', r_last);
+}
+
+function royaleAction(){
+  let today = new Date().toDateString();
+  // Si pas encore check-in aujourd'hui et pas VIP, on fait check-in
+  if(r_fidel < 7 && r_last !== today){
+    r_fidel += 1;
+    r_jetons += 1;
+    r_last = today;
+    royaleUpdate();
+    alert('✅ Jour ' + r_fidel + '/7 validé ! +1 jeton 🎟️');
+    return;
+  }
+  // Sinon on tourne
+  if(r_jetons < 1){ alert('😅 Plus de jetons ! Reviens demain'); return; }
+  if(r_spinning) return;
+  r_spinning = true;
+  r_jetons -= 1;
+  r_jackpot += 2;
+  royaleUpdate();
+  let wheel = document.getElementById('royaleWheel');
+  wheel.style.transform = 'rotate(' + (720 + Math.floor(Math.random()*360)) + 'deg)';
+  document.getElementById('royaleResult').textContent = '🎰 Ça tourne...';
+  setTimeout(()=>{
+    r_spinning = false;
+    let r = Math.random();
+    let win;
+    if(r < 0.05) win = {e:'👑', t:'👑 JACKPOT ' + r_jackpot + '€ !!!'};
+    else if(r < 0.20) win = {e:'💎', t:'💎 -50% VIP'};
+    else if(r < 0.40) win = {e:'🌿', t:'🌿 1G OFFERT'};
+    else if(r < 0.65) win = {e:'🚚', t:'🚚 LIVRAISON OFFERTE'};
+    else if(r < 0.85) win = {e:'🎁', t:'🎁 -10% SUR TA COMMANDE'};
+    else win = {e:'❌', t:'❌ Perdu... retente !'};
+    wheel.textContent = win.e;
+    document.getElementById('royaleResult').textContent = win.t;
+    if(win.e === '👑'){ alert('👑 JACKPOT !!! ' + r_jackpot + '€ ! Screen et envoie au canal !'); r_jackpot = 50; }
+    royaleUpdate();
+  }, 2100);
+}
+royaleUpdate();
+</script>
 <style>
 .f-jour{width:42px;height:48px;background:#1a1a1a;border:2px dashed #333;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:11px;font-weight:800;opacity:0.4;line-height:1.2;color:#fff}
 .f-jour.ok{background:#25D366!important;border-style:solid;border-color:#25D366;opacity:1;color:#000;box-shadow:0 0 12px rgba(37,211,102,0.5)}
