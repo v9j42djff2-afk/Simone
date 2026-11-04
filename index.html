@@ -442,5 +442,17 @@ checkBanned();
 }
 </style>
 <!-- FIN LUMIÈRE -->
+<script>
+// SECURITE APP - sans texte
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.addEventListener('copy', e => e.preventDefault());
+document.addEventListener('selectstart', e => e.preventDefault());
+document.addEventListener('dragstart', e => e.preventDefault());
+document.addEventListener('keydown', e => {
+  if (e.key === 'PrintScreen') { e.preventDefault(); navigator.clipboard.writeText(''); }
+  if (e.ctrlKey && (e.key === 's' || e.key === 'u' || e.key === 'p')) e.preventDefault();
+});
+</script>
+</body>
 </body>
 </html>
