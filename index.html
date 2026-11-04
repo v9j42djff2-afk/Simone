@@ -351,7 +351,7 @@ function clearHist(){if(confirm('Vider historique?')){fullHistory=[];saveAll();r
 fetchAll();
 checkBanned();
 </script>
-<!-- 🎰 SIMONE CASINO - VRAI SLOT MACHINE -->
+<!-- 🎰 SIMONE CASINO - V2 CORRIGÉ - QUE DES POINTS -->
 <div id="casinoBox" style="margin:14px;background:linear-gradient(180deg,#1a0033,#000);border:2px solid #ff00ff;border-radius:24px;padding:18px;text-align:center;box-shadow:0 0 30px #ff00ff55">
   <div style="font-size:11px;letter-spacing:3px;color:#ffcc00;font-weight:900">🎰 SIMONE CASINO 🎰</div>
   <div style="font-size:10px;color:#fff;opacity:.6;margin-top:4px">MACHINE À SOUS - 100% RÉEL</div>
@@ -359,12 +359,12 @@ checkBanned();
   <!-- SOLDE -->
   <div style="display:flex;gap:8px;margin:14px 0">
     <div style="flex:1;background:#000;border:1px solid #ffcc00;border-radius:12px;padding:10px">
-      <div style="font-size:10px;color:#fff;opacity:.6">🪙 TES JETONS</div>
+      <div style="font-size:10px;color:#fff;opacity:.6">🪙 TES POINTS</div>
       <div id="slotCoins" style="font-size:22px;font-weight:900;color:#ffcc00">100</div>
     </div>
     <div style="flex:1;background:#000;border:1px solid #ff00ff;border-radius:12px;padding:10px">
       <div style="font-size:10px;color:#fff;opacity:.6">🔥 JACKPOT</div>
-      <div id="slotJackpot" style="font-size:22px;font-weight:900;color:#ff00ff">500€</div>
+      <div id="slotJackpot" style="font-size:22px;font-weight:900;color:#ff00ff">500 PTS</div>
     </div>
   </div>
 
@@ -382,35 +382,49 @@ checkBanned();
       <button onclick="setBet(50)" id="bet50" style="background:#222;color:#fff;border:1px solid #555;padding:8px 14px;border-radius:100px;font-weight:900">50</button>
     </div>
     <button id="spinBtn" onclick="spinSlot()" style="width:100%;background:linear-gradient(135deg,#ff00ff,#ffcc00);color:#fff;border:none;padding:18px;border-radius:16px;font-weight:900;font-size:18px;cursor:pointer;box-shadow:0 4px 20px #ff00ff88">🎰 SPIN - MISE <span id="betLabel">10</span></button>
+    <div id="spinsLeft" style="font-size:11px;color:#fff;opacity:.6;margin-top:8px">Spins aujourd'hui : 5/5</div>
   </div>
 
   <!-- GAINS -->
   <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:12px;font-size:10px;color:#fff">
-    <div style="background:#111;padding:8px;border-radius:10px">🌿🌿🌿<br><b style="color:#ffcc00">+50 jetons</b></div>
-    <div style="background:#111;padding:8px;border-radius:10px">💎💎💎<br><b style="color:#ffcc00">+200 jetons</b></div>
+    <div style="background:#111;padding:8px;border-radius:10px">🌿🌿🌿<br><b style="color:#ffcc00">+50 PTS</b></div>
+    <div style="background:#111;padding:8px;border-radius:10px">💎💎💎<br><b style="color:#ffcc00">+200 PTS</b></div>
     <div style="background:#111;padding:8px;border-radius:10px">👑👑👑<br><b style="color:#ff00ff">JACKPOT</b></div>
     <div style="background:#111;padding:8px;border-radius:10px">🔥🔥🔥<br><b style="color:#ffcc00">-50% COMMANDE</b></div>
     <div style="background:#111;padding:8px;border-radius:10px">🚚🚚🚚<br><b style="color:#ffcc00">LIVRAISON OFFERTE</b></div>
     <div style="background:#111;padding:8px;border-radius:10px">🍀🍀 = 2x<br><b style="color:#ffcc00">PAIRE = MISE x2</b></div>
   </div>
 
-  <button onclick="claimSlot()" style="width:100%;margin-top:12px;background:#fff;color:#000;border:none;padding:12px;border-radius:12px;font-weight:900;font-size:13px">💰 ÉCHANGER MES JETONS CONTRE UNE COMMANDE</button>
-  <p style="font-size:10px;opacity:.5;color:#fff;margin-top:8px">100 jetons = -10% • 200 jetons = 1G OFFERT • 500 jetons = JACKPOT</p>
+  <button onclick="claimSlot()" style="width:100%;margin-top:12px;background:#fff;color:#000;border:none;padding:12px;border-radius:12px;font-weight:900;font-size:13px">💰 ÉCHANGER MES POINTS CONTRE UNE COMMANDE</button>
+  <p style="font-size:10px;opacity:.5;color:#fff;margin-top:8px">100 PTS = -10% • 200 PTS = 1G OFFERT • 500 PTS = JACKPOT</p>
 </div>
 
 <script>
-let coins = parseInt(localStorage.getItem('simone_slot_coins') || '100');
-let jackpot = parseInt(localStorage.getItem('simone_slot_jackpot') || '500');
+let coins = parseInt(localStorage.getItem('simone_slot_coins_v2') || '100');
+let jackpot = parseInt(localStorage.getItem('simone_slot_jackpot_v2') || '500');
 let bet = 10;
 let spinningSlot = false;
 let symbols = ['🌿','💎','🔥','🍀','🚚','👑','💰'];
 
+// --- SPINS PAR JOUR ---
+let today = new Date().toDateString();
+let lastDay = localStorage.getItem('simone_slot_day') || '';
+let spinsLeft = parseInt(localStorage.getItem('simone_slot_spins') || '5');
+if(lastDay !== today){
+  spinsLeft = 5;
+  lastDay = today;
+  localStorage.setItem('simone_slot_day', today);
+  localStorage.setItem('simone_slot_spins', spinsLeft);
+}
+
 function updateSlot(){
   document.getElementById('slotCoins').textContent = coins;
-  document.getElementById('slotJackpot').textContent = jackpot + '€';
+  document.getElementById('slotJackpot').textContent = jackpot + ' PTS';
   document.getElementById('betLabel').textContent = bet;
-  localStorage.setItem('simone_slot_coins', coins);
-  localStorage.setItem('simone_slot_jackpot', jackpot);
+  document.getElementById('spinsLeft').textContent = 'Spins aujourd\'hui : ' + spinsLeft + '/5';
+  localStorage.setItem('simone_slot_coins_v2', coins);
+  localStorage.setItem('simone_slot_jackpot_v2', jackpot);
+  localStorage.setItem('simone_slot_spins', spinsLeft);
 }
 function setBet(v){
   bet = v;
@@ -423,13 +437,20 @@ function setBet(v){
 }
 function spinSlot(){
   if(spinningSlot) return;
-  if(coins < bet){ alert('😅 Plus de jetons ! Reviens demain, +100 jetons offerts'); coins += 100; updateSlot(); return; }
+  if(spinsLeft <= 0){ alert('😅 T\'as utilisé tes 5 spins ! Reviens demain.'); return; }
+  if(coins < bet){ alert('😅 Pas assez de points ! Il te faut ' + bet + ' PTS. Tu as ' + coins + ' PTS.'); return; }
+
   spinningSlot = true;
+  // CORRIGÉ : on enlève la mise UNE SEULE FOIS
   coins -= bet;
-  jackpot += bet;
+  jackpot += bet; // jackpot monte de ta mise, pas tes points
+  spinsLeft -= 1;
   updateSlot();
+
   document.getElementById('slotMsg').textContent = '🎰 Ça tourne...';
+  document.getElementById('slotMsg').style.color = '#fff';
   document.getElementById('spinBtn').style.opacity = '0.6';
+
   let count = 0;
   let interval = setInterval(()=>{
     document.getElementById('reel1').textContent = symbols[Math.floor(Math.random()*symbols.length)];
@@ -441,8 +462,7 @@ function spinSlot(){
       let r1 = symbols[Math.floor(Math.random()*symbols.length)];
       let r2 = symbols[Math.floor(Math.random()*symbols.length)];
       let r3 = symbols[Math.floor(Math.random()*symbols.length)];
-      // Un peu plus de chance pour faire plaisir
-      if(Math.random() < 0.18){ r2 = r1; if(Math.random() < 0.5) r3 = r1; }
+      if(Math.random() < 0.15){ r2 = r1; if(Math.random() < 0.4) r3 = r1; }
       document.getElementById('reel1').textContent = r1;
       document.getElementById('reel2').textContent = r2;
       document.getElementById('reel3').textContent = r3;
@@ -456,94 +476,37 @@ function checkWin(a,b,c){
   let msg = document.getElementById('slotMsg');
   if(a===b && b===c){
     if(a==='👑'){
-      msg.textContent = '👑👑 JACKPOT !!! ' + jackpot + '€ !!!';
+      let winJackpot = jackpot;
+      msg.textContent = '👑👑 JACKPOT !!! +' + winJackpot + ' PTS !!!';
       msg.style.color = '#ff00ff';
-      alert('👑 JACKPOT !!! Tu as gagné ' + jackpot + '€ ! Screen et envoie au canal !');
-      coins += 500; jackpot = 500;
-    } else if(a==='🌿'){ coins += 50; msg.textContent = '🌿🌿🌿 +50 JETONS !'; }
-    else if(a==='💎'){ coins += 200; msg.textContent = '💎💎💎 +200 JETONS !'; }
-    else if(a==='🔥'){ msg.textContent = '🔥🔥🔥 -50% SUR TA COMMANDE !'; }
-    else if(a==='🚚'){ msg.textContent = '🍀1G OFFERT !'; }
-    else { coins += bet*3; msg.textContent = a+a+a+' +'+(bet*3)+' JETONS !'; }
-    msg.style.color = '#ffcc00';
+      coins += winJackpot;
+      jackpot = 500;
+      alert('👑 JACKPOT !!! +' + winJackpot + ' PTS ! Screen et envoie au canal !');
+    } else if(a==='🌿'){ coins += 50; msg.textContent = '🌿🌿🌿 +50 PTS !'; msg.style.color = '#ffcc00'; }
+    else if(a==='💎'){ coins += 200; msg.textContent = '💎💎💎 +200 PTS !'; msg.style.color = '#ffcc00'; }
+    else if(a==='🔥'){ msg.textContent = '🔥🔥🔥 -50% SUR TA COMMANDE !'; msg.style.color = '#ffcc00'; }
+    else if(a==='🚚'){ msg.textContent = '🚚🚚🚚 LIVRAISON EXPRESSE OFFERTE !'; msg.style.color = '#ffcc00'; }
+    else { coins += bet*3; msg.textContent = a+a+a+' +' + (bet*3) + ' PTS !'; msg.style.color = '#ffcc00'; }
   } else if(a===b || b===c || a===c){
-    coins += bet*2; msg.textContent = '🍀 PAIRE ! +'+(bet*2)+' JETONS';
+    coins += bet*2; // CORRIGÉ : tu récupères 2x ta mise, donc tu gagnes +bet net
+    msg.textContent = '🍀 PAIRE ! +' + (bet*2) + ' PTS';
     msg.style.color = '#fff';
   } else {
-    msg.textContent = '❌ Perdu... retente !';
+    // CORRIGÉ : si tu perds, tu ne gagnes RIEN. Tes points restent à -mise.
+    msg.textContent = '❌ Perdu... -' + bet + ' PTS, retente !';
     msg.style.color = '#fff';
   }
   updateSlot();
 }
 function claimSlot(){
-  if(coins >= 200) alert('💰 Tu as ' + coins + ' jetons ! 200 jetons = 1G OFFERT. Envoie ce screen au livreur !');
-  else if(coins >= 100) alert('💰 Tu as ' + coins + ' jetons ! 100 jetons = -10%. Envoie ce screen !');
-  else alert('💰 Tu as ' + coins + ' jetons. Joue encore pour atteindre 100 !');
+  if(coins >= 500) alert('💰 Tu as ' + coins + ' PTS ! 500 PTS = JACKPOT. Envoie ce screen au livreur !');
+  else if(coins >= 200) alert('💰 Tu as ' + coins + ' PTS ! 200 PTS = 1G OFFERT. Envoie ce screen !');
+  else if(coins >= 100) alert('💰 Tu as ' + coins + ' PTS ! 100 PTS = -10%. Envoie ce screen !');
+  else alert('💰 Tu as ' + coins + ' PTS. Joue encore pour atteindre 100 PTS !');
 }
 setBet(10);
 updateSlot();
 </script>
-
-<style>
-.f-jour{width:42px;height:48px;background:#1a1a1a;border:2px dashed #333;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:11px;font-weight:800;opacity:0.4;line-height:1.2;color:#fff}
-.f-jour.ok{background:#25D366!important;border-style:solid;border-color:#25D366;opacity:1;color:#000;box-shadow:0 0 12px rgba(37,211,102,0.5)}
-.avis-card{background:linear-gradient(135deg,#0f2e1f,#102216)!important;border:1px solid #25D366!important}
-.avis-section{background:#0a1f12!important;border-radius:24px!important;margin:14px!important;border:1px solid #25D366!important}
-</style>
-
-<script>
-(function(){
-  let fidelData = JSON.parse(localStorage.getItem('simone_fidel_7') || '{"jours":0,"lastClic":"","debut":""}');
-  function checkCycle(){
-    if(fidelData.debut){
-      let debut = new Date(fidelData.debut);
-      let now = new Date();
-      let diff = Math.floor((now - debut)/(1000*60*60*24));
-      if(diff >= 7){ fidelData = {jours:0,lastClic:"",debut:""}; localStorage.setItem('simone_fidel_7', JSON.stringify(fidelData)); }
-    }
-  }
-  function update(){
-    checkCycle();
-    for(let i=1;i<=7;i++){ let el=document.getElementById('fj'+i); if(el) el.classList.toggle('ok', i<=fidelData.jours); }
-    let msg=document.getElementById('fidelMsg');
-    let btn=document.getElementById('fidelBtn');
-    let today=new Date().toDateString();
-    if(fidelData.jours>=7){
-      msg.textContent='🎉 7/7 - CADEAU DÉBLOQUÉ ! Montre ça à Simone';
-      btn.textContent='🎁 RÉCLAMER MON CADEAU';
-      btn.style.background='#ffcc00';
-      return;
-    }
-    msg.textContent='Jour '+fidelData.jours+' / 7';
-    if(fidelData.lastClic===today){
-      btn.textContent='✅ DÉJÀ CLIQUÉ AUJOURD\'HUI - Reviens demain';
-      btn.style.background='#333'; btn.style.color='#888';
-    } else {
-      btn.textContent='✅ CLIQUER AUJOURD\'HUI - Jour '+(fidelData.jours+1);
-      btn.style.background='#25D366'; btn.style.color='#000';
-    }
-  }
-  document.getElementById('fidelBtn').addEventListener('click', function(){
-    checkCycle();
-    let today=new Date().toDateString();
-    if(fidelData.jours>=7){
-      alert('🎁 Bravo ! Montre ce message à Simone pour ton cadeau offert !');
-      fidelData={jours:0,lastClic:"",debut:""};
-      localStorage.setItem('simone_fidel_7', JSON.stringify(fidelData));
-      update(); return;
-    }
-    if(fidelData.lastClic===today){ alert('Tu as déjà cliqué aujourd\'hui ⏳ Reviens demain !'); return; }
-    if(fidelData.jours===0){ fidelData.debut=new Date().toISOString(); }
-    fidelData.jours++; fidelData.lastClic=today;
-    localStorage.setItem('simone_fidel_7', JSON.stringify(fidelData));
-    update();
-    if(fidelData.jours===7){ alert('🎉🎉 7/7 ! TU AS GAGNÉ UN CADEAU OFFERT !'); }
-    else { alert('✅ Jour '+fidelData.jours+'/7 validé ! Reviens demain.'); }
-  });
-  update();
-})();
-</script>
-<!-- FIN FIDELITÉ -->
 <!-- LUMIÈRE SIMONE - TRAVERSE VITE + PAUSE 20s - À COLLER AVANT </body> -->
 <div style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;overflow:hidden">
   <div style="position:absolute;top:0;left:-40%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);animation:lumiereVitePause 22s linear infinite"></div>
@@ -558,67 +521,5 @@ updateSlot();
 }
 </style>
 <!-- FIN LUMIÈRE -->
-<script>
-// SECURITE APP - sans texte
-document.addEventListener('contextmenu', e => e.preventDefault());
-document.addEventListener('copy', e => e.preventDefault());
-document.addEventListener('selectstart', e => e.preventDefault());
-document.addEventListener('dragstart', e => e.preventDefault());
-document.addEventListener('keydown', e => {
-  if (e.key === 'PrintScreen') { e.preventDefault(); navigator.clipboard.writeText(''); }
-  if (e.ctrlKey && (e.key === 's' || e.key === 'u' || e.key === 'p')) e.preventDefault();
-});
-</script>
-<style>
-.ads{margin-top:20px}
-.ads h3{font-size:14px;letter-spacing:2px;opacity:.6;margin-bottom:10px}
-.ad-row{display:flex;gap:10px;overflow-x:auto;padding-bottom:5px}
-.ad-row::-webkit-scrollbar{display:none}
-.ad{flex:0 0 160px;background:#111;border-radius:16px;overflow:hidden;border:1px solid #222}
-.ad img{width:100%;height:110px;object-fit:cover;display:block}
-.ad p{padding:8px 10px;font-size:12px;font-weight:700;line-height:1.3}
-.ad span{display:block;padding:0 10px 10px;font-size:10px;color:#ed1c24;font-weight:900;letter-spacing:1px}
-</style>
-
-<div class="ads">
-  <h3>PUBLICITÉ</h3>
-  <div class="ad-row">
-
-    <a href="https://t.me/simone750" style="text-decoration:none;color:#fff">
-      <div class="ad">
-        <img src="jeteur.JPG">
-        <p>RECHERCHE JETEUR</p>
-        <span>VOIR L'OFFRE →</span>
-      </div>
-    </a>
-
-    <a href="https://t.me/simone750" style="text-decoration:none;color:#fff">
-      <div class="ad">
-        <img src="livr .jpg">
-        <p>RECHERCHE LIVREUR</p>
-        <span>VOIR L'OFFRE →</span>
-      </div>
-    </a>
-
-    <a href="https://t.me/simone750" style="text-decoration:none;color:#fff">
-      <div class="ad">
-        <img src="profilsimone .PNG">
-        <p>CONTACTEZ SIMONE</p>
-        <span>MESSAGE →</span>
-      </div>
-    </a>
-
-  </div>
-</div>
-<style>
-.footer{margin-top:25px;padding:16px;text-align:center;border-top:1px solid #222;font-size:11px;color:#888;line-height:1.6}
-.footer b{color:#fff}
-</style>
-
-<div class="footer">
-  🔒 <b>SIMONE © 2026</b> - Site certifié & Paiement en Espece<br>
-  Service officiel - Disponible pour vous aider
-</div>
-
 </body>
 </html>
