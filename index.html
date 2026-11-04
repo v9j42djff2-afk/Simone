@@ -132,20 +132,17 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </div>
 <div id="bannedBanner" class="my-order-banner banned"><p style="font-size:11px;color:#ff1a1a">🚫 COMPTE BANNI</p><b style="font-size:18px">TU ES BANNI</b><p id="bannedUntil" style="font-size:11px;margin-top:6px"></p></div>
 <div id="canceledBanner" class="my-order-banner canceled"><p style="font-size:11px">❌ COMMANDE ANNULÉE</p><b style="font-size:18px">CONTACTE SIMONE</b><p id="canceledId" style="font-size:11px;margin-top:6px"></p></div>
-<!-- RADIO SIMONE - SKYROCK -->
-<div style="background:linear-gradient(135deg,#1a0000,#0f0f14);border:1px solid #ed1c24;border-radius:24px;padding:18px;margin:14px;text-align:center">
-  <h2 style="font-size:18px;font-weight:900">📻 SIMONE RADIO - SKYROCK</h2>
-  <p style="font-size:11px;opacity:0.6;margin-top:6px">En direct avec Skyrock, dans ton app Simone</p>
+<!-- RADIO SIMONE - MOUV -->
+<div style="background:linear-gradient(135deg,#1a0f2e,#0f0f14);border:1px solid #a855f7;border-radius:24px;padding:18px;margin:14px;text-align:center">
+  <h2 style="font-size:18px;font-weight:900">📻 SIMONE RADIO - MOUV</h2>
+  <p style="font-size:11px;opacity:0.6;margin-top:6px">En direct avec Mouv, dans ton app Simone</p>
   <div style="margin-top:12px;background:#000;border-radius:14px;padding:12px">
-    <div style="font-size:12px;font-weight:900;margin-bottom:8px"><span style="display:inline-block;width:8px;height:8px;background:#ff1a1a;border-radius:50%;margin-right:6px"></span>SKYROCK - EN DIRECT 🔴</div>
-    <audio id="skyrockAudio" controls style="width:100%">
-      <source src="https://icecast.skyrock.net/s/natio_mp3_128k" type="audio/mpeg">
+    <div style="font-size:12px;font-weight:900;margin-bottom:8px"><span style="display:inline-block;width:8px;height:8px;background:#ff1a1a;border-radius:50%;margin-right:6px"></span>MOUV - EN DIRECT 🔴</div>
+    <audio id="mouvAudio" controls style="width:100%">
+      <source src="https://icecast.radiofrance.fr/mouv-midfi.mp3" type="audio/mpeg">
     </audio>
-    <button onclick="document.getElementById('skyrockAudio').play()" style="margin-top:10px;background:#ed1c24;border:none;color:#fff;padding:10px 18px;border-radius:100px;font-weight:900;cursor:pointer">▶️ Lancer Skyrock</button>
-    <button onclick="document.getElementById('skyrockAudio').pause()" style="margin-top:10px;background:#222;border:1px solid #333;color:#fff;padding:10px 18px;border-radius:100px;cursor:pointer">⏹️ Stop</button>
-  </div>
-  <p style="font-size:10px;opacity:0.4;margin-top:8px">Skyrock - Premier sur le Rap • Lecture dans l'app</p>
-</div>
+    <button onclick="document.getElementById('mouvAudio').play()" style="margin-top:10px;background:#a855f7;border:none;color:#fff;padding:10px 18px;border-radius:100px;font-weight:900;cursor:pointer">▶️ Lancer Mouv</button>
+    <button onclick="document.getElementById('mouvAudio').pause()" style="margin-top:10px;background:#222;border:1px solid #333;color:#fff;padding:10px 18px;border-radius:100px;cursor:pointer">⏹️ Stop</button>
   </div>
   <p style="font-size:10px;opacity:0.4;margin-top:8px">Radio Mouv - Radio France • Lecture dans l'app</p>
 </div>
@@ -214,11 +211,11 @@ function closeAdmin(){document.getElementById('adminPanel').classList.remove('op
 async function loginAdmin(){ if(!canTryLogin()) return; let p=document.getElementById('adminPass').value.trim(); let h = await hashPass(p); if(h===ADMIN_HASH || p===SecureVault.getPass()){ document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; failedAttempts={count:0,last:0}; localStorage.setItem('simone_failed',JSON.stringify(failedAttempts)); document.getElementById('adminError').style.display='none'; document.getElementById('adminBrute').style.display='none'; fetchAll(); }else{ document.getElementById('adminError').style.display='block'; recordFail(); if(failedAttempts.count>=3){ document.getElementById('adminBrute').style.display='block'; document.getElementById('adminBrute').textContent='3 échecs - bloqué 15 min 🚫'; } } }
 function switchAdminTab(tab){ document.querySelectorAll('.admin-tabs button').forEach(b=>b.classList.remove('active')); ['dash','orders','clients','hist','bans','avis'].forEach(t=>{ let tabBtn=document.getElementById('tab'+t.charAt(0).toUpperCase()+t.slice(1)); let view=document.getElementById('admin'+t.charAt(0).toUpperCase()+t.slice(1)+'View'); if(tabBtn) tabBtn.classList.toggle('active',t===tab); if(view) view.style.display=t===tab?'block':'none'; }); if(tab==='hist')renderHist(); if(tab==='dash')renderDashboard(); if(tab==='clients')renderClients(); }
 const BASE_PRODUCTS={
-p1:{id:'p1',name:'MOUSSEUX',tag:'TOP',video:'mousseux.mp4.MP4',desc:'🧽Mousseux- Détente profonde, arôme intense.',cat:'HASH',stock:7,variants:[{label:'10G',price:50},{label:'50G',price:180},{label:'100G',price:300}]},
-p2:{id:'p2',name:'AMNESIA',tag:'SOMA SEEDS',video:'amn.MP4',desc:'🍀Amnesia Indoor - Arôme puissant.',cat:'FLEUR',stock:10,variants:[{label:'5G',price:50},{label:'12G',price:100}]},
-p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4',desc:'🧊Frozen  - Extraction à froid, premium.',cat:'HASH',stock:4,variants:[{label:'10G',price:130},{label:'50G',price:400}]},
-p4:{id:'p4',name:'CALI',tag:'CALI US',video:'dosi.MOV',desc:'🥬Cali US - Génétique US .',cat:'FLEUR',stock:5,variants:[{label:'10G',price:110},{label:'20G',price:200}]},
-p5:{id:'p5',name:'PINEAPPLE RUNTZ',tag:'CALI US',video:'caliab .mov',desc:'🍀Pineapple Runtz  - Saveur tropicale.',cat:'FLEUR',stock:4,variants:[{label:'10G',price:120}]},
+p1:{id:'p1',name:'MOUSSEUX',tag:'TOP',video:'mousseux.mp4.MP4',desc:'Mousseux- Détente profonde, arôme intense.',cat:'HASH',stock:7,variants:[{label:'10G',price:50},{label:'50G',price:180},{label:'100G',price:300}]},
+p2:{id:'p2',name:'AMNESIA',tag:'SOMA SEEDS',video:'amn.MP4',desc:'Amnesia Indoor - Arôme puissant.',cat:'FLEUR',stock:10,variants:[{label:'5G',price:50},{label:'12G',price:100}]},
+p3:{id:'p3',name:'FROZEN',tag:'FRESH FROZEN',video:'frozen.mp4',desc:'Frozen  - Extraction à froid, premium.',cat:'HASH',stock:4,variants:[{label:'10G',price:130},{label:'50G',price:400}]},
+p4:{id:'p4',name:'CALI',tag:'CALI US',video:'dosi.MOV',desc:'Cali US - Génétique US .',cat:'FLEUR',stock:5,variants:[{label:'10G',price:110},{label:'20G',price:200}]},
+p5:{id:'p5',name:'PINEAPPLE RUNTZ',tag:'CALI US',video:'caliab .mov',desc:'Pineapple Runtz  - Saveur tropicale.',cat:'FLEUR',stock:4,variants:[{label:'10G',price:120}]},
 };
 let PRODUCTS=JSON.parse(JSON.stringify(BASE_PRODUCTS));
 let cart={},selectedHour="Au plus vite ⚡",selectedStars=5,currentProd=null;let orders=[],avisList=[],prodAvisMap={},bannedList=[];let hasFetchedOnce=false;let prevOrdersCount=0;let soundEnabled=true;let fullHistory=[];let shopSettings={forceOpen:true,defaultTime:40};
@@ -445,25 +442,5 @@ checkBanned();
 }
 </style>
 <!-- FIN LUMIÈRE -->
-<!-- INTRO SIMONE PHOTO - À COLLER AVANT </body> -->
-<div style="position:fixed;top:0;left:0;width:100%;height:100%;background:#000;z-index:9999;display:flex;align-items:center;justify-content:center;flex-direction:column;animation:introSortie 3.5s ease forwards">
-  <img src="profilsimone .PNG" style="width:160px;height:160px;border-radius:50%;object-fit:cover;border:3px solid #C9A86A;box-shadow:0 0 50px rgba(201,168,106,0.8);animation:introZoom 2.5s ease">
-  <div style="font-family:Arial,sans-serif;font-size:42px;font-weight:900;color:#fff;letter-spacing:8px;margin-top:20px;animation:introZoom 2.5s ease">SIMONE</div>
-  <div style="font-family:Arial,sans-serif;font-size:12px;color:#C9A86A;letter-spacing:6px;margin-top:8px;animation:introZoom 2.5s ease">T H C • PARIS</div>
-</div>
-<style>
-@keyframes introZoom{
-  0%{opacity:0;transform:scale(0.6);}
-  30%{opacity:1;transform:scale(1);}
-  80%{opacity:1;transform:scale(1);}
-  100%{opacity:1;transform:scale(1.05);}
-}
-@keyframes introSortie{
-  0%{opacity:1;visibility:visible;}
-  85%{opacity:1;visibility:visible;}
-  100%{opacity:0;visibility:hidden;}
-}
-</style>
-<!-- FIN INTRO -->
 </body>
 </html>
