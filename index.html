@@ -132,6 +132,20 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
 </div>
 <div id="bannedBanner" class="my-order-banner banned"><p style="font-size:11px;color:#ff1a1a">🚫 COMPTE BANNI</p><b style="font-size:18px">TU ES BANNI</b><p id="bannedUntil" style="font-size:11px;margin-top:6px"></p></div>
 <div id="canceledBanner" class="my-order-banner canceled"><p style="font-size:11px">❌ COMMANDE ANNULÉE</p><b style="font-size:18px">CONTACTE SIMONE</b><p id="canceledId" style="font-size:11px;margin-top:6px"></p></div>
+<!-- RADIO SIMONE - MOUV -->
+<div style="background:linear-gradient(135deg,#1a0f2e,#0f0f14);border:1px solid #a855f7;border-radius:24px;padding:18px;margin:14px;text-align:center">
+  <h2 style="font-size:18px;font-weight:900">📻 SIMONE RADIO - MOUV</h2>
+  <p style="font-size:11px;opacity:0.6;margin-top:6px">En direct avec Mouv, dans ton app Simone</p>
+  <div style="margin-top:12px;background:#000;border-radius:14px;padding:12px">
+    <div style="font-size:12px;font-weight:900;margin-bottom:8px"><span style="display:inline-block;width:8px;height:8px;background:#ff1a1a;border-radius:50%;margin-right:6px"></span>MOUV - EN DIRECT 🔴</div>
+    <audio id="mouvAudio" controls style="width:100%">
+      <source src="https://icecast.radiofrance.fr/mouv-midfi.mp3" type="audio/mpeg">
+    </audio>
+    <button onclick="document.getElementById('mouvAudio').play()" style="margin-top:10px;background:#a855f7;border:none;color:#fff;padding:10px 18px;border-radius:100px;font-weight:900;cursor:pointer">▶️ Lancer Mouv</button>
+    <button onclick="document.getElementById('mouvAudio').pause()" style="margin-top:10px;background:#222;border:1px solid #333;color:#fff;padding:10px 18px;border-radius:100px;cursor:pointer">⏹️ Stop</button>
+  </div>
+  <p style="font-size:10px;opacity:0.4;margin-top:8px">Radio Mouv - Radio France • Lecture dans l'app</p>
+</div>
 <div class="section"><span class="t">CATÉGORIES</span><span class="l"></span></div>
 <div class="cat-scroll"><div class="cat active" onclick="filterCat(this,'all')"><span>🔥</span> Tous</div><div class="cat" onclick="filterCat(this,'FLEUR')"><span>🌿</span> FLEUR</div><div class="cat" onclick="filterCat(this,'HASH')"><span>🍫</span> HASH</div></div>
 <div class="section"><span class="t">RÉCENTS</span><span class="l"></span></div>
