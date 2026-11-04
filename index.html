@@ -351,11 +351,11 @@ function clearHist(){if(confirm('Vider historique?')){fullHistory=[];saveAll();r
 fetchAll();
 checkBanned();
 </script>
-<!-- ===== FIDÉLITÉ EN BAS - À COLLER JUSTE AVANT </body> ===== -->
-<div style="background:linear-gradient(135deg,#0f2e1f,#102216);border:1px solid #25D366;border-radius:24px;padding:18px;margin:14px;text-align:center">
-  <h2 style="font-size:16px;font-weight:900">💳 FIDÉLITÉ SIMONE CBD</h2>
-  <p style="font-size:11px;opacity:0.7;margin-top:4px">1 clic par jour • Au 7ème jour = 1 cadeau CBD offert 🎁</p>
-  <div style="display:flex;justify-content:center;gap:6px;margin:14px 0;flex-wrap:wrap" id="fidelJours">
+<!-- FIDELITÉ EN BAS - VERSION QUI MARCHE - À COLLER AVANT </body> -->
+<div id="fidelBox" style="background:linear-gradient(135deg,#0f2e1f,#102216);border:1px solid #25D366;border-radius:24px;padding:18px;margin:14px;text-align:center">
+  <h2 style="font-size:16px;font-weight:900;color:#fff">💳 FIDÉLITÉ SIMONE</h2>
+  <p style="font-size:11px;opacity:0.7;margin-top:4px;color:#fff">1 clic par jour • Au 7ème = 1 cadeau offert 🎁</p>
+  <div style="display:flex;justify-content:center;gap:6px;margin:14px 0;flex-wrap:wrap">
     <div class="f-jour" id="fj1">1<br>🌿</div>
     <div class="f-jour" id="fj2">2<br>🌿</div>
     <div class="f-jour" id="fj3">3<br>🌿</div>
@@ -364,9 +364,69 @@ checkBanned();
     <div class="f-jour" id="fj6">6<br>🌿</div>
     <div class="f-jour" id="fj7">7<br>🎁</div>
   </div>
-  <p id="fidelMsg" style="font-size:12px;font-weight:800">Jour 0 / 7</p>
-  <button id="fidelBtn" onclick="clicFidelite()" style="margin-top:12px;background:#25D366;border:none;color:#000;padding:14px;border-radius:100px;font-weight:900;cursor:pointer;width:100%;font-size:14px">✅ CLIQUER AUJOURD'HUI</button>
+  <p id="fidelMsg" style="font-size:12px;font-weight:800;color:#fff">Jour 0 / 7</p>
+  <button id="fidelBtn" style="margin-top:12px;background:#25D366;border:none;color:#000;padding:14px;border-radius:100px;font-weight:900;cursor:pointer;width:100%;font-size:14px">✅ CLIQUER AUJOURD'HUI</button>
 </div>
-<!-- ===== FIN FIDÉLITÉ EN BAS ===== -->
+
+<style>
+.f-jour{width:42px;height:48px;background:#1a1a1a;border:2px dashed #333;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-direction:column;font-size:11px;font-weight:800;opacity:0.4;line-height:1.2;color:#fff}
+.f-jour.ok{background:#25D366!important;border-style:solid;border-color:#25D366;opacity:1;color:#000;box-shadow:0 0 12px rgba(37,211,102,0.5)}
+.avis-card{background:linear-gradient(135deg,#0f2e1f,#102216)!important;border:1px solid #25D366!important}
+.avis-section{background:#0a1f12!important;border-radius:24px!important;margin:14px!important;border:1px solid #25D366!important}
+</style>
+
+<script>
+(function(){
+  let fidelData = JSON.parse(localStorage.getItem('simone_fidel_7') || '{"jours":0,"lastClic":"","debut":""}');
+  function checkCycle(){
+    if(fidelData.debut){
+      let debut = new Date(fidelData.debut);
+      let now = new Date();
+      let diff = Math.floor((now - debut)/(1000*60*60*24));
+      if(diff >= 7){ fidelData = {jours:0,lastClic:"",debut:""}; localStorage.setItem('simone_fidel_7', JSON.stringify(fidelData)); }
+    }
+  }
+  function update(){
+    checkCycle();
+    for(let i=1;i<=7;i++){ let el=document.getElementById('fj'+i); if(el) el.classList.toggle('ok', i<=fidelData.jours); }
+    let msg=document.getElementById('fidelMsg');
+    let btn=document.getElementById('fidelBtn');
+    let today=new Date().toDateString();
+    if(fidelData.jours>=7){
+      msg.textContent='🎉 7/7 - CADEAU DÉBLOQUÉ ! Montre ça à Simone';
+      btn.textContent='🎁 RÉCLAMER MON CADEAU';
+      btn.style.background='#ffcc00';
+      return;
+    }
+    msg.textContent='Jour '+fidelData.jours+' / 7';
+    if(fidelData.lastClic===today){
+      btn.textContent='✅ DÉJÀ CLIQUÉ AUJOURD\'HUI - Reviens demain';
+      btn.style.background='#333'; btn.style.color='#888';
+    } else {
+      btn.textContent='✅ CLIQUER AUJOURD\'HUI - Jour '+(fidelData.jours+1);
+      btn.style.background='#25D366'; btn.style.color='#000';
+    }
+  }
+  document.getElementById('fidelBtn').addEventListener('click', function(){
+    checkCycle();
+    let today=new Date().toDateString();
+    if(fidelData.jours>=7){
+      alert('🎁 Bravo ! Montre ce message à Simone pour ton cadeau offert !');
+      fidelData={jours:0,lastClic:"",debut:""};
+      localStorage.setItem('simone_fidel_7', JSON.stringify(fidelData));
+      update(); return;
+    }
+    if(fidelData.lastClic===today){ alert('Tu as déjà cliqué aujourd\'hui ⏳ Reviens demain !'); return; }
+    if(fidelData.jours===0){ fidelData.debut=new Date().toISOString(); }
+    fidelData.jours++; fidelData.lastClic=today;
+    localStorage.setItem('simone_fidel_7', JSON.stringify(fidelData));
+    update();
+    if(fidelData.jours===7){ alert('🎉🎉 7/7 ! TU AS GAGNÉ UN CADEAU OFFERT !'); }
+    else { alert('✅ Jour '+fidelData.jours+'/7 validé ! Reviens demain.'); }
+  });
+  update();
+})();
+</script>
+<!-- FIN FIDELITÉ -->
 </body>
 </html>
