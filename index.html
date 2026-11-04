@@ -428,17 +428,19 @@ checkBanned();
 })();
 </script>
 <!-- FIN FIDELITÉ -->
-<!-- LUMIÈRE SIMONE 30 SECONDES - À COLLER AVANT </body> -->
+<!-- LUMIÈRE SIMONE - TRAVERSE VITE + PAUSE 20s - À COLLER AVANT </body> -->
 <div style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:999;overflow:hidden">
-  <div style="position:absolute;top:0;left:-40%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.14),transparent);animation:lumiere30s 30s ease-in-out infinite"></div>
+  <div style="position:absolute;top:0;left:-40%;width:40%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.18),transparent);animation:lumiereVitePause 22s linear infinite"></div>
 </div>
 <style>
-@keyframes lumiere30s{
-  0%{left:-40%;}
-  50%{left:100%;}
-  100%{left:-40%;}
+@keyframes lumiereVitePause{
+  0%{left:-40%;opacity:1;}
+  9%{left:100%;opacity:1;}
+  10%{left:100%;opacity:0;}
+  99%{left:-40%;opacity:0;}
+  100%{left:-40%;opacity:1;}
 }
 </style>
-<!-- FIN LUMIÈRE 30s -->
+<!-- FIN LUMIÈRE -->
 </body>
 </html>
