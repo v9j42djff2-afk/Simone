@@ -266,7 +266,7 @@ async function checkout(){
     let order={id:'CMD-'+Date.now().toString().slice(-6),time:Date.now(),date:new Date().toLocaleString('fr-FR'),items:Object.values(cart).map(i=>`${escapeHtml(i.name)} - ${escapeHtml(i.qteLabel)} x${i.qty} = ${i.total}€`).join('<br>'),total:total,customerName:escapeHtml(custName),telegramId:tgUser?.id||null,telegramUsername:tgUser?.username||null,address:escapeHtml(addr),hour:escapeHtml(selectedHour),note:escapeHtml(document.getElementById('note').value),remaining:40,status:'en attente',statusStep:1,deviceId:DEVICE_ID,reponse:''};
     orders.unshift(order);fullHistory.unshift(order);
     let ok=await saveAll();
-    if(ok){localStorage.setItem('simone_myOrder',JSON.stringify(order));cart={};updateCart();closeCart();checkMyOrder();btn.innerHTML='✅ Envoyé !';setTimeout(()=>alert('✅ Commande envoyée! aider le livreu a reconnaitre lendroit en envoiyent une photo des lieux Merci.'),300);}
+    if(ok){localStorage.setItem('simone_myOrder',JSON.stringify(order));cart={};updateCart();closeCart();checkMyOrder();btn.innerHTML='✅ Envoyé !';setTimeout(()=>alert('✅ Commande envoyée! Aide le livreur a reconnaitre lendroit en envoiyent une photo des lieux Merci.'),300);}
     else{orders.shift();fullHistory.shift();alert('Erreur réseau');lastOrderTime=0;}
   }catch(e){alert('Erreur');lastOrderTime=0;}
   finally{setTimeout(()=>{isOrdering=false;if(btn){btn.disabled=false;btn.style.opacity='1';btn.innerHTML=oldText;}},3000);}
