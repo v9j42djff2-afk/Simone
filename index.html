@@ -188,11 +188,6 @@ body{background:#0b0b0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,
   </div>
 </div>
 <div id="adminPanel" class="admin-panel"><div style="display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid #222;margin-bottom:14px"><h2>🔐 PANEL ADMIN</h2><div style="display:flex;gap:6px"><button onclick="toggleSound()" id="soundBtn" style="background:#111;border:1px solid #333;color:#fff;padding:8px 12px;border-radius:10px">🔊 SON ON</button><button onclick="closeAdmin()" style="background:#222;border:1px solid #333;color:#fff;width:36px;height:36px;border-radius:50%">✕</button></div></div><div id="adminLogin"><div class="info-box"><h4 style="color:#fff">🔐 Accès sécurisé</h4><input id="adminPass" class="input" type="password" placeholder="••••••••"><button class="btn-main" onclick="loginAdmin()">Déverrouiller 🔓</button><p id="adminError" style="color:#ff1a1a;font-size:12px;margin-top:8px;display:none">Mauvais mot de passe</p><p id="adminBrute" style="color:#ff1a1a;font-size:11px;margin-top:8px;display:none"></p></div></div><div id="adminContent" style="display:none"><div class="admin-tabs"><button id="tabDash" class="active" onclick="switchAdminTab('dash')">📊 DASH</button><button id="tabOrders" onclick="switchAdminTab('orders')">📦 CMD (<span id="adminCount">0</span>)</button><button id="tabClients" onclick="switchAdminTab('clients')">👥 CLIENTS (<span id="adminClientsCount">0</span>)</button><button id="tabHist" onclick="switchAdminTab('hist')">📜 HIST</button><button id="tabBans" onclick="switchAdminTab('bans')">🚫 BANS (<span id="adminBansCount">0</span>)</button><button id="tabAvis" onclick="switchAdminTab('avis')">⭐ AVIS (<span id="adminAvisCount">0</span>)</button></div><div id="adminDashView"><div class="dash-grid"><div class="dash-card"><span>CA TOTAL</span><b id="dashCATotal">0€</b></div><div class="dash-card"><span>CA AUJOURD'HUI</span><b id="dashCAToday" style="color:#25D366">0€</b></div><div class="dash-card"><span>COMMANDES TOTAL</span><b id="dashOrdersTotal">0</b></div><div class="dash-card"><span>CLIENTS UNIQUES</span><b id="dashClients">0</b></div></div><div class="info-box" style="background:#002200;border-color:#25D366"><h4 style="color:#25D366">✅ MODE ANTI-BAN ACTIVÉ + REPONSES</h4><p style="font-size:11px;opacity:0.7;margin-top:6px">Aucun message Telegram. Tu réponds ici, le client voit ta réponse sur son suivi commande.</p></div></div><div id="adminOrdersView" style="display:none"><div style="display:flex;gap:6px;margin-bottom:10px"><input id="orderSearch" class="search-bar" placeholder="🔍 Recherche..." oninput="renderAdminOrders()"><select id="statusFilter" class="search-bar" style="max-width:120px" onchange="renderAdminOrders()"><option value="all">Tous</option><option value="en attente">En attente</option><option value="en préparation">Prépa</option><option value="en route">En route</option><option value="livré">Livré</option></select></div><div id="adminOrdersList"></div></div><div id="adminClientsView" style="display:none"><h3 style="margin-bottom:10px">👥 Clients</h3><div id="adminClientsList"></div></div><div id="adminHistView" style="display:none"><h3>📜 Historique</h3><div id="adminHistList"></div><button onclick="clearHist()" style="margin-top:10px;background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-size:11px">Vider historique</button></div><div id="adminBansView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Bannis</h3><button onclick="clearAllBans()" style="background:#333;border:1px solid #555;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout débannir</button></div><div id="adminBansList"></div></div><div id="adminAvisView" style="display:none"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><h3>Avis</h3><button onclick="clearAllAvis()" style="background:#ff1a1a;border:none;color:#fff;padding:8px 12px;border-radius:10px;font-weight:800;font-size:11px">Tout supprimer</button></div><div id="adminAvisList"></div></div></div></div>
-<div style="background:#111;border:1px solid #333;padding:12px;border-radius:14px;margin-top:10px">
-  <b>🛡️ SÉCURITÉ - <span id="adminSecuriteCount">0</span></b>
-  <div id="adminSecuriteList" style="margin-top:10px"></div>
-  <button onclick="securityLogs=[];localStorage.setItem('securityLogs','[]');renderSecurite()" style="background:#000;color:#ff1a1a;border:1px solid #ff1a1a;padding:6px 10px;border-radius:8px;margin-top:8px">Effacer logs</button>
-</div>
 <script>
 const SecureVault = (() => { const _f = { p: "Tm9yYmVyOTMxMDAvLw==", t: [], a: "ODE3NTMwNjc4Mw==" }; const _d = s => { try{ return atob(s); }catch(e){ return ""; } }; return { getPass: () => _d(_f.p), getTokens: () => [], getAdminId: () => _d(_f.a) }; })();
 async function hashPass(s){ const enc=new TextEncoder().encode(s); const buf=await crypto.subtle.digest('SHA-256',enc); return [...new Uint8Array(buf)].map(b=>b.toString(16).padStart(2,'0')).join(''); }
@@ -354,72 +349,6 @@ function clearAllBans(){if(confirm('Tout débannir?')){bannedList=[];saveAll();r
 function deleteAvis(i){avisList.splice(i,1);saveAll();renderAdminAvis();renderAvis();}
 function clearAllAvis(){if(confirm('Tout supprimer?')){avisList=[];saveAll();renderAdminAvis();renderAvis();}}
 function clearHist(){if(confirm('Vider historique?')){fullHistory=[];saveAll();renderHist();}}
-// ===== SECURITE - LOGS DANS TON ADMIN =====
-let securityLogs = JSON.parse(localStorage.getItem('securityLogs') || '[]');
-
-function getDeviceInfo(){
-  const ua = navigator.userAgent.toLowerCase();
-  let device = "Ordinateur";
-  if (/iphone/.test(ua)) device = "iPhone";
-  else if (/ipad/.test(ua)) device = "iPad";
-  else if (/android/.test(ua)) device = "Android";
-  else if (/mac/.test(ua)) device = "Mac";
-  else if (/windows/.test(ua)) device = "Windows";
-  let type = /mobi|android|iphone|ipad/.test(ua) ? "Téléphone" : "Ordinateur";
-  return { device, type, ua: navigator.userAgent, ecran: screen.width+"x"+screen.height, langue: navigator.language };
-}
-
-function logSecurite(action){
-  const tg = window.Telegram?.WebApp;
-  const user = tg?.initDataUnsafe?.user || {};
-  const d = getDeviceInfo();
-  let alerte = "normal";
-  if(!tg?.initData) alerte = "SUSPECT - Hors Telegram";
-  if(d.ua.includes("bot") || d.ua.includes("curl") || d.ua.includes("python")) alerte = "BOT / PIRATAGE";
-
-  const log = {
-    heure: new Date().toLocaleString('fr-FR'),
-    prenom: user.first_name || "Inconnu",
-    username: user.username || "",
-    id: user.id || "inconnu",
-    action: action,
-    appareil: d.device + " - " + d.type,
-    ecran: d.ecran,
-    alerte: alerte
-  };
-  securityLogs.unshift(log);
-  if(securityLogs.length > 200) securityLogs = securityLogs.slice(0,200);
-  localStorage.setItem('securityLogs', JSON.stringify(securityLogs));
-  renderSecurite();
-}
-
-function renderSecurite(){
-  let list = document.getElementById('adminSecuriteList');
-  if(!list) return;
-  let suspect = securityLogs.filter(l=>l.alerte!=="normal").length;
-  let el = document.getElementById('adminSecuriteCount');
-  if(el) el.textContent = securityLogs.length + " logs - " + suspect + " alertes";
-  if(securityLogs.length===0){ list.innerHTML='<p style="opacity:0.5">Aucun log</p>'; return; }
-  let html='';
-  securityLogs.slice(0,50).forEach(l=>{
-    let color = l.alerte==="normal" ? "#222" : "#ff1a1a";
-    let bg = l.alerte==="normal" ? "#111" : "#3a0000";
-    html+=`<div style="background:${bg};border:1px solid ${color};border-radius:10px;padding:10px;margin-bottom:6px;font-size:12px">
-    <b>${l.alerte==="normal"?"🟢":"🚨 "+l.alerte}</b> - ${l.heure}<br>
-    👤 ${l.prenom} ${l.username?'@'+l.username:''} - ID: ${l.id}<br>
-    📱 ${l.appareil} - Ecran: ${l.ecran}<br>
-    👉 ${l.action}
-    </div>`;
-  });
-  list.innerHTML = html;
-}
-
-// Log ouverture + tous les clics auto
-logSecurite("a ouvert la Mini App");
-document.addEventListener("click", (e)=>{
-  const btn = e.target.closest("button, a");
-  if(btn) logSecurite("a cliqué sur : " + (btn.innerText||"").trim().slice(0,40));
-});
 fetchAll();
 checkBanned();
 </script>
@@ -612,5 +541,4 @@ document.addEventListener('keydown', e => {
   Service officiel - Disponible pour vous aider
 </div>
 
-</body>
-</html>
+</bo
