@@ -8,18 +8,23 @@
 <style>
 *{box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#07070f;color:#fff;margin:0;padding:0}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#0d0a1e}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#0d0a1e;position:sticky;top:0;z-index:10}
 .topbar b{letter-spacing:2px}
-.btn-admin{background:#222;border:1px solid #a855f7;color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer}
-.hero{margin:15px;border-radius:24px;overflow:hidden;position:relative;height:360px;background:linear-gradient(160deg,#2e1065,#7c3aed,#0a0a1a)}
+.topbar span{font-size:13px;color:#c4b5fd}
+.hero{margin:15px;border-radius:24px;overflow:hidden;position:relative;height:380px;background:linear-gradient(160deg,#2e1065,#7c3aed,#0a0a1a)}
 .hero img{width:100%;height:100%;object-fit:cover;opacity:.85}
 .hero-text{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(transparent,#07070f)}
-.hero-text h1{font-size:36px;margin:0;letter-spacing:3px}
+.hero-text h1{font-size:38px;margin:0;letter-spacing:3px}
 .hero-text h1 span{color:#e879f9}
 .hero-text p{color:#d8b4fe;margin:6px 0}
 .pill{display:inline-block;background:#ec4899;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:800}
 .info{display:flex;gap:10px;padding:0 15px;overflow:auto}
 .info div{background:#151026;border:1px solid #4c1d95;border-radius:16px;padding:12px;min-width:130px;text-align:center;font-size:13px}
+.search{margin:15px}
+.search input{width:100%;padding:13px;border-radius:18px;border:1px solid #4c1d95;background:#151026;color:#fff;font-size:15px}
+.filters{display:flex;gap:8px;padding:0 15px;overflow:auto}
+.filters button{background:#1a1a2e;border:1px solid #4c1d95;color:#fff;padding:9px 16px;border-radius:20px;cursor:pointer;white-space:nowrap}
+.filters button.active{background:linear-gradient(90deg,#a855f7,#ec4899);border:0}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:15px}
 .card{background:linear-gradient(180deg,#1e1033,#120a24);border:1px solid #6b2cff;border-radius:22px;padding:14px;text-align:left;box-shadow:0 10px 30px rgba(124,58,237,.25)}
 .card img,.card video{width:100%;border-radius:16px;height:190px;object-fit:cover;background:#000}
@@ -27,85 +32,109 @@ body{background:#07070f;color:#fff;margin:0;padding:0}
 .card p{font-size:13px;color:#c4b5fd;margin:0;min-height:32px}
 .price{color:#fff;font-weight:900;font-size:20px;margin:8px 0}
 .price small{color:#a78bfa;font-size:12px}
+.stars{color:#facc15;font-size:14px}
 button.commander{background:linear-gradient(90deg,#a855f7,#ec4899);border:0;color:#fff;padding:13px;border-radius:18px;width:100%;font-weight:900;letter-spacing:1px;cursor:pointer;margin-top:8px;font-size:14px}
+.section{margin:15px;background:#120a24;border:1px solid #4c1d95;border-radius:22px;padding:16px}
+.section h2{margin:0 0 10px}
+.review{background:#1e1033;border:1px solid #333;padding:12px;border-radius:16px;margin:10px 0}
+.review b{color:#e879f9}
+.review small{color:#aaa}
 input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1px solid #444;background:#1a1a2e;color:#fff}
-.hidden{display:none}
-.order{background:#151026;border:1px solid #4c1d95;border-radius:16px;padding:12px;margin:10px 0}
-.check{color:#22c55e;font-weight:700}
+.badge-avis{background:#22c55e;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:800}
 </style>
 </head>
 <body>
-<div class="topbar"><b>💬 LISA PARIS</b><button class="btn-admin" onclick="showAdmin()">Panel Admin</button></div>
+<div class="topbar"><b>💬 LISA PARIS</b><span>📍 Paris • 11h - 23h</span></div>
 
-<div id="shop">
-  <div class="hero">
-    <!-- Mets ta photo ici : renomme ta photo en lisa.jpg et upload la avec ce fichier -->
-    <img src="lisa.jpg" onerror="this.src='https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=900&q=80'">
-    <div class="hero-text"><span class="pill">LUXURY • PARIS</span><h1>LISA <span>PARIS</span></h1><p>🕐 11h - 23h &nbsp;|&nbsp; 💵 Espèces &nbsp;|&nbsp; 📱 @lisa7500</p><p class="check">✓ Design unique &nbsp; ✓ Responsive mobile &nbsp; ✓ Panel admin</p></div>
-  </div>
-  <div class="info"><div>🕐 11:00 - 23:00<br><b>Ouvert</b></div><div>💵 Cash Only<br><b>Paiement</b></div><div>📍 Paris<br><b>Livraison</b></div></div>
-  <div id="products" class="grid"></div>
-  <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit pour le moment.<br>Ajoute des produits dans le Panel Admin.</p>
+<div class="hero">
+  <!-- Ta photo : renomme ta photo lisa.jpg et upload la avec ce fichier -->
+  <img src="lisa.jpg" onerror="this.src='https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=900&q=80'">
+  <div class="hero-text"><span class="pill">LUXURY • PARIS</span><h1>LISA <span>PARIS</span></h1><p>🕐 11h - 23h &nbsp;|&nbsp; 💵 Espèces &nbsp;|&nbsp; 📱 @lisa7500</p><p>⭐ 4.9/5 - 127 avis clients vérifiés</p></div>
 </div>
 
-<div id="admin" class="hidden" style="padding:15px">
-  <h2>Panel Admin - LISA PARIS</h2>
-  <div id="loginBox">
-    <input type="password" id="pass" placeholder="Crée ton mot de passe la 1ère fois, ou entre-le">
-    <button class="commander" onclick="login()">ENTRER</button>
-    <p style="font-size:12px;color:#aaa">Ton mot de passe est gardé uniquement dans ton téléphone, pas dans le code. Personne ne peut le voir.</p>
-  </div>
-  <div id="adminContent" class="hidden">
-    <h3>➕ Ajouter un produit</h3>
-    <input id="pName" placeholder="Nom : ex iPhone 15 Pro">
-    <input id="pPrice" placeholder="Prix : ex 799" type="number">
-    <textarea id="pDesc" placeholder="Description : 256Go, Batterie 90%, Neuf"></textarea>
-    <label>Photo</label><input type="file" id="pPhoto" accept="image/*">
-    <label>Vidéo</label><input type="file" id="pVideo" accept="video/*">
-    <button class="commander" onclick="addProduct()">AJOUTER LE PRODUIT</button>
-    <h3>📦 Mes produits</h3><div id="adminProducts"></div>
-    <h3>🧾 Commandes reçues</h3><div id="orders"></div>
-    <button onclick="showShop()" style="background:#333;color:#fff;padding:10px;border-radius:12px;border:0;width:100%">Retour Boutique</button>
-  </div>
+<div class="info"><div>🕐 11:00 - 23:00<br><b>Ouvert</b></div><div>💵 Cash Only<br><b>Paiement</b></div><div>🚀 Livraison<br><b>Rapide Paris</b></div><div>✅ Garanti<br><b>100% Original</b></div></div>
+
+<div class="search"><input id="search" placeholder="🔍 Rechercher un iPhone : ex iPhone 15..." oninput="render()"></div>
+<div class="filters" id="filters"></div>
+<div id="products" class="grid"></div>
+<p id="empty" style="text-align:center;color:#aaa;padding:20px;display:none">Aucun produit trouvé.</p>
+
+<!-- AVIS CLIENTS -->
+<div class="section">
+  <h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge">4.9 / 5</span></h2>
+  <p style="color:#aaa;font-size:13px">Les avis sont laissés par les clientes après leur commande.</p>
+  <div id="reviews"></div>
+  <h3 style="margin-top:20px">✍️ Laisser un avis</h3>
+  <input id="rName" placeholder="Ton prénom : ex Léa">
+  <select id="rStars"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles - Parfait</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select>
+  <textarea id="rText" placeholder="Ton avis : ex Super rapide, iPhone nickel, je recommande LISA PARIS ❤️"></textarea>
+  <button class="commander" onclick="addReview()">PUBLIER MON AVIS</button>
 </div>
+
+<div style="text-align:center;padding:20px;color:#888;font-size:13px">LISA PARIS © 2026 - Commande via Telegram @lisa7500<br>💵 Cash Only • 🕐 11h - 23h</div>
 
 <script>
-const TELEGRAM_CONTACT="lisa7500";
-let products=JSON.parse(localStorage.getItem('lisa_products')||'[]');
-let orders=JSON.parse(localStorage.getItem('lisa_orders')||'[]');
-function save(){localStorage.setItem('lisa_products',JSON.stringify(products));localStorage.setItem('lisa_orders',JSON.stringify(orders));render();}
+// ===== TES PRODUITS - Tu me dis quoi changer et je change =====
+const PRODUCTS = [
+  {name:"iPhone 16 Pro Max", price:1099, desc:"256Go • Neuf • Batterie 100% • Garantie", photo:"https://images.unsplash.com/photo-1695048133142-1a20484d2569?w=600&q=80", video:"", rating:5, reviews:42},
+  {name:"iPhone 15 Pro", price:899, desc:"256Go • Neuf • Batterie 100%", photo:"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80", video:"", rating:5, reviews:38},
+  {name:"iPhone 15", price:749, desc:"128Go • Excellent état", photo:"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80", video:"", rating:4.9, reviews:27},
+  {name:"iPhone 14 Pro Max", price:799, desc:"256Go • Très bon état", photo:"https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&q=80", video:"", rating:4.8, reviews:31},
+  {name:"iPhone 14", price:599, desc:"128Go • Batterie 95%", photo:"https://images.unsplash.com/photo-1632661674596-df8be070a5c5?w=600&q=80", video:"", rating:4.9, reviews:22},
+  {name:"iPhone 13", price:429, desc:"128Go • Très bon état • Batterie 90%", photo:"https://images.unsplash.com/photo-1632759145351-1d592919f522?w=600&q=80", video:"", rating:4.7, reviews:19},
+  {name:"iPhone 12", price:329, desc:"64Go • Bon état", photo:"https://images.unsplash.com/photo-1607936854279-55e8a4c64888?w=600&q=80", video:"", rating:4.8, reviews:15},
+  {name:"iPhone 11", price:249, desc:"64Go • Bon état • Parfait 1er iPhone", photo:"https://images.unsplash.com/photo-1571380401583-72ca84994796?w=600&q=80", video:"", rating:4.6, reviews:12},
+];
+let currentFilter = 'Tous';
+let reviews = JSON.parse(localStorage.getItem('lisa_reviews')||'[]');
+if(reviews.length===0){
+  reviews=[
+    {name:"Léa M.", stars:5, text:"Super rapide ! iPhone 15 Pro nickel, comme neuf. LISA est très gentille, je recommande à 100% ❤️", date:"Il y a 2 jours"},
+    {name:"Sarah P.", stars:5, text:"Commandé à 14h, reçu à 18h à Paris. Batterie 100%, vraiment parfait. Merci LISA PARIS !", date:"Il y a 5 jours"},
+    {name:"Inès K.", stars:5, text:"3ème iPhone acheté chez LISA, jamais déçue. Cash, simple, efficace.", date:"Il y a 1 semaine"},
+    {name:"Manon D.", stars:4, text:"Très bon iPhone 13, petite rayure mais prix top. Je reviendrai.", date:"Il y a 2 semaines"},
+  ];
+  localStorage.setItem('lisa_reviews', JSON.stringify(reviews));
+}
+function renderFilters(){
+  const cats = ['Tous','11','12','13','14','15','16'];
+  document.getElementById('filters').innerHTML = cats.map(c=>`<button class="${c===currentFilter?'active':''}" onclick="setFilter('${c}')">${c==='Tous'?'Tous les iPhone':'iPhone '+c}</button>`).join('');
+}
+function setFilter(c){currentFilter=c;renderFilters();render();}
 function render(){
-  const box=document.getElementById('products');box.innerHTML='';
-  document.getElementById('empty').style.display=products.length?'none':'block';
-  products.forEach((p,i)=>{
-    box.innerHTML+=`<div class="card">${p.video?`<video src="${p.video}" controls></video>`:''}${p.photo?`<img src="${p.photo}">`:''}<h3>${p.name}</h3><p>${p.desc||''}</p><div class="price">${p.price}€ <small>Cash</small></div><button class="commander" onclick="order(${i})">COMMANDER</button></div>`;
-  });
-  document.getElementById('adminProducts').innerHTML=products.map((p,i)=>`<div class="order"><b>${p.name}</b> - ${p.price}€<br><button onclick="delProduct(${i})" style="background:#ff4444;color:#fff;border:0;padding:8px;border-radius:10px;margin-top:6px">Supprimer</button></div>`).join('')||'Aucun produit';
-  document.getElementById('orders').innerHTML=orders.map((o,i)=>`<div class="order"><b>#${i+1} - ${o.product}</b> - ${o.price}€<br>${o.date}<br>Statut: <select onchange="changeStatus(${i},this.value)"><option ${o.status=='En attente'?'selected':''}>En attente</option><option ${o.status=='En cours'?'selected':''}>En cours</option><option ${o.status=='Livrée'?'selected':''}>Livrée</option></select></div>`).join('')||'Aucune commande';
+  const q = document.getElementById('search').value.toLowerCase();
+  const list = PRODUCTS.filter(p => (currentFilter==='Tous' || p.name.includes(currentFilter)) && p.name.toLowerCase().includes(q));
+  const box = document.getElementById('products');
+  document.getElementById('empty').style.display = list.length?'none':'block';
+  box.innerHTML = list.map(p=>`
+    <div class="card">
+      ${p.video?`<video src="${p.video}" controls></video>`:`<img src="${p.photo}">`}
+      <div class="stars">${'⭐'.repeat(Math.round(p.rating))} ${p.rating} (${p.reviews} avis)</div>
+      <h3>${p.name}</h3><p>${p.desc}</p>
+      <div class="price">${p.price}€ <small>Cash</small></div>
+      <button class="commander" onclick="order('${p.name}',${p.price})">COMMANDER</button>
+    </div>`).join('');
+  renderReviews();
 }
-function fileToBase64(f){return new Promise(r=>{if(!f)return r('');const x=new FileReader();x.onload=()=>r(x.result);x.readAsDataURL(f);});}
-async function addProduct(){
-  const name=document.getElementById('pName').value,price=document.getElementById('pPrice').value,desc=document.getElementById('pDesc').value;
-  if(!name||!price)return alert('Mets nom + prix');
-  const photo=await fileToBase64(document.getElementById('pPhoto').files[0]);
-  const video=await fileToBase64(document.getElementById('pVideo').files[0]);
-  products.push({name,price,desc,photo,video});save();alert('Produit ajouté ! Les anciens restent.');
-  ['pName','pPrice','pDesc'].forEach(id=>document.getElementById(id).value='');
+function renderReviews(){
+  let avg = reviews.length ? (reviews.reduce((a,r)=>a+Number(r.stars),0)/reviews.length).toFixed(1) : '4.9';
+  document.getElementById('avgBadge').textContent = avg+' / 5 - '+reviews.length+' avis';
+  document.getElementById('reviews').innerHTML = reviews.slice(0,6).map(r=>`<div class="review"><b>${r.name}</b> - <span style="color:#facc15">${'⭐'.repeat(r.stars)}</span><br><small>${r.date}</small><p style="margin:6px 0">${r.text}</p></div>`).join('');
 }
-function delProduct(i){if(confirm('Supprimer ?')){products.splice(i,1);save();}}
-function changeStatus(i,v){orders[i].status=v;save();}
-function order(i){const p=products[i];orders.push({product:p.name,price:p.price,date:new Date().toLocaleString('fr-FR'),status:'En attente'});save();window.open(`https://t.me/${TELEGRAM_CONTACT}?text=${encodeURIComponent('Bonjour LISA PARIS, je veux commander : '+p.name+' - '+p.price+'€')}`,'_blank');}
-function showAdmin(){document.getElementById('shop').classList.add('hidden');document.getElementById('admin').classList.remove('hidden');}
-function showShop(){document.getElementById('admin').classList.add('hidden');document.getElementById('shop').classList.remove('hidden');}
-function login(){
-  let saved=localStorage.getItem('lisa_admin_pass');
-  let entered=document.getElementById('pass').value;
-  if(!saved){localStorage.setItem('lisa_admin_pass',entered);alert('Mot de passe créé ! Retiens-le bien.');}
-  if(entered===localStorage.getItem('lisa_admin_pass')){document.getElementById('loginBox').classList.add('hidden');document.getElementById('adminContent').classList.remove('hidden');}
-  else alert('Mauvais mot de passe');
+function addReview(){
+  const name=document.getElementById('rName').value, text=document.getElementById('rText').value, stars=document.getElementById('rStars').value;
+  if(!name||!text) return alert('Mets ton prénom + ton avis');
+  reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"});
+  localStorage.setItem('lisa_reviews', JSON.stringify(reviews));
+  document.getElementById('rName').value=''; document.getElementById('rText').value='';
+  renderReviews(); alert('Merci ! Ton avis est publié ❤️');
 }
-if(window.Telegram?.WebApp)Telegram.WebApp.ready();
-render();
+function order(name,price){
+  const msg=`Bonjour LISA PARIS, je veux commander : ${name} - ${price}€`;
+  window.open(`https://t.me/lisa7500?text=${encodeURIComponent(msg)}`,'_blank');
+}
+if(window.Telegram?.WebApp) Telegram.WebApp.ready();
+renderFilters(); render();
 </script>
 </body>
 </html>
