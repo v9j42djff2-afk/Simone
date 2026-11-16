@@ -11,7 +11,7 @@ body{background:#07070f;color:#fff;margin:0;padding:0}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#0d0a1e;position:sticky;top:0;z-index:10}
 .topbar b{letter-spacing:2px}
 .btn-admin{background:#222;border:1px solid #a855f7;color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer}
-.hero{margin:15px;border-radius:24px;overflow:hidden;position:relative;height:380px;background:linear-gradient(160deg,#2e1065,#7c3aed,#0a0a1a)}
+.hero{margin:15px;border-radius:24px;overflow:hidden;position:relative;height:360px;background:linear-gradient(160deg,#2e1065,#7c3aed,#0a0a1a)}
 .hero img{width:100%;height:100%;object-fit:cover;opacity:.85}
 .hero-text{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(transparent,#07070f)}
 .hero-text h1{font-size:38px;margin:0;letter-spacing:3px}
@@ -25,14 +25,20 @@ body{background:#07070f;color:#fff;margin:0;padding:0}
 .filters{display:flex;gap:8px;padding:0 15px;overflow:auto}
 .filters button{background:#1a1a2e;border:1px solid #4c1d95;color:#fff;padding:9px 16px;border-radius:20px;cursor:pointer;white-space:nowrap}
 .filters button.active{background:linear-gradient(90deg,#a855f7,#ec4899);border:0}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:15px}
-.card{background:linear-gradient(180deg,#1e1033,#120a24);border:1px solid #6b2cff;border-radius:22px;padding:14px;text-align:left;box-shadow:0 10px 30px rgba(124,58,237,.25)}
-.card img,.card video{width:100%;border-radius:16px;height:190px;object-fit:cover;background:#000}
-.card h3{margin:10px 0 4px;font-size:16px}
+/* ===== CAROUSEL HORIZONTAL - COMME TA CAPTURE VERTE ===== */
+.carousel-wrap{position:relative;padding:0 5px}
+.carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:15px;scrollbar-width:none}
+.carousel::-webkit-scrollbar{display:none}
+.card{flex:0 0 78%;max-width:280px;scroll-snap-align:center;background:linear-gradient(180deg,#1e1033,#120a24);border:1px solid #6b2cff;border-radius:22px;padding:14px;text-align:left;box-shadow:0 10px 30px rgba(124,58,237,.25)}
+.card img,.card video{width:100%;border-radius:16px;height:200px;object-fit:cover;background:#000}
+.card h3{margin:10px 0 4px;font-size:17px}
 .card p{font-size:13px;color:#c4b5fd;margin:0;min-height:32px}
-.price{color:#fff;font-weight:900;font-size:20px;margin:8px 0}
+.price{color:#fff;font-weight:900;font-size:21px;margin:8px 0}
 .price small{color:#a78bfa;font-size:12px}
 .stars{color:#facc15;font-size:14px}
+.arrow{position:absolute;top:45%;width:38px;height:38px;border-radius:50%;background:#fff;color:#000;border:0;font-size:20px;font-weight:900;z-index:5;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,.5)}
+.arrow.left{left:8px}.arrow.right{right:8px}
+.dots{text-align:center;color:#a78bfa;font-size:13px;margin-top:-5px}
 button.commander{background:linear-gradient(90deg,#a855f7,#ec4899);border:0;color:#fff;padding:13px;border-radius:18px;width:100%;font-weight:900;letter-spacing:1px;cursor:pointer;margin-top:8px;font-size:14px}
 input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1px solid #444;background:#1a1a2e;color:#fff}
 .hidden{display:none}
@@ -47,17 +53,23 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 <body>
 <div class="topbar"><b>💬 LISA PARIS</b><button class="btn-admin" onclick="showAdmin()">Panel Admin</button></div>
 
-<!-- BOUTIQUE -->
 <div id="shop">
   <div class="hero">
     <img src="lisa.jpg" onerror="this.src='https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=900&q=80'">
-    <div class="hero-text"><span class="pill">LUXURY • PARIS</span><h1>LISA <span>PARIS</span></h1><p>🕐 11h - 23h &nbsp;|&nbsp; 💵 Espèces &nbsp;|&nbsp; 📱 @lisa7500</p><p>⭐ 4.9/5 - Avis clients vérifiés</p></div>
+    <div class="hero-text"><span class="pill">LUXURY • PARIS</span><h1>LISA <span>PARIS</span></h1><p>🕐 11h - 23h &nbsp;|&nbsp; 💵 Espèces &nbsp;|&nbsp; 📱 @lisa7500</p><p>⭐ 4.9/5 - Avis clients vérifiés &nbsp; • &nbsp; 👉 Fais défiler →</p></div>
   </div>
   <div class="info"><div>🕐 11:00 - 23:00<br><b>Ouvert</b></div><div>💵 Cash Only<br><b>Paiement</b></div><div>🚀 Livraison<br><b>Rapide Paris</b></div><div>✅ Garanti<br><b>100% Original</b></div></div>
   <div class="search"><input id="search" placeholder="🔍 Rechercher un iPhone..." oninput="render()"></div>
   <div class="filters" id="filters"></div>
-  <div id="products" class="grid"></div>
-  <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit pour le moment.<br></p>
+
+  <!-- CAROUSEL PRODUITS -->
+  <div class="carousel-wrap">
+    <button class="arrow left" onclick="scrollCar(-1)">‹</button>
+    <div id="products" class="carousel"></div>
+    <button class="arrow right" onclick="scrollCar(1)">›</button>
+  </div>
+  <div class="dots" id="dots">← Fais glisser pour voir tous les iPhone →</div>
+  <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit pour le moment.<br>Va dans Panel Admin pour ajouter tes iPhone.</p>
 
   <div class="section">
     <h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge">4.9 / 5</span></h2>
@@ -71,28 +83,21 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
   <div style="text-align:center;padding:20px;color:#888;font-size:13px">LISA PARIS © 2026 - @lisa7500</div>
 </div>
 
-<!-- ADMIN -->
 <div id="admin" class="hidden" style="padding:15px">
   <h2>Panel Admin - LISA PARIS</h2>
-  <div id="loginBox">
-    <input type="password" id="pass" placeholder="Mot de passe admin">
-    <button class="commander" onclick="login()">ENTRER</button>
-  </div>
+  <div id="loginBox"><input type="password" id="pass" placeholder="Mot de passe admin"><button class="commander" onclick="login()">ENTRER</button></div>
   <div id="adminContent" class="hidden">
     <h3>➕ Ajouter / Modifier un produit</h3>
     <input id="pName" placeholder="Nom : ex iPhone 15 Pro">
     <input id="pPrice" placeholder="Prix : ex 799" type="number">
     <textarea id="pDesc" placeholder="Description : 256Go, Batterie 90%, Neuf"></textarea>
-    <label>Photo</label><input type="file" id="pPhoto" accept="image/*">
-    <label>Vidéo</label><input type="file" id="pVideo" accept="video/*">
+    <label>Photo (elle sera compressée auto pour ne plus bloquer)</label><input type="file" id="pPhoto" accept="image/*">
+    <label>Vidéo - mets un lien YouTube / Telegram si possible, pas un gros fichier</label><input id="pVideo" placeholder="Lien vidéo : https://... (optionnel)">
     <button class="commander" id="saveBtn" onclick="saveProduct()">AJOUTER LE PRODUIT ✅</button>
     <button onclick="cancelEdit()" style="background:#333;color:#fff;border:0;padding:10px;border-radius:12px;width:100%;margin-top:8px;display:none" id="cancelBtn">Annuler la modification</button>
-
     <h3>📦 Mes produits (<span id="count">0</span>)</h3>
     <div id="adminProducts"></div>
-
-    <h3>🧾 Commandes reçues</h3>
-    <div id="orders"></div>
+    <h3>🧾 Commandes reçues</h3><div id="orders"></div>
     <button onclick="showShop()" style="background:#333;color:#fff;padding:12px;border-radius:12px;border:0;width:100%;margin-top:15px">← Retour Boutique</button>
   </div>
 </div>
@@ -100,105 +105,115 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 <script>
 const ADMIN_PASS = "PLATA93100//";
 const TELEGRAM_CONTACT = "lisa7500";
-let products = JSON.parse(localStorage.getItem('lisa_products') || '[]');
+let products = [];
+try{ products = JSON.parse(localStorage.getItem('lisa_products') || '[]'); }catch(e){ products=[]; }
 let orders = JSON.parse(localStorage.getItem('lisa_orders') || '[]');
 let reviews = JSON.parse(localStorage.getItem('lisa_reviews') || '[]');
-let editId = null;
-let currentFilter = 'Tous';
+let editId = null; let currentFilter = 'Tous';
 
 if(reviews.length===0){
   reviews=[
     {name:"Léa M.", stars:5, text:"Super rapide ! iPhone nickel, comme neuf. LISA très gentille, je recommande ❤️", date:"Il y a 2 jours"},
     {name:"Sarah P.", stars:5, text:"Commandé à 14h, reçu à 18h à Paris. Batterie 100%, parfait !", date:"Il y a 5 jours"},
-    {name:"Inès K.", stars:5, text:"3ème iPhone chez LISA, jamais déçue.", date:"Il y a 1 semaine"},
   ];
-  localStorage.setItem('lisa_reviews', JSON.stringify(reviews));
 }
 
-function save(){ localStorage.setItem('lisa_products', JSON.stringify(products)); localStorage.setItem('lisa_orders', JSON.stringify(orders)); localStorage.setItem('lisa_reviews', JSON.stringify(reviews)); render(); }
-
+function save(){
+  try{
+    localStorage.setItem('lisa_products', JSON.stringify(products));
+    localStorage.setItem('lisa_orders', JSON.stringify(orders));
+    localStorage.setItem('lisa_reviews', JSON.stringify(reviews));
+  }catch(e){
+    alert('Mémoire pleine ! Supprime un ancien produit avec une grosse vidéo, puis réessaie. Utilise des liens pour les vidéos.');
+    return false;
+  }
+  render(); return true;
+}
 function renderFilters(){
-  const cats = ['Tous','shit','beuh'];
-  document.getElementById('filters').innerHTML = cats.map(c=>`<button class="${c===currentFilter?'active':''}" onclick="setFilter('${c}')">${c==='Tous'?'Tous':'menu '+c}</button>`).join('');
+  const cats=['Tous','11','12','13','14','15','16'];
+  document.getElementById('filters').innerHTML=cats.map(c=>`<button class="${c===currentFilter?'active':''}" onclick="setFilter('${c}')">${c==='Tous'?'Tous':'iPhone '+c}</button>`).join('');
 }
 function setFilter(c){ currentFilter=c; renderFilters(); render(); }
+function scrollCar(dir){ document.getElementById('products').scrollBy({left:dir*290, behavior:'smooth'}); }
 
 function render(){
-  const q = document.getElementById('search').value.toLowerCase();
-  const list = products.filter(p => (currentFilter==='Tous' || p.name.includes(currentFilter)) && p.name.toLowerCase().includes(q));
-  const box = document.getElementById('products');
-  box.innerHTML='';
-  document.getElementById('empty').style.display = list.length ? 'none':'block';
+  const q=document.getElementById('search').value.toLowerCase();
+  const list=products.filter(p=>(currentFilter==='Tous'||p.name.includes(currentFilter)) && p.name.toLowerCase().includes(q));
+  const box=document.getElementById('products'); box.innerHTML='';
+  document.getElementById('empty').style.display=list.length?'none':'block';
+  document.getElementById('dots').textContent = list.length ? `← Fais glisser → ${list.length} iPhone - ${list.length>1?'Produit 1 / '+list.length:''}` : '';
   list.forEach(p=>{
-    box.innerHTML += `<div class="card">
-      ${p.video ? `<video src="${p.video}" controls></video>` : ''}${p.photo ? `<img src="${p.photo}">` : ''}
+    box.innerHTML+=`<div class="card">
+      ${p.video?`<video src="${p.video}" controls poster="${p.photo}"></video>`:''}${p.photo?`<img src="${p.photo}">`:''}
       <div class="stars">⭐⭐⭐⭐⭐ 5.0</div>
       <h3>${p.name}</h3><p>${p.desc||''}</p>
       <div class="price">${p.price}€ <small>Cash</small></div>
       <button class="commander" onclick="order(${p.id})">COMMANDER</button>
     </div>`;
   });
-  document.getElementById('count').textContent = products.length;
-  document.getElementById('adminProducts').innerHTML = products.map(p=>`
+  document.getElementById('count').textContent=products.length;
+  document.getElementById('adminProducts').innerHTML=products.map(p=>`
     <div class="admin-card"><img src="${p.photo}"><div style="flex:1"><b>${p.name}</b><br>${p.price}€<br><span style="font-size:12px;color:#aaa">${p.desc||''}</span></div>
     <button onclick="editProduct(${p.id})" style="background:#a855f7;color:#fff;border:0;padding:8px 12px;border-radius:10px">Edit</button>
-    <button onclick="delProduct(${p.id})" style="background:#ff4444;color:#fff;border:0;padding:8px 12px;border-radius:10px">X</button></div>`).join('') || 'Aucun produit - ajoute ton premier iPhone ci-dessus';
-  document.getElementById('orders').innerHTML = orders.map((o,i)=>`<div class="order"><b>#${i+1} - ${o.product}</b> - ${o.price}€<br>${o.date}<br>Statut: <select onchange="changeStatus(${i},this.value)"><option ${o.status=='En attente'?'selected':''}>En attente</option><option ${o.status=='En cours'?'selected':''}>En cours</option><option ${o.status=='Livrée'?'selected':''}>Livrée</option></select></div>`).join('') || 'Aucune commande';
-  let avg = reviews.length ? (reviews.reduce((a,r)=>a+Number(r.stars),0)/reviews.length).toFixed(1) : '4.9';
-  document.getElementById('avgBadge').textContent = avg+' / 5 - '+reviews.length+' avis';
-  document.getElementById('reviews').innerHTML = reviews.slice(0,6).map(r=>`<div class="review"><b>${r.name}</b> - <span style="color:#facc15">${'⭐'.repeat(r.stars)}</span><br><small>${r.date}</small><p style="margin:6px 0">${r.text}</p></div>`).join('');
+    <button onclick="delProduct(${p.id})" style="background:#ff4444;color:#fff;border:0;padding:8px 12px;border-radius:10px">X</button></div>`).join('')||'Aucun produit';
+  document.getElementById('orders').innerHTML=orders.map((o,i)=>`<div class="order"><b>#${i+1} - ${o.product}</b> - ${o.price}€<br>${o.date}<br>Statut: <select onchange="changeStatus(${i},this.value)"><option ${o.status=='En attente'?'selected':''}>En attente</option><option ${o.status=='En cours'?'selected':''}>En cours</option><option ${o.status=='Livrée'?'selected':''}>Livrée</option></select></div>`).join('')||'Aucune commande';
+  let avg=reviews.length?(reviews.reduce((a,r)=>a+Number(r.stars),0)/reviews.length).toFixed(1):'4.9';
+  document.getElementById('avgBadge').textContent=avg+' / 5 - '+reviews.length+' avis';
+  document.getElementById('reviews').innerHTML=reviews.slice(0,6).map(r=>`<div class="review"><b>${r.name}</b> - <span style="color:#facc15">${'⭐'.repeat(r.stars)}</span><br><small>${r.date}</small><p style="margin:6px 0">${r.text}</p></div>`).join('');
 }
 
-function fileToBase64(f){ return new Promise(r=>{ if(!f) return r(''); const x=new FileReader(); x.onload=()=>r(x.result); x.readAsDataURL(f); }); }
+// CORRECTION BLOQUAGE : compresse la photo
+function compressImage(file){
+  return new Promise(res=>{
+    if(!file) return res('');
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        const canvas=document.createElement('canvas');
+        let w=img.width, h=img.height;
+        if(w>800){ h=h*800/w; w=800; }
+        canvas.width=w; canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        res(canvas.toDataURL('image/jpeg',0.7));
+      };
+      img.src=e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
 
 async function saveProduct(){
   const name=document.getElementById('pName').value;
   const price=document.getElementById('pPrice').value;
   const desc=document.getElementById('pDesc').value;
+  const video=document.getElementById('pVideo').value;
   if(!name||!price) return alert('Mets nom + prix');
-  const photo = await fileToBase64(document.getElementById('pPhoto').files[0]);
-  const video = await fileToBase64(document.getElementById('pVideo').files[0]);
+  document.getElementById('saveBtn').textContent='ENREGISTREMENT...';
+  const photo=await compressImage(document.getElementById('pPhoto').files[0]);
   if(editId){
-    let i = products.findIndex(x=>x.id===editId);
-    products[i].name=name; products[i].price=price; products[i].desc=desc;
+    let i=products.findIndex(x=>x.id===editId);
+    products[i].name=name; products[i].price=price; products[i].desc=desc; products[i].video=video;
     if(photo) products[i].photo=photo;
-    if(video) products[i].video=video;
     editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none';
   } else {
-    products.push({id:Date.now(), name, price, desc, photo, video});
+    products.push({id:Date.now(), name, price, desc, photo:photo||'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80', video});
   }
-  save(); alert('Produit enregistré ✅');
-  ['pName','pPrice','pDesc'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('pPhoto').value=''; document.getElementById('pVideo').value='';
+  if(save()) alert('Produit ajouté ✅ Il est dans le carousel, fais glisser →');
+  else document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅';
+  document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅';
+  ['pName','pPrice','pDesc','pVideo'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('pPhoto').value='';
 }
-function editProduct(id){
-  let p=products.find(x=>x.id===id); editId=id;
-  document.getElementById('pName').value=p.name; document.getElementById('pPrice').value=p.price; document.getElementById('pDesc').value=p.desc;
-  document.getElementById('saveBtn').textContent='MODIFIER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='block';
-  window.scrollTo(0,0);
-}
-function cancelEdit(){ editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none'; ['pName','pPrice','pDesc'].forEach(id=>document.getElementById(id).value=''); }
-function delProduct(id){ if(confirm('Supprimer ce produit ?')){ products=products.filter(x=>x.id!==id); save(); } }
+function editProduct(id){ let p=products.find(x=>x.id===id); editId=id; document.getElementById('pName').value=p.name; document.getElementById('pPrice').value=p.price; document.getElementById('pDesc').value=p.desc; document.getElementById('pVideo').value=p.video||''; document.getElementById('saveBtn').textContent='MODIFIER ✅'; document.getElementById('cancelBtn').style.display='block'; window.scrollTo(0,0); }
+function cancelEdit(){ editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none'; ['pName','pPrice','pDesc','pVideo'].forEach(id=>document.getElementById(id).value=''); }
+function delProduct(id){ if(confirm('Supprimer ?')){ products=products.filter(x=>x.id!==id); save(); } }
 function changeStatus(i,v){ orders[i].status=v; save(); }
-function order(id){
-  const p=products.find(x=>x.id===id);
-  orders.unshift({product:p.name, price:p.price, date:new Date().toLocaleString('fr-FR'), status:'En attente'}); save();
-  window.open(`https://t.me/${TELEGRAM_CONTACT}?text=${encodeURIComponent('Bonjour LISA PARIS, je veux commander : '+p.name+' - '+p.price+'€')}`,'_blank');
-}
-function addReview(){
-  const name=document.getElementById('rName').value, text=document.getElementById('rText').value, stars=document.getElementById('rStars').value;
-  if(!name||!text) return alert('Mets ton prénom + ton avis');
-  reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️');
-  document.getElementById('rName').value=''; document.getElementById('rText').value='';
-}
+function order(id){ const p=products.find(x=>x.id===id); orders.unshift({product:p.name, price:p.price, date:new Date().toLocaleString('fr-FR'), status:'En attente'}); save(); window.open(`https://t.me/${TELEGRAM_CONTACT}?text=${encodeURIComponent('Bonjour LISA PARIS, je veux commander : '+p.name+' - '+p.price+'€')}`,'_blank'); }
+function addReview(){ const name=document.getElementById('rName').value, text=document.getElementById('rText').value, stars=document.getElementById('rStars').value; if(!name||!text) return alert('Mets prénom + avis'); reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName').value=''; document.getElementById('rText').value=''; }
 function showAdmin(){ document.getElementById('shop').classList.add('hidden'); document.getElementById('admin').classList.remove('hidden'); }
 function showShop(){ document.getElementById('admin').classList.add('hidden'); document.getElementById('shop').classList.remove('hidden'); }
-function login(){
-  if(document.getElementById('pass').value === ADMIN_PASS){
-    document.getElementById('loginBox').classList.add('hidden');
-    document.getElementById('adminContent').classList.remove('hidden');
-  } else alert('Mauvais mot de passe');
-}
+function login(){ if(document.getElementById('pass').value===ADMIN_PASS){ document.getElementById('loginBox').classList.add('hidden'); document.getElementById('adminContent').classList.remove('hidden'); } else alert('Mauvais mot de passe'); }
 if(window.Telegram?.WebApp) Telegram.WebApp.ready();
 renderFilters(); render();
 </script>
