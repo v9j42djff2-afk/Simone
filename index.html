@@ -48,6 +48,12 @@ body{background:#05050d;color:#fff;margin:0;padding:0;padding-bottom:90px}
 .dots{text-align:center;color:#a78bfa;font-size:13px}
 button.commander{background:linear-gradient(90deg,#c084fc,#ec4899);border:0;color:#fff;padding:14px;border-radius:18px;width:100%;font-weight:900;letter-spacing:1px;cursor:pointer;margin-top:10px;font-size:14px}
 button.add-cart{background:#fff;color:#000;border:0;padding:13px;border-radius:18px;width:100%;font-weight:900;cursor:pointer;margin-top:8px}
+.variant-box{margin:12px 0 0;background:#0a0a1a;border:1px solid #4c1d95;border-radius:14px;padding:10px}
+.variant-box label{font-size:12px;color:#c4b5fd;font-weight:800;letter-spacing:1px}
+.variant-box select{margin:6px 0 0;background:#1a1a2e;border:1px solid #a855f7}
+.variant-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{padding:7px 11px;border-radius:20px;border:1px solid #4c1d95;background:#1a1a2e;color:#c4b5fd;font-size:12px;font-weight:800;cursor:pointer}
+.chip.active{background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;border-color:#fff}
 input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1px solid #444;background:#1a1a2e;color:#fff}
 .hidden{display:none}
 .order{background:#151026;border:1px solid #4c1d95;border-radius:16px;padding:12px;margin:10px 0}
@@ -62,7 +68,6 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 .cart-item{display:flex;gap:10px;background:#1e1033;border:1px solid #4c1d95;border-radius:16px;padding:10px;margin:10px 0;align-items:center}
 .cart-item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
 .qty-btn{background:#a855f7;color:#fff;border:0;width:28px;height:28px;border-radius:8px;font-weight:900;cursor:pointer}
-.share-box{background:#22c55e22;border:1px solid #22c55e;border-radius:16px;padding:12px;margin:10px 0}
 </style>
 </head>
 <body>
@@ -84,11 +89,11 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
       <button class="arrow right" onclick="scrollCar(1)">›</button>
     </div>
     <div class="dots" id="dots">← Fais glisser pour voir tous les produits →</div>
-    <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit pour le moment.<br>Va dans Panel Admin pour ajouter tes produits.</p>
+    <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit pour le moment.</p>
   </div>
 
   <div id="shopSec" class="tabSec hidden">
-    <div class="section"><h2>Boutique</h2><p style="color:#c4b5fd;font-size:14px">Choisis tes produits, ajoute-les au panier, puis envoie ta commande en 1 clic sur @lisa7500.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div>
+    <div class="section"><h2>Boutique</h2><p style="color:#c4b5fd;font-size:14px">Choisis ton produit, choisis ton poids, ajoute au panier, envoie ta commande en 1 clic sur @lisa7500.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div>
   </div>
 
   <div id="avisSec" class="tabSec hidden">
@@ -136,22 +141,18 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
   <h2>Panel Admin - LISA PARIS</h2>
   <div id="loginBox"><input type="password" id="pass" placeholder="Mot de passe admin"><button class="commander" onclick="login()">ENTRER</button></div>
   <div id="adminContent" class="hidden">
-    <div class="share-box">
-      <b>📤 POUR QUE TOUT LE MONDE VOIT TON MENU - UN SEUL CODE :</b><br>
-      1. Ajoute tes produits ici<br>
-      2. Clique sur le bouton vert<br>
-      3. Copie le nouveau code et colle-le dans Cloudflare<br>
-      Tout le monde verra le même menu.
-      <button onclick="generateNewCode()" style="background:#22c55e;color:#fff;border:0;padding:14px;border-radius:12px;width:100%;margin-top:10px;font-weight:900">📤 GÉNÉRER LE NOUVEAU CODE POUR TOUT LE MONDE</button>
-      <textarea id="newCodeBox" style="display:none;height:150px" readonly></textarea>
-      <button id="copyCodeBtn" onclick="copyNewCode()" style="display:none;background:#fff;color:#000;border:0;padding:12px;border-radius:12px;width:100%;margin-top:8px;font-weight:900">📋 COPIER LE NOUVEAU CODE</button>
-    </div>
     <h3>➕ Ajouter / Modifier un produit</h3>
     <input id="pName" placeholder="Nom du produit">
-    <input id="pPrice" placeholder="Prix : ex 799" type="number">
     <textarea id="pDesc" placeholder="Description"></textarea>
-    <label>Photo - Mets un LIEN pour que tout le monde la voit :</label>
-    <input id="pPhotoUrl" placeholder="Lien photo : https://...">
+    <label>⚖️ CHOIX DE POIDS + PRIX - Exemple : 5g:50, 10g:90, 25g:200, 50g:350</label>
+    <input id="pVariants" placeholder="5g:50, 10g:90, 25g:200">
+    <div style="display:flex;gap:8px">
+      <button onclick="addQuickVariant('5g')" style="background:#1a1a2e;color:#fff;border:1px solid #a855f7;padding:10px;border-radius:12px;flex:1">+ 5g</button>
+      <button onclick="addQuickVariant('10g')" style="background:#1a1a2e;color:#fff;border:1px solid #a855f7;padding:10px;border-radius:12px;flex:1">+ 10g</button>
+      <button onclick="addQuickVariant('25g')" style="background:#1a1a2e;color:#fff;border:1px solid #a855f7;padding:10px;border-radius:12px;flex:1">+ 25g</button>
+      <button onclick="addQuickVariant('50g')" style="background:#1a1a2e;color:#fff;border:1px solid #a855f7;padding:10px;border-radius:12px;flex:1">+ 50g</button>
+    </div>
+    <label>Photo - Lien :</label><input id="pPhotoUrl" placeholder="Lien photo : https://...">
     <label>Ou fichier</label><input type="file" id="pPhoto" accept="image/*">
     <label>Lien vidéo (optionnel)</label><input id="pVideo" placeholder="Lien vidéo : https://...">
     <button class="commander" id="saveBtn" onclick="saveProduct()">AJOUTER LE PRODUIT ✅</button>
@@ -166,23 +167,38 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 const ADMIN_PASS = "PLATA93100//";
 const TELEGRAM_CHANNEL = "lisaparis";
 const TELEGRAM_ORDER = "lisa7500";
-// ===== PRODUITS DANS LE CODE = TOUT LE MONDE VOIT LA MEME CHOSE =====
-// Pour ajouter un produit sans passer par l'Admin, tu changes juste ici, sinon utilise l'Admin + bouton GÉNÉRER LE NOUVEAU CODE
+// ===== PRODUITS AVEC PLUSIEURS POIDS =====
+// variants = [{label:"5g", price:50}, ...]
 const DEFAULT_PRODUCTS = [
-  {id:1, name:"Produit 1", price:799, desc:"Description produit 1", photo:"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80", video:""},
-  {id:2, name:"Produit 2", price:699, desc:"Description produit 2", photo:"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80", video:""}
+  {id:1, name:"Produit 1", desc:"Description produit 1", photo:"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80", video:"", variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200},{label:"50g",price:350}]},
+  {id:2, name:"Produit 2", desc:"Description produit 2", photo:"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80", video:"", variants:[{label:"3.5g",price:40},{label:"7g",price:70},{label:"14g",price:130}]},
+  {id:3, name:"Produit 3", desc:"Description produit 3", photo:"https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&q=80", video:"", variants:[{label:"1 pièce",price:30},{label:"2 pièces",price:55},{label:"5 pièces",price:120}]}
 ];
-let products = [];
+let products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
 try{
-  let saved = JSON.parse(localStorage.getItem('lisa_products') || '[]');
-  // Si tu ouvres pour la 1ère fois, on prend les produits du code. Sinon on prend les tiens.
-  if(saved.length===0){ products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); }
-  else { products = saved; }
-}catch(e){ products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); }
+  let saved = JSON.parse(localStorage.getItem('lisa_products_v3') || '[]');
+  if(saved.length>0) products = saved.map(p=>({ ...p, variants: normalizeVariants(p.variants, p.price) }));
+}catch(e){}
 let orders = JSON.parse(localStorage.getItem('lisa_orders') || '[]');
 let reviews = JSON.parse(localStorage.getItem('lisa_reviews') || '[]');
 let cart = JSON.parse(localStorage.getItem('lisa_cart') || '[]');
 let editId = null;
+let selectedVariant = {}; // {productId: index}
+function normalizeVariants(variants, fallbackPrice){
+  if(Array.isArray(variants) && variants.length>0) return variants.map(v=>({label:String(v.label), price:Number(v.price)}));
+  if(fallbackPrice) return [{label:"Standard", price:Number(fallbackPrice)}];
+  return [{label:"Standard", price:0}];
+}
+function parseVariants(text){
+  if(!text || !text.trim()) return [{label:"Standard", price:0}];
+  return text.split(',').map(s=>s.trim()).filter(Boolean).map(part=>{
+    let [label, price] = part.split(':').map(x=>x.trim());
+    return {label: label||"Standard", price: Number(price)||0};
+  });
+}
+function variantsToText(variants){
+  return (variants||[]).map(v=>v.label+":"+v.price).join(', ');
+}
 if(reviews.length===0){
   reviews=[
     {name:"Léa M.", stars:5, text:"Super rapide ! Produit nickel, comme neuf. LISA très gentille, je recommande ❤️", date:"Il y a 2 jours"},
@@ -191,33 +207,12 @@ if(reviews.length===0){
 }
 function save(){
   try{
-    localStorage.setItem('lisa_products', JSON.stringify(products));
+    localStorage.setItem('lisa_products_v3', JSON.stringify(products));
     localStorage.setItem('lisa_orders', JSON.stringify(orders));
     localStorage.setItem('lisa_reviews', JSON.stringify(reviews));
     localStorage.setItem('lisa_cart', JSON.stringify(cart));
-  }catch(e){ alert('Mémoire pleine !'); return false; }
+  }catch(e){}
   render(); return true;
-}
-// ===== GÉNÈRE LE NOUVEAU CODE AVEC TES PRODUITS DEDANS =====
-function generateNewCode(){
-  if(products.length===0) return alert('Ajoute d’abord un produit !');
-  let clean = products.map(p=>({id:p.id, name:p.name, price:p.price, desc:p.desc||'', photo:(p.photo&&p.photo.startsWith('http'))?p.photo:'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80', video:p.video||''}));
-  let html = document.documentElement.outerHTML;
-  // On remplace DEFAULT_PRODUCTS dans le code par tes produits actuels
-  let start = html.indexOf('const DEFAULT_PRODUCTS = [');
-  let end = html.indexOf('];', start) + 2;
-  if(start===-1) return alert('Erreur, copie le code manuellement');
-  let newHtml = html.slice(0,start) + 'const DEFAULT_PRODUCTS = ' + JSON.stringify(clean, null, 2) + html.slice(end);
-  // On remet l'état initial (boutique visible, admin caché) pour le nouveau code
-  newHtml = newHtml.replace('id="admin" class=""', 'id="admin" class="hidden"').replace('id="shop" class="hidden"', 'id="shop" class=""');
-  let box = document.getElementById('newCodeBox');
-  box.style.display='block'; box.value = '<!DOCTYPE html>\n' + newHtml;
-  document.getElementById('copyCodeBtn').style.display='block';
-  alert('✅ Nouveau code généré !\n\nClique sur COPIER LE NOUVEAU CODE, colle-le dans Cloudflare, Redeploy, et TOUT LE MONDE verra ton menu.');
-}
-function copyNewCode(){
-  let v = document.getElementById('newCodeBox').value;
-  navigator.clipboard.writeText(v).then(()=>alert('Code copié ✅ Colle-le dans Cloudflare et Redeploy.')).catch(()=>prompt('Copie ce code :', v));
 }
 function showTab(id,btn){
   document.querySelectorAll('.tabSec').forEach(s=>s.classList.add('hidden'));
@@ -226,14 +221,25 @@ function showTab(id,btn){
   btn.className='tab-active';
 }
 function scrollCar(dir){ document.getElementById('products').scrollBy({left:dir*300, behavior:'smooth'}); }
+function selectVariant(productId, idx){
+  selectedVariant[productId]=idx;
+  render();
+}
+function getSelectedVariant(p){
+  let idx = selectedVariant[p.id] || 0;
+  if(idx >= p.variants.length) idx = 0;
+  return {idx, v: p.variants[idx]};
+}
 function addToCart(id){
   let p = products.find(x=>x.id===id);
   if(!p) return;
-  let found = cart.find(x=>x.id===id);
+  let {v} = getSelectedVariant(p);
+  let key = p.id + "_" + v.label;
+  let found = cart.find(x=>x.key===key);
   if(found) found.qty++;
-  else cart.push({id:p.id, name:p.name, price:Number(p.price), photo:p.photo, qty:1});
+  else cart.push({key:key, id:p.id, name:p.name, variant:v.label, price:Number(v.price), photo:p.photo, qty:1});
   save();
-  alert('✅ '+p.name+' ajouté au panier !');
+  alert('✅ '+p.name+' - '+v.label+' ('+v.price+'€) ajouté au panier !');
 }
 function cartTotal(){ return cart.reduce((a,c)=>a + c.price*c.qty, 0); }
 function cartCount(){ return cart.reduce((a,c)=>a + c.qty, 0); }
@@ -250,7 +256,7 @@ function openCart(){
     box.innerHTML = cart.map((c,i)=>`
       <div class="cart-item">
         <img src="${c.photo}">
-        <div style="flex:1"><b>${c.name}</b><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div>
+        <div style="flex:1"><b>${c.name}</b><br><span style="color:#e879f9;font-weight:800">⚖️ ${c.variant}</span><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div>
         <button class="qty-btn" onclick="changeQty(${i},-1)">-</button>
         <b>${c.qty}</b>
         <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
@@ -268,7 +274,7 @@ function buildCartMessage(){
   let name = document.getElementById('clientName').value || '';
   let city = document.getElementById('clientCity').value || '';
   let note = document.getElementById('clientNote').value || '';
-  let lines = cart.map(c=>`• ${c.name} x${c.qty} - ${c.price*c.qty}€`).join('\n');
+  let lines = cart.map(c=>`• ${c.name} - ${c.variant} x${c.qty} - ${c.price*c.qty}€`).join('\n');
   return `🛒 NOUVELLE COMMANDE - LISA PARIS\n\n📞 Num : ${name}\n📍 Adresse : ${city}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€ - Cash` + (note ? `\n📝 ${note}` : '');
 }
 function copyCartMessage(){
@@ -278,7 +284,7 @@ function copyCartMessage(){
 function checkout(){
   if(cart.length===0) return alert('Ton panier est vide');
   let msg = buildCartMessage();
-  orders.unshift({product: cart.map(c=>c.name+' x'+c.qty).join(', '), price: cartTotal(), date: new Date().toLocaleString('fr-FR'), status:'En attente'});
+  orders.unshift({product: cart.map(c=>c.name+' - '+c.variant+' x'+c.qty).join(', '), price: cartTotal(), date: new Date().toLocaleString('fr-FR'), status:'En attente'});
   save();
   if(navigator.clipboard) navigator.clipboard.writeText(msg).catch(()=>{});
   let url = `https://t.me/${TELEGRAM_ORDER}?text=${encodeURIComponent(msg)}`;
@@ -295,23 +301,31 @@ function render(){
   document.getElementById('empty').style.display=list.length?'none':'block';
   document.getElementById('dots').textContent = list.length ? `← Fais glisser → ${list.length} produit(s)` : '';
   list.forEach(p=>{
-    let inCart = cart.find(c=>c.id===p.id);
+    let variants = normalizeVariants(p.variants, p.price);
+    let {idx, v} = getSelectedVariant({...p, variants});
+    let inCart = cart.filter(c=>c.id===p.id).reduce((a,c)=>a+c.qty,0);
     box.innerHTML+=`<div class="card">
       <div class="card-top"><div class="icon">🛍️</div><small>BOUTIQUE / PRODUIT</small></div>
       ${p.video?`<video src="${p.video}" controls poster="${p.photo}"></video>`:''}${p.photo?`<img src="${p.photo}">`:''}
       <h3>${p.name}</h3><p>${p.desc||''}</p>
       <div class="check"><span>✓</span> Produit vérifié<br><span>✓</span> Livraison rapide Paris<br><span>✓</span> Paiement cash<br><span>✓</span> Support @lisaparis</div>
+      <div class="variant-box">
+        <label>⚖️ CHOISIS TON POIDS / TA QUANTITÉ :</label>
+        <div class="variant-chips">${variants.map((vv,i)=>`<button class="chip ${i===idx?'active':''}" onclick="selectVariant(${p.id},${i})">${vv.label} - ${vv.price}€</button>`).join('')}</div>
+      </div>
       <div class="stars">⭐⭐⭐⭐⭐ 5.0</div>
-      <div class="price">À partir de <br><b>${p.price}€</b></div>
-      <button class="add-cart" onclick="addToCart(${p.id})">${inCart?'✅ DANS LE PANIER ('+inCart.qty+') - AJOUTER +':'🛒 AJOUTER AU PANIER'}</button>
-      <button class="commander" onclick="addToCart(${p.id});openCart()">COMMANDER →</button>
+      <div class="price">Tu as choisi : <b>${v.label}</b><br>À partir de <br><b>${v.price}€</b></div>
+      <button class="add-cart" onclick="addToCart(${p.id})">${inCart?'✅ DANS LE PANIER ('+inCart+') - AJOUTER +':'🛒 AJOUTER AU PANIER - '+v.label}</button>
+      <button class="commander" onclick="addToCart(${p.id});openCart()">COMMANDER ${v.label} →</button>
     </div>`;
   });
   document.getElementById('count').textContent=products.length;
-  document.getElementById('adminProducts').innerHTML=products.map(p=>`
-    <div class="admin-card"><img src="${p.photo}"><div style="flex:1"><b>${p.name}</b><br>${p.price}€<br><span style="font-size:12px;color:#aaa">${p.desc||''}</span></div>
+  document.getElementById('adminProducts').innerHTML=products.map(p=>{
+    let vs = normalizeVariants(p.variants, p.price);
+    return `<div class="admin-card"><img src="${p.photo}"><div style="flex:1"><b>${p.name}</b><br><span style="color:#e879f9;font-size:12px;font-weight:800">${vs.map(v=>v.label+' : '+v.price+'€').join(' | ')}</span><br><span style="font-size:12px;color:#aaa">${p.desc||''}</span></div>
     <button onclick="editProduct(${p.id})" style="background:#a855f7;color:#fff;border:0;padding:8px 12px;border-radius:10px">Edit</button>
-    <button onclick="delProduct(${p.id})" style="background:#ff4444;color:#fff;border:0;padding:8px 12px;border-radius:10px">X</button></div>`).join('')||'Aucun produit';
+    <button onclick="delProduct(${p.id})" style="background:#ff4444;color:#fff;border:0;padding:8px 12px;border-radius:10px">X</button></div>`;
+  }).join('')||'Aucun produit';
   document.getElementById('orders').innerHTML=orders.map((o,i)=>`<div class="order"><b>#${i+1} - ${o.product}</b> - ${o.price}€<br>${o.date}<br>Statut: <select onchange="changeStatus(${i},this.value)"><option ${o.status=='En attente'?'selected':''}>En attente</option><option ${o.status=='En cours'?'selected':''}>En cours</option><option ${o.status=='Livrée'?'selected':''}>Livrée</option></select></div>`).join('')||'Aucune commande';
   let avg=reviews.length?(reviews.reduce((a,r)=>a+Number(r.stars),0)/reviews.length).toFixed(1):'4.9';
   document.getElementById('avgBadge').textContent=avg+' / 5 - '+reviews.length+' avis';
@@ -339,31 +353,40 @@ function compressImage(file){
     reader.readAsDataURL(file);
   });
 }
+function addQuickVariant(label){
+  let inp = document.getElementById('pVariants');
+  let price = prompt('Prix pour '+label+' ? Ex : 50');
+  if(price===null) return;
+  let val = inp.value.trim();
+  if(val) val += ', ';
+  inp.value = val + label + ':' + (price||'0');
+}
 async function saveProduct(){
   const name=document.getElementById('pName').value;
-  const price=document.getElementById('pPrice').value;
   const desc=document.getElementById('pDesc').value;
   const video=document.getElementById('pVideo').value;
   const photoUrl=document.getElementById('pPhotoUrl').value;
-  if(!name||!price) return alert('Mets nom + prix');
+  const variants = parseVariants(document.getElementById('pVariants').value);
+  if(!name) return alert('Mets le nom');
+  if(variants.length===0 || variants[0].price===0) return alert('Mets au moins un poids avec prix, ex : 5g:50, 10g:90');
   document.getElementById('saveBtn').textContent='ENREGISTREMENT...';
   let photo = photoUrl || await compressImage(document.getElementById('pPhoto').files[0]);
   if(editId){
     let i=products.findIndex(x=>x.id===editId);
-    products[i].name=name; products[i].price=price; products[i].desc=desc; products[i].video=video;
+    products[i].name=name; products[i].desc=desc; products[i].video=video; products[i].variants=variants;
     if(photo) products[i].photo=photo;
     editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none';
   } else {
-    products.push({id:Date.now(), name, price, desc, photo:photo||'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80', video});
+    products.push({id:Date.now(), name, desc, photo:photo||'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80', video, variants});
   }
   save();
   document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅';
-  alert('✅ Produit ajouté ! Maintenant clique sur 📤 GÉNÉRER LE NOUVEAU CODE en haut pour que tout le monde le voit.');
-  ['pName','pPrice','pDesc','pVideo','pPhotoUrl'].forEach(id=>document.getElementById(id).value='');
+  alert('Produit ajouté ✅ avec '+variants.length+' choix de poids !');
+  ['pName','pDesc','pVideo','pPhotoUrl','pVariants'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('pPhoto').value='';
 }
-function editProduct(id){ let p=products.find(x=>x.id===id); editId=id; document.getElementById('pName').value=p.name; document.getElementById('pPrice').value=p.price; document.getElementById('pDesc').value=p.desc; document.getElementById('pVideo').value=p.video||''; document.getElementById('pPhotoUrl').value=(p.photo&&p.photo.startsWith('http'))?p.photo:''; document.getElementById('saveBtn').textContent='MODIFIER ✅'; document.getElementById('cancelBtn').style.display='block'; window.scrollTo(0,0); }
-function cancelEdit(){ editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none'; ['pName','pPrice','pDesc','pVideo','pPhotoUrl'].forEach(id=>document.getElementById(id).value=''); }
+function editProduct(id){ let p=products.find(x=>x.id===id); editId=id; document.getElementById('pName').value=p.name; document.getElementById('pDesc').value=p.desc; document.getElementById('pVideo').value=p.video||''; document.getElementById('pPhotoUrl').value=(p.photo&&p.photo.startsWith('http'))?p.photo:''; document.getElementById('pVariants').value=variantsToText(normalizeVariants(p.variants, p.price)); document.getElementById('saveBtn').textContent='MODIFIER ✅'; document.getElementById('cancelBtn').style.display='block'; window.scrollTo(0,0); }
+function cancelEdit(){ editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none'; ['pName','pDesc','pVideo','pPhotoUrl','pVariants'].forEach(id=>document.getElementById(id).value=''); }
 function delProduct(id){ if(confirm('Supprimer ?')){ products=products.filter(x=>x.id!==id); save(); } }
 function changeStatus(i,v){ orders[i].status=v; save(); }
 function addReview(){ const name=document.getElementById('rName').value, text=document.getElementById('rText').value, stars=document.getElementById('rStars').value; if(!name||!text) return alert('Mets prénom + avis'); reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName').value=''; document.getElementById('rText').value=''; }
