@@ -94,10 +94,6 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 .qr-wrap p{color:#000;font-weight:900;margin:8px 0 0;font-size:13px}
 .order-head{display:flex;justify-content:space-between;align-items:center;background:#1e1033;border:1px solid #a855f7;border-radius:14px;padding:10px 12px;margin-top:10px;font-size:12px}
 .order-head b{color:#e879f9;font-size:14px}
-.wallet-row{display:flex;gap:8px;margin-top:10px}
-.wallet-btn{flex:1;padding:13px 6px;border-radius:14px;border:0;font-weight:900;cursor:pointer;font-size:12px;color:#fff}
-.wallet-phantom{background:linear-gradient(135deg,#5345ed,#ab9ff2)}
-.wallet-solflare{background:linear-gradient(135deg,#f7931a,#ffcc00);color:#000}
 .wallet-tg{background:linear-gradient(135deg,#0088cc,#00c6ff);border:0;color:#fff;padding:15px;border-radius:16px;width:100%;font-weight:900;cursor:pointer;font-size:14px;margin-top:10px;box-shadow:0 0 18px rgba(0,136,204,.6)}
 </style>
 </head>
@@ -152,11 +148,6 @@ Prépare le montant exact : <b id="cashAmount">0€</b>
 
 <button class="wallet-tg" onclick="openTelegramWallet()">💙 OUVRIR WALLET TELEGRAM @wallet →</button>
 <p style="text-align:center;font-size:11px;color:#a78bfa;margin:6px 0 0">Adresse déjà copiée, tu as juste à coller dans Wallet</p>
-
-<div class="wallet-row">
-<button class="wallet-btn wallet-phantom" onclick="openPhantom()">👻 PHANTOM</button>
-<button class="wallet-btn wallet-solflare" onclick="openSolflare()">☀️ SOLFLARE</button>
-</div>
 
 <div class="qr-wrap">
 <img id="qrImg" src="" alt="QR USDT SOL">
@@ -213,6 +204,10 @@ function videoSrc(name){ return encodeURI(name); }
 function vibrate(){ try{ if(window.Telegram?.WebApp?.HapticFeedback) Telegram.WebApp.HapticFeedback.impactOccurred('light'); }catch(e){} }
 function showToast(msg){ let t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
 function pauseAllVideos(){ document.querySelectorAll('video').forEach(v=>{ try{v.pause();}catch(e){} }); }
+function openTG(url){
+  try{ if(window.Telegram?.WebApp?.openTelegramLink){ Telegram.WebApp.openTelegramLink(url); return true; } }catch(e){}
+  return false;
+}
 function save(){ try{ localStorage.setItem('lisa_cart', JSON.stringify(cart)); localStorage.setItem('lisa_favs', JSON.stringify(favs)); }catch(e){} render(); }
 function setFilter(f,btn){ currentFilter=f; document.getElementById('btnAll').classList.toggle('active',f==='all'); document.getElementById('btnFav').classList.toggle('active',f==='fav'); render(); }
 function toggleSort(){ sortMode = sortMode==='pop' ? 'low' : sortMode==='low' ? 'high' : 'pop'; document.getElementById('sortLabel').textContent = sortMode==='pop'?'POPULAIRE':sortMode==='low'?'PRIX ↓':'PRIX ↑'; render(); }
@@ -224,10 +219,13 @@ function selectVariant(pid,idx){ selectedVariant[pid]=idx; vibrate(); render(); 
 function getSel(p){ let idx=selectedVariant[p.id]||0; if(idx>=p.variants.length) idx=0; return {idx,v:p.variants[idx]}; }
 function setPayment(m){ paymentMethod=m; document.getElementById('payCashBtn').classList.toggle('active',m==='cash'); document.getElementById('payUsdtBtn').classList.toggle('active',m==='usdt'); document.getElementById('payCashBox').style.display = m==='cash'?'block':'none'; document.getElementById('payUsdtBox').style.display = m==='usdt'?'block':'none'; document.getElementById('checkoutBtn').textContent = m==='usdt' ? '🪙 J\'AI PAYÉ EN USDT - ENVOYER MA COMMANDE →' : 'ENVOYER MA COMMANDE SUR @Simone750 →'; if(m==='usdt') updateQR(); vibrate(); }
 function updateQR(){ document.getElementById('orderId').textContent = orderId; document.getElementById('qrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=10&color=000000&bgcolor=ffffff&data=" + encodeURIComponent(USDT_ADDRESS); }
-function solanaPayLink(){ let amount = cartTotal(); return "solana:" + USDT_ADDRESS + "?amount=" + amount + "&label=" + encodeURIComponent("LISA PARIS") + "&message=" + encodeURIComponent("Commande " + orderId + " - " + amount + " USDT"); }
-function openTelegramWallet(){ try{ if(navigator.clipboard) navigator.clipboard.writeText(USDT_ADDRESS).catch(()=>{}); }catch(e){} showToast('📋 Adresse copiée ! Ouverture Wallet...'); try{ if(window.Telegram?.WebApp?.openLink) Telegram.WebApp.openLink("https://t.me/wallet"); else window.open("https://t.me/wallet","_blank"); }catch(e){ showToast('Va sur @wallet dans Telegram'); } }
-function openPhantom(){ let link = solanaPayLink(); try{ if(window.Telegram?.WebApp?.openLink) Telegram.WebApp.openLink("https://phantom.app/ul/browse/" + encodeURIComponent(link)); else window.open("https://phantom.app/ul/browse/" + encodeURIComponent(link), "_blank"); }catch(e){} showToast('👻 Ouverture Phantom...'); }
-function openSolflare(){ let link = solanaPayLink(); try{ if(window.Telegram?.WebApp?.openLink) Telegram.WebApp.openLink("https://solflare.com/ul/v1/browse/" + encodeURIComponent(link)); else window.open("https://solflare.com/ul/v1/browse/" + encodeURIComponent(link), "_blank"); }catch(e){} showToast('☀️ Ouverture Solflare...'); }
+// WALLET TELEGRAM SEUL - OUVRE DANS TELEGRAM, PAS SAFARI
+function openTelegramWallet(){
+  try{ if(navigator.clipboard) navigator.clipboard.writeText(USDT_ADDRESS).catch(()=>{}); }catch(e){}
+  showToast('📋 Adresse copiée ! Ouverture Wallet...');
+  let ok = openTG("https://t.me/wallet");
+  if(!ok){ try{ window.location.href = "tg://resolve?domain=wallet"; }catch(e){} }
+}
 function copyAddress(){ try{ if(navigator.clipboard) navigator.clipboard.writeText(USDT_ADDRESS).then(()=>showToast('📋 Adresse copiée !')).catch(()=>{}); }catch(e){} }
 function copyAmount(){ try{ if(navigator.clipboard) navigator.clipboard.writeText(String(cartTotal())).then(()=>showToast('💰 Montant copié : '+cartTotal()+' USDT')).catch(()=>{}); }catch(e){} }
 function addToCart(id){ let p=products.find(x=>x.id===id); let {v}=getSel(p); let key=p.id+"_"+v.label; let f=cart.find(x=>x.key===key); if(f) f.qty++; else cart.push({key:key,id:p.id,name:p.name,variant:v.label,price:Number(v.price),photo:p.photo,video:p.video,qty:1}); vibrate(); save(); showToast('✅ '+p.name+' - '+v.label+' ajouté !'); }
@@ -236,21 +234,14 @@ function cartCount(){ return cart.reduce((a,c)=>a+c.qty,0); }
 function updateCartFloat(){ let b=document.getElementById('cartFloat'); if(cart.length===0){ b.style.display='none'; return; } b.style.display='block'; b.textContent=`🛒 VOIR MON PANIER (${cartCount()}) - ${cartTotal()}€ →`; }
 function openCart(){ let box=document.getElementById('cartItems'); if(cart.length===0){ box.innerHTML='<p>Ton panier est vide.</p>'; } else { box.innerHTML=cart.map((c,i)=>`<div class="cart-item">${c.video?`<video src="${videoSrc(c.video)}" muted playsinline preload="none"></video>`:`<img src="${esc(c.photo)}">`}<div style="flex:1"><b>${esc(c.name)}</b><br><span style="color:#e879f9;font-weight:800">⚖️ ${esc(c.variant)}</span><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div><button class="qty-btn" onclick="changeQty(${i},-1)">-</button><b>${c.qty}</b><button class="qty-btn" onclick="changeQty(${i},1)">+</button><button class="qty-btn" style="background:#ff4444" onclick="removeFromCart(${i})">✕</button></div>`).join(''); } document.getElementById('cartTotal').textContent='TOTAL : '+cartTotal()+'€ - '+(paymentMethod==='usdt'?'USDT SOL':'Cash'); document.getElementById('cashAmount').textContent=cartTotal()+'€'; document.getElementById('usdtAmount').textContent=cartTotal()+'€ en USDT'; document.getElementById('copyAmountTxt').textContent=cartTotal()+'€'; if(paymentMethod==='usdt') updateQR(); document.getElementById('cartModal').style.display='flex'; }
 function closeCart(){ document.getElementById('cartModal').style.display='none'; }
-// ===== LE VRAI ENVOI : COPIE + OUVRE @Simone750 AU CLIC SUR OK =====
 function closeSuccess(){
   document.getElementById('successBox').style.display='none';
   if(!pendingMsg) return;
   let msgToSend = pendingMsg;
   pendingMsg = '';
-  // 1) Copie le message
   try{ if(navigator.clipboard) navigator.clipboard.writeText(msgToSend).catch(()=>{}); }catch(e){}
-  // 2) Ouvre @Simone750 avec le message déjà prêt à envoyer
   let url = "https://t.me/" + TELEGRAM_ORDER + "?text=" + encodeURIComponent(msgToSend);
-  try{
-    if(window.Telegram?.WebApp?.openTelegramLink) Telegram.WebApp.openTelegramLink(url);
-    else if(window.Telegram?.WebApp?.openLink) Telegram.WebApp.openLink(url);
-    else window.open(url,'_blank');
-  }catch(e){ window.open(url,'_blank'); }
+  openTG(url);
 }
 function changeQty(i,d){ cart[i].qty+=d; if(cart[i].qty<=0) cart.splice(i,1); save(); openCart(); }
 function removeFromCart(i){ cart.splice(i,1); save(); openCart(); }
