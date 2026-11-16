@@ -103,7 +103,7 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 </head>
 <body>
 <div class="bg-glow"></div><div class="light-beam"></div><div id="toast">✅ Ajouté !</div>
-<div id="successBox"><div class="inner"><div style="font-size:50px">✅</div><h2 style="margin:10px 0">Commande envoyée !</h2><p id="successText" style="color:#c4b5fd;line-height:1.6"></p><button class="commander" onclick="closeSuccess()">OK, CONTINUER →</button></div></div>
+<div id="successBox"><div class="inner"><div style="font-size:50px">✅</div><h2 style="margin:10px 0">Commande envoyée !</h2><p id="successText" style="color:#c4b5fd;line-height:1.6"></p><p style="font-size:12px;color:#888">Le message est copié, tu as juste à appuyer sur ENVOYER chez @Simone750</p><button class="commander" onclick="closeSuccess()">OK, CONTINUER →</button></div></div>
 <div id="splash"><div class="splash-logo">💜</div><h1>SIMONE</h1><p>PARIS • LIVRAISON</p></div>
 <div class="topbar fade"><b>✕ &nbsp; <span>@lisaparis</span> &nbsp; mini-application</b><span class="countdown" id="countdown">⏰ --:--:--</span></div>
 <div class="header-tabs fade2"><button class="tab-active" onclick="showTab('home',this)">ACCUEIL</button><button class="tab-off" onclick="showTab('shopSec',this)">BOUTIQUE</button><button class="tab-off" onclick="showTab('avisSec',this)">AVIS</button></div>
@@ -120,11 +120,11 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
     <div class="dots" id="dots">← Fais glisser pour voir tous les produits →</div>
     <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit.</p>
   </div>
-  <div id="shopSec" class="tabSec hidden"><div class="section"><h2>🛍️ Boutique</h2><p style="color:#c4b5fd;font-size:14px">Choisis ton produit, choisis ton poids, ajoute au panier, envoie sur @lisa7500.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div></div>
+  <div id="shopSec" class="tabSec hidden"><div class="section"><h2>🛍️ Boutique</h2><p style="color:#c4b5fd;font-size:14px">Choisis ton produit, choisis ton poids, ajoute au panier, envoie sur @Simone750.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div></div>
   <div id="avisSec" class="tabSec hidden"><div class="section"><h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge2">4.9 / 5</span></h2><div id="reviews2"></div><h3 style="margin-top:20px">✍️ Laisser un avis</h3><input id="rName2" placeholder="Ton prénom"><select id="rStars2"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select><textarea id="rText2" placeholder="Ton avis..."></textarea><button class="commander" onclick="addReview2()">PUBLIER MON AVIS</button></div></div>
   <div class="section"><h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge">4.9 / 5</span></h2><div id="reviews"></div><h3 style="margin-top:20px">✍️ Laisser un avis</h3><input id="rName" placeholder="Ton prénom"><select id="rStars"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select><textarea id="rText" placeholder="Ton avis..."></textarea><button class="commander" onclick="addReview()">PUBLIER MON AVIS</button></div>
   <div class="section"><h2>🚚 Livraison</h2><p style="color:#c4b5fd;font-size:14px;line-height:1.7">📍 Paris & Banlieue<br>⏰ 11h - 23h • Livraison en 30-60 min<br>💵 Espèces à la livraison<br>🪙 USDT SOL : paiement avant envoi</p></div>
-  <div style="text-align:center;padding:20px;color:#888;font-size:13px;position:relative;z-index:2">SIMONE PARIS © 2026 - <a href="https://t.me/simone750" style="color:#e879f9">📢 @simone750</a><br>💵 Cash • 🪙 USDT SOL • 🕐 11h - 23h • Commandes : @lisa7500</div>
+  <div style="text-align:center;padding:20px;color:#888;font-size:13px;position:relative;z-index:2">SIMONE PARIS © 2026 - <a href="https://t.me/simone750" style="color:#e879f9">📢 @simone750</a><br>💵 Cash • 🪙 USDT SOL • 🕐 11h - 23h • Commandes : @Simone750</div>
 </div>
 <button id="cartFloat" class="cart-float" onclick="openCart()">🛒 VOIR MON PANIER</button>
 <div class="bottom-nav"><button class="active" onclick="navGo('home',this)"><span>🏠</span>ACCUEIL</button><button onclick="navGo('shopSec',this)"><span>🛍️</span>BOUTIQUE</button><button onclick="openCart()"><span>🛒</span>PANIER</button><button onclick="navGo('avisSec',this)"><span>⭐</span>AVIS</button></div>
@@ -171,7 +171,7 @@ Prépare le montant exact : <b id="cashAmount">0€</b>
 
 <div class="warn">
 ⚠️ <b>PAIEMENT AVANT ENVOI</b><br>
-Envoie le montant exact en USDT sur <b>Solana</b>, puis envoie ta capture à @lisa7500.<br>
+Envoie le montant exact en USDT sur <b>Solana</b>, puis envoie ta capture à @Simone750.<br>
 Pas de confirmation = pas d'envoi
 </div>
 </div>
@@ -179,17 +179,18 @@ Pas de confirmation = pas d'envoi
 <input id="clientName" placeholder="Ton num : telephone">
 <input id="clientCity" placeholder="Adresse exacte : code postale">
 <textarea id="clientNote" placeholder="Message pour LISA (optionnel)"></textarea>
-<button class="commander" id="checkoutBtn" onclick="checkout()">ENVOYER MA COMMANDE SUR @lisa7500 →</button>
+<button class="commander" id="checkoutBtn" onclick="checkout()">ENVOYER MA COMMANDE SUR @Simone750 →</button>
 <button onclick="closeCart()" style="background:#333;color:#fff;border:0;padding:12px;border-radius:12px;width:100%;margin-top:10px">Continuer mes achats</button>
 <button onclick="clearCart()" style="background:transparent;color:#ff6b6b;border:1px solid #ff6b6b;padding:10px;border-radius:12px;width:100%;margin-top:10px">Vider le panier</button>
 </div></div>
 
 <script>
-const TELEGRAM_ORDER = "lisa7500";
+const TELEGRAM_ORDER = "Simone750";
 const USDT_ADDRESS = "5nbHMd5BDPY3orukqjjGwi1P3zqKLJ1XeVHU6xgeq4qH";
 let paymentMethod = 'cash';
 let orderId = 'LISA-' + Math.floor(10000 + Math.random()*89999);
 let isSending = false;
+let pendingMsg = '';
 const PRODUCTS = [
   {id:1, name:"MOUSSEUX", desc:"Shit premium - livraison rapide Paris.", video:"mous.MOV", stock:8, variants:[{label:"10g",price:50},{label:"25g",price:110},{label:"50g",price:170},{label:"100g",price:300}]},
   {id:2, name:"CALIMOUSSE", desc:"Cali mousseux - Top qualité, effet garanti.", video:"mous20.mov", stock:5, variants:[{label:"10g",price:60},{label:"25g",price:110},{label:"50g",price:200},{label:"100g",price:370}]},
@@ -221,7 +222,7 @@ function navGo(id,btn){ document.querySelectorAll('.bottom-nav button').forEach(
 function scrollCar(dir){ document.getElementById('products').scrollBy({left:dir*300, behavior:'smooth'}); }
 function selectVariant(pid,idx){ selectedVariant[pid]=idx; vibrate(); render(); }
 function getSel(p){ let idx=selectedVariant[p.id]||0; if(idx>=p.variants.length) idx=0; return {idx,v:p.variants[idx]}; }
-function setPayment(m){ paymentMethod=m; document.getElementById('payCashBtn').classList.toggle('active',m==='cash'); document.getElementById('payUsdtBtn').classList.toggle('active',m==='usdt'); document.getElementById('payCashBox').style.display = m==='cash'?'block':'none'; document.getElementById('payUsdtBox').style.display = m==='usdt'?'block':'none'; document.getElementById('checkoutBtn').textContent = m==='usdt' ? '🪙 J\'AI PAYÉ EN USDT - ENVOYER MA COMMANDE →' : 'ENVOYER MA COMMANDE SUR @lisa7500 →'; if(m==='usdt') updateQR(); vibrate(); }
+function setPayment(m){ paymentMethod=m; document.getElementById('payCashBtn').classList.toggle('active',m==='cash'); document.getElementById('payUsdtBtn').classList.toggle('active',m==='usdt'); document.getElementById('payCashBox').style.display = m==='cash'?'block':'none'; document.getElementById('payUsdtBox').style.display = m==='usdt'?'block':'none'; document.getElementById('checkoutBtn').textContent = m==='usdt' ? '🪙 J\'AI PAYÉ EN USDT - ENVOYER MA COMMANDE →' : 'ENVOYER MA COMMANDE SUR @Simone750 →'; if(m==='usdt') updateQR(); vibrate(); }
 function updateQR(){ document.getElementById('orderId').textContent = orderId; document.getElementById('qrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=10&color=000000&bgcolor=ffffff&data=" + encodeURIComponent(USDT_ADDRESS); }
 function solanaPayLink(){ let amount = cartTotal(); return "solana:" + USDT_ADDRESS + "?amount=" + amount + "&label=" + encodeURIComponent("LISA PARIS") + "&message=" + encodeURIComponent("Commande " + orderId + " - " + amount + " USDT"); }
 function openTelegramWallet(){ try{ if(navigator.clipboard) navigator.clipboard.writeText(USDT_ADDRESS).catch(()=>{}); }catch(e){} showToast('📋 Adresse copiée ! Ouverture Wallet...'); try{ if(window.Telegram?.WebApp?.openLink) Telegram.WebApp.openLink("https://t.me/wallet"); else window.open("https://t.me/wallet","_blank"); }catch(e){ showToast('Va sur @wallet dans Telegram'); } }
@@ -235,7 +236,22 @@ function cartCount(){ return cart.reduce((a,c)=>a+c.qty,0); }
 function updateCartFloat(){ let b=document.getElementById('cartFloat'); if(cart.length===0){ b.style.display='none'; return; } b.style.display='block'; b.textContent=`🛒 VOIR MON PANIER (${cartCount()}) - ${cartTotal()}€ →`; }
 function openCart(){ let box=document.getElementById('cartItems'); if(cart.length===0){ box.innerHTML='<p>Ton panier est vide.</p>'; } else { box.innerHTML=cart.map((c,i)=>`<div class="cart-item">${c.video?`<video src="${videoSrc(c.video)}" muted playsinline preload="none"></video>`:`<img src="${esc(c.photo)}">`}<div style="flex:1"><b>${esc(c.name)}</b><br><span style="color:#e879f9;font-weight:800">⚖️ ${esc(c.variant)}</span><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div><button class="qty-btn" onclick="changeQty(${i},-1)">-</button><b>${c.qty}</b><button class="qty-btn" onclick="changeQty(${i},1)">+</button><button class="qty-btn" style="background:#ff4444" onclick="removeFromCart(${i})">✕</button></div>`).join(''); } document.getElementById('cartTotal').textContent='TOTAL : '+cartTotal()+'€ - '+(paymentMethod==='usdt'?'USDT SOL':'Cash'); document.getElementById('cashAmount').textContent=cartTotal()+'€'; document.getElementById('usdtAmount').textContent=cartTotal()+'€ en USDT'; document.getElementById('copyAmountTxt').textContent=cartTotal()+'€'; if(paymentMethod==='usdt') updateQR(); document.getElementById('cartModal').style.display='flex'; }
 function closeCart(){ document.getElementById('cartModal').style.display='none'; }
-function closeSuccess(){ document.getElementById('successBox').style.display='none'; }
+// ===== LE VRAI ENVOI : COPIE + OUVRE @Simone750 AU CLIC SUR OK =====
+function closeSuccess(){
+  document.getElementById('successBox').style.display='none';
+  if(!pendingMsg) return;
+  let msgToSend = pendingMsg;
+  pendingMsg = '';
+  // 1) Copie le message
+  try{ if(navigator.clipboard) navigator.clipboard.writeText(msgToSend).catch(()=>{}); }catch(e){}
+  // 2) Ouvre @Simone750 avec le message déjà prêt à envoyer
+  let url = "https://t.me/" + TELEGRAM_ORDER + "?text=" + encodeURIComponent(msgToSend);
+  try{
+    if(window.Telegram?.WebApp?.openTelegramLink) Telegram.WebApp.openTelegramLink(url);
+    else if(window.Telegram?.WebApp?.openLink) Telegram.WebApp.openLink(url);
+    else window.open(url,'_blank');
+  }catch(e){ window.open(url,'_blank'); }
+}
 function changeQty(i,d){ cart[i].qty+=d; if(cart[i].qty<=0) cart.splice(i,1); save(); openCart(); }
 function removeFromCart(i){ cart.splice(i,1); save(); openCart(); }
 function clearCart(){ cart=[]; save(); openCart(); }
@@ -250,14 +266,15 @@ function checkout(){
   let msg = buildCartMessage();
   let oldId = orderId;
   let total = cartTotal();
-  try{ if(window.Telegram?.WebApp?.sendData){ Telegram.WebApp.sendData(msg); } }catch(e){}
+  let payTxt = paymentMethod==='usdt' ? '🪙 USDT : envoie ta capture à @Simone750' : '💵 Espèces à la livraison<br>Va sur @Simone750';
+  pendingMsg = msg;
   cart=[]; save(); closeCart();
   orderId = 'LISA-' + Math.floor(10000 + Math.random()*89999);
   updateQR();
-  document.getElementById('successText').innerHTML = 'Commande <b>'+oldId+'</b><br>Total : <b>'+total+'€</b><br>'+(paymentMethod==='usdt' ? '🪙 USDT : envoie ta capture à @lisa7500' : '💵 Espèces à la livraison<br>Va sur @lisa7500');
+  document.getElementById('successText').innerHTML = 'Commande <b>'+oldId+'</b><br>Total : <b>'+total+'€</b><br>'+payTxt;
   document.getElementById('successBox').style.display='flex';
   btn.disabled = false;
-  btn.textContent = paymentMethod==='usdt' ? '🪙 J\'AI PAYÉ EN USDT - ENVOYER MA COMMANDE →' : 'ENVOYER MA COMMANDE SUR @lisa7500 →';
+  btn.textContent = paymentMethod==='usdt' ? '🪙 J\'AI PAYÉ EN USDT - ENVOYER MA COMMANDE →' : 'ENVOYER MA COMMANDE SUR @Simone750 →';
   isSending = false;
   vibrate();
 }
