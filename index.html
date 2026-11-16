@@ -57,7 +57,7 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
   <div class="search"><input id="search" placeholder="🔍 Rechercher un iPhone..." oninput="render()"></div>
   <div class="filters" id="filters"></div>
   <div id="products" class="grid"></div>
-  <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit pour le moment.<br>Va dans Panel Admin pour ajouter tes iPhone.</p>
+  <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit pour le moment.<br></p>
 
   <div class="section">
     <h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge">4.9 / 5</span></h2>
@@ -118,8 +118,8 @@ if(reviews.length===0){
 function save(){ localStorage.setItem('lisa_products', JSON.stringify(products)); localStorage.setItem('lisa_orders', JSON.stringify(orders)); localStorage.setItem('lisa_reviews', JSON.stringify(reviews)); render(); }
 
 function renderFilters(){
-  const cats = ['Tous','11','12','13','14','15','16'];
-  document.getElementById('filters').innerHTML = cats.map(c=>`<button class="${c===currentFilter?'active':''}" onclick="setFilter('${c}')">${c==='Tous'?'Tous':'iPhone '+c}</button>`).join('');
+  const cats = ['Tous','shit','beuh'];
+  document.getElementById('filters').innerHTML = cats.map(c=>`<button class="${c===currentFilter?'active':''}" onclick="setFilter('${c}')">${c==='Tous'?'Tous':'menu '+c}</button>`).join('');
 }
 function setFilter(c){ currentFilter=c; renderFilters(); render(); }
 
