@@ -50,7 +50,7 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 <div class="header-tabs"><button class="tab-active" onclick="showTab('home',this)">ACCUEIL</button><button class="tab-off" onclick="showTab('shopSec',this)">BOUTIQUE</button><button class="tab-off" onclick="showTab('avisSec',this)">AVIS</button></div>
 <div id="shop">
   <div class="hero">
-    <img src="https://raw.githubusercontent.com/Simone/Simone/main/lisa.jpg" onerror="this.src='https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=900&q=80'">
+    <img src="https://raw.githubusercontent.com/Simone/Simone/main/IMG_1931.jpeg" onerror="this.src='https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=900&q=80'">
     <div class="hero-text"><span class="pill">LUXURY • PARIS</span><h1>LISA <span>PARIS</span></h1><p>🕐 11h - 23h &nbsp;|&nbsp; 💵 Espèces &nbsp;|&nbsp; 📱 @lisaparis</p><a class="canal-btn" href="https://t.me/lisaparis" target="_blank">📢 REJOINDRE MON CANAL @lisaparis →</a></div>
   </div>
   <div class="info"><div>🕐 11:00 - 23:00<br><b>Ouvert</b></div><div>💵 Cash Only<br><b>Paiement</b></div><div>🚀 Livraison<br><b>Rapide Paris</b></div><div>✅ Garanti<br><b>100% Original</b></div></div>
@@ -69,16 +69,13 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 <div id="cartModal" class="cart-modal"><div class="cart-box"><h2>🛒 Mon Panier</h2><div id="cartItems"></div><div id="cartTotal" style="font-size:20px;font-weight:900;margin:15px 0"></div><input id="clientName" placeholder="Ton num : telephone"><input id="clientCity" placeholder="Adresse exacte : code postale"><textarea id="clientNote" placeholder="Message pour LISA (optionnel)"></textarea><button class="commander" onclick="checkout()">ENVOYER MA COMMANDE SUR @lisa7500 →</button><button onclick="copyCartMessage()" style="background:#fff;color:#000;border:0;padding:12px;border-radius:12px;width:100%;margin-top:10px;font-weight:900">📋 COPIER LE MESSAGE SI TELEGRAM NE S'OUVRE PAS</button><button onclick="closeCart()" style="background:#333;color:#fff;border:0;padding:12px;border-radius:12px;width:100%;margin-top:10px">Continuer mes achats</button><button onclick="clearCart()" style="background:transparent;color:#ff6b6b;border:1px solid #ff6b6b;padding:10px;border-radius:12px;width:100%;margin-top:10px">Vider le panier</button></div></div>
 <script>
 const TELEGRAM_ORDER = "lisa7500";
-// ===== ★★★ CHANGE TES PRODUITS ICI, C'EST TOUT ★★★ =====
-// Pour changer un nom : change entre les " "
-// Ex : name:"Produit 1" -> name:"Cali"
-// Pour changer une photo : mets ton lien qui commence par https://raw.githubusercontent.com/
-// Pour changer un prix : change le chiffre après price:
-// Ex : {label:"5g",price:50} -> {label:"5g",price:60}
 const PRODUCTS = [
-  {id:1, name:"Produit 1", desc:"MOUSSEUX", photo:"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80", video:"", variants:[{label:"10g",price:50},{label:"50g",price:170},{label:"100g",price:200},{label:"1kg",price:2400}]},
-  {id:2, name:"Produit 2", desc:"CALI", photo:"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80", video:"", variants:[{label:"3.5g",price:40},{label:"7g",price:70},{label:"14g",price:130}]},
-  {id:3, name:"Produit 3", desc:"LEMON", photo:"https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&q=80", video:"", variants:[{label:"1 pièce",price:30},{label:"2 pièces",price:55},{label:"5 pièces",price:120}]}
+  {id:1, name:"Cali", desc:"Cali premium - Qualité supérieure, livraison rapide Paris.", photo:"https://raw.githubusercontent.com/Simone/Simone/main/IMG_1931.jpeg", video:"https://raw.githubusercontent.com/Simone/Simone/main/cali.mp4.PNG.MP4", variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200},{label:"50g",price:350}]},
+  {id:2, name:"Casablanca", desc:"Casablanca - Top qualité, effet garanti.", photo:"https://raw.githubusercontent.com/Simone/Simone/main/Simone-coffee-pack.jpg", video:"https://raw.githubusercontent.com/Simone/Simone/main/Casablanca.mp4.MOV", variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200},{label:"50g",price:350}]},
+  {id:3, name:"Cali US", desc:"Cali US import - Qualité US.", photo:"https://raw.githubusercontent.com/Simone/Simone/main/IMG_1931.jpeg", video:"https://raw.githubusercontent.com/Simone/Simone/main/calius.mp4.mov", variants:[{label:"3.5g",price:40},{label:"7g",price:70},{label:"14g",price:130},{label:"28g",price:240}]},
+  {id:4, name:"Cali Plate", desc:"Cali Plate - Grosse qualité.", photo:"https://raw.githubusercontent.com/Simone/Simone/main/IMG_1931.jpeg", video:"https://raw.githubusercontent.com/Simone/Simone/main/caliplate.mp4.MP4", variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200},{label:"50g",price:350}]},
+  {id:5, name:"Cali AB", desc:"Cali AB - Nouvelle arrivage.", photo:"https://raw.githubusercontent.com/Simone/Simone/main/IMG_1931.jpeg", video:"https://raw.githubusercontent.com/Simone/Simone/main/caliab%20.mov", variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200}]},
+  {id:6, name:"Amn", desc:"Amn - Qualité premium.", photo:"https://raw.githubusercontent.com/Simone/Simone/main/Simone-coffee-pack.jpg", video:"https://raw.githubusercontent.com/Simone/Simone/main/amn.MP4", variants:[{label:"1 pièce",price:30},{label:"2 pièces",price:55},{label:"5 pièces",price:120}]}
 ];
 let products = JSON.parse(JSON.stringify(PRODUCTS));
 let reviews = [{name:"Léa M.", stars:5, text:"Super rapide ! Produit nickel, comme neuf. LISA très gentille, je recommande ❤️", date:"Il y a 2 jours"},{name:"Sarah P.", stars:5, text:"Commandé à 14h, reçu à 18h à Paris. Parfait !", date:"Il y a 5 jours"}];
