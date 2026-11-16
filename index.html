@@ -139,7 +139,8 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
     <input id="pName" placeholder="Nom du produit">
     <input id="pPrice" placeholder="Prix : ex 799" type="number">
     <textarea id="pDesc" placeholder="Description"></textarea>
-    <label>Photo (compressée auto)</label><input type="file" id="pPhoto" accept="image/*">
+    <label>Photo - Mets un LIEN photo, pas un fichier, pour que tout le monde la voit</label><input id="pPhotoUrl" placeholder="Lien photo : https://...">
+    <label>Ou choisis un fichier (visible que sur ton tel)</label><input type="file" id="pPhoto" accept="image/*">
     <label>Lien vidéo (optionnel)</label><input id="pVideo" placeholder="Lien vidéo : https://...">
     <button class="commander" id="saveBtn" onclick="saveProduct()">AJOUTER LE PRODUIT ✅</button>
     <button onclick="cancelEdit()" style="background:#333;color:#fff;border:0;padding:10px;border-radius:12px;width:100%;margin-top:8px;display:none" id="cancelBtn">Annuler la modification</button>
@@ -151,9 +152,28 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 
 <script>
 const ADMIN_PASS = "PLATA93100//";
-const TELEGRAM_CHANNEL = "lisaparis"; // <-- CANAL
-const TELEGRAM_ORDER = "lisa7500"; // <-- COMMANDES, C'EST ICI QUE LE PANIER ENVOIE
-let products = []; try{ products = JSON.parse(localStorage.getItem('lisa_products') || '[]'); }catch(e){ products=[]; }
+const TELEGRAM_CHANNEL = "lisaparis";
+const TELEGRAM_ORDER = "lisa7500";
+
+// ===== ⚠️ C'EST ICI QUE TOUT LE MONDE VOIT LE MENU =====
+// Mets TES vrais produits ici. Tout le monde verra ceux-là.
+// Pour changer un produit : change le nom / prix / lien photo ici, puis Redeploy sur Cloudflare
+const DEFAULT_PRODUCTS = [
+  {id:1, name:"Produit 1", price:799, desc:"Description de ton produit 1", photo:"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80", video:""},
+  {id:2, name:"Produit 2", price:699, desc:"Description de ton produit 2", photo:"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80", video:""},
+  {id:3, name:"Produit 3", price:499, desc:"Description de ton produit 3", photo:"https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&q=80", video:""},
+];
+
+// CORRECTION MENU POUR TOUT LE MONDE : si localStorage est vide, on prend les produits du code, pas une liste vide
+let products = [];
+try{
+  let saved = JSON.parse(localStorage.getItem('lisa_products') || '[]');
+  // Si tu as déjà des produits sauvés ET qu'ils correspondent à la version du code, on les garde, sinon on prend DEFAULT
+  let savedVersion = localStorage.getItem('lisa_version');
+  if(saved.length>0 && savedVersion==='v4'){ products = saved; }
+  else { products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); localStorage.setItem('lisa_products', JSON.stringify(products)); localStorage.setItem('lisa_version','v4'); }
+}catch(e){ products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); }
+
 let orders = JSON.parse(localStorage.getItem('lisa_orders') || '[]');
 let reviews = JSON.parse(localStorage.getItem('lisa_reviews') || '[]');
 let cart = JSON.parse(localStorage.getItem('lisa_cart') || '[]');
@@ -171,6 +191,7 @@ function save(){
     localStorage.setItem('lisa_orders', JSON.stringify(orders));
     localStorage.setItem('lisa_reviews', JSON.stringify(reviews));
     localStorage.setItem('lisa_cart', JSON.stringify(cart));
+    localStorage.setItem('lisa_version','v4');
   }catch(e){ alert('Mémoire pleine ! Supprime un ancien produit puis réessaie.'); return false; }
   render(); return true;
 }
@@ -181,9 +202,9 @@ function showTab(id,btn){
   btn.className='tab-active';
 }
 function scrollCar(dir){ document.getElementById('products').scrollBy({left:dir*300, behavior:'smooth'}); }
-
 function addToCart(id){
   let p = products.find(x=>x.id===id);
+  if(!p) return;
   let found = cart.find(x=>x.id===id);
   if(found) found.qty++;
   else cart.push({id:p.id, name:p.name, price:Number(p.price), photo:p.photo, qty:1});
@@ -219,14 +240,12 @@ function closeCart(){ document.getElementById('cartModal').style.display='none';
 function changeQty(i,d){ cart[i].qty += d; if(cart[i].qty<=0) cart.splice(i,1); save(); openCart(); }
 function removeFromCart(i){ cart.splice(i,1); save(); openCart(); }
 function clearCart(){ cart=[]; save(); openCart(); }
-
-// LE MESSAGE EXACT QUE TU VEUX
 function buildCartMessage(){
-  let name = document.getElementById('clientName').value || 'Cliente';
-  let city = document.getElementById('clientCity').value || 'Paris 13';
+  let name = document.getElementById('clientName').value || '';
+  let city = document.getElementById('clientCity').value || '';
   let note = document.getElementById('clientNote').value || '';
   let lines = cart.map(c=>`• ${c.name} x${c.qty} - ${c.price*c.qty}€`).join('\n');
-  return `🛒 NOUVELLE COMMANDE - LISA PARIS\n\n📞 Num : ${name}\n📍 Ville : ${city}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€ - Cash` + (note ? `\n📝 ${note}` : '');
+  return `🛒 NOUVELLE COMMANDE - LISA PARIS\n\n📞 Num : ${name}\n📍 Adresse : ${city}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€ - Cash` + (note ? `\n📝 ${note}` : '');
 }
 function copyCartMessage(){
   let msg = buildCartMessage();
@@ -237,21 +256,14 @@ function checkout(){
   let msg = buildCartMessage();
   orders.unshift({product: cart.map(c=>c.name+' x'+c.qty).join(', '), price: cartTotal(), date: new Date().toLocaleString('fr-FR'), status:'En attente'});
   save();
-  // Copie auto au cas où Telegram bloque
   if(navigator.clipboard) navigator.clipboard.writeText(msg).catch(()=>{});
   let url = `https://t.me/${TELEGRAM_ORDER}?text=${encodeURIComponent(msg)}`;
-  // CORRECTION : dans une Mini App Telegram, il faut openTelegramLink, pas window.open
-  if(window.Telegram?.WebApp?.openTelegramLink){
-    Telegram.WebApp.openTelegramLink(url);
-  } else if(window.Telegram?.WebApp?.openLink){
-    Telegram.WebApp.openLink(url);
-  } else {
-    window.open(url, '_blank');
-  }
+  if(window.Telegram?.WebApp?.openTelegramLink){ Telegram.WebApp.openTelegramLink(url); }
+  else if(window.Telegram?.WebApp?.openLink){ Telegram.WebApp.openLink(url); }
+  else { window.open(url, '_blank'); }
   cart=[]; save(); closeCart();
-  alert('✅ Commande copier !\n\n\'le message a été copié.\n\n'+msg);
+  alert('✅ Commande envoyée ! Si Telegram ne s\'est pas ouvert, le message a été copié, va sur @lisa7500 et colle-le.');
 }
-
 function render(){
   const q=document.getElementById('search').value.toLowerCase();
   const list=products.filter(p=>p.name.toLowerCase().includes(q));
@@ -308,9 +320,10 @@ async function saveProduct(){
   const price=document.getElementById('pPrice').value;
   const desc=document.getElementById('pDesc').value;
   const video=document.getElementById('pVideo').value;
+  const photoUrl=document.getElementById('pPhotoUrl').value;
   if(!name||!price) return alert('Mets nom + prix');
   document.getElementById('saveBtn').textContent='ENREGISTREMENT...';
-  const photo=await compressImage(document.getElementById('pPhoto').files[0]);
+  let photo = photoUrl || await compressImage(document.getElementById('pPhoto').files[0]);
   if(editId){
     let i=products.findIndex(x=>x.id===editId);
     products[i].name=name; products[i].price=price; products[i].desc=desc; products[i].video=video;
@@ -319,13 +332,13 @@ async function saveProduct(){
   } else {
     products.push({id:Date.now(), name, price, desc, photo:photo||'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80', video});
   }
-  if(save()) alert('Produit ajouté ✅');
+  if(save()) alert('Produit ajouté ✅ - ATTENTION : pour que tout le monde le voit, tu dois aussi le rajouter dans DEFAULT_PRODUCTS dans le code et Redeploy');
   document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅';
-  ['pName','pPrice','pDesc','pVideo'].forEach(id=>document.getElementById(id).value='');
+  ['pName','pPrice','pDesc','pVideo','pPhotoUrl'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('pPhoto').value='';
 }
-function editProduct(id){ let p=products.find(x=>x.id===id); editId=id; document.getElementById('pName').value=p.name; document.getElementById('pPrice').value=p.price; document.getElementById('pDesc').value=p.desc; document.getElementById('pVideo').value=p.video||''; document.getElementById('saveBtn').textContent='MODIFIER ✅'; document.getElementById('cancelBtn').style.display='block'; window.scrollTo(0,0); }
-function cancelEdit(){ editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none'; ['pName','pPrice','pDesc','pVideo'].forEach(id=>document.getElementById(id).value=''); }
+function editProduct(id){ let p=products.find(x=>x.id===id); editId=id; document.getElementById('pName').value=p.name; document.getElementById('pPrice').value=p.price; document.getElementById('pDesc').value=p.desc; document.getElementById('pVideo').value=p.video||''; document.getElementById('pPhotoUrl').value=p.photo||''; document.getElementById('saveBtn').textContent='MODIFIER ✅'; document.getElementById('cancelBtn').style.display='block'; window.scrollTo(0,0); }
+function cancelEdit(){ editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none'; ['pName','pPrice','pDesc','pVideo','pPhotoUrl'].forEach(id=>document.getElementById(id).value=''); }
 function delProduct(id){ if(confirm('Supprimer ?')){ products=products.filter(x=>x.id!==id); save(); } }
 function changeStatus(i,v){ orders[i].status=v; save(); }
 function addReview(){ const name=document.getElementById('rName').value, text=document.getElementById('rText').value, stars=document.getElementById('rStars').value; if(!name||!text) return alert('Mets prénom + avis'); reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName').value=''; document.getElementById('rText').value=''; }
