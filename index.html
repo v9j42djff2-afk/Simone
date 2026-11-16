@@ -76,7 +76,6 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 .qty-btn{background:#a855f7;color:#fff;border:0;width:30px;height:30px;border-radius:8px;font-weight:900;cursor:pointer;font-size:16px}
 #toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-20px);background:#22c55e;color:#fff;padding:12px 18px;border-radius:20px;font-weight:900;z-index:300;opacity:0;pointer-events:none;transition:.3s;box-shadow:0 0 20px rgba(34,197,94,.6);white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-/* ===== PAIEMENT ===== */
 .pay-title{font-size:14px;font-weight:900;letter-spacing:1px;margin:14px 0 8px;color:#e879f9}
 .pay-row{display:flex;gap:8px}
 .pay-btn{flex:1;padding:14px 8px;border-radius:16px;border:1px solid #4c1d95;background:#1a1a2e;color:#fff;font-weight:900;cursor:pointer;font-size:13px}
@@ -86,6 +85,24 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 .addr-box{background:#000;border:1px dashed #a855f7;border-radius:12px;padding:10px;word-break:break-all;font-size:12px;color:#fff;margin:8px 0}
 .copy-btn{background:#fff;color:#000;border:0;padding:11px;border-radius:12px;width:100%;font-weight:900;cursor:pointer;margin-top:6px}
 .warn{background:rgba(250,204,21,.12);border:1px solid #facc15;border-radius:12px;padding:10px;margin-top:10px;font-size:12px;line-height:1.6;color:#fde68a}
+.qr-wrap{background:#fff;border-radius:18px;padding:14px;text-align:center;margin:10px 0}
+.qr-wrap img{width:200px;height:200px;max-width:100%}
+.qr-wrap p{color:#000;font-weight:900;margin:8px 0 0;font-size:13px}
+.order-head{display:flex;justify-content:space-between;align-items:center;background:#1e1033;border:1px solid #a855f7;border-radius:14px;padding:10px 12px;margin-top:10px;font-size:12px}
+.order-head b{color:#e879f9;font-size:14px}
+.timer-pay{color:#facc15;font-weight:900}
+.steps{display:flex;gap:6px;margin-top:10px}
+.step{flex:1;background:#1a1a2e;border:1px solid #4c1d95;border-radius:12px;padding:8px;text-align:center;font-size:11px;line-height:1.4}
+.step b{display:block;font-size:16px}
+.pay-status{margin-top:10px;display:flex;gap:6px}
+.pay-status button{flex:1;padding:11px;border-radius:12px;border:0;font-weight:900;cursor:pointer;font-size:12px}
+.btn-sent{background:#22c55e;color:#fff}.btn-notyet{background:#333;color:#fff}
+.wallet-row{display:flex;gap:8px;margin-top:10px}
+.wallet-btn{flex:1;padding:13px 6px;border-radius:14px;border:0;font-weight:900;cursor:pointer;font-size:12px;color:#fff}
+.wallet-phantom{background:linear-gradient(135deg,#5345ed,#ab9ff2)}
+.wallet-solflare{background:linear-gradient(135deg,#f7931a,#ffcc00);color:#000}
+.wallet-connect{background:#1a1a2e;border:1px solid #a855f7;color:#fff;padding:11px;border-radius:12px;width:100%;font-weight:900;cursor:pointer;margin-top:8px}
+.wallet-connected{background:rgba(34,197,94,.15);border:1px solid #22c55e;border-radius:12px;padding:10px;margin-top:8px;font-size:12px;color:#bbf7d0;text-align:center;display:none}
 </style>
 </head>
 <body>
@@ -134,19 +151,43 @@ Pas de paiement avant.
 </div>
 
 <div id="payUsdtBox" class="pay-box" style="display:none">
-🪙 <b>USDT - Réseau Solana (SOL)</b><br>
-Montant à envoyer : <b id="usdtAmount">0€ en USDT</b><br><br>
+<div class="order-head"><span>Commande : <b id="orderId">LISA-00000</b></span><span class="timer-pay">⏰ <span id="payTimer">15:00</span></span></div>
+<div class="steps"><div class="step"><b>1️⃣</b>Wallet / QR</div><div class="step"><b>2️⃣</b>Envoie USDT</div><div class="step"><b>3️⃣</b>Envoie preuve</div></div>
+
+<p style="text-align:center;margin:12px 0 0">🪙 <b>USDT - Réseau Solana (SOL)</b><br>Montant à envoyer : <b id="usdtAmount" style="font-size:18px">0€ en USDT</b></p>
+
+<div class="wallet-row">
+<button class="wallet-btn wallet-phantom" onclick="openPhantom()">👻 PHANTOM</button>
+<button class="wallet-btn wallet-solflare" onclick="openSolflare()">☀️ SOLFLARE</button>
+</div>
+<button class="wallet-connect" id="walletConnectBtn" onclick="connectWallet()">🔗 CONNECTER MON WALLET</button>
+<div class="wallet-connected" id="walletConnected">✅ Wallet connecté<br><span id="walletAddrTxt" style="font-size:11px;word-break:break-all"></span><br>Tu peux payer en 1 clic.</div>
+
+<div class="qr-wrap">
+<img id="qrImg" src="" alt="QR USDT SOL">
+<p>Ou scanne avec ton wallet</p>
+<p style="color:#888;font-weight:400;font-size:11px">Solana (SOL) uniquement • Min 10 USDT</p>
+</div>
+
 <b>Adresse USDT SOL :</b>
 <div class="addr-box" id="usdtAddr">5nbHMd5BDPY3orukqjjGwi1P3zqKLJ1XeVHU6xgeq4qH</div>
 <button class="copy-btn" onclick="copyAddress()">📋 COPIER L'ADRESSE</button>
+<button class="copy-btn" style="background:#a855f7;color:#fff" onclick="copyAmount()">💰 COPIER LE MONTANT : <span id="copyAmountTxt">0€</span></button>
+
 <div class="warn">
 ⚠️ <b>PAIEMENT AVANT ENVOI</b><br>
-1️⃣ Envoie le montant exact en USDT sur <b>Solana</b><br>
-2️⃣ Vérifie bien l'adresse et le réseau : <b>SOL</b> uniquement<br>
-3️⃣ Envoie la capture d'écran / le hash à <b>@lisa7500</b><br>
-4️⃣ J'attends la confirmation, puis j'envoie ta commande<br>
+1️⃣ Ouvre Phantom / Solflare ou scanne le QR<br>
+2️⃣ Envoie le montant exact en USDT sur <b>Solana</b><br>
+3️⃣ Vérifie bien l'adresse et le réseau : <b>SOL uniquement</b> - autre réseau = perdu<br>
+4️⃣ Envoie la capture d'écran / le hash à <b>@lisa7500</b> avec ton n° de commande<br>
+5️⃣ J'attends la confirmation, puis j'envoie ta commande<br>
 ❌ Pas de confirmation = pas d'envoi
 </div>
+<div class="pay-status">
+<button class="btn-sent" onclick="markPaid()">✅ J'AI ENVOYÉ</button>
+<button class="btn-notyet" onclick="setPayment('cash')">← Je paye en espèces</button>
+</div>
+<p id="paidMsg" style="display:none;color:#22c55e;font-weight:900;text-align:center;margin-top:10px">✅ Merci ! Envoie ta preuve à @lisa7500 pour valider.</p>
 </div>
 
 <input id="clientName" placeholder="Ton num : telephone">
@@ -162,6 +203,10 @@ Montant à envoyer : <b id="usdtAmount">0€ en USDT</b><br><br>
 const TELEGRAM_ORDER = "lisa7500";
 const USDT_ADDRESS = "5nbHMd5BDPY3orukqjjGwi1P3zqKLJ1XeVHU6xgeq4qH";
 let paymentMethod = 'cash';
+let orderId = 'LISA-' + Math.floor(10000 + Math.random()*89999);
+let paySeconds = 15*60;
+let payTimerInt = null;
+let walletConnectedAddr = '';
 const PRODUCTS = [
   {id:1, name:"MOUSSEUX", desc:"Shit premium - livraison rapide Paris.", photo:"", video:"mousseux.mp4.MP4", stock:8, variants:[{label:"10g",price:50},{label:"25g",price:110},{label:"50g",price:170},{label:"100g",price:300}]},
   {id:2, name:"Casablanca", desc:"Casablanca - Top qualité, effet garanti.", photo:"", video:"Casablanca.mp4.MOV", stock:3, variants:[{label:"5g",price:60},{label:"10g",price:100},{label:"25g",price:200},{label:"50g",price:350}]},
@@ -177,6 +222,7 @@ let favs = []; try{ favs = JSON.parse(localStorage.getItem('lisa_favs') || '[]')
 let selectedVariant = {};
 let currentFilter = 'all';
 let sortMode = 'pop';
+let hasPaid = false;
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function vibrate(){ try{ if(window.Telegram?.WebApp?.HapticFeedback) Telegram.WebApp.HapticFeedback.impactOccurred('light'); }catch(e){} }
 function showToast(msg){ let t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),1800); }
@@ -189,26 +235,34 @@ function navGo(id,btn){ document.querySelectorAll('.bottom-nav button').forEach(
 function scrollCar(dir){ document.getElementById('products').scrollBy({left:dir*300, behavior:'smooth'}); }
 function selectVariant(pid,idx){ selectedVariant[pid]=idx; vibrate(); render(); }
 function getSel(p){ let idx=selectedVariant[p.id]||0; if(idx>=p.variants.length) idx=0; return {idx,v:p.variants[idx]}; }
-// ===== PAIEMENT =====
-function setPayment(m){ paymentMethod=m; document.getElementById('payCashBtn').classList.toggle('active',m==='cash'); document.getElementById('payUsdtBtn').classList.toggle('active',m==='usdt'); document.getElementById('payCashBox').style.display = m==='cash'?'block':'none'; document.getElementById('payUsdtBox').style.display = m==='usdt'?'block':'none'; document.getElementById('checkoutBtn').textContent = m==='usdt' ? '🪙 J\'AI PAYÉ EN USDT - ENVOYER MA COMMANDE →' : 'ENVOYER MA COMMANDE SUR @lisa7500 →'; vibrate(); }
+// ===== WALLET / PAIEMENT PRO =====
+function setPayment(m){ paymentMethod=m; hasPaid=false; document.getElementById('paidMsg').style.display='none'; document.getElementById('payCashBtn').classList.toggle('active',m==='cash'); document.getElementById('payUsdtBtn').classList.toggle('active',m==='usdt'); document.getElementById('payCashBox').style.display = m==='cash'?'block':'none'; document.getElementById('payUsdtBox').style.display = m==='usdt'?'block':'none'; document.getElementById('checkoutBtn').textContent = m==='usdt' ? '🪙 J\'AI PAYÉ EN USDT - ENVOYER MA COMMANDE →' : 'ENVOYER MA COMMANDE SUR @lisa7500 →'; if(m==='usdt'){ startPayTimer(); updateQR(); } else { clearInterval(payTimerInt); } vibrate(); }
+function updateQR(){ document.getElementById('orderId').textContent = orderId; document.getElementById('qrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=10&color=000000&bgcolor=ffffff&data=" + encodeURIComponent(USDT_ADDRESS); }
+function startPayTimer(){ clearInterval(payTimerInt); paySeconds = 15*60; payTimerInt = setInterval(()=>{ paySeconds--; if(paySeconds<=0){ clearInterval(payTimerInt); document.getElementById('payTimer').textContent='EXPIRÉ'; return; } let mm=Math.floor(paySeconds/60), ss=paySeconds%60; document.getElementById('payTimer').textContent = String(mm).padStart(2,'0')+':'+String(ss).padStart(2,'0'); },1000); }
+function solanaPayLink(){ let amount = cartTotal(); return "solana:" + USDT_ADDRESS + "?amount=" + amount + "&label=" + encodeURIComponent("LISA PARIS") + "&message=" + encodeURIComponent("Commande " + orderId + " - " + amount + " USDT"); }
+function openPhantom(){ let link = solanaPayLink(); if(window.Telegram?.WebApp?.openLink){ Telegram.WebApp.openLink("https://phantom.app/ul/browse/" + encodeURIComponent(link)); } else { window.open("https://phantom.app/ul/browse/" + encodeURIComponent(link), "_blank"); } showToast('👻 Ouverture Phantom...'); setTimeout(()=>{ window.location.href = link; }, 800); }
+function openSolflare(){ let link = solanaPayLink(); if(window.Telegram?.WebApp?.openLink){ Telegram.WebApp.openLink("https://solflare.com/ul/v1/browse/" + encodeURIComponent(link)); } else { window.open("https://solflare.com/ul/v1/browse/" + encodeURIComponent(link), "_blank"); } showToast('☀️ Ouverture Solflare...'); setTimeout(()=>{ window.location.href = link; }, 800); }
+async function connectWallet(){ try{ if(window.solana && window.solana.isPhantom){ let r = await window.solana.connect(); walletConnectedAddr = r.publicKey.toString(); } else if(window.solflare){ let r = await window.solflare.connect(); walletConnectedAddr = r.publicKey ? r.publicKey.toString() : 'Connecté'; } else { showToast('Ouvre Phantom ou Solflare puis reviens'); openPhantom(); return; } document.getElementById('walletConnected').style.display='block'; document.getElementById('walletAddrTxt').textContent = walletConnectedAddr; document.getElementById('walletConnectBtn').textContent='✅ WALLET CONNECTÉ'; showToast('✅ Wallet connecté !'); }catch(e){ showToast('Connexion annulée'); } }
 function copyAddress(){ if(navigator.clipboard) navigator.clipboard.writeText(USDT_ADDRESS).then(()=>showToast('📋 Adresse copiée !')).catch(()=>prompt('Copie ton adresse USDT SOL :',USDT_ADDRESS)); else prompt('Copie ton adresse USDT SOL :',USDT_ADDRESS); }
+function copyAmount(){ let a = cartTotal() + ' USDT'; if(navigator.clipboard) navigator.clipboard.writeText(String(cartTotal())).then(()=>showToast('💰 Montant copié : '+a)).catch(()=>prompt('Montant à envoyer :',String(cartTotal()))); else prompt('Montant à envoyer :',String(cartTotal())); }
+function markPaid(){ hasPaid=true; document.getElementById('paidMsg').style.display='block'; showToast('✅ Merci ! Envoie ta preuve'); }
 function addToCart(id){ let p=products.find(x=>x.id===id); let {v}=getSel(p); let key=p.id+"_"+v.label; let f=cart.find(x=>x.key===key); if(f) f.qty++; else cart.push({key:key,id:p.id,name:p.name,variant:v.label,price:Number(v.price),photo:p.photo,video:p.video,qty:1}); vibrate(); save(); showToast('✅ '+p.name+' - '+v.label+' ajouté !'); }
 function cartTotal(){ return cart.reduce((a,c)=>a+c.price*c.qty,0); }
 function cartCount(){ return cart.reduce((a,c)=>a+c.qty,0); }
 function updateCartFloat(){ let b=document.getElementById('cartFloat'); if(cart.length===0){ b.style.display='none'; return; } b.style.display='block'; b.textContent=`🛒 VOIR MON PANIER (${cartCount()}) - ${cartTotal()}€ →`; }
-function openCart(){ let box=document.getElementById('cartItems'); if(cart.length===0){ box.innerHTML='<p>Ton panier est vide.</p>'; } else { box.innerHTML=cart.map((c,i)=>`<div class="cart-item">${c.video?`<video src="${esc(c.video)}" muted></video>`:`<img src="${esc(c.photo)}">`}<div style="flex:1"><b>${esc(c.name)}</b><br><span style="color:#e879f9;font-weight:800">⚖️ ${esc(c.variant)}</span><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div><button class="qty-btn" onclick="changeQty(${i},-1)">-</button><b>${c.qty}</b><button class="qty-btn" onclick="changeQty(${i},1)">+</button><button class="qty-btn" style="background:#ff4444" onclick="removeFromCart(${i})">✕</button></div>`).join(''); } document.getElementById('cartTotal').textContent='TOTAL : '+cartTotal()+'€ - '+(paymentMethod==='usdt'?'USDT SOL':'Cash'); document.getElementById('cashAmount').textContent=cartTotal()+'€'; document.getElementById('usdtAmount').textContent=cartTotal()+'€ en USDT'; document.getElementById('cartModal').style.display='flex'; }
+function openCart(){ let box=document.getElementById('cartItems'); if(cart.length===0){ box.innerHTML='<p>Ton panier est vide.</p>'; } else { box.innerHTML=cart.map((c,i)=>`<div class="cart-item">${c.video?`<video src="${esc(c.video)}" muted></video>`:`<img src="${esc(c.photo)}">`}<div style="flex:1"><b>${esc(c.name)}</b><br><span style="color:#e879f9;font-weight:800">⚖️ ${esc(c.variant)}</span><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div><button class="qty-btn" onclick="changeQty(${i},-1)">-</button><b>${c.qty}</b><button class="qty-btn" onclick="changeQty(${i},1)">+</button><button class="qty-btn" style="background:#ff4444" onclick="removeFromCart(${i})">✕</button></div>`).join(''); } document.getElementById('cartTotal').textContent='TOTAL : '+cartTotal()+'€ - '+(paymentMethod==='usdt'?'USDT SOL':'Cash'); document.getElementById('cashAmount').textContent=cartTotal()+'€'; document.getElementById('usdtAmount').textContent=cartTotal()+'€ en USDT'; document.getElementById('copyAmountTxt').textContent=cartTotal()+'€'; if(paymentMethod==='usdt') updateQR(); document.getElementById('cartModal').style.display='flex'; }
 function closeCart(){ document.getElementById('cartModal').style.display='none'; }
 function changeQty(i,d){ cart[i].qty+=d; if(cart[i].qty<=0) cart.splice(i,1); save(); openCart(); }
 function removeFromCart(i){ cart.splice(i,1); save(); openCart(); }
 function clearCart(){ cart=[]; save(); openCart(); }
-function buildCartMessage(){ let n=document.getElementById('clientName').value||''; let c=document.getElementById('clientCity').value||''; let note=document.getElementById('clientNote').value||''; let lines=cart.map(x=>`• ${x.name} - ${x.variant} x${x.qty} - ${x.price*x.qty}€`).join('\n'); let pay = paymentMethod==='usdt' ? `🪙 PAIEMENT : USDT SOL\n📍 ADRESSE : ${USDT_ADDRESS}\n⚠️ PAIEMENT AVANT ENVOI - En attente de confirmation + capture d'écran` : `💵 PAIEMENT : ESPÈCES à la livraison`; return `🛒 NOUVELLE COMMANDE - LISA PARIS\n\n📞 Num : ${n}\n📍 Adresse : ${c}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€\n${pay}`+(note?`\n📝 ${note}`:''); }
+function buildCartMessage(){ let n=document.getElementById('clientName').value||''; let c=document.getElementById('clientCity').value||''; let note=document.getElementById('clientNote').value||''; let lines=cart.map(x=>`• ${x.name} - ${x.variant} x${x.qty} - ${x.price*x.qty}€`).join('\n'); let pay = paymentMethod==='usdt' ? `🪙 PAIEMENT : USDT SOL\n🆔 COMMANDE : ${orderId}\n📍 ADRESSE : ${USDT_ADDRESS}\n💰 MONTANT ENVOYÉ : ${cartTotal()} USDT\n👛 WALLET CLIENT : ${walletConnectedAddr || 'Non connecté - QR / Copie'}\n✅ STATUT : ${hasPaid?'Client dit avoir payé - Vérifier + Preuve à recevoir':'En attente de paiement'}\n⚠️ PAIEMENT AVANT ENVOI - Attendre confirmation` : `💵 PAIEMENT : ESPÈCES à la livraison`; return `🛒 NOUVELLE COMMANDE - LISA PARIS\n🆔 ${orderId}\n\n📞 Num : ${n}\n📍 Adresse : ${c}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€\n${pay}`+(note?`\n📝 ${note}`:''); }
 function copyCartMessage(){ let m=buildCartMessage(); if(navigator.clipboard) navigator.clipboard.writeText(m).then(()=>alert('Message copié ✅ Va sur @lisa7500 et colle-le :\n\n'+m)).catch(()=>prompt('Copie et envoie à @lisa7500 :',m)); else prompt('Copie et envoie à @lisa7500 :',m); }
-function checkout(){ if(cart.length===0) return alert('Ton panier est vide'); if(paymentMethod==='usdt'){ let ok = confirm('⚠️ USDT SOL - PAIEMENT AVANT ENVOI\n\nTu as bien envoyé '+cartTotal()+'€ en USDT sur Solana ?\n\nAdresse : '+USDT_ADDRESS+'\n\nN\'oublie pas d\'envoyer ta capture d\'écran à @lisa7500 après.'); if(!ok) return; } let msg=buildCartMessage(); if(navigator.clipboard) navigator.clipboard.writeText(msg).catch(()=>{}); let url=`https://t.me/${TELEGRAM_ORDER}?text=${encodeURIComponent(msg)}`; if(window.Telegram?.WebApp?.openTelegramLink){ Telegram.WebApp.openTelegramLink(url); } else if(window.Telegram?.WebApp?.openLink){ Telegram.WebApp.openLink(url); } else { window.open(url,'_blank'); } cart=[]; save(); closeCart(); alert(paymentMethod==='usdt' ? '✅ Commande envoyée ! Envoie ta capture d\'écran USDT à @lisa7500, j\'attends la confirmation avant d\'envoyer.' : '✅ Commande envoyée sur @lisa7500 !'); }
+function checkout(){ if(cart.length===0) return alert('Ton panier est vide'); if(paymentMethod==='usdt' && !hasPaid){ let ok = confirm('⚠️ USDT SOL - PAIEMENT AVANT ENVOI\n\nCommande '+orderId+'\nMontant : '+cartTotal()+' USDT\n\nTu as bien envoyé le paiement via ton wallet ?\n\nSi oui clique OK, sinon clique Annuler et paye d\'abord.'); if(!ok) return; hasPaid=true; } let msg=buildCartMessage(); if(navigator.clipboard) navigator.clipboard.writeText(msg).catch(()=>{}); let url=`https://t.me/${TELEGRAM_ORDER}?text=${encodeURIComponent(msg)}`; if(window.Telegram?.WebApp?.openTelegramLink){ Telegram.WebApp.openTelegramLink(url); } else if(window.Telegram?.WebApp?.openLink){ Telegram.WebApp.openLink(url); } else { window.open(url,'_blank'); } let oldId = orderId; orderId = 'LISA-' + Math.floor(10000 + Math.random()*89999); cart=[]; save(); closeCart(); alert(paymentMethod==='usdt' ? '✅ Commande '+oldId+' envoyée ! Envoie ta capture d\'écran USDT à @lisa7500, j\'attends la confirmation avant d\'envoyer.' : '✅ Commande envoyée sur @lisa7500 !'); }
 function render(){ const q=(document.getElementById('search')?.value||'').toLowerCase(); let list=products.filter(p=>p.name.toLowerCase().includes(q)); if(currentFilter==='fav') list=list.filter(p=>favs.includes(p.id)); if(sortMode==='low') list=[...list].sort((a,b)=>a.variants[0].price-b.variants[0].price); if(sortMode==='high') list=[...list].sort((a,b)=>b.variants[0].price-a.variants[0].price); const box=document.getElementById('products'); box.innerHTML=''; document.getElementById('empty').style.display=list.length?'none':'block'; if(currentFilter==='fav'&&!list.length) document.getElementById('empty').textContent='Aucun favori. Clique sur ❤️'; else document.getElementById('empty').textContent='Aucun produit.'; document.getElementById('dots').textContent=list.length?`← Fais glisser → ${list.length} produit(s)`:''; list.forEach(p=>{ let {idx,v}=getSel(p); let inCart=cart.filter(c=>c.id===p.id).reduce((a,c)=>a+c.qty,0); let isFav=favs.includes(p.id); box.innerHTML+=`<div class="card"><div class="card-inner"><div class="card-top"><div class="icon">🛍️</div><button class="fav-btn ${isFav?'on':''}" onclick="toggleFav(${p.id})">${isFav?'❤️':'🤍'}</button></div>${p.video?`<video src="${esc(p.video)}" controls preload="metadata" poster="${esc(p.photo)}" playsinline></video>`:''}${p.photo?`<img src="${esc(p.photo)}" onerror="this.style.display='none'" loading="lazy">`:''}<div class="stock ${p.stock<=3?'low':'ok'}">${p.stock<=3?'⚠️ Plus que '+p.stock+' en stock !':'✅ En stock'}</div><h3>${esc(p.name)}</h3><p>${esc(p.desc||'')}</p><div class="check"><span>✓</span> Produit vérifié<br><span>✓</span> Livraison rapide Paris<br><span>✓</span> Paiement cash / USDT<br><span>✓</span> Support @lisaparis</div><div class="variant-box"><label>⚖️ CHOISIS TON POIDS / TA QUANTITÉ :</label><div class="variant-chips">${p.variants.map((vv,i)=>`<button class="chip ${i===idx?'active':''}" onclick="selectVariant(${p.id},${i})">${esc(vv.label)} - ${vv.price}€</button>`).join('')}</div></div><div class="stars">⭐⭐⭐⭐⭐ 5.0</div><div class="price">Tu as choisi : <b>${esc(v.label)}</b><br>À partir de <br><b>${v.price}€</b></div><button class="add-cart" onclick="addToCart(${p.id})">${inCart?'✅ DANS LE PANIER ('+inCart+') - AJOUTER +':'🛒 AJOUTER AU PANIER - '+esc(v.label)}</button><button class="commander" onclick="addToCart(${p.id});openCart()">COMMANDER ${esc(v.label)} →</button></div></div>`; }); let avg=reviews.length?(reviews.reduce((a,r)=>a+Number(r.stars),0)/reviews.length).toFixed(1):'4.9'; document.getElementById('avgBadge').textContent=avg+' / 5 - '+reviews.length+' avis'; document.getElementById('avgBadge2').textContent=avg+' / 5 - '+reviews.length+' avis'; const html=reviews.slice(0,6).map(r=>`<div class="review"><b>${esc(r.name)}</b> - <span style="color:#facc15">${'⭐'.repeat(r.stars)}</span><br><small>${esc(r.date)}</small><p style="margin:6px 0">${esc(r.text)}</p></div>`).join(''); document.getElementById('reviews').innerHTML=html; document.getElementById('reviews2').innerHTML=html; updateCartFloat(); }
 function addReview(){ const n=document.getElementById('rName').value,t=document.getElementById('rText').value,s=document.getElementById('rStars').value; if(!n||!t) return alert('Mets prénom + avis'); reviews.unshift({name:n,stars:Number(s),text:t,date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName').value=''; document.getElementById('rText').value=''; }
 function addReview2(){ const n=document.getElementById('rName2').value,t=document.getElementById('rText2').value,s=document.getElementById('rStars2').value; if(!n||!t) return alert('Mets prénom + avis'); reviews.unshift({name:n,stars:Number(s),text:t,date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName2').value=''; document.getElementById('rText2').value=''; }
 function updateCountdown(){ let now=new Date(); let end=new Date(); end.setHours(23,0,0,0); if(now>end) end.setDate(end.getDate()+1); let diff=end-now; let h=Math.floor(diff/3600000), m=Math.floor((diff%3600000)/60000), s=Math.floor((diff%60000)/1000); let el=document.getElementById('countdown'); if(el) el.textContent=`⏰ ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
-setInterval(updateCountdown,1000); updateCountdown();
+setInterval(updateCountdown,1000); updateCountdown(); updateQR();
 if(window.Telegram?.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); try{ Telegram.WebApp.setHeaderColor('#05050d'); Telegram.WebApp.setBackgroundColor('#05050d'); }catch(e){} }
 render();
 </script>
