@@ -9,391 +9,101 @@
 *{box-sizing:border-box;font-family:Arial,sans-serif}
 body{background:#05050d;color:#fff;margin:0;padding:0;padding-bottom:90px}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;background:#0a0a18}
-.topbar b{letter-spacing:1px;font-size:13px;color:#aaa}
-.topbar b span{color:#fff}
-.btn-admin{background:#1a1a2e;border:1px solid #a855f7;color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer;font-size:12px}
+.topbar b{letter-spacing:1px;font-size:13px;color:#aaa}.topbar b span{color:#fff}
 .header-tabs{display:flex;gap:8px;padding:10px 15px}
 .header-tabs button{flex:1;padding:11px;border-radius:20px;border:0;font-weight:800;letter-spacing:1px;cursor:pointer}
-.tab-active{background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff}
-.tab-off{background:#1a1a2e;color:#aaa}
+.tab-active{background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff}.tab-off{background:#1a1a2e;color:#aaa}
 .hero{margin:0 15px 15px;border-radius:24px;overflow:hidden;position:relative;height:360px;background:linear-gradient(160deg,#2e1065,#7c3aed,#05050d)}
 .hero img{width:100%;height:100%;object-fit:cover;opacity:.85}
 .hero-text{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(transparent,#05050d)}
-.hero-text h1{font-size:36px;margin:0;letter-spacing:2px}
-.hero-text h1 span{color:#e879f9}
+.hero-text h1{font-size:36px;margin:0;letter-spacing:2px}.hero-text h1 span{color:#e879f9}
 .hero-text p{color:#d8b4fe;margin:6px 0;font-size:14px}
 .pill{display:inline-block;background:#ec4899;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:800}
 .canal-btn{display:inline-block;margin-top:10px;background:#fff;color:#000;padding:10px 18px;border-radius:20px;font-weight:900;text-decoration:none;font-size:13px}
 .info{display:flex;gap:10px;padding:0 15px;overflow:auto}
 .info div{background:#151026;border:1px solid #4c1d95;border-radius:16px;padding:12px;min-width:130px;text-align:center;font-size:13px}
-.search{margin:15px}
-.search input{width:100%;padding:13px;border-radius:18px;border:1px solid #4c1d95;background:#151026;color:#fff;font-size:15px}
-.carousel-wrap{position:relative}
-.carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:5px 15px 15px;scrollbar-width:none}
-.carousel::-webkit-scrollbar{display:none}
+.search{margin:15px}.search input{width:100%;padding:13px;border-radius:18px;border:1px solid #4c1d95;background:#151026;color:#fff;font-size:15px}
+.carousel-wrap{position:relative}.carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:5px 15px 15px;scrollbar-width:none}.carousel::-webkit-scrollbar{display:none}
 .card{flex:0 0 85%;max-width:320px;scroll-snap-align:center;background:linear-gradient(160deg,#2e1065,#120a24 60%,#0a0a1a);border:1px solid #6b2cff;border-radius:24px;padding:18px;text-align:left;box-shadow:0 10px 30px rgba(124,58,237,.35);position:relative}
-.card-top{display:flex;justify-content:space-between;align-items:start}
-.card-top .icon{width:44px;height:44px;background:rgba(255,255,255,.08);border:1px solid #a855f7;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}
-.card-top small{color:#a78bfa;letter-spacing:1px;font-size:10px}
+.card-top{display:flex;justify-content:space-between;align-items:start}.card-top .icon{width:44px;height:44px;background:rgba(255,255,255,.08);border:1px solid #a855f7;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px}.card-top small{color:#a78bfa;letter-spacing:1px;font-size:10px}
 .card img,.card video{width:100%;border-radius:16px;height:200px;object-fit:cover;background:#000;margin-top:12px}
-.card h3{margin:12px 0 6px;font-size:20px}
-.card p{font-size:13px;color:#c4b5fd;margin:0;min-height:32px}
-.check{font-size:13px;color:#d8b4fe;margin:12px 0;line-height:1.9}
-.check span{color:#22c55e;font-weight:900}
-.price{color:#fff;font-weight:900;font-size:14px;margin:8px 0}
-.price b{font-size:28px;color:#e879f9}
-.stars{color:#facc15;font-size:13px}
-.arrow{position:absolute;top:45%;width:38px;height:38px;border-radius:50%;background:#fff;color:#000;border:0;font-size:20px;font-weight:900;z-index:5;cursor:pointer}
-.arrow.left{left:8px}.arrow.right{right:8px}
+.card h3{margin:12px 0 6px;font-size:20px}.card p{font-size:13px;color:#c4b5fd;margin:0;min-height:32px}
+.check{font-size:13px;color:#d8b4fe;margin:12px 0;line-height:1.9}.check span{color:#22c55e;font-weight:900}
+.price{color:#fff;font-weight:900;font-size:14px;margin:8px 0}.price b{font-size:28px;color:#e879f9}.stars{color:#facc15;font-size:13px}
+.arrow{position:absolute;top:45%;width:38px;height:38px;border-radius:50%;background:#fff;color:#000;border:0;font-size:20px;font-weight:900;z-index:5;cursor:pointer}.arrow.left{left:8px}.arrow.right{right:8px}
 .dots{text-align:center;color:#a78bfa;font-size:13px}
 button.commander{background:linear-gradient(90deg,#c084fc,#ec4899);border:0;color:#fff;padding:14px;border-radius:18px;width:100%;font-weight:900;letter-spacing:1px;cursor:pointer;margin-top:10px;font-size:14px}
 button.add-cart{background:#fff;color:#000;border:0;padding:13px;border-radius:18px;width:100%;font-weight:900;cursor:pointer;margin-top:8px}
-.variant-box{margin:12px 0 0;background:#0a0a1a;border:1px solid #4c1d95;border-radius:14px;padding:10px}
-.variant-box label{font-size:12px;color:#c4b5fd;font-weight:800;letter-spacing:1px}
-.variant-box select{margin:6px 0 0;background:#1a1a2e;border:1px solid #a855f7}
-.variant-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
-.chip{padding:7px 11px;border-radius:20px;border:1px solid #4c1d95;background:#1a1a2e;color:#c4b5fd;font-size:12px;font-weight:800;cursor:pointer}
-.chip.active{background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;border-color:#fff}
+.variant-box{margin:12px 0 0;background:#0a0a1a;border:1px solid #4c1d95;border-radius:14px;padding:10px}.variant-box label{font-size:12px;color:#c4b5fd;font-weight:800;letter-spacing:1px}
+.variant-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.chip{padding:7px 11px;border-radius:20px;border:1px solid #4c1d95;background:#1a1a2e;color:#c4b5fd;font-size:12px;font-weight:800;cursor:pointer}.chip.active{background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;border-color:#fff}
 input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1px solid #444;background:#1a1a2e;color:#fff}
-.hidden{display:none}
-.order{background:#151026;border:1px solid #4c1d95;border-radius:16px;padding:12px;margin:10px 0}
-.section{margin:15px;background:linear-gradient(160deg,#1e1033,#120a24);border:1px solid #4c1d95;border-radius:24px;padding:18px}
-.review{background:#0a0a1a;border:1px solid #333;padding:12px;border-radius:16px;margin:10px 0}
-.badge-avis{background:#22c55e;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:800}
-.admin-card{background:#1e1033;border:1px solid #4c1d95;padding:12px;border-radius:16px;margin:10px 0;display:flex;gap:10px;align-items:center}
-.admin-card img{width:70px;height:70px;object-fit:cover;border-radius:10px}
+.hidden{display:none}.section{margin:15px;background:linear-gradient(160deg,#1e1033,#120a24);border:1px solid #4c1d95;border-radius:24px;padding:18px}
+.review{background:#0a0a1a;border:1px solid #333;padding:12px;border-radius:16px;margin:10px 0}.badge-avis{background:#22c55e;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:800}
 .cart-float{position:fixed;bottom:15px;left:15px;right:15px;z-index:100;background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;border:0;padding:15px;border-radius:20px;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 10px 25px rgba(0,0,0,.5);display:none}
-.cart-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:none;align-items:end}
-.cart-box{background:#120a24;width:100%;max-height:90vh;overflow:auto;border-radius:24px 24px 0 0;padding:20px}
-.cart-item{display:flex;gap:10px;background:#1e1033;border:1px solid #4c1d95;border-radius:16px;padding:10px;margin:10px 0;align-items:center}
-.cart-item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
+.cart-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:none;align-items:end}.cart-box{background:#120a24;width:100%;max-height:90vh;overflow:auto;border-radius:24px 24px 0 0;padding:20px}
+.cart-item{display:flex;gap:10px;background:#1e1033;border:1px solid #4c1d95;border-radius:16px;padding:10px;margin:10px 0;align-items:center}.cart-item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
 .qty-btn{background:#a855f7;color:#fff;border:0;width:28px;height:28px;border-radius:8px;font-weight:900;cursor:pointer}
 </style>
 </head>
 <body>
-<div class="topbar"><b>✕ &nbsp; <span>@lisaparis</span> &nbsp; mini-application</b><button class="btn-admin" onclick="showAdmin()">Panel Admin</button></div>
+<div class="topbar"><b>✕ &nbsp; <span>@lisaparis</span> &nbsp; mini-application</b></div>
 <div class="header-tabs"><button class="tab-active" onclick="showTab('home',this)">ACCUEIL</button><button class="tab-off" onclick="showTab('shopSec',this)">BOUTIQUE</button><button class="tab-off" onclick="showTab('avisSec',this)">AVIS</button></div>
-
 <div id="shop">
   <div class="hero">
-    <img src="lisa.jpg" onerror="this.src='https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=900&q=80'">
+    <img src="https://raw.githubusercontent.com/Simone/Simone/main/lisa.jpg" onerror="this.src='https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=900&q=80'">
     <div class="hero-text"><span class="pill">LUXURY • PARIS</span><h1>LISA <span>PARIS</span></h1><p>🕐 11h - 23h &nbsp;|&nbsp; 💵 Espèces &nbsp;|&nbsp; 📱 @lisaparis</p><a class="canal-btn" href="https://t.me/lisaparis" target="_blank">📢 REJOINDRE MON CANAL @lisaparis →</a></div>
   </div>
   <div class="info"><div>🕐 11:00 - 23:00<br><b>Ouvert</b></div><div>💵 Cash Only<br><b>Paiement</b></div><div>🚀 Livraison<br><b>Rapide Paris</b></div><div>✅ Garanti<br><b>100% Original</b></div></div>
-
   <div id="home" class="tabSec">
     <div class="search"><input id="search" placeholder="🔍 Rechercher un produit..." oninput="render()"></div>
-    <div class="carousel-wrap">
-      <button class="arrow left" onclick="scrollCar(-1)">‹</button>
-      <div id="products" class="carousel"></div>
-      <button class="arrow right" onclick="scrollCar(1)">›</button>
-    </div>
+    <div class="carousel-wrap"><button class="arrow left" onclick="scrollCar(-1)">‹</button><div id="products" class="carousel"></div><button class="arrow right" onclick="scrollCar(1)">›</button></div>
     <div class="dots" id="dots">← Fais glisser pour voir tous les produits →</div>
-    <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit pour le moment.</p>
+    <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit.</p>
   </div>
-
-  <div id="shopSec" class="tabSec hidden">
-    <div class="section"><h2>Boutique</h2><p style="color:#c4b5fd;font-size:14px">Choisis ton produit, choisis ton poids, ajoute au panier, envoie ta commande en 1 clic sur @lisa7500.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div>
-  </div>
-
-  <div id="avisSec" class="tabSec hidden">
-    <div class="section">
-      <h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge2">4.9 / 5</span></h2>
-      <div id="reviews2"></div>
-      <h3 style="margin-top:20px">✍️ Laisser un avis</h3>
-      <input id="rName2" placeholder="Ton prénom">
-      <select id="rStars2"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select>
-      <textarea id="rText2" placeholder="Ton avis..."></textarea>
-      <button class="commander" onclick="addReview2()">PUBLIER MON AVIS</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge">4.9 / 5</span></h2>
-    <div id="reviews"></div>
-    <h3 style="margin-top:20px">✍️ Laisser un avis</h3>
-    <input id="rName" placeholder="Ton prénom">
-    <select id="rStars"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select>
-    <textarea id="rText" placeholder="Ton avis..."></textarea>
-    <button class="commander" onclick="addReview()">PUBLIER MON AVIS</button>
-  </div>
+  <div id="shopSec" class="tabSec hidden"><div class="section"><h2>Boutique</h2><p style="color:#c4b5fd;font-size:14px">Choisis ton produit, choisis ton poids, ajoute au panier, envoie sur @lisa7500.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div></div>
+  <div id="avisSec" class="tabSec hidden"><div class="section"><h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge2">4.9 / 5</span></h2><div id="reviews2"></div><h3 style="margin-top:20px">✍️ Laisser un avis</h3><input id="rName2" placeholder="Ton prénom"><select id="rStars2"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select><textarea id="rText2" placeholder="Ton avis..."></textarea><button class="commander" onclick="addReview2()">PUBLIER MON AVIS</button></div></div>
+  <div class="section"><h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge">4.9 / 5</span></h2><div id="reviews"></div><h3 style="margin-top:20px">✍️ Laisser un avis</h3><input id="rName" placeholder="Ton prénom"><select id="rStars"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select><textarea id="rText" placeholder="Ton avis..."></textarea><button class="commander" onclick="addReview()">PUBLIER MON AVIS</button></div>
   <div style="text-align:center;padding:20px;color:#888;font-size:13px">LISA PARIS © 2026 - <a href="https://t.me/lisaparis" style="color:#e879f9">📢 @lisaparis</a><br>💵 Cash Only • 🕐 11h - 23h • Commandes : @lisa7500</div>
 </div>
-
 <button id="cartFloat" class="cart-float" onclick="openCart()">🛒 VOIR MON PANIER</button>
-
-<div id="cartModal" class="cart-modal">
-  <div class="cart-box">
-    <h2>🛒 Mon Panier</h2>
-    <div id="cartItems"></div>
-    <div id="cartTotal" style="font-size:20px;font-weight:900;margin:15px 0"></div>
-    <input id="clientName" placeholder="Ton num : telephone">
-    <input id="clientCity" placeholder="Adresse exacte : code postale">
-    <textarea id="clientNote" placeholder="Message pour LISA (optionnel)"></textarea>
-    <button class="commander" onclick="checkout()">ENVOYER MA COMMANDE SUR @lisa7500 →</button>
-    <button onclick="copyCartMessage()" style="background:#fff;color:#000;border:0;padding:12px;border-radius:12px;width:100%;margin-top:10px;font-weight:900">📋 COPIER LE MESSAGE SI TELEGRAM NE S'OUVRE PAS</button>
-    <button onclick="closeCart()" style="background:#333;color:#fff;border:0;padding:12px;border-radius:12px;width:100%;margin-top:10px">Continuer mes achats</button>
-    <button onclick="clearCart()" style="background:transparent;color:#ff6b6b;border:1px solid #ff6b6b;padding:10px;border-radius:12px;width:100%;margin-top:10px">Vider le panier</button>
-  </div>
-</div>
-
-<div id="admin" class="hidden" style="padding:15px">
-  <h2>Panel Admin - LISA PARIS</h2>
-  <div id="loginBox"><input type="password" id="pass" placeholder="Mot de passe admin"><button class="commander" onclick="login()">ENTRER</button></div>
-  <div id="adminContent" class="hidden">
-    <h3>➕ Ajouter / Modifier un produit</h3>
-    <input id="pName" placeholder="Nom du produit">
-    <textarea id="pDesc" placeholder="Description"></textarea>
-    <label>⚖️ CHOIX DE POIDS + PRIX - Exemple : 5g:50, 10g:90, 25g:200, 50g:350</label>
-    <input id="pVariants" placeholder="5g:50, 10g:90, 25g:200">
-    <div style="display:flex;gap:8px">
-      <button onclick="addQuickVariant('5g')" style="background:#1a1a2e;color:#fff;border:1px solid #a855f7;padding:10px;border-radius:12px;flex:1">+ 5g</button>
-      <button onclick="addQuickVariant('10g')" style="background:#1a1a2e;color:#fff;border:1px solid #a855f7;padding:10px;border-radius:12px;flex:1">+ 10g</button>
-      <button onclick="addQuickVariant('25g')" style="background:#1a1a2e;color:#fff;border:1px solid #a855f7;padding:10px;border-radius:12px;flex:1">+ 25g</button>
-      <button onclick="addQuickVariant('50g')" style="background:#1a1a2e;color:#fff;border:1px solid #a855f7;padding:10px;border-radius:12px;flex:1">+ 50g</button>
-    </div>
-    <label>Photo - Lien :</label><input id="pPhotoUrl" placeholder="Lien photo : https://...">
-    <label>Ou fichier</label><input type="file" id="pPhoto" accept="image/*">
-    <label>Lien vidéo (optionnel)</label><input id="pVideo" placeholder="Lien vidéo : https://...">
-    <button class="commander" id="saveBtn" onclick="saveProduct()">AJOUTER LE PRODUIT ✅</button>
-    <button onclick="cancelEdit()" style="background:#333;color:#fff;border:0;padding:10px;border-radius:12px;width:100%;margin-top:8px;display:none" id="cancelBtn">Annuler la modification</button>
-    <h3>📦 Mes produits (<span id="count">0</span>)</h3><div id="adminProducts"></div>
-    <h3>🧾 Commandes reçues</h3><div id="orders"></div>
-    <button onclick="showShop()" style="background:#333;color:#fff;padding:12px;border-radius:12px;border:0;width:100%;margin-top:15px">← Retour Boutique</button>
-  </div>
-</div>
-
+<div id="cartModal" class="cart-modal"><div class="cart-box"><h2>🛒 Mon Panier</h2><div id="cartItems"></div><div id="cartTotal" style="font-size:20px;font-weight:900;margin:15px 0"></div><input id="clientName" placeholder="Ton num : telephone"><input id="clientCity" placeholder="Adresse exacte : code postale"><textarea id="clientNote" placeholder="Message pour LISA (optionnel)"></textarea><button class="commander" onclick="checkout()">ENVOYER MA COMMANDE SUR @lisa7500 →</button><button onclick="copyCartMessage()" style="background:#fff;color:#000;border:0;padding:12px;border-radius:12px;width:100%;margin-top:10px;font-weight:900">📋 COPIER LE MESSAGE SI TELEGRAM NE S'OUVRE PAS</button><button onclick="closeCart()" style="background:#333;color:#fff;border:0;padding:12px;border-radius:12px;width:100%;margin-top:10px">Continuer mes achats</button><button onclick="clearCart()" style="background:transparent;color:#ff6b6b;border:1px solid #ff6b6b;padding:10px;border-radius:12px;width:100%;margin-top:10px">Vider le panier</button></div></div>
 <script>
-const ADMIN_PASS = "PLATA93100//";
-const TELEGRAM_CHANNEL = "lisaparis";
 const TELEGRAM_ORDER = "lisa7500";
-// ===== PRODUITS AVEC PLUSIEURS POIDS =====
-// variants = [{label:"5g", price:50}, ...]
-const DEFAULT_PRODUCTS = [
-  {id:1, name:"Produit 1", desc:"Description produit 1", photo:"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80", video:"", variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200},{label:"50g",price:350}]},
-  {id:2, name:"Produit 2", desc:"Description produit 2", photo:"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80", video:"", variants:[{label:"3.5g",price:40},{label:"7g",price:70},{label:"14g",price:130}]},
-  {id:3, name:"Produit 3", desc:"Description produit 3", photo:"https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&q=80", video:"", variants:[{label:"1 pièce",price:30},{label:"2 pièces",price:55},{label:"5 pièces",price:120}]}
+// ===== ★★★ CHANGE TES PRODUITS ICI, C'EST TOUT ★★★ =====
+// Pour changer un nom : change entre les " "
+// Ex : name:"Produit 1" -> name:"Cali"
+// Pour changer une photo : mets ton lien qui commence par https://raw.githubusercontent.com/
+// Pour changer un prix : change le chiffre après price:
+// Ex : {label:"5g",price:50} -> {label:"5g",price:60}
+const PRODUCTS = [
+  {id:1, name:"Produit 1", desc:"MOUSSEUX", photo:"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80", video:"", variants:[{label:"10g",price:50},{label:"50g",price:170},{label:"100g",price:200},{label:"1kg",price:2400}]},
+  {id:2, name:"Produit 2", desc:"CALI", photo:"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80", video:"", variants:[{label:"3.5g",price:40},{label:"7g",price:70},{label:"14g",price:130}]},
+  {id:3, name:"Produit 3", desc:"LEMON", photo:"https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&q=80", video:"", variants:[{label:"1 pièce",price:30},{label:"2 pièces",price:55},{label:"5 pièces",price:120}]}
 ];
-let products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
-try{
-  let saved = JSON.parse(localStorage.getItem('lisa_products_v3') || '[]');
-  if(saved.length>0) products = saved.map(p=>({ ...p, variants: normalizeVariants(p.variants, p.price) }));
-}catch(e){}
-let orders = JSON.parse(localStorage.getItem('lisa_orders') || '[]');
-let reviews = JSON.parse(localStorage.getItem('lisa_reviews') || '[]');
+let products = JSON.parse(JSON.stringify(PRODUCTS));
+let reviews = [{name:"Léa M.", stars:5, text:"Super rapide ! Produit nickel, comme neuf. LISA très gentille, je recommande ❤️", date:"Il y a 2 jours"},{name:"Sarah P.", stars:5, text:"Commandé à 14h, reçu à 18h à Paris. Parfait !", date:"Il y a 5 jours"}];
 let cart = JSON.parse(localStorage.getItem('lisa_cart') || '[]');
-let editId = null;
-let selectedVariant = {}; // {productId: index}
-function normalizeVariants(variants, fallbackPrice){
-  if(Array.isArray(variants) && variants.length>0) return variants.map(v=>({label:String(v.label), price:Number(v.price)}));
-  if(fallbackPrice) return [{label:"Standard", price:Number(fallbackPrice)}];
-  return [{label:"Standard", price:0}];
-}
-function parseVariants(text){
-  if(!text || !text.trim()) return [{label:"Standard", price:0}];
-  return text.split(',').map(s=>s.trim()).filter(Boolean).map(part=>{
-    let [label, price] = part.split(':').map(x=>x.trim());
-    return {label: label||"Standard", price: Number(price)||0};
-  });
-}
-function variantsToText(variants){
-  return (variants||[]).map(v=>v.label+":"+v.price).join(', ');
-}
-if(reviews.length===0){
-  reviews=[
-    {name:"Léa M.", stars:5, text:"Super rapide ! Produit nickel, comme neuf. LISA très gentille, je recommande ❤️", date:"Il y a 2 jours"},
-    {name:"Sarah P.", stars:5, text:"Commandé à 14h, reçu à 18h à Paris. Parfait !", date:"Il y a 5 jours"},
-  ];
-}
-function save(){
-  try{
-    localStorage.setItem('lisa_products_v3', JSON.stringify(products));
-    localStorage.setItem('lisa_orders', JSON.stringify(orders));
-    localStorage.setItem('lisa_reviews', JSON.stringify(reviews));
-    localStorage.setItem('lisa_cart', JSON.stringify(cart));
-  }catch(e){}
-  render(); return true;
-}
-function showTab(id,btn){
-  document.querySelectorAll('.tabSec').forEach(s=>s.classList.add('hidden'));
-  document.getElementById(id).classList.remove('hidden');
-  document.querySelectorAll('.header-tabs button').forEach(b=>{b.className='tab-off'});
-  btn.className='tab-active';
-}
+let selectedVariant = {};
+function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function save(){ try{ localStorage.setItem('lisa_cart', JSON.stringify(cart)); }catch(e){} render(); }
+function showTab(id,btn){ document.querySelectorAll('.tabSec').forEach(s=>s.classList.add('hidden')); document.getElementById(id).classList.remove('hidden'); document.querySelectorAll('.header-tabs button').forEach(b=>{b.className='tab-off'}); btn.className='tab-active'; }
 function scrollCar(dir){ document.getElementById('products').scrollBy({left:dir*300, behavior:'smooth'}); }
-function selectVariant(productId, idx){
-  selectedVariant[productId]=idx;
-  render();
-}
-function getSelectedVariant(p){
-  let idx = selectedVariant[p.id] || 0;
-  if(idx >= p.variants.length) idx = 0;
-  return {idx, v: p.variants[idx]};
-}
-function addToCart(id){
-  let p = products.find(x=>x.id===id);
-  if(!p) return;
-  let {v} = getSelectedVariant(p);
-  let key = p.id + "_" + v.label;
-  let found = cart.find(x=>x.key===key);
-  if(found) found.qty++;
-  else cart.push({key:key, id:p.id, name:p.name, variant:v.label, price:Number(v.price), photo:p.photo, qty:1});
-  save();
-  alert('✅ '+p.name+' - '+v.label+' ('+v.price+'€) ajouté au panier !');
-}
-function cartTotal(){ return cart.reduce((a,c)=>a + c.price*c.qty, 0); }
-function cartCount(){ return cart.reduce((a,c)=>a + c.qty, 0); }
-function updateCartFloat(){
-  let btn = document.getElementById('cartFloat');
-  if(cart.length===0){ btn.style.display='none'; return; }
-  btn.style.display='block';
-  btn.textContent = `🛒 VOIR MON PANIER (${cartCount()}) - ${cartTotal()}€ →`;
-}
-function openCart(){
-  let box = document.getElementById('cartItems');
-  if(cart.length===0){ box.innerHTML='<p>Ton panier est vide.</p>'; }
-  else{
-    box.innerHTML = cart.map((c,i)=>`
-      <div class="cart-item">
-        <img src="${c.photo}">
-        <div style="flex:1"><b>${c.name}</b><br><span style="color:#e879f9;font-weight:800">⚖️ ${c.variant}</span><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div>
-        <button class="qty-btn" onclick="changeQty(${i},-1)">-</button>
-        <b>${c.qty}</b>
-        <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
-        <button class="qty-btn" style="background:#ff4444" onclick="removeFromCart(${i})">✕</button>
-      </div>`).join('');
-  }
-  document.getElementById('cartTotal').textContent = 'TOTAL : '+cartTotal()+'€ - Cash';
-  document.getElementById('cartModal').style.display='flex';
-}
+function selectVariant(pid,idx){ selectedVariant[pid]=idx; render(); }
+function getSel(p){ let idx=selectedVariant[p.id]||0; if(idx>=p.variants.length) idx=0; return {idx,v:p.variants[idx]}; }
+function addToCart(id){ let p=products.find(x=>x.id===id); let {v}=getSel(p); let key=p.id+"_"+v.label; let f=cart.find(x=>x.key===key); if(f) f.qty++; else cart.push({key:key,id:p.id,name:p.name,variant:v.label,price:Number(v.price),photo:p.photo,qty:1}); save(); alert('✅ '+p.name+' - '+v.label+' ('+v.price+'€) ajouté !'); }
+function cartTotal(){ return cart.reduce((a,c)=>a+c.price*c.qty,0); } function cartCount(){ return cart.reduce((a,c)=>a+c.qty,0); }
+function updateCartFloat(){ let b=document.getElementById('cartFloat'); if(cart.length===0){ b.style.display='none'; return; } b.style.display='block'; b.textContent=`🛒 VOIR MON PANIER (${cartCount()}) - ${cartTotal()}€ →`; }
+function openCart(){ let box=document.getElementById('cartItems'); if(cart.length===0){ box.innerHTML='<p>Ton panier est vide.</p>'; } else { box.innerHTML=cart.map((c,i)=>`<div class="cart-item"><img src="${esc(c.photo)}" onerror="this.style.display='none'"><div style="flex:1"><b>${esc(c.name)}</b><br><span style="color:#e879f9;font-weight:800">⚖️ ${esc(c.variant)}</span><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div><button class="qty-btn" onclick="changeQty(${i},-1)">-</button><b>${c.qty}</b><button class="qty-btn" onclick="changeQty(${i},1)">+</button><button class="qty-btn" style="background:#ff4444" onclick="removeFromCart(${i})">✕</button></div>`).join(''); } document.getElementById('cartTotal').textContent='TOTAL : '+cartTotal()+'€ - Cash'; document.getElementById('cartModal').style.display='flex'; }
 function closeCart(){ document.getElementById('cartModal').style.display='none'; }
-function changeQty(i,d){ cart[i].qty += d; if(cart[i].qty<=0) cart.splice(i,1); save(); openCart(); }
+function changeQty(i,d){ cart[i].qty+=d; if(cart[i].qty<=0) cart.splice(i,1); save(); openCart(); }
 function removeFromCart(i){ cart.splice(i,1); save(); openCart(); }
 function clearCart(){ cart=[]; save(); openCart(); }
-function buildCartMessage(){
-  let name = document.getElementById('clientName').value || '';
-  let city = document.getElementById('clientCity').value || '';
-  let note = document.getElementById('clientNote').value || '';
-  let lines = cart.map(c=>`• ${c.name} - ${c.variant} x${c.qty} - ${c.price*c.qty}€`).join('\n');
-  return `🛒 NOUVELLE COMMANDE - LISA PARIS\n\n📞 Num : ${name}\n📍 Adresse : ${city}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€ - Cash` + (note ? `\n📝 ${note}` : '');
-}
-function copyCartMessage(){
-  let msg = buildCartMessage();
-  navigator.clipboard.writeText(msg).then(()=>alert('Message copié ✅\n\nVa sur @lisa7500 et colle-le :\n\n'+msg)).catch(()=>prompt('Copie ce message et envoie-le à @lisa7500 :', msg));
-}
-function checkout(){
-  if(cart.length===0) return alert('Ton panier est vide');
-  let msg = buildCartMessage();
-  orders.unshift({product: cart.map(c=>c.name+' - '+c.variant+' x'+c.qty).join(', '), price: cartTotal(), date: new Date().toLocaleString('fr-FR'), status:'En attente'});
-  save();
-  if(navigator.clipboard) navigator.clipboard.writeText(msg).catch(()=>{});
-  let url = `https://t.me/${TELEGRAM_ORDER}?text=${encodeURIComponent(msg)}`;
-  if(window.Telegram?.WebApp?.openTelegramLink){ Telegram.WebApp.openTelegramLink(url); }
-  else if(window.Telegram?.WebApp?.openLink){ Telegram.WebApp.openLink(url); }
-  else { window.open(url, '_blank'); }
-  cart=[]; save(); closeCart();
-  alert('✅ Commande envoyée sur @lisa7500 ! Si Telegram ne s\'est pas ouvert, le message a été copié.');
-}
-function render(){
-  const q=document.getElementById('search').value.toLowerCase();
-  const list=products.filter(p=>p.name.toLowerCase().includes(q));
-  const box=document.getElementById('products'); box.innerHTML='';
-  document.getElementById('empty').style.display=list.length?'none':'block';
-  document.getElementById('dots').textContent = list.length ? `← Fais glisser → ${list.length} produit(s)` : '';
-  list.forEach(p=>{
-    let variants = normalizeVariants(p.variants, p.price);
-    let {idx, v} = getSelectedVariant({...p, variants});
-    let inCart = cart.filter(c=>c.id===p.id).reduce((a,c)=>a+c.qty,0);
-    box.innerHTML+=`<div class="card">
-      <div class="card-top"><div class="icon">🛍️</div><small>BOUTIQUE / PRODUIT</small></div>
-      ${p.video?`<video src="${p.video}" controls poster="${p.photo}"></video>`:''}${p.photo?`<img src="${p.photo}">`:''}
-      <h3>${p.name}</h3><p>${p.desc||''}</p>
-      <div class="check"><span>✓</span> Produit vérifié<br><span>✓</span> Livraison rapide Paris<br><span>✓</span> Paiement cash<br><span>✓</span> Support @lisaparis</div>
-      <div class="variant-box">
-        <label>⚖️ CHOISIS TON POIDS / TA QUANTITÉ :</label>
-        <div class="variant-chips">${variants.map((vv,i)=>`<button class="chip ${i===idx?'active':''}" onclick="selectVariant(${p.id},${i})">${vv.label} - ${vv.price}€</button>`).join('')}</div>
-      </div>
-      <div class="stars">⭐⭐⭐⭐⭐ 5.0</div>
-      <div class="price">Tu as choisi : <b>${v.label}</b><br>À partir de <br><b>${v.price}€</b></div>
-      <button class="add-cart" onclick="addToCart(${p.id})">${inCart?'✅ DANS LE PANIER ('+inCart+') - AJOUTER +':'🛒 AJOUTER AU PANIER - '+v.label}</button>
-      <button class="commander" onclick="addToCart(${p.id});openCart()">COMMANDER ${v.label} →</button>
-    </div>`;
-  });
-  document.getElementById('count').textContent=products.length;
-  document.getElementById('adminProducts').innerHTML=products.map(p=>{
-    let vs = normalizeVariants(p.variants, p.price);
-    return `<div class="admin-card"><img src="${p.photo}"><div style="flex:1"><b>${p.name}</b><br><span style="color:#e879f9;font-size:12px;font-weight:800">${vs.map(v=>v.label+' : '+v.price+'€').join(' | ')}</span><br><span style="font-size:12px;color:#aaa">${p.desc||''}</span></div>
-    <button onclick="editProduct(${p.id})" style="background:#a855f7;color:#fff;border:0;padding:8px 12px;border-radius:10px">Edit</button>
-    <button onclick="delProduct(${p.id})" style="background:#ff4444;color:#fff;border:0;padding:8px 12px;border-radius:10px">X</button></div>`;
-  }).join('')||'Aucun produit';
-  document.getElementById('orders').innerHTML=orders.map((o,i)=>`<div class="order"><b>#${i+1} - ${o.product}</b> - ${o.price}€<br>${o.date}<br>Statut: <select onchange="changeStatus(${i},this.value)"><option ${o.status=='En attente'?'selected':''}>En attente</option><option ${o.status=='En cours'?'selected':''}>En cours</option><option ${o.status=='Livrée'?'selected':''}>Livrée</option></select></div>`).join('')||'Aucune commande';
-  let avg=reviews.length?(reviews.reduce((a,r)=>a+Number(r.stars),0)/reviews.length).toFixed(1):'4.9';
-  document.getElementById('avgBadge').textContent=avg+' / 5 - '+reviews.length+' avis';
-  document.getElementById('avgBadge2').textContent=avg+' / 5 - '+reviews.length+' avis';
-  const html=reviews.slice(0,6).map(r=>`<div class="review"><b>${r.name}</b> - <span style="color:#facc15">${'⭐'.repeat(r.stars)}</span><br><small>${r.date}</small><p style="margin:6px 0">${r.text}</p></div>`).join('');
-  document.getElementById('reviews').innerHTML=html; document.getElementById('reviews2').innerHTML=html;
-  updateCartFloat();
-}
-function compressImage(file){
-  return new Promise(res=>{
-    if(!file) return res('');
-    const reader=new FileReader();
-    reader.onload=e=>{
-      const img=new Image();
-      img.onload=()=>{
-        const canvas=document.createElement('canvas');
-        let w=img.width, h=img.height;
-        if(w>800){ h=h*800/w; w=800; }
-        canvas.width=w; canvas.height=h;
-        canvas.getContext('2d').drawImage(img,0,0,w,h);
-        res(canvas.toDataURL('image/jpeg',0.7));
-      };
-      img.src=e.target.result;
-    };
-    reader.readAsDataURL(file);
-  });
-}
-function addQuickVariant(label){
-  let inp = document.getElementById('pVariants');
-  let price = prompt('Prix pour '+label+' ? Ex : 50');
-  if(price===null) return;
-  let val = inp.value.trim();
-  if(val) val += ', ';
-  inp.value = val + label + ':' + (price||'0');
-}
-async function saveProduct(){
-  const name=document.getElementById('pName').value;
-  const desc=document.getElementById('pDesc').value;
-  const video=document.getElementById('pVideo').value;
-  const photoUrl=document.getElementById('pPhotoUrl').value;
-  const variants = parseVariants(document.getElementById('pVariants').value);
-  if(!name) return alert('Mets le nom');
-  if(variants.length===0 || variants[0].price===0) return alert('Mets au moins un poids avec prix, ex : 5g:50, 10g:90');
-  document.getElementById('saveBtn').textContent='ENREGISTREMENT...';
-  let photo = photoUrl || await compressImage(document.getElementById('pPhoto').files[0]);
-  if(editId){
-    let i=products.findIndex(x=>x.id===editId);
-    products[i].name=name; products[i].desc=desc; products[i].video=video; products[i].variants=variants;
-    if(photo) products[i].photo=photo;
-    editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none';
-  } else {
-    products.push({id:Date.now(), name, desc, photo:photo||'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80', video, variants});
-  }
-  save();
-  document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅';
-  alert('Produit ajouté ✅ avec '+variants.length+' choix de poids !');
-  ['pName','pDesc','pVideo','pPhotoUrl','pVariants'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('pPhoto').value='';
-}
-function editProduct(id){ let p=products.find(x=>x.id===id); editId=id; document.getElementById('pName').value=p.name; document.getElementById('pDesc').value=p.desc; document.getElementById('pVideo').value=p.video||''; document.getElementById('pPhotoUrl').value=(p.photo&&p.photo.startsWith('http'))?p.photo:''; document.getElementById('pVariants').value=variantsToText(normalizeVariants(p.variants, p.price)); document.getElementById('saveBtn').textContent='MODIFIER ✅'; document.getElementById('cancelBtn').style.display='block'; window.scrollTo(0,0); }
-function cancelEdit(){ editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none'; ['pName','pDesc','pVideo','pPhotoUrl','pVariants'].forEach(id=>document.getElementById(id).value=''); }
-function delProduct(id){ if(confirm('Supprimer ?')){ products=products.filter(x=>x.id!==id); save(); } }
-function changeStatus(i,v){ orders[i].status=v; save(); }
-function addReview(){ const name=document.getElementById('rName').value, text=document.getElementById('rText').value, stars=document.getElementById('rStars').value; if(!name||!text) return alert('Mets prénom + avis'); reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName').value=''; document.getElementById('rText').value=''; }
-function addReview2(){ const name=document.getElementById('rName2').value, text=document.getElementById('rText2').value, stars=document.getElementById('rStars2').value; if(!name||!text) return alert('Mets prénom + avis'); reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName2').value=''; document.getElementById('rText2').value=''; }
-function showAdmin(){ document.getElementById('shop').classList.add('hidden'); document.getElementById('admin').classList.remove('hidden'); }
-function showShop(){ document.getElementById('admin').classList.add('hidden'); document.getElementById('shop').classList.remove('hidden'); }
-function login(){ if(document.getElementById('pass').value===ADMIN_PASS){ document.getElementById('loginBox').classList.add('hidden'); document.getElementById('adminContent').classList.remove('hidden'); } else alert('Mauvais mot de passe'); }
+function buildCartMessage(){ let n=document.getElementById('clientName').value||''; let c=document.getElementById('clientCity').value||''; let note=document.getElementById('clientNote').value||''; let lines=cart.map(x=>`• ${x.name} - ${x.variant} x${x.qty} - ${x.price*x.qty}€`).join('\n'); return `🛒 NOUVELLE COMMANDE - LISA PARIS\n\n📞 Num : ${n}\n📍 Adresse : ${c}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€ - Cash`+(note?`\n📝 ${note}`:''); }
+function copyCartMessage(){ let m=buildCartMessage(); navigator.clipboard.writeText(m).then(()=>alert('Message copié ✅ Va sur @lisa7500 et colle-le :\n\n'+m)).catch(()=>prompt('Copie et envoie à @lisa7500 :',m)); }
+function checkout(){ if(cart.length===0) return alert('Ton panier est vide'); let msg=buildCartMessage(); if(navigator.clipboard) navigator.clipboard.writeText(msg).catch(()=>{}); let url=`https://t.me/${TELEGRAM_ORDER}?text=${encodeURIComponent(msg)}`; if(window.Telegram?.WebApp?.openTelegramLink){ Telegram.WebApp.openTelegramLink(url); } else if(window.Telegram?.WebApp?.openLink){ Telegram.WebApp.openLink(url); } else { window.open(url,'_blank'); } cart=[]; save(); closeCart(); alert('✅ Commande envoyée sur @lisa7500 ! Si Telegram ne s\'est pas ouvert, le message a été copié.'); }
+function render(){ const q=document.getElementById('search').value.toLowerCase(); const list=products.filter(p=>p.name.toLowerCase().includes(q)); const box=document.getElementById('products'); box.innerHTML=''; document.getElementById('empty').style.display=list.length?'none':'block'; document.getElementById('dots').textContent=list.length?`← Fais glisser → ${list.length} produit(s)`:''; list.forEach(p=>{ let {idx,v}=getSel(p); let inCart=cart.filter(c=>c.id===p.id).reduce((a,c)=>a+c.qty,0); box.innerHTML+=`<div class="card"><div class="card-top"><div class="icon">🛍️</div><small>BOUTIQUE / PRODUIT</small></div>${p.video?`<video src="${esc(p.video)}" controls poster="${esc(p.photo)}" playsinline></video>`:''}${p.photo?`<img src="${esc(p.photo)}" onerror="this.style.display='none'">`:''}<h3>${esc(p.name)}</h3><p>${esc(p.desc||'')}</p><div class="check"><span>✓</span> Produit vérifié<br><span>✓</span> Livraison rapide Paris<br><span>✓</span> Paiement cash<br><span>✓</span> Support @lisaparis</div><div class="variant-box"><label>⚖️ CHOISIS TON POIDS / TA QUANTITÉ :</label><div class="variant-chips">${p.variants.map((vv,i)=>`<button class="chip ${i===idx?'active':''}" onclick="selectVariant(${p.id},${i})">${esc(vv.label)} - ${vv.price}€</button>`).join('')}</div></div><div class="stars">⭐⭐⭐⭐⭐ 5.0</div><div class="price">Tu as choisi : <b>${esc(v.label)}</b><br>À partir de <br><b>${v.price}€</b></div><button class="add-cart" onclick="addToCart(${p.id})">${inCart?'✅ DANS LE PANIER ('+inCart+') - AJOUTER +':'🛒 AJOUTER AU PANIER - '+esc(v.label)}</button><button class="commander" onclick="addToCart(${p.id});openCart()">COMMANDER ${esc(v.label)} →</button></div>`; }); let avg=reviews.length?(reviews.reduce((a,r)=>a+Number(r.stars),0)/reviews.length).toFixed(1):'4.9'; document.getElementById('avgBadge').textContent=avg+' / 5 - '+reviews.length+' avis'; document.getElementById('avgBadge2').textContent=avg+' / 5 - '+reviews.length+' avis'; const html=reviews.slice(0,6).map(r=>`<div class="review"><b>${esc(r.name)}</b> - <span style="color:#facc15">${'⭐'.repeat(r.stars)}</span><br><small>${esc(r.date)}</small><p style="margin:6px 0">${esc(r.text)}</p></div>`).join(''); document.getElementById('reviews').innerHTML=html; document.getElementById('reviews2').innerHTML=html; updateCartFloat(); }
+function addReview(){ const n=document.getElementById('rName').value,t=document.getElementById('rText').value,s=document.getElementById('rStars').value; if(!n||!t) return alert('Mets prénom + avis'); reviews.unshift({name:n,stars:Number(s),text:t,date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName').value=''; document.getElementById('rText').value=''; }
+function addReview2(){ const n=document.getElementById('rName2').value,t=document.getElementById('rText2').value,s=document.getElementById('rStars2').value; if(!n||!t) return alert('Mets prénom + avis'); reviews.unshift({name:n,stars:Number(s),text:t,date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName2').value=''; document.getElementById('rText2').value=''; }
 if(window.Telegram?.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); }
 render();
 </script>
