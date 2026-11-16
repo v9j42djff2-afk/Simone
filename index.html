@@ -7,7 +7,7 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#05050d;color:#fff;margin:0;padding:0}
+body{background:#05050d;color:#fff;margin:0;padding:0;padding-bottom:90px}
 .topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;background:#0a0a18}
 .topbar b{letter-spacing:1px;font-size:13px;color:#aaa}
 .topbar b span{color:#fff}
@@ -28,7 +28,6 @@ body{background:#05050d;color:#fff;margin:0;padding:0}
 .info div{background:#151026;border:1px solid #4c1d95;border-radius:16px;padding:12px;min-width:130px;text-align:center;font-size:13px}
 .search{margin:15px}
 .search input{width:100%;padding:13px;border-radius:18px;border:1px solid #4c1d95;background:#151026;color:#fff;font-size:15px}
-/* CAROUSEL - COMME VYNEZENO */
 .carousel-wrap{position:relative}
 .carousel{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding:5px 15px 15px;scrollbar-width:none}
 .carousel::-webkit-scrollbar{display:none}
@@ -48,6 +47,7 @@ body{background:#05050d;color:#fff;margin:0;padding:0}
 .arrow.left{left:8px}.arrow.right{right:8px}
 .dots{text-align:center;color:#a78bfa;font-size:13px}
 button.commander{background:linear-gradient(90deg,#c084fc,#ec4899);border:0;color:#fff;padding:14px;border-radius:18px;width:100%;font-weight:900;letter-spacing:1px;cursor:pointer;margin-top:10px;font-size:14px}
+button.add-cart{background:#fff;color:#000;border:0;padding:13px;border-radius:18px;width:100%;font-weight:900;cursor:pointer;margin-top:8px}
 input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1px solid #444;background:#1a1a2e;color:#fff}
 .hidden{display:none}
 .order{background:#151026;border:1px solid #4c1d95;border-radius:16px;padding:12px;margin:10px 0}
@@ -56,6 +56,12 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 .badge-avis{background:#22c55e;color:#fff;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:800}
 .admin-card{background:#1e1033;border:1px solid #4c1d95;padding:12px;border-radius:16px;margin:10px 0;display:flex;gap:10px;align-items:center}
 .admin-card img{width:70px;height:70px;object-fit:cover;border-radius:10px}
+.cart-float{position:fixed;bottom:15px;left:15px;right:15px;z-index:100;background:linear-gradient(90deg,#a855f7,#ec4899);color:#fff;border:0;padding:15px;border-radius:20px;font-weight:900;font-size:15px;cursor:pointer;box-shadow:0 10px 25px rgba(0,0,0,.5);display:none}
+.cart-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;display:none;align-items:end}
+.cart-box{background:#120a24;width:100%;max-height:90vh;overflow:auto;border-radius:24px 24px 0 0;padding:20px}
+.cart-item{display:flex;gap:10px;background:#1e1033;border:1px solid #4c1d95;border-radius:16px;padding:10px;margin:10px 0;align-items:center}
+.cart-item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
+.qty-btn{background:#a855f7;color:#fff;border:0;width:28px;height:28px;border-radius:8px;font-weight:900;cursor:pointer}
 </style>
 </head>
 <body>
@@ -81,7 +87,7 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
   </div>
 
   <div id="shopSec" class="tabSec hidden">
-    <div class="section"><h2>Boutique</h2><p style="color:#c4b5fd;font-size:14px">Tous nos produits sont ici. Fais défiler et clique sur COMMANDER, ça t'envoie direct sur @lisaparis.</p><button class="commander" onclick="showTab('home',document.querySelector('.tab-active'))">VOIR LES PRODUITS →</button></div>
+    <div class="section"><h2>Boutique</h2><p style="color:#c4b5fd;font-size:14px">Choisis tes produits, ajoute-les au panier, puis envoie ta commande en 1 clic sur @lisa7500.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div>
   </div>
 
   <div id="avisSec" class="tabSec hidden">
@@ -105,7 +111,24 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
     <textarea id="rText" placeholder="Ton avis..."></textarea>
     <button class="commander" onclick="addReview()">PUBLIER MON AVIS</button>
   </div>
-  <div style="text-align:center;padding:20px;color:#888;font-size:13px">LISA PARIS © 2026 - <a href="https://t.me/lisaparis" style="color:#e879f9">📢 @lisaparis</a><br>💵 Cash Only • 🕐 11h - 23h</div>
+  <div style="text-align:center;padding:20px;color:#888;font-size:13px">LISA PARIS © 2026 - <a href="https://t.me/lisaparis" style="color:#e879f9">📢 @lisaparis</a><br>💵 Cash Only • 🕐 11h - 23h • Commandes : @lisa7500</div>
+</div>
+
+<button id="cartFloat" class="cart-float" onclick="openCart()">🛒 VOIR MON PANIER</button>
+
+<div id="cartModal" class="cart-modal">
+  <div class="cart-box">
+    <h2>🛒 Mon Panier</h2>
+    <div id="cartItems"></div>
+    <div id="cartTotal" style="font-size:20px;font-weight:900;margin:15px 0"></div>
+    <input id="clientName" placeholder="Ton prénom : ex Léa">
+    <input id="clientCity" placeholder="Ta ville / quartier : ex Paris 13">
+    <textarea id="clientNote" placeholder="Message pour LISA (optionnel)"></textarea>
+    <button class="commander" onclick="checkout()">ENVOYER MA COMMANDE SUR @lisa7500 →</button>
+    <button onclick="copyCartMessage()" style="background:#fff;color:#000;border:0;padding:12px;border-radius:12px;width:100%;margin-top:10px;font-weight:900">📋 COPIER LE MESSAGE SI TELEGRAM NE S'OUVRE PAS</button>
+    <button onclick="closeCart()" style="background:#333;color:#fff;border:0;padding:12px;border-radius:12px;width:100%;margin-top:10px">Continuer mes achats</button>
+    <button onclick="clearCart()" style="background:transparent;color:#ff6b6b;border:1px solid #ff6b6b;padding:10px;border-radius:12px;width:100%;margin-top:10px">Vider le panier</button>
+  </div>
 </div>
 
 <div id="admin" class="hidden" style="padding:15px">
@@ -128,10 +151,12 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 
 <script>
 const ADMIN_PASS = "PLATA93100//";
-const TELEGRAM_CONTACT = "lisaparis";
+const TELEGRAM_CHANNEL = "lisaparis"; // <-- CANAL
+const TELEGRAM_ORDER = "lisa7500"; // <-- COMMANDES, C'EST ICI QUE LE PANIER ENVOIE
 let products = []; try{ products = JSON.parse(localStorage.getItem('lisa_products') || '[]'); }catch(e){ products=[]; }
 let orders = JSON.parse(localStorage.getItem('lisa_orders') || '[]');
 let reviews = JSON.parse(localStorage.getItem('lisa_reviews') || '[]');
+let cart = JSON.parse(localStorage.getItem('lisa_cart') || '[]');
 let editId = null;
 
 if(reviews.length===0){
@@ -145,6 +170,7 @@ function save(){
     localStorage.setItem('lisa_products', JSON.stringify(products));
     localStorage.setItem('lisa_orders', JSON.stringify(orders));
     localStorage.setItem('lisa_reviews', JSON.stringify(reviews));
+    localStorage.setItem('lisa_cart', JSON.stringify(cart));
   }catch(e){ alert('Mémoire pleine ! Supprime un ancien produit puis réessaie.'); return false; }
   render(); return true;
 }
@@ -153,9 +179,79 @@ function showTab(id,btn){
   document.getElementById(id).classList.remove('hidden');
   document.querySelectorAll('.header-tabs button').forEach(b=>{b.className='tab-off'});
   btn.className='tab-active';
-  if(id==='home') document.getElementById('shop').scrollIntoView();
 }
 function scrollCar(dir){ document.getElementById('products').scrollBy({left:dir*300, behavior:'smooth'}); }
+
+function addToCart(id){
+  let p = products.find(x=>x.id===id);
+  let found = cart.find(x=>x.id===id);
+  if(found) found.qty++;
+  else cart.push({id:p.id, name:p.name, price:Number(p.price), photo:p.photo, qty:1});
+  save();
+  alert('✅ '+p.name+' ajouté au panier !');
+}
+function cartTotal(){ return cart.reduce((a,c)=>a + c.price*c.qty, 0); }
+function cartCount(){ return cart.reduce((a,c)=>a + c.qty, 0); }
+function updateCartFloat(){
+  let btn = document.getElementById('cartFloat');
+  if(cart.length===0){ btn.style.display='none'; return; }
+  btn.style.display='block';
+  btn.textContent = `🛒 VOIR MON PANIER (${cartCount()}) - ${cartTotal()}€ →`;
+}
+function openCart(){
+  let box = document.getElementById('cartItems');
+  if(cart.length===0){ box.innerHTML='<p>Ton panier est vide.</p>'; }
+  else{
+    box.innerHTML = cart.map((c,i)=>`
+      <div class="cart-item">
+        <img src="${c.photo}">
+        <div style="flex:1"><b>${c.name}</b><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div>
+        <button class="qty-btn" onclick="changeQty(${i},-1)">-</button>
+        <b>${c.qty}</b>
+        <button class="qty-btn" onclick="changeQty(${i},1)">+</button>
+        <button class="qty-btn" style="background:#ff4444" onclick="removeFromCart(${i})">✕</button>
+      </div>`).join('');
+  }
+  document.getElementById('cartTotal').textContent = 'TOTAL : '+cartTotal()+'€ - Cash';
+  document.getElementById('cartModal').style.display='flex';
+}
+function closeCart(){ document.getElementById('cartModal').style.display='none'; }
+function changeQty(i,d){ cart[i].qty += d; if(cart[i].qty<=0) cart.splice(i,1); save(); openCart(); }
+function removeFromCart(i){ cart.splice(i,1); save(); openCart(); }
+function clearCart(){ cart=[]; save(); openCart(); }
+
+// LE MESSAGE EXACT QUE TU VEUX
+function buildCartMessage(){
+  let name = document.getElementById('clientName').value || 'Cliente';
+  let city = document.getElementById('clientCity').value || 'Paris 13';
+  let note = document.getElementById('clientNote').value || '';
+  let lines = cart.map(c=>`• ${c.name} x${c.qty} - ${c.price*c.qty}€`).join('\n');
+  return `🛒 NOUVELLE COMMANDE - LISA PARIS\n\n👤 Prénom : ${name}\n📍 Ville : ${city}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€ - Cash` + (note ? `\n📝 ${note}` : '');
+}
+function copyCartMessage(){
+  let msg = buildCartMessage();
+  navigator.clipboard.writeText(msg).then(()=>alert('Message copié ✅\n\nVa sur @lisa7500 et colle-le :\n\n'+msg)).catch(()=>prompt('Copie ce message et envoie-le à @lisa7500 :', msg));
+}
+function checkout(){
+  if(cart.length===0) return alert('Ton panier est vide');
+  let msg = buildCartMessage();
+  orders.unshift({product: cart.map(c=>c.name+' x'+c.qty).join(', '), price: cartTotal(), date: new Date().toLocaleString('fr-FR'), status:'En attente'});
+  save();
+  // Copie auto au cas où Telegram bloque
+  if(navigator.clipboard) navigator.clipboard.writeText(msg).catch(()=>{});
+  let url = `https://t.me/${TELEGRAM_ORDER}?text=${encodeURIComponent(msg)}`;
+  // CORRECTION : dans une Mini App Telegram, il faut openTelegramLink, pas window.open
+  if(window.Telegram?.WebApp?.openTelegramLink){
+    Telegram.WebApp.openTelegramLink(url);
+  } else if(window.Telegram?.WebApp?.openLink){
+    Telegram.WebApp.openLink(url);
+  } else {
+    window.open(url, '_blank');
+  }
+  cart=[]; save(); closeCart();
+  alert('✅ Commande envoyée !\n\nSi Telegram ne s\'est pas ouvert, le message a été copié, va sur @lisa7500 et colle-le.\n\n'+msg);
+}
+
 function render(){
   const q=document.getElementById('search').value.toLowerCase();
   const list=products.filter(p=>p.name.toLowerCase().includes(q));
@@ -163,6 +259,7 @@ function render(){
   document.getElementById('empty').style.display=list.length?'none':'block';
   document.getElementById('dots').textContent = list.length ? `← Fais glisser → ${list.length} produit(s)` : '';
   list.forEach(p=>{
+    let inCart = cart.find(c=>c.id===p.id);
     box.innerHTML+=`<div class="card">
       <div class="card-top"><div class="icon">🛍️</div><small>BOUTIQUE / PRODUIT</small></div>
       ${p.video?`<video src="${p.video}" controls poster="${p.photo}"></video>`:''}${p.photo?`<img src="${p.photo}">`:''}
@@ -170,8 +267,8 @@ function render(){
       <div class="check"><span>✓</span> Produit vérifié<br><span>✓</span> Livraison rapide Paris<br><span>✓</span> Paiement cash<br><span>✓</span> Support @lisaparis</div>
       <div class="stars">⭐⭐⭐⭐⭐ 5.0</div>
       <div class="price">À partir de <br><b>${p.price}€</b></div>
-      <button class="commander" onclick="order(${p.id})">COMMANDER</button>
-      <p style="text-align:center;font-size:11px;margin-top:8px">Via @lisaparis</p>
+      <button class="add-cart" onclick="addToCart(${p.id})">${inCart?'✅ DANS LE PANIER ('+inCart.qty+') - AJOUTER +':'🛒 AJOUTER AU PANIER'}</button>
+      <button class="commander" onclick="addToCart(${p.id});openCart()">COMMANDER →</button>
     </div>`;
   });
   document.getElementById('count').textContent=products.length;
@@ -185,6 +282,7 @@ function render(){
   document.getElementById('avgBadge2').textContent=avg+' / 5 - '+reviews.length+' avis';
   const html=reviews.slice(0,6).map(r=>`<div class="review"><b>${r.name}</b> - <span style="color:#facc15">${'⭐'.repeat(r.stars)}</span><br><small>${r.date}</small><p style="margin:6px 0">${r.text}</p></div>`).join('');
   document.getElementById('reviews').innerHTML=html; document.getElementById('reviews2').innerHTML=html;
+  updateCartFloat();
 }
 function compressImage(file){
   return new Promise(res=>{
@@ -221,7 +319,7 @@ async function saveProduct(){
   } else {
     products.push({id:Date.now(), name, price, desc, photo:photo||'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80', video});
   }
-  if(save()) alert('Produit ajouté ✅ Fais glisser →');
+  if(save()) alert('Produit ajouté ✅');
   document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅';
   ['pName','pPrice','pDesc','pVideo'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('pPhoto').value='';
@@ -230,13 +328,12 @@ function editProduct(id){ let p=products.find(x=>x.id===id); editId=id; document
 function cancelEdit(){ editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none'; ['pName','pPrice','pDesc','pVideo'].forEach(id=>document.getElementById(id).value=''); }
 function delProduct(id){ if(confirm('Supprimer ?')){ products=products.filter(x=>x.id!==id); save(); } }
 function changeStatus(i,v){ orders[i].status=v; save(); }
-function order(id){ const p=products.find(x=>x.id===id); orders.unshift({product:p.name, price:p.price, date:new Date().toLocaleString('fr-FR'), status:'En attente'}); save(); window.open(`https://t.me/${TELEGRAM_CONTACT}?text=${encodeURIComponent('Bonjour LISA PARIS, je veux commander : '+p.name+' - '+p.price+'€')}`,'_blank'); }
 function addReview(){ const name=document.getElementById('rName').value, text=document.getElementById('rText').value, stars=document.getElementById('rStars').value; if(!name||!text) return alert('Mets prénom + avis'); reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName').value=''; document.getElementById('rText').value=''; }
 function addReview2(){ const name=document.getElementById('rName2').value, text=document.getElementById('rText2').value, stars=document.getElementById('rStars2').value; if(!name||!text) return alert('Mets prénom + avis'); reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName2').value=''; document.getElementById('rText2').value=''; }
 function showAdmin(){ document.getElementById('shop').classList.add('hidden'); document.getElementById('admin').classList.remove('hidden'); }
 function showShop(){ document.getElementById('admin').classList.add('hidden'); document.getElementById('shop').classList.remove('hidden'); }
 function login(){ if(document.getElementById('pass').value===ADMIN_PASS){ document.getElementById('loginBox').classList.add('hidden'); document.getElementById('adminContent').classList.remove('hidden'); } else alert('Mauvais mot de passe'); }
-if(window.Telegram?.WebApp) Telegram.WebApp.ready();
+if(window.Telegram?.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); }
 render();
 </script>
 </body>
