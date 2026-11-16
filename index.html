@@ -226,7 +226,7 @@ function buildCartMessage(){
   let city = document.getElementById('clientCity').value || 'Paris 13';
   let note = document.getElementById('clientNote').value || '';
   let lines = cart.map(c=>`• ${c.name} x${c.qty} - ${c.price*c.qty}€`).join('\n');
-  return `🛒 NOUVELLE COMMANDE - LISA PARIS\n\n👤 Prénom : ${name}\n📍 Ville : ${city}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€ - Cash` + (note ? `\n📝 ${note}` : '');
+  return `🛒 NOUVELLE COMMANDE - LISA PARIS\n\n📞 Num : ${name}\n📍 Ville : ${city}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€ - Cash` + (note ? `\n📝 ${note}` : '');
 }
 function copyCartMessage(){
   let msg = buildCartMessage();
@@ -249,7 +249,7 @@ function checkout(){
     window.open(url, '_blank');
   }
   cart=[]; save(); closeCart();
-  alert('✅ Commande envoyée !\n\nSi Telegram ne s\'est pas ouvert, le message a été copié, va sur @lisa7500 et colle-le.\n\n'+msg);
+  alert('✅ Commande copier !\n\n\'le message a été copié.\n\n'+msg);
 }
 
 function render(){
