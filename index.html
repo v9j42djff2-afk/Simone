@@ -7,130 +7,104 @@
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{box-sizing:border-box;font-family:Arial,sans-serif}
-body{background:#0a0a12;color:#fff;margin:0;padding:0}
-header{text-align:center;padding:20px;background:linear-gradient(180deg,#1a0a2e,#0a0a12)}
-header h1{font-size:32px;letter-spacing:3px;margin:5px 0;color:#f5e6b8}
-header p{color:#c9a6ff}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px}
-.card{background:#151522;border:1px solid #6b2cff;border-radius:16px;padding:12px;text-align:center}
-.card img,.card video{width:100%;border-radius:12px;max-height:220px;object-fit:cover}
-.price{color:#c084fc;font-weight:bold;font-size:18px}
-button{background:#ff3ea5;border:0;color:#fff;padding:12px;border-radius:20px;width:100%;font-weight:bold;cursor:pointer;margin-top:8px}
-.btn-admin{background:#333;padding:8px 14px;width:auto;border-radius:10px}
-input,textarea{width:100%;padding:10px;margin:6px 0;border-radius:10px;border:1px solid #444;background:#222;color:#fff}
+body{background:#07070f;color:#fff;margin:0;padding:0}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;background:#0d0a1e}
+.topbar b{letter-spacing:2px}
+.btn-admin{background:#222;border:1px solid #a855f7;color:#fff;padding:8px 14px;border-radius:20px;cursor:pointer}
+.hero{margin:15px;border-radius:24px;overflow:hidden;position:relative;height:360px;background:linear-gradient(160deg,#2e1065,#7c3aed,#0a0a1a)}
+.hero img{width:100%;height:100%;object-fit:cover;opacity:.85}
+.hero-text{position:absolute;bottom:0;left:0;right:0;padding:20px;background:linear-gradient(transparent,#07070f)}
+.hero-text h1{font-size:36px;margin:0;letter-spacing:3px}
+.hero-text h1 span{color:#e879f9}
+.hero-text p{color:#d8b4fe;margin:6px 0}
+.pill{display:inline-block;background:#ec4899;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:800}
+.info{display:flex;gap:10px;padding:0 15px;overflow:auto}
+.info div{background:#151026;border:1px solid #4c1d95;border-radius:16px;padding:12px;min-width:130px;text-align:center;font-size:13px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:15px}
+.card{background:linear-gradient(180deg,#1e1033,#120a24);border:1px solid #6b2cff;border-radius:22px;padding:14px;text-align:left;box-shadow:0 10px 30px rgba(124,58,237,.25)}
+.card img,.card video{width:100%;border-radius:16px;height:190px;object-fit:cover;background:#000}
+.card h3{margin:10px 0 4px;font-size:16px}
+.card p{font-size:13px;color:#c4b5fd;margin:0;min-height:32px}
+.price{color:#fff;font-weight:900;font-size:20px;margin:8px 0}
+.price small{color:#a78bfa;font-size:12px}
+button.commander{background:linear-gradient(90deg,#a855f7,#ec4899);border:0;color:#fff;padding:13px;border-radius:18px;width:100%;font-weight:900;letter-spacing:1px;cursor:pointer;margin-top:8px;font-size:14px}
+input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;border:1px solid #444;background:#1a1a2e;color:#fff}
 .hidden{display:none}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 15px}
-.badge{background:#222;padding:6px 12px;border-radius:20px;font-size:13px}
-.order{background:#151522;border:1px solid #333;border-radius:12px;padding:12px;margin:10px 15px}
+.order{background:#151026;border:1px solid #4c1d95;border-radius:16px;padding:12px;margin:10px 0}
+.check{color:#22c55e;font-weight:700}
 </style>
 </head>
 <body>
+<div class="topbar"><b>💬 LISA PARIS</b><button class="btn-admin" onclick="showAdmin()">Panel Admin</button></div>
 
-<div class="topbar">
-  <span>💬 LISA PARIS</span>
-  <button class="btn-admin" onclick="showAdmin()">Panel Admin</button>
-</div>
-
-<!-- BOUTIQUE CLIENT -->
 <div id="shop">
-  <header>
-    <h1>LISA PARIS</h1>
-    <p>🕐 11h - 23h &nbsp; | &nbsp; 💵 Espèces</p>
-    <p>BOUTIQUE</p>
-  </header>
+  <div class="hero">
+    <!-- Mets ta photo ici : renomme ta photo en lisa.jpg et upload la avec ce fichier -->
+    <img src="lisa.jpg" onerror="this.src='https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=900&q=80'">
+    <div class="hero-text"><span class="pill">LUXURY • PARIS</span><h1>LISA <span>PARIS</span></h1><p>🕐 11h - 23h &nbsp;|&nbsp; 💵 Espèces &nbsp;|&nbsp; 📱 @lisa7500</p><p class="check">✓ Design unique &nbsp; ✓ Responsive mobile &nbsp; ✓ Panel admin</p></div>
+  </div>
+  <div class="info"><div>🕐 11:00 - 23:00<br><b>Ouvert</b></div><div>💵 Cash Only<br><b>Paiement</b></div><div>📍 Paris<br><b>Livraison</b></div></div>
   <div id="products" class="grid"></div>
   <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit pour le moment.<br>Ajoute des produits dans le Panel Admin.</p>
 </div>
 
-<!-- ADMIN -->
 <div id="admin" class="hidden" style="padding:15px">
   <h2>Panel Admin - LISA PARIS</h2>
   <div id="loginBox">
-    <input type="password" id="pass" placeholder="Mot de passe admin">
-    <button onclick="login()">Entrer</button>
-    <p style="font-size:13px;color:#aaa">Change le mot de passe dans le code : const ADMIN_PASS = "..."</p>
+    <input type="password" id="pass" placeholder="Crée ton mot de passe la 1ère fois, ou entre-le">
+    <button class="commander" onclick="login()">ENTRER</button>
+    <p style="font-size:12px;color:#aaa">Ton mot de passe est gardé uniquement dans ton téléphone, pas dans le code. Personne ne peut le voir.</p>
   </div>
-
   <div id="adminContent" class="hidden">
     <h3>➕ Ajouter un produit</h3>
     <input id="pName" placeholder="Nom : ex iPhone 15 Pro">
     <input id="pPrice" placeholder="Prix : ex 799" type="number">
-    <textarea id="pDesc" placeholder="Description : ex 256Go, Batterie 90%, Neuf"></textarea>
+    <textarea id="pDesc" placeholder="Description : 256Go, Batterie 90%, Neuf"></textarea>
     <label>Photo</label><input type="file" id="pPhoto" accept="image/*">
     <label>Vidéo</label><input type="file" id="pVideo" accept="video/*">
-    <button onclick="addProduct()">Ajouter le produit</button>
-
-    <h3>📦 Mes produits</h3>
-    <div id="adminProducts"></div>
-
-    <h3>🧾 Commandes reçues</h3>
-    <div id="orders"></div>
-    <button onclick="showShop()">Retour Boutique</button>
+    <button class="commander" onclick="addProduct()">AJOUTER LE PRODUIT</button>
+    <h3>📦 Mes produits</h3><div id="adminProducts"></div>
+    <h3>🧾 Commandes reçues</h3><div id="orders"></div>
+    <button onclick="showShop()" style="background:#333;color:#fff;padding:10px;border-radius:12px;border:0;width:100%">Retour Boutique</button>
   </div>
 </div>
 
 <script>
-const ADMIN_PASS = "PLATA93100/";
-const TELEGRAM_CONTACT = "lisa7500";
-let products = JSON.parse(localStorage.getItem('lisa_products') || '[]');
-let orders = JSON.parse(localStorage.getItem('lisa_orders') || '[]');
-
-function save(){ localStorage.setItem('lisa_products', JSON.stringify(products)); localStorage.setItem('lisa_orders', JSON.stringify(orders)); render(); }
-
+const TELEGRAM_CONTACT="lisa7500";
+let products=JSON.parse(localStorage.getItem('lisa_products')||'[]');
+let orders=JSON.parse(localStorage.getItem('lisa_orders')||'[]');
+function save(){localStorage.setItem('lisa_products',JSON.stringify(products));localStorage.setItem('lisa_orders',JSON.stringify(orders));render();}
 function render(){
-  const box = document.getElementById('products');
-  box.innerHTML = '';
-  document.getElementById('empty').style.display = products.length ? 'none' : 'block';
+  const box=document.getElementById('products');box.innerHTML='';
+  document.getElementById('empty').style.display=products.length?'none':'block';
   products.forEach((p,i)=>{
-    box.innerHTML += `<div class="card">
-      ${p.video ? `<video src="${p.video}" controls></video>` : ''}
-      ${p.photo ? `<img src="${p.photo}">` : ''}
-      <h3>${p.name}</h3><p style="font-size:13px;color:#bbb">${p.desc||''}</p>
-      <div class="price">${p.price}€</div>
-      <button onclick="order(${i})">COMMANDER</button>
-    </div>`;
+    box.innerHTML+=`<div class="card">${p.video?`<video src="${p.video}" controls></video>`:''}${p.photo?`<img src="${p.photo}">`:''}<h3>${p.name}</h3><p>${p.desc||''}</p><div class="price">${p.price}€ <small>Cash</small></div><button class="commander" onclick="order(${i})">COMMANDER</button></div>`;
   });
-  // Admin list
-  const ap = document.getElementById('adminProducts');
-  if(ap) ap.innerHTML = products.map((p,i)=>`<div class="order"><b>${p.name}</b> - ${p.price}€ <br><button onclick="delProduct(${i})" style="background:#ff4444">Supprimer</button></div>`).join('') || 'Aucun produit';
-  const o = document.getElementById('orders');
-  if(o) o.innerHTML = orders.map((ord,i)=>`<div class="order"><b>#${i+1} - ${ord.product}</b> - ${ord.price}€<br>${ord.date}<br>Statut: <select onchange="changeStatus(${i},this.value)"><option ${ord.status=='En attente'?'selected':''}>En attente</option><option ${ord.status=='En cours'?'selected':''}>En cours</option><option ${ord.status=='Livrée'?'selected':''}>Livrée</option></select></div>`).join('') || 'Aucune commande';
+  document.getElementById('adminProducts').innerHTML=products.map((p,i)=>`<div class="order"><b>${p.name}</b> - ${p.price}€<br><button onclick="delProduct(${i})" style="background:#ff4444;color:#fff;border:0;padding:8px;border-radius:10px;margin-top:6px">Supprimer</button></div>`).join('')||'Aucun produit';
+  document.getElementById('orders').innerHTML=orders.map((o,i)=>`<div class="order"><b>#${i+1} - ${o.product}</b> - ${o.price}€<br>${o.date}<br>Statut: <select onchange="changeStatus(${i},this.value)"><option ${o.status=='En attente'?'selected':''}>En attente</option><option ${o.status=='En cours'?'selected':''}>En cours</option><option ${o.status=='Livrée'?'selected':''}>Livrée</option></select></div>`).join('')||'Aucune commande';
 }
-
-function fileToBase64(file){ return new Promise(res=>{ if(!file) return res(''); const r=new FileReader(); r.onload=()=>res(r.result); r.readAsDataURL(file); }); }
-
+function fileToBase64(f){return new Promise(r=>{if(!f)return r('');const x=new FileReader();x.onload=()=>r(x.result);x.readAsDataURL(f);});}
 async function addProduct(){
-  const name=document.getElementById('pName').value;
-  const price=document.getElementById('pPrice').value;
-  const desc=document.getElementById('pDesc').value;
-  if(!name||!price) return alert('Mets nom + prix');
-  const photo = await fileToBase64(document.getElementById('pPhoto').files[0]);
-  const video = await fileToBase64(document.getElementById('pVideo').files[0]);
-  products.push({name,price,desc,photo,video});
-  save(); alert('Produit ajouté ! Il est en ligne.');
-  document.getElementById('pName').value=''; document.getElementById('pPrice').value=''; document.getElementById('pDesc').value='';
+  const name=document.getElementById('pName').value,price=document.getElementById('pPrice').value,desc=document.getElementById('pDesc').value;
+  if(!name||!price)return alert('Mets nom + prix');
+  const photo=await fileToBase64(document.getElementById('pPhoto').files[0]);
+  const video=await fileToBase64(document.getElementById('pVideo').files[0]);
+  products.push({name,price,desc,photo,video});save();alert('Produit ajouté ! Les anciens restent.');
+  ['pName','pPrice','pDesc'].forEach(id=>document.getElementById(id).value='');
 }
-
-function delProduct(i){ if(confirm('Supprimer ?')){ products.splice(i,1); save(); } }
-function changeStatus(i,v){ orders[i].status=v; save(); }
-
-function order(i){
-  const p = products[i];
-  orders.push({product:p.name, price:p.price, date:new Date().toLocaleString('fr-FR'), status:'En attente'});
-  save();
-  const msg = `Bonjour LISA PARIS, je veux commander : ${p.name} - ${p.price}€`;
-  window.open(`https://t.me/${TELEGRAM_CONTACT}?text=${encodeURIComponent(msg)}`, '_blank');
-}
-
-function showAdmin(){ document.getElementById('shop').classList.add('hidden'); document.getElementById('admin').classList.remove('hidden'); }
-function showShop(){ document.getElementById('admin').classList.add('hidden'); document.getElementById('shop').classList.remove('hidden'); }
+function delProduct(i){if(confirm('Supprimer ?')){products.splice(i,1);save();}}
+function changeStatus(i,v){orders[i].status=v;save();}
+function order(i){const p=products[i];orders.push({product:p.name,price:p.price,date:new Date().toLocaleString('fr-FR'),status:'En attente'});save();window.open(`https://t.me/${TELEGRAM_CONTACT}?text=${encodeURIComponent('Bonjour LISA PARIS, je veux commander : '+p.name+' - '+p.price+'€')}`,'_blank');}
+function showAdmin(){document.getElementById('shop').classList.add('hidden');document.getElementById('admin').classList.remove('hidden');}
+function showShop(){document.getElementById('admin').classList.add('hidden');document.getElementById('shop').classList.remove('hidden');}
 function login(){
-  if(document.getElementById('pass').value === ADMIN_PASS){
-    document.getElementById('loginBox').classList.add('hidden');
-    document.getElementById('adminContent').classList.remove('hidden');
-  } else alert('Mauvais mot de passe');
+  let saved=localStorage.getItem('lisa_admin_pass');
+  let entered=document.getElementById('pass').value;
+  if(!saved){localStorage.setItem('lisa_admin_pass',entered);alert('Mot de passe créé ! Retiens-le bien.');}
+  if(entered===localStorage.getItem('lisa_admin_pass')){document.getElementById('loginBox').classList.add('hidden');document.getElementById('adminContent').classList.remove('hidden');}
+  else alert('Mauvais mot de passe');
 }
-if(window.Telegram?.WebApp) Telegram.WebApp.ready();
+if(window.Telegram?.WebApp)Telegram.WebApp.ready();
 render();
 </script>
 </body>
