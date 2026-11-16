@@ -62,6 +62,7 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 .cart-item{display:flex;gap:10px;background:#1e1033;border:1px solid #4c1d95;border-radius:16px;padding:10px;margin:10px 0;align-items:center}
 .cart-item img{width:60px;height:60px;object-fit:cover;border-radius:10px}
 .qty-btn{background:#a855f7;color:#fff;border:0;width:28px;height:28px;border-radius:8px;font-weight:900;cursor:pointer}
+.sync{font-size:12px;color:#22c55e;text-align:center;padding:4px}
 </style>
 </head>
 <body>
@@ -77,6 +78,7 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 
   <div id="home" class="tabSec">
     <div class="search"><input id="search" placeholder="🔍 Rechercher un produit..." oninput="render()"></div>
+    <div class="sync" id="syncMsg">⏳ Chargement du menu pour tout le monde...</div>
     <div class="carousel-wrap">
       <button class="arrow left" onclick="scrollCar(-1)">‹</button>
       <div id="products" class="carousel"></div>
@@ -135,15 +137,18 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
   <h2>Panel Admin - LISA PARIS</h2>
   <div id="loginBox"><input type="password" id="pass" placeholder="Mot de passe admin"><button class="commander" onclick="login()">ENTRER</button></div>
   <div id="adminContent" class="hidden">
+    <p style="font-size:13px;color:#22c55e">✅ Tes produits sont partagés pour tout le monde. Tu modifies ici, tout le monde voit.</p>
     <h3>➕ Ajouter / Modifier un produit</h3>
     <input id="pName" placeholder="Nom du produit">
     <input id="pPrice" placeholder="Prix : ex 799" type="number">
     <textarea id="pDesc" placeholder="Description"></textarea>
-    <label>Photo - Mets un LIEN photo, pas un fichier, pour que tout le monde la voit</label><input id="pPhotoUrl" placeholder="Lien photo : https://...">
-    <label>Ou choisis un fichier (visible que sur ton tel)</label><input type="file" id="pPhoto" accept="image/*">
+    <label>Photo - Mets un LIEN pour que tout le monde la voit :</label>
+    <input id="pPhotoUrl" placeholder="Lien photo : https://... (recommandé)">
+    <label>Ou fichier (visible que sur ton tel)</label><input type="file" id="pPhoto" accept="image/*">
     <label>Lien vidéo (optionnel)</label><input id="pVideo" placeholder="Lien vidéo : https://...">
     <button class="commander" id="saveBtn" onclick="saveProduct()">AJOUTER LE PRODUIT ✅</button>
     <button onclick="cancelEdit()" style="background:#333;color:#fff;border:0;padding:10px;border-radius:12px;width:100%;margin-top:8px;display:none" id="cancelBtn">Annuler la modification</button>
+    <button onclick="loadFromCloud()" style="background:#22c55e;color:#fff;border:0;padding:10px;border-radius:12px;width:100%;margin-top:8px">🔄 ACTUALISER LE MENU POUR TOUT LE MONDE</button>
     <h3>📦 Mes produits (<span id="count">0</span>)</h3><div id="adminProducts"></div>
     <h3>🧾 Commandes reçues</h3><div id="orders"></div>
     <button onclick="showShop()" style="background:#333;color:#fff;padding:12px;border-radius:12px;border:0;width:100%;margin-top:15px">← Retour Boutique</button>
@@ -155,25 +160,12 @@ const ADMIN_PASS = "PLATA93100//";
 const TELEGRAM_CHANNEL = "lisaparis";
 const TELEGRAM_ORDER = "lisa7500";
 
-// ===== ⚠️ C'EST ICI QUE TOUT LE MONDE VOIT LE MENU =====
-// Mets TES vrais produits ici. Tout le monde verra ceux-là.
-// Pour changer un produit : change le nom / prix / lien photo ici, puis Redeploy sur Cloudflare
-const DEFAULT_PRODUCTS = [
-  {id:1, name:"Produit 1", price:799, desc:"Description de ton produit 1", photo:"https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80", video:""},
-  {id:2, name:"Produit 2", price:699, desc:"Description de ton produit 2", photo:"https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=600&q=80", video:""},
-  {id:3, name:"Produit 3", price:499, desc:"Description de ton produit 3", photo:"https://images.unsplash.com/photo-1591337676887-a217a6970a8a?w=600&q=80", video:""},
-];
+// ===== ⚠️ METS TON ID NPOINT ICI, UNE SEULE FOIS =====
+// Va sur https://www.npoint.io, crée un bin avec {"products":[]}, copie l'ID après api.npoint.io/
+const NPOINT_ID = "METS_TON_ID_ICI";
+const CLOUD_URL = "https://api.npoint.io/" + NPOINT_ID;
 
-// CORRECTION MENU POUR TOUT LE MONDE : si localStorage est vide, on prend les produits du code, pas une liste vide
 let products = [];
-try{
-  let saved = JSON.parse(localStorage.getItem('lisa_products') || '[]');
-  // Si tu as déjà des produits sauvés ET qu'ils correspondent à la version du code, on les garde, sinon on prend DEFAULT
-  let savedVersion = localStorage.getItem('lisa_version');
-  if(saved.length>0 && savedVersion==='v4'){ products = saved; }
-  else { products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); localStorage.setItem('lisa_products', JSON.stringify(products)); localStorage.setItem('lisa_version','v4'); }
-}catch(e){ products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS)); }
-
 let orders = JSON.parse(localStorage.getItem('lisa_orders') || '[]');
 let reviews = JSON.parse(localStorage.getItem('lisa_reviews') || '[]');
 let cart = JSON.parse(localStorage.getItem('lisa_cart') || '[]');
@@ -185,14 +177,44 @@ if(reviews.length===0){
     {name:"Sarah P.", stars:5, text:"Commandé à 14h, reçu à 18h à Paris. Parfait !", date:"Il y a 5 jours"},
   ];
 }
+
+// ===== SOLUTION POUR TOUT LE MONDE : CLOUD PARTAGÉ =====
+async function loadFromCloud(){
+  // Si tu n'as pas encore mis ton ID, on utilise ce qui est en local pour ne pas casser
+  if(!NPOINT_ID || NPOINT_ID==="METS_TON_ID_ICI"){
+    products = JSON.parse(localStorage.getItem('lisa_products') || '[]');
+    document.getElementById('syncMsg').textContent = "⚠️ Mets ton ID npoint dans le code pour partager pour tout le monde";
+    render(); return;
+  }
+  try{
+    let r = await fetch(CLOUD_URL);
+    let data = await r.json();
+    if(data && Array.isArray(data.products)){
+      products = data.products;
+      localStorage.setItem('lisa_products', JSON.stringify(products));
+      document.getElementById('syncMsg').textContent = "✅ Menu à jour pour tout le monde - " + products.length + " produit(s)";
+    }
+  }catch(e){
+    products = JSON.parse(localStorage.getItem('lisa_products') || '[]');
+    document.getElementById('syncMsg').textContent = "⚠️ Pas de connexion cloud, menu local affiché";
+  }
+  render();
+}
+async function saveToCloud(){
+  if(!NPOINT_ID || NPOINT_ID==="METS_TON_ID_ICI"){ return false; }
+  try{
+    await fetch(CLOUD_URL, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({products: products})});
+    return true;
+  }catch(e){ return false; }
+}
+
 function save(){
   try{
     localStorage.setItem('lisa_products', JSON.stringify(products));
     localStorage.setItem('lisa_orders', JSON.stringify(orders));
     localStorage.setItem('lisa_reviews', JSON.stringify(reviews));
     localStorage.setItem('lisa_cart', JSON.stringify(cart));
-    localStorage.setItem('lisa_version','v4');
-  }catch(e){ alert('Mémoire pleine ! Supprime un ancien produit puis réessaie.'); return false; }
+  }catch(e){ alert('Mémoire pleine !'); return false; }
   render(); return true;
 }
 function showTab(id,btn){
@@ -322,7 +344,7 @@ async function saveProduct(){
   const video=document.getElementById('pVideo').value;
   const photoUrl=document.getElementById('pPhotoUrl').value;
   if(!name||!price) return alert('Mets nom + prix');
-  document.getElementById('saveBtn').textContent='ENREGISTREMENT...';
+  document.getElementById('saveBtn').textContent='ENVOI POUR TOUT LE MONDE...';
   let photo = photoUrl || await compressImage(document.getElementById('pPhoto').files[0]);
   if(editId){
     let i=products.findIndex(x=>x.id===editId);
@@ -332,14 +354,18 @@ async function saveProduct(){
   } else {
     products.push({id:Date.now(), name, price, desc, photo:photo||'https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=600&q=80', video});
   }
-  if(save()) alert('Produit ajouté ✅ - ATTENTION : pour que tout le monde le voit, tu dois aussi le rajouter dans DEFAULT_PRODUCTS dans le code et Redeploy');
+  save();
+  // ENVOIE POUR TOUT LE MONDE
+  let ok = await saveToCloud();
   document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅';
+  if(ok) alert('✅ Produit ajouté et visible pour TOUT LE MONDE !');
+  else alert('✅ Produit ajouté sur ton tel. Mets ton ID npoint dans le code pour que tout le monde le voit.');
   ['pName','pPrice','pDesc','pVideo','pPhotoUrl'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('pPhoto').value='';
 }
-function editProduct(id){ let p=products.find(x=>x.id===id); editId=id; document.getElementById('pName').value=p.name; document.getElementById('pPrice').value=p.price; document.getElementById('pDesc').value=p.desc; document.getElementById('pVideo').value=p.video||''; document.getElementById('pPhotoUrl').value=p.photo||''; document.getElementById('saveBtn').textContent='MODIFIER ✅'; document.getElementById('cancelBtn').style.display='block'; window.scrollTo(0,0); }
+function editProduct(id){ let p=products.find(x=>x.id===id); editId=id; document.getElementById('pName').value=p.name; document.getElementById('pPrice').value=p.price; document.getElementById('pDesc').value=p.desc; document.getElementById('pVideo').value=p.video||''; document.getElementById('pPhotoUrl').value=(p.photo && p.photo.startsWith('http'))?p.photo:''; document.getElementById('saveBtn').textContent='MODIFIER ✅'; document.getElementById('cancelBtn').style.display='block'; window.scrollTo(0,0); }
 function cancelEdit(){ editId=null; document.getElementById('saveBtn').textContent='AJOUTER LE PRODUIT ✅'; document.getElementById('cancelBtn').style.display='none'; ['pName','pPrice','pDesc','pVideo','pPhotoUrl'].forEach(id=>document.getElementById(id).value=''); }
-function delProduct(id){ if(confirm('Supprimer ?')){ products=products.filter(x=>x.id!==id); save(); } }
+async function delProduct(id){ if(confirm('Supprimer ?')){ products=products.filter(x=>x.id!==id); save(); await saveToCloud(); } }
 function changeStatus(i,v){ orders[i].status=v; save(); }
 function addReview(){ const name=document.getElementById('rName').value, text=document.getElementById('rText').value, stars=document.getElementById('rStars').value; if(!name||!text) return alert('Mets prénom + avis'); reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName').value=''; document.getElementById('rText').value=''; }
 function addReview2(){ const name=document.getElementById('rName2').value, text=document.getElementById('rText2').value, stars=document.getElementById('rStars2').value; if(!name||!text) return alert('Mets prénom + avis'); reviews.unshift({name, stars:Number(stars), text, date:"À l'instant"}); save(); alert('Merci ! Avis publié ❤️'); document.getElementById('rName2').value=''; document.getElementById('rText2').value=''; }
@@ -347,7 +373,7 @@ function showAdmin(){ document.getElementById('shop').classList.add('hidden'); d
 function showShop(){ document.getElementById('admin').classList.add('hidden'); document.getElementById('shop').classList.remove('hidden'); }
 function login(){ if(document.getElementById('pass').value===ADMIN_PASS){ document.getElementById('loginBox').classList.add('hidden'); document.getElementById('adminContent').classList.remove('hidden'); } else alert('Mauvais mot de passe'); }
 if(window.Telegram?.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); }
-render();
+loadFromCloud();
 </script>
 </body>
 </html>
