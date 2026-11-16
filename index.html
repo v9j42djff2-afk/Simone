@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>LISA PARIS • Mini App</title>
+<title>LISA PARIS • Mini App - CBD</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
 *{box-sizing:border-box;font-family:Arial,sans-serif;-webkit-tap-highlight-color:transparent}
@@ -103,15 +103,15 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 <body>
 <div class="bg-glow"></div><div class="light-beam"></div><div id="toast">✅ Ajouté !</div>
 <div id="successBox"><div class="inner"><div style="font-size:50px">✅</div><h2 style="margin:10px 0">Commande envoyée !</h2><p id="successText" style="color:#c4b5fd;line-height:1.6"></p><p style="font-size:12px;color:#888">Le message est copié, tu as juste à appuyer sur ENVOYER chez @Simone750</p><button class="commander" onclick="closeSuccess()">OK, CONTINUER →</button></div></div>
-<div id="splash"><div class="splash-logo">💜</div><h1>SIMONE</h1><p>PARIS • LIVRAISON</p></div>
+<div id="splash"><div class="splash-logo">💜</div><h1>SIMONE</h1><p>PARIS • CBD LEGAL • LIVRAISON</p></div>
 <div class="topbar fade"><b>✕ &nbsp; <span>@lisaparis</span> &nbsp; mini-application</b><span class="countdown" id="countdown">⏰ --:--:--</span></div>
 <div class="header-tabs fade2"><button class="tab-active" onclick="showTab('home',this)">ACCUEIL</button><button class="tab-off" onclick="showTab('shopSec',this)">BOUTIQUE</button><button class="tab-off" onclick="showTab('avisSec',this)">AVIS</button></div>
 <div id="shop">
   <div class="hero fade2">
     <img src="lisa.jpg" onerror="this.src='https://images.unsplash.com/photo-1558981403-c5f9899a28bc?w=900&q=80'">
-    <div class="hero-text"><span class="pill">✨ LUXURY • PARIS ✨</span><h1>LISA <span>PARIS</span></h1><p>🕐 11h - 23h &nbsp;|&nbsp; 💵 Espèces &nbsp;|&nbsp; 🪙 USDT SOL &nbsp;|&nbsp; 📱 @lisaparis</p><a class="canal-btn" href="https://t.me/lisaparis" target="_blank">📢 REJOINDRE MON CANAL @lisaparis →</a></div>
+    <div class="hero-text"><span class="pill">✨ CBD LEGAL • PARIS ✨</span><h1>LISA <span>PARIS</span></h1><p>🕐 11h - 23h &nbsp;|&nbsp; 💵 Espèces &nbsp;|&nbsp; 🪙 USDT TON &nbsp;|&nbsp; 📱 @lisaparis</p><a class="canal-btn" href="https://t.me/lisaparis" target="_blank">📢 REJOINDRE MON CANAL @lisaparis →</a></div>
   </div>
-  <div class="info fade3"><div>🕐 11:00 - 23:00<br><b>Ouvert</b></div><div>💶 Cash<br><b>Espèces</b></div><div>🪙 USDT SOL<br><b>Crypto</b></div><div>🚀 Livraison<br><b>Rapide Paris</b></div></div>
+  <div class="info fade3"><div>🕐 11:00 - 23:00<br><b>Ouvert</b></div><div>💶 Cash<br><b>Espèces</b></div><div>🪙 USDT TON<br><b>Crypto</b></div><div>🚀 Livraison<br><b>Rapide Paris</b></div></div>
   <div id="home" class="tabSec">
     <div class="search fade3"><input id="search" placeholder="🔍 Rechercher un produit..." oninput="render()"></div>
     <div class="toolbar"><button id="btnAll" class="active" onclick="setFilter('all',this)">TOUS</button><button id="btnFav" onclick="setFilter('fav',this)">❤️ FAVORIS</button><button onclick="toggleSort()">🔃 TRIER : <span id="sortLabel">POPULAIRE</span></button></div>
@@ -119,11 +119,11 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
     <div class="dots" id="dots">← Fais glisser pour voir tous les produits →</div>
     <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit.</p>
   </div>
-  <div id="shopSec" class="tabSec hidden"><div class="section"><h2>🛍️ Boutique</h2><p style="color:#c4b5fd;font-size:14px">Choisis ton produit, choisis ton poids, ajoute au panier, envoie sur @Simone750.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div></div>
+  <div id="shopSec" class="tabSec hidden"><div class="section"><h2>🛍️ Boutique CBD</h2><p style="color:#c4b5fd;font-size:14px">Produits CBD légaux - THC &lt; 0,3% - Réservé aux +18 ans. Choisis ton produit, choisis ton poids, ajoute au panier.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div></div>
   <div id="avisSec" class="tabSec hidden"><div class="section"><h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge2">4.9 / 5</span></h2><div id="reviews2"></div><h3 style="margin-top:20px">✍️ Laisser un avis</h3><input id="rName2" placeholder="Ton prénom"><select id="rStars2"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select><textarea id="rText2" placeholder="Ton avis..."></textarea><button class="commander" onclick="addReview2()">PUBLIER MON AVIS</button></div></div>
   <div class="section"><h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge">4.9 / 5</span></h2><div id="reviews"></div><h3 style="margin-top:20px">✍️ Laisser un avis</h3><input id="rName" placeholder="Ton prénom"><select id="rStars"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select><textarea id="rText" placeholder="Ton avis..."></textarea><button class="commander" onclick="addReview()">PUBLIER MON AVIS</button></div>
-  <div class="section"><h2>🚚 Livraison</h2><p style="color:#c4b5fd;font-size:14px;line-height:1.7">📍 Paris & Banlieue<br>⏰ Tournées : 13H - 18H - 23H<br>💵 Espèces à la livraison<br>🪙 USDT SOL : paiement avant envoi</p></div>
-  <div style="text-align:center;padding:20px;color:#888;font-size:13px;position:relative;z-index:2">SIMONE PARIS © 2026 - <a href="https://t.me/simone750" style="color:#e879f9">📢 @simone750</a><br>💵 Cash • 🪙 USDT SOL • 🕐 11h - 23h • Commandes : @Simone750</div>
+  <div class="section"><h2>🚚 Livraison</h2><p style="color:#c4b5fd;font-size:14px;line-height:1.7">📍 Paris & Banlieue<br>⏰ Tournées : 13H - 18H - 23H<br>💵 Espèces à la livraison<br>🪙 USDT TON : paiement avant envoi<br>🌿 CBD légal - THC &lt; 0,3% - +18 ans</p></div>
+  <div style="text-align:center;padding:20px;color:#888;font-size:13px;position:relative;z-index:2">SIMONE PARIS © 2026 - CBD Légal - <a href="https://t.me/simone750" style="color:#e879f9">📢 @simone750</a><br>💵 Cash • 🪙 USDT TON • 🕐 11h - 23h • Commandes : @Simone750</div>
 </div>
 <button id="cartFloat" class="cart-float" onclick="openCart()">🛒 VOIR MON PANIER</button>
 <div class="bottom-nav"><button class="active" onclick="navGo('home',this)"><span>🏠</span>ACCUEIL</button><button onclick="navGo('shopSec',this)"><span>🛍️</span>BOUTIQUE</button><button onclick="openCart()"><span>🛒</span>PANIER</button><button onclick="navGo('avisSec',this)"><span>⭐</span>AVIS</button></div>
@@ -136,7 +136,7 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
 <div class="pay-title">💳 CHOISIS TON PAIEMENT :</div>
 <div class="pay-row">
   <button id="payCashBtn" class="pay-btn active" onclick="setPayment('cash')">💵 ESPÈCES</button>
-  <button id="payUsdtBtn" class="pay-btn" onclick="setPayment('usdt')">🪙 USDT SOL</button>
+  <button id="payUsdtBtn" class="pay-btn" onclick="setPayment('usdt')">🪙 USDT TON</button>
 </div>
 
 <div id="payCashBox" class="pay-box">
@@ -147,20 +147,22 @@ Tu payes quand je te livre.<br>
 
 <div id="payUsdtBox" class="pay-box" style="display:none">
 <div class="order-head"><span>Commande : <b id="orderId">LISA-00000</b></span></div>
-<p style="text-align:center;margin:12px 0 0">🪙 <b>USDT - Réseau (TON USDT)</b><br>Montant à envoyer : <b id="usdtAmount" style="font-size:18px">0€ en USDT</b></p>
+<p style="text-align:center;margin:12px 0 0">🪙 <b>USDT - Réseau TON</b><br>Montant à envoyer : <b id="usdtAmount" style="font-size:18px">0€ en USDT</b></p>
+
+<div class="qr-wrap"><img id="qrImg" src="" alt="QR USDT TON"><p>Scanne pour payer en USDT TON</p></div>
 
 <button class="wallet-tg" onclick="openTelegramWallet()">💙 OUVRIR WALLET TELEGRAM @wallet →</button>
 <p style="text-align:center;font-size:11px;color:#a78bfa;margin:6px 0 0">Adresse déjà copiée, tu as juste à coller dans Wallet</p>
 
-<b>Adresse USDT :</b>
+<b>Adresse USDT TON :</b>
 <div class="addr-box">UQCtFJuu1lWedOSx9lnBpFR3P_dddEPRRllhS7kpWkgSg4vT</div>
 <button class="copy-btn" onclick="copyAddress()">📋 COPIER L'ADRESSE</button>
 <button class="copy-btn" style="background:#a855f7;color:#fff" onclick="copyAmount()">💰 COPIER LE MONTANT : <span id="copyAmountTxt">0€</span></button>
 
 <div class="warn">
 ⚠️ <b>PAIEMENT AVANT ENVOI</b><br>
-Envoie le montant exact en USDT sur <b>ton wallet</b>, puis envoie ta capture à @Simone750.<br>
-Payez ici même avec Telegram, sans carte bancaire.
+Envoie le montant exact en USDT <b>réseau TON uniquement</b>, puis envoie ta capture à @Simone750.<br>
+Ne pas envoyer en SOL / ETH, sinon perdu.
 </div>
 </div>
 
@@ -182,24 +184,24 @@ Payez ici même avec Telegram, sans carte bancaire.
 
 <script>
 const TELEGRAM_ORDER = "Simone750";
-const USDT_ADDRESS = "5nbHMd5BDPY3orukqjjGwi1P3zqKLJ1XeVHU6xgeq4qH";
+const USDT_ADDRESS = "UQCtFJuu1lWedOSx9lnBpFR3P_dddEPRRllhS7kpWkgSg4vT";
 let paymentMethod = 'cash';
 let selectedTournee = '18H';
 let orderId = 'LISA-' + Math.floor(10000 + Math.random()*89999);
 let isSending = false;
 let pendingMsg = '';
 const PRODUCTS = [
-  {id:1, name:"MOUSSEUX", desc:"Shit premium - livraison rapide Paris.", video:"mous.MOV", stock:8, variants:[{label:"10g",price:50},{label:"25g",price:110},{label:"50g",price:170},{label:"100g",price:300}]},
-  {id:2, name:"CALIMOUSSE", desc:"Cali mousseux - Top qualité, effet garanti.", video:"mous20.mov", stock:5, variants:[{label:"10g",price:60},{label:"25g",price:110},{label:"50g",price:200},{label:"100g",price:370}]},
-  {id:3, name:"CALI US", desc:"Fresh qualité, effet direct.", video:"calicali.mp4.MOV", stock:5, variants:[{label:"5g",price:60},{label:"15g",price:110},{label:"50g",price:240},{label:"100g",price:390}]},
-  {id:4, name:"CALI US", desc:"Cali US import - Qualité US.", video:"caliab .mov", stock:12, variants:[{label:"3.5g",price:50},{label:"9g",price:110},{label:"20g",price:200},{label:"28g",price:240}]},
-  {id:5, name:"LEMON", desc:"LEMON CITRUS - Best qualité.", video:"LEMON.MP4", stock:5, variants:[{label:"5g",price:60},{label:"10g",price:110},{label:"25g",price:210},{label:"50g",price:390}]},
-  {id:6, name:"CALI", desc:"Cali ESPA - Nouvelle arrivage.", video:"cali.mp4.PNG.MP4", stock:10, variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200}]},
-  {id:7, name:"CALI US", desc:"Cali USA - Nouvelle arrivage.", video:"usacali .MOV", stock:10, variants:[{label:"4g",price:50},{label:"10g",price:90},{label:"25g",price:200}]},
-  {id:8, name:"AMNESIA", desc:"Amn - Qualité premium.", video:"amn.MP4", stock:7, variants:[{label:"1g",price:20},{label:"5g",price:50},{label:"12g",price:100}]}
+  {id:1, name:"MOUSSEUX CBD", desc:"CBD premium - livraison rapide Paris. THC < 0,3%.", video:"mous.MOV", stock:8, variants:[{label:"10g",price:50},{label:"25g",price:110},{label:"50g",price:170},{label:"100g",price:300}]},
+  {id:2, name:"CALIMOUSSE CBD", desc:"CBD mousseux - Top qualité.", video:"mous20.mov", stock:5, variants:[{label:"10g",price:60},{label:"25g",price:110},{label:"50g",price:200},{label:"100g",price:370}]},
+  {id:3, name:"CALI US CBD", desc:"CBD qualité premium.", video:"calicali.mp4.MOV", stock:5, variants:[{label:"5g",price:60},{label:"15g",price:110},{label:"50g",price:240},{label:"100g",price:390}]},
+  {id:4, name:"CALI US CBD", desc:"CBD import - Qualité US.", video:"caliab .mov", stock:12, variants:[{label:"3.5g",price:50},{label:"9g",price:110},{label:"20g",price:200},{label:"28g",price:240}]},
+  {id:5, name:"LEMON CBD", desc:"LEMON CITRUS CBD - Best qualité.", video:"LEMON.MP4", stock:5, variants:[{label:"5g",price:60},{label:"10g",price:110},{label:"25g",price:210},{label:"50g",price:390}]},
+  {id:6, name:"CALI CBD", desc:"CBD - Nouvelle arrivage.", video:"cali.mp4.PNG.MP4", stock:10, variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200}]},
+  {id:7, name:"CALI US CBD", desc:"CBD - Nouvelle arrivage.", video:"usacali .MOV", stock:10, variants:[{label:"4g",price:50},{label:"10g",price:90},{label:"25g",price:200}]},
+  {id:8, name:"AMNESIA CBD", desc:"Amnesia CBD - Qualité premium. THC < 0,3%.", video:"amn.MP4", stock:7, variants:[{label:"1g",price:20},{label:"5g",price:50},{label:"12g",price:100}]}
 ];
 let products = JSON.parse(JSON.stringify(PRODUCTS));
-let reviews = [{name:"Léa M.", stars:5, text:"Super rapide ! Produit nickel, comme neuf. LISA très gentille, je recommande ❤️", date:"Il y a 2 jours"},{name:"Sarah P.", stars:5, text:"Commandé à 14h, reçu à 18h à Paris. Parfait !", date:"Il y a 5 jours"}];
+let reviews = [{name:"Léa M.", stars:5, text:"Super rapide ! Produit nickel. LISA très gentille, je recommande ❤️", date:"Il y a 2 jours"},{name:"Sarah P.", stars:5, text:"Commandé à 14h, reçu à 18h à Paris. Parfait !", date:"Il y a 5 jours"}];
 let cart = []; try{ cart = JSON.parse(localStorage.getItem('lisa_cart') || '[]'); }catch(e){ cart=[]; }
 let favs = []; try{ favs = JSON.parse(localStorage.getItem('lisa_favs') || '[]'); }catch(e){ favs=[]; }
 let selectedVariant = {};
@@ -232,7 +234,11 @@ function scrollCar(dir){ document.getElementById('products').scrollBy({left:dir*
 function selectVariant(pid,idx){ selectedVariant[pid]=idx; vibrate(); render(); }
 function getSel(p){ let idx=selectedVariant[p.id]||0; if(idx>=p.variants.length) idx=0; return {idx,v:p.variants[idx]}; }
 function setPayment(m){ paymentMethod=m; document.getElementById('payCashBtn').classList.toggle('active',m==='cash'); document.getElementById('payUsdtBtn').classList.toggle('active',m==='usdt'); document.getElementById('payCashBox').style.display = m==='cash'?'block':'none'; document.getElementById('payUsdtBox').style.display = m==='usdt'?'block':'none'; document.getElementById('checkoutBtn').textContent = m==='usdt' ? '🪙 J\'AI PAYÉ EN USDT - ENVOYER MA COMMANDE →' : 'ENVOYER MA COMMANDE SUR @Simone750 →'; if(m==='usdt') updateQR(); vibrate(); }
-function updateQR(){ document.getElementById('orderId').textContent = orderId; document.getElementById('qrImg').src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=10&color=000000&bgcolor=ffffff&data=" + encodeURIComponent(USDT_ADDRESS); }
+function updateQR(){
+  const oid = document.getElementById('orderId'); if(oid) oid.textContent = orderId;
+  const qr = document.getElementById('qrImg'); if(!qr) return;
+  qr.src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&margin=10&color=000000&bgcolor=ffffff&data=" + encodeURIComponent(USDT_ADDRESS);
+}
 function openTelegramWallet(){
   try{ if(navigator.clipboard) navigator.clipboard.writeText(USDT_ADDRESS).catch(()=>{}); }catch(e){}
   showToast('📋 Adresse copiée ! Ouverture Wallet...');
@@ -245,7 +251,7 @@ function addToCart(id){ let p=products.find(x=>x.id===id); let {v}=getSel(p); le
 function cartTotal(){ return cart.reduce((a,c)=>a+c.price*c.qty,0); }
 function cartCount(){ return cart.reduce((a,c)=>a+c.qty,0); }
 function updateCartFloat(){ let b=document.getElementById('cartFloat'); if(cart.length===0){ b.style.display='none'; return; } b.style.display='block'; b.textContent=`🛒 VOIR MON PANIER (${cartCount()}) - ${cartTotal()}€ →`; }
-function openCart(){ let box=document.getElementById('cartItems'); if(cart.length===0){ box.innerHTML='<p>Ton panier est vide.</p>'; } else { box.innerHTML=cart.map((c,i)=>`<div class="cart-item">${c.video?`<video src="${videoSrc(c.video)}" muted playsinline preload="none"></video>`:`<img src="${esc(c.photo)}">`}<div style="flex:1"><b>${esc(c.name)}</b><br><span style="color:#e879f9;font-weight:800">⚖️ ${esc(c.variant)}</span><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div><button class="qty-btn" onclick="changeQty(${i},-1)">-</button><b>${c.qty}</b><button class="qty-btn" onclick="changeQty(${i},1)">+</button><button class="qty-btn" style="background:#ff4444" onclick="removeFromCart(${i})">✕</button></div>`).join(''); } document.getElementById('cartTotal').textContent='TOTAL : '+cartTotal()+'€ - '+(paymentMethod==='usdt'?'USDT SOL':'Cash'); document.getElementById('cashAmount').textContent=cartTotal()+'€'; document.getElementById('usdtAmount').textContent=cartTotal()+'€ en USDT'; document.getElementById('copyAmountTxt').textContent=cartTotal()+'€'; if(paymentMethod==='usdt') updateQR(); document.getElementById('cartModal').style.display='flex'; }
+function openCart(){ let box=document.getElementById('cartItems'); if(cart.length===0){ box.innerHTML='<p>Ton panier est vide.</p>'; } else { box.innerHTML=cart.map((c,i)=>`<div class="cart-item">${c.video?`<video src="${videoSrc(c.video)}" muted playsinline preload="none"></video>`:`<img src="${esc(c.photo)}">`}<div style="flex:1"><b>${esc(c.name)}</b><br><span style="color:#e879f9;font-weight:800">⚖️ ${esc(c.variant)}</span><br>${c.price}€ x ${c.qty} = <b>${c.price*c.qty}€</b></div><button class="qty-btn" onclick="changeQty(${i},-1)">-</button><b>${c.qty}</b><button class="qty-btn" onclick="changeQty(${i},1)">+</button><button class="qty-btn" style="background:#ff4444" onclick="removeFromCart(${i})">✕</button></div>`).join(''); } document.getElementById('cartTotal').textContent='TOTAL : '+cartTotal()+'€ - '+(paymentMethod==='usdt'?'USDT TON':'Cash'); document.getElementById('cashAmount').textContent=cartTotal()+'€'; document.getElementById('usdtAmount').textContent=cartTotal()+'€ en USDT'; document.getElementById('copyAmountTxt').textContent=cartTotal()+'€'; if(paymentMethod==='usdt') updateQR(); document.getElementById('cartModal').style.display='flex'; }
 function closeCart(){ document.getElementById('cartModal').style.display='none'; }
 function closeSuccess(){
   document.getElementById('successBox').style.display='none';
@@ -259,7 +265,7 @@ function closeSuccess(){
 function changeQty(i,d){ cart[i].qty+=d; if(cart[i].qty<=0) cart.splice(i,1); save(); openCart(); }
 function removeFromCart(i){ cart.splice(i,1); save(); openCart(); }
 function clearCart(){ cart=[]; save(); openCart(); }
-function buildCartMessage(){ let n=document.getElementById('clientName').value||''; let c=document.getElementById('clientCity').value||''; let note=document.getElementById('clientNote').value||''; let lines=cart.map(x=>`• ${x.name} - ${x.variant} x${x.qty} - ${x.price*x.qty}€`).join('\n'); let pay = paymentMethod==='usdt' ? `🪙 PAIEMENT : USDT SOL via WALLET TELEGRAM @wallet\nCOMMANDE : ${orderId}\n📍 ADRESSE : ${USDT_ADDRESS}\n💰 MONTANT : ${cartTotal()} USDT\n⚠️ PAIEMENT AVANT ENVOI - Capture à envoyer` : `💵 PAIEMENT : ESPÈCES à la livraison`; return `🛒 NOUVELLE COMMANDE - LISA PARIS\n\n📞 Num : ${n}\n📍 Adresse : ${c}\n🚚 TOURNÉE : ${selectedTournee}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€\n${pay}`+(note?`\n📝 ${note}`:''); }
+function buildCartMessage(){ let n=document.getElementById('clientName').value||''; let c=document.getElementById('clientCity').value||''; let note=document.getElementById('clientNote').value||''; let lines=cart.map(x=>`• ${x.name} - ${x.variant} x${x.qty} - ${x.price*x.qty}€`).join('\n'); let pay = paymentMethod==='usdt' ? `🪙 PAIEMENT : USDT TON via WALLET TELEGRAM @wallet\nCOMMANDE : ${orderId}\n📍 ADRESSE : ${USDT_ADDRESS}\n💰 MONTANT : ${cartTotal()} USDT\n⚠️ PAIEMENT AVANT ENVOI - Capture à envoyer` : `💵 PAIEMENT : ESPÈCES à la livraison`; return `🛒 NOUVELLE COMMANDE - LISA PARIS CBD\n\n📞 Num : ${n}\n📍 Adresse : ${c}\n🚚 TOURNÉE : ${selectedTournee}\n📦 PRODUITS :\n${lines}\n💰 TOTAL : ${cartTotal()}€\n${pay}`+(note?`\n📝 ${note}`:''); }
 function checkout(){
   if(isSending) return;
   if(cart.length===0){ showToast('Ton panier est vide'); return; }
@@ -270,7 +276,7 @@ function checkout(){
   let msg = buildCartMessage();
   let oldId = orderId;
   let total = cartTotal();
-  let payTxt = paymentMethod==='usdt' ? '🪙 USDT : envoie ta capture à @Simone750<br>🚚 Tournée : '+selectedTournee : '💵 Espèces à la livraison<br>🚚 Tournée : '+selectedTournee+'<br>Va sur @Simone750';
+  let payTxt = paymentMethod==='usdt' ? '🪙 USDT TON : envoie ta capture à @Simone750<br>🚚 Tournée : '+selectedTournee : '💵 Espèces à la livraison<br>🚚 Tournée : '+selectedTournee+'<br>Va sur @Simone750';
   pendingMsg = msg;
   cart=[]; save(); closeCart();
   orderId = 'LISA-' + Math.floor(10000 + Math.random()*89999);
@@ -282,7 +288,7 @@ function checkout(){
   isSending = false;
   vibrate();
 }
-function render(){ const q=(document.getElementById('search')?.value||'').toLowerCase(); let list=products.filter(p=>p.name.toLowerCase().includes(q)); if(currentFilter==='fav') list=list.filter(p=>favs.includes(p.id)); if(sortMode==='low') list=[...list].sort((a,b)=>a.variants[0].price-b.variants[0].price); if(sortMode==='high') list=[...list].sort((a,b)=>b.variants[0].price-a.variants[0].price); const box=document.getElementById('products'); box.innerHTML=''; document.getElementById('empty').style.display=list.length?'none':'block'; if(currentFilter==='fav'&&!list.length) document.getElementById('empty').textContent='Aucun favori. Clique sur ❤️'; else document.getElementById('empty').textContent='Aucun produit.'; document.getElementById('dots').textContent=list.length?`← Fais glisser → ${list.length} produit(s)`:''; list.forEach(p=>{ let {idx,v}=getSel(p); let inCart=cart.filter(c=>c.id===p.id).reduce((a,c)=>a+c.qty,0); let isFav=favs.includes(p.id); box.innerHTML+=`<div class="card"><div class="card-inner"><div class="card-top"><div class="icon">🛍️</div><button class="fav-btn ${isFav?'on':''}" onclick="toggleFav(${p.id})">${isFav?'❤️':'🤍'}</button></div><video src="${videoSrc(p.video)}" controls preload="none" playsinline muted></video><div class="stock ${p.stock<=3?'low':'ok'}">${p.stock<=3?'⚠️ Plus que '+p.stock+' en stock !':'✅ En stock'}</div><h3>${esc(p.name)}</h3><p>${esc(p.desc||'')}</p><div class="check"><span>✓</span> Produit vérifié<br><span>✓</span> Livraison rapide Paris<br><span>✓</span> Paiement cash / USDT<br><span>✓</span> Support @lisaparis</div><div class="variant-box"><label>⚖️ CHOISIS TON POIDS / TA QUANTITÉ :</label><div class="variant-chips">${p.variants.map((vv,i)=>`<button class="chip ${i===idx?'active':''}" onclick="selectVariant(${p.id},${i})">${esc(vv.label)} - ${vv.price}€</button>`).join('')}</div></div><div class="stars">⭐⭐⭐⭐⭐ 5.0</div><div class="price">Tu as choisi : <b>${esc(v.label)}</b><br>À partir de <br><b>${v.price}€</b></div><button class="add-cart" onclick="addToCart(${p.id})">${inCart?'✅ DANS LE PANIER ('+inCart+') - AJOUTER +':'🛒 AJOUTER AU PANIER - '+esc(v.label)}</button><button class="commander" onclick="addToCart(${p.id});openCart()">COMMANDER ${esc(v.label)} →</button></div></div>`; }); let avg=reviews.length?(reviews.reduce((a,r)=>a+Number(r.stars),0)/reviews.length).toFixed(1):'4.9'; document.getElementById('avgBadge').textContent=avg+' / 5 - '+reviews.length+' avis'; document.getElementById('avgBadge2').textContent=avg+' / 5 - '+reviews.length+' avis'; const html=reviews.slice(0,6).map(r=>`<div class="review"><b>${esc(r.name)}</b> - <span style="color:#facc15">${'⭐'.repeat(r.stars)}</span><br><small>${esc(r.date)}</small><p style="margin:6px 0">${esc(r.text)}</p></div>`).join(''); document.getElementById('reviews').innerHTML=html; document.getElementById('reviews2').innerHTML=html; updateCartFloat(); }
+function render(){ const q=(document.getElementById('search')?.value||'').toLowerCase(); let list=products.filter(p=>p.name.toLowerCase().includes(q)); if(currentFilter==='fav') list=list.filter(p=>favs.includes(p.id)); if(sortMode==='low') list=[...list].sort((a,b)=>a.variants[0].price-b.variants[0].price); if(sortMode==='high') list=[...list].sort((a,b)=>b.variants[0].price-a.variants[0].price); const box=document.getElementById('products'); box.innerHTML=''; document.getElementById('empty').style.display=list.length?'none':'block'; if(currentFilter==='fav'&&!list.length) document.getElementById('empty').textContent='Aucun favori. Clique sur ❤️'; else document.getElementById('empty').textContent='Aucun produit.'; document.getElementById('dots').textContent=list.length?`← Fais glisser → ${list.length} produit(s)`:''; list.forEach(p=>{ let {idx,v}=getSel(p); let inCart=cart.filter(c=>c.id===p.id).reduce((a,c)=>a+c.qty,0); let isFav=favs.includes(p.id); box.innerHTML+=`<div class="card"><div class="card-inner"><div class="card-top"><div class="icon">🛍️</div><button class="fav-btn ${isFav?'on':''}" onclick="toggleFav(${p.id})">${isFav?'❤️':'🤍'}</button></div><video src="${videoSrc(p.video)}" controls preload="none" playsinline muted></video><div class="stock ${p.stock<=3?'low':'ok'}">${p.stock<=3?'⚠️ Plus que '+p.stock+' en stock !':'✅ En stock'}</div><h3>${esc(p.name)}</h3><p>${esc(p.desc||'')}</p><div class="check"><span>✓</span> CBD légal - THC &lt; 0,3%<br><span>✓</span> Livraison rapide Paris<br><span>✓</span> Paiement cash / USDT TON<br><span>✓</span> Support @lisaparis</div><div class="variant-box"><label>⚖️ CHOISIS TON POIDS / TA QUANTITÉ :</label><div class="variant-chips">${p.variants.map((vv,i)=>`<button class="chip ${i===idx?'active':''}" onclick="selectVariant(${p.id},${i})">${esc(vv.label)} - ${vv.price}€</button>`).join('')}</div></div><div class="stars">⭐⭐⭐⭐⭐ 5.0</div><div class="price">Tu as choisi : <b>${esc(v.label)}</b><br>À partir de <br><b>${v.price}€</b></div><button class="add-cart" onclick="addToCart(${p.id})">${inCart?'✅ DANS LE PANIER ('+inCart+') - AJOUTER +':'🛒 AJOUTER AU PANIER - '+esc(v.label)}</button><button class="commander" onclick="addToCart(${p.id});openCart()">COMMANDER ${esc(v.label)} →</button></div></div>`; }); let avg=reviews.length?(reviews.reduce((a,r)=>a+Number(r.stars),0)/reviews.length).toFixed(1):'4.9'; document.getElementById('avgBadge').textContent=avg+' / 5 - '+reviews.length+' avis'; document.getElementById('avgBadge2').textContent=avg+' / 5 - '+reviews.length+' avis'; const html=reviews.slice(0,6).map(r=>`<div class="review"><b>${esc(r.name)}</b> - <span style="color:#facc15">${'⭐'.repeat(r.stars)}</span><br><small>${esc(r.date)}</small><p style="margin:6px 0">${esc(r.text)}</p></div>`).join(''); document.getElementById('reviews').innerHTML=html; document.getElementById('reviews2').innerHTML=html; updateCartFloat(); }
 function addReview(){ const n=document.getElementById('rName').value,t=document.getElementById('rText').value,s=document.getElementById('rStars').value; if(!n||!t){ showToast('Mets prénom + avis'); return; } reviews.unshift({name:n,stars:Number(s),text:t,date:"À l'instant"}); save(); showToast('Merci ! Avis publié ❤️'); document.getElementById('rName').value=''; document.getElementById('rText').value=''; }
 function addReview2(){ const n=document.getElementById('rName2').value,t=document.getElementById('rText2').value,s=document.getElementById('rStars2').value; if(!n||!t){ showToast('Mets prénom + avis'); return; } reviews.unshift({name:n,stars:Number(s),text:t,date:"À l'instant"}); save(); showToast('Merci ! Avis publié ❤️'); document.getElementById('rName2').value=''; document.getElementById('rText2').value=''; }
 function updateCountdown(){ let now=new Date(); let end=new Date(); end.setHours(23,0,0,0); if(now>end) end.setDate(end.getDate()+1); let diff=end-now; let h=Math.floor(diff/3600000), m=Math.floor((diff%3600000)/60000), s=Math.floor((diff%60000)/1000); let el=document.getElementById('countdown'); if(el) el.textContent=`⏰ ${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`; }
