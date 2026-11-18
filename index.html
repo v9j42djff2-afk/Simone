@@ -298,31 +298,19 @@ if(window.Telegram?.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); 
 render();
 </script>
 </body>
-<!-- BOUTON VIP 115 ÉTOILES (100% TELEGRAM) -->
-<button id="vipBtn115" onclick="payerVip115()" style="position:fixed; bottom:80px; right:15px; z-index:9999; background:linear-gradient(45deg,#FFD700,#FFA500); color:#000; font-weight:bold; border:none; border-radius:25px; padding:12px 18px; box-shadow:0 4px 12px rgba(0,0,0,0.4); cursor:pointer;">
+</script>
+
+<!-- BOUTON VIP PAYANT 115 ÉTOILES -->
+<button ...>
   ⭐ Accès VIP (115 Étoiles)
 </button>
 
 <script>
-function payerVip115() {
-  const tg = window.Telegram?.WebApp;
-  // Protocole interne tg:// pour ne JAMAIS ouvrir Safari ou Google
-  const botPaiementInterne = "tg://resolve?domain=simone25bot&start=vip115";
-  const canalVipInterne = "tg://join?invite=fMVJpuuy_KRhZjVk";
-
-  if (tg && tg.openInvoice && window.VIP_INVOICE_LINK) {
-    // Ouvre la fenêtre native des 115 Étoiles directement par-dessus votre boutique
-    tg.openInvoice(window.VIP_INVOICE_LINK, function(status) {
-      if (status === "paid") {
-        window.location.href = canalVipInterne;
-      }
-    });
-  } else {
-    // Bascule directement dans la discussion @simone25bot sans quitter l'app Telegram
-    window.location.href = botPaiementInterne;
-  }
+function ouvrirCanalVip() {
+  window.location.href = "tg://join?invite=ICI_LE_CODE_DE_VOTRE_LIEN";
 }
 </script>
-
+</body>
+</html>
 
 </html>
