@@ -302,23 +302,11 @@ render();
 
 </script>
 
-<!-- BOUTON VIP PAYANT 115 ÉTOILES -->
-<button onclick="ouvrirCanalVip()" style="position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; font-weight: bold; border: none; border-radius: 12px; padding: 14px 24px; font-size: 16px; cursor: pointer; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);">
-  ⭐ Accès VIP (115 Étoiles)
-</button>
-
-<script>
-function ouvrirCanalVip() {
-  // Remplacez l'URL ci-dessous par votre vrai lien d'invitation Telegram (ex: https://t.me)
-  const lienVip = "https://t.me/+hxdrFr0uUCFhM2Fk";
-
-  if (window.Telegram && window.Telegram.WebApp) {
-    window.Telegram.WebApp.openTelegramLink(lienVip);
-  } else {
-    window.open(lienVip, "_blank");
-  }
-}
-</script>
+<!-- BOUTON VIP COMPACT EN HAUT À GAUCHE -->
+<a href="https://t.me/+hxdrFr0uUCFhM2Fk" target="_blank" rel="noopener noreferrer" style="position: fixed; top: 12px; left: 12px; z-index: 99999; background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; font-weight: bold; text-decoration: none; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-family: sans-serif; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); display: inline-flex; align-items: center; gap: 4px;">
+  ⭐ VIP (115 Étoiles)
+</a>
 
 </body>
 </html>
+
