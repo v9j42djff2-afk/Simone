@@ -298,4 +298,32 @@ if(window.Telegram?.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); 
 render();
 </script>
 </body>
+<!-- BOUTON ET PAIEMENT VIP 150 ÉTOILES -->
+<button id="vipBtn150" onclick="payerVip150()" style="position:fixed; bottom:80px; right:15px; z-index:9999; background:linear-gradient(45deg,#FFD700,#FFA500); color:#000; font-weight:bold; border:none; border-radius:25px; padding:12px 18px; box-shadow:0 4px 12px rgba(0,0,0,0.4); cursor:pointer;">
+  ⭐ Accès VIP (150 Étoiles)
+</button>
+
+<script>
+function payerVip150() {
+  const tg = window.Telegram?.WebApp;
+  const canalVip = "https://t.me/+fMVJpuuy_KRhZjVk";
+  const botPaiement = "https://t.me";
+
+  // Si un lien de facture (invoiceLink) est configuré, ouvre le paiement direct dans la fenêtre
+  if (tg && tg.openInvoice && window.VIP_INVOICE_LINK) {
+    tg.openInvoice(window.VIP_INVOICE_LINK, function(status) {
+      if (status === "paid") {
+        tg.showAlert("✅ Paiement de 150 Étoiles validé ! Bienvenue dans le VIP.");
+        tg.openTelegramLink(canalVip);
+      }
+    });
+  } else if (tg && tg.openTelegramLink) {
+    // Sinon, ouvre directement @simone25bot dans Telegram pour payer
+    tg.openTelegramLink(botPaiement);
+  } else {
+    window.location.href = botPaiement;
+  }
+}
+</script>
+
 </html>
