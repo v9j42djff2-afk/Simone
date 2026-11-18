@@ -296,20 +296,20 @@ function updateCountdown(){ let now=new Date(); let end=new Date(); end.setHours
 setInterval(updateCountdown,1000); updateCountdown(); updateQR();
 if(window.Telegram?.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); try{ Telegram.WebApp.setHeaderColor('#05050d'); Telegram.WebApp.setBackgroundColor('#05050d'); }catch(e){} }
 render();
-</script>
-</body>
-</script>
+298   render();
+299 </script>
+300 
+301 <!-- BOUTON VIP COMPACT EN HAUT À GAUCHE -->
+302 <button onclick="ouvrirVip()" style="position: fixed; top: 52px; left: 12px; z-index: 99999; background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; font-weight: bold; border: none; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-family: sans-serif; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); display: inline-flex; align-items: center; gap: 4px; cursor: pointer;">
+303   ⭐ VIP (115 Étoiles)
+304 </button>
+305 
+306 <script>
+307 function ouvrirVip() {
+308   window.location.href = "tg://join?invite=hxdrFr0uUCFhM2Fk";
+309 }
+310 </script>
+311 
+312 </body>
+313 </html>
 
-<!-- BOUTON VIP COMPACT EN HAUT À GAUCHE -->
-<button onclick="ouvrirVip()" style="position: fixed; top: 52px; left: 12px; z-index: 99999; background: linear-gradient(45deg, #FFD700, #FFA500); color: #000; font-weight: bold; border: none; border-radius: 8px; padding: 6px 12px; font-size: 12px; font-family: sans-serif; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); display: inline-flex; align-items: center; gap: 4px; cursor: pointer;">
-  ⭐ VIP (115 Étoiles)
-</button>
-
-<script>
-function ouvrirVip() {
-  window.location.href = "tg://join?invite=hxdrFr0uUCFhM2Fk";
-}
-</script>
-
-</body>
-</html>
