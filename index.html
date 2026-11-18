@@ -307,15 +307,9 @@ render();
 
 <script>
 function ouvrirVip() {
-  const lien = "https://t.me/+hxdrFr0uUCFhM2Fk";
-  if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.openTelegramLink) {
-    window.Telegram.WebApp.openTelegramLink(lien);
-  } else {
-    window.location.href = lien;
-  }
+  window.location.href = "tg://join?invite=hxdrFr0uUCFhM2Fk";
 }
 </script>
 
 </body>
 </html>
-
