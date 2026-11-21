@@ -195,12 +195,12 @@ const PRODUCTS = [
   {id:4, name:"CALI US", desc:"🍀⚡️CALI import - Qualité US.", video:"caliab .mov", stock:12, variants:[{label:"3.5g",price:50},{label:"9g",price:110},{label:"20g",price:200},{label:"28g",price:240}]},
   {id:5, name:"LEMON", desc:"🍀🍋LEMON CITRUS - Best qualité.", video:"LEMON.MP4", stock:5, variants:[{label:"5g",price:60},{label:"10g",price:110},{label:"25g",price:210},{label:"50g",price:390}]},
   {id:6, name:"CALI", desc:"🥬CALI ESPA.", video:"cali.mp4.PNG.MP4", stock:10, variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200}]},
-  {id:7, name:"CALI US", desc:"🍀🧊FRESH CALI - Nouvelle arrivage.", video:"usacali .MOV", stock:2, variants:[{label:"3g",price:50}]},
+  {id:7, name:"CALI US", desc:"🍀🧊FRESH CALI - Nouvelle arrivage.", video:"usacali .MOV", stock:1, variants:[{label:"3g",price:50}]},
   {id:8, name:"PURPLE", desc:"🍀🍇Poudre de cali - Nouvelle arrivage tres limite.", video:"purple .mov", stock:3, variants:[{label:"5g",price:80}]},
-  {id:9, name:"AMNESIA", desc:"🍀Amnesia indor - Qualité premium.", video:"amn.MP4", stock:7, variants:[{label:"5g",price:50},{label:"11g",price:100},{label:"25g",price:200}]}
+  {id:9, name:"AMNESIA", desc:"🍀Amnesia indor - Qualité premium.", video:"amn.MP4", stock:7, variants:[{label:"5g",price:50},{label:"11g",price:100}]}
 ];
 let products = JSON.parse(JSON.stringify(PRODUCTS));
-let reviews = [{name:"Djo", stars:5, text:"Mousse carre.", date:"Il y a 1h"},{name:"Sa.", stars:5, text:"Rapide ! Produit nickel.", date:"Il y a 1jours"},{name:"Sa.", stars:5, text:"Commandé à 14h, reçu à 15h. Parfait !", date:"Il y a 3 jours"}];
+let reviews = [{name:"Djo", stars:5, text:"Mousse carre.", date:"Il y a 2jours"},{name:"Sa.", stars:5, text:"Rapide ! Produit nickel.", date:"Il y a 3jours"},{name:"Sa.", stars:5, text:"Commandé à 14h, reçu à 15h. Parfait !", date:"Il y a 5jours"}];
 let cart = []; try{ cart = JSON.parse(localStorage.getItem('lisa_cart') || '[]'); }catch(e){ cart=[]; }
 let favs = []; try{ favs = JSON.parse(localStorage.getItem('lisa_favs') || '[]'); }catch(e){ favs=[]; }
 let selectedVariant = {};
