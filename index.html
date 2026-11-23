@@ -118,10 +118,10 @@ input,textarea,select{width:100%;padding:12px;margin:6px 0;border-radius:12px;bo
     <div class="dots" id="dots">← Fais glisser pour voir tous les produits →</div>
     <p id="empty" style="text-align:center;color:#aaa;padding:30px">Aucun produit.</p>
   </div>
-  <div id="shopSec" class="tabSec hidden"><div class="section"><h2>🛍️ Boutique Telegram</h2><p style="color:#c4b5fd;font-size:14px">Produits 100% - THC &lt;Choisis ton produit, choisis ton poids, ajoute au panier.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div></div>
+  <div id="shopSec" class="tabSec hidden"><div class="section"><h2>🛍️ Boutique Telegram</h2><p style="color:#c4b5fd;font-size:14px">Choisis ton produit, choisis ton poids, ajoute au panier.</p><button class="commander" onclick="showTab('home',document.querySelectorAll('.header-tabs button')[0])">VOIR LES PRODUITS →</button></div></div>
   <div id="avisSec" class="tabSec hidden"><div class="section"><h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge2">4.9 / 5</span></h2><div id="reviews2"></div><h3 style="margin-top:20px">✍️ Laisser un avis</h3><input id="rName2" placeholder="Ton prénom"><select id="rStars2"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select><textarea id="rText2" placeholder="Ton avis..."></textarea><button class="commander" onclick="addReview2()">PUBLIER MON AVIS</button></div></div>
   <div class="section"><h2>⭐ Avis Clients <span class="badge-avis" id="avgBadge">4.9 / 5</span></h2><div id="reviews"></div><h3 style="margin-top:20px">✍️ Laisser un avis</h3><input id="rName" placeholder="Ton prénom"><select id="rStars"><option value="5">⭐⭐⭐⭐⭐ - 5 étoiles</option><option value="4">⭐⭐⭐⭐ - 4 étoiles</option><option value="3">⭐⭐⭐ - 3 étoiles</option><option value="2">⭐⭐ - 2 étoiles</option><option value="1">⭐ - 1 étoile</option></select><textarea id="rText" placeholder="Ton avis..."></textarea><button class="commander" onclick="addReview()">PUBLIER MON AVIS</button></div>
-  <div class="section"><h2>ℹ️ INFO</h2><p style="color:#c4b5fd;font-size:14px;line-height:1.7">💶 ESPECES - 50minimum à la livraison<br>📍Livrons à domicile choisissez une tournée et votre commande sera livree a lheure.<br>🪙 USDT TON - 200minimum paiement avant envoi<br>📦 Nous expédions discrètement par colis avec des transporteurs de confiance en point relais.<br>☎️ SEUL CONTACT @simone750</p></div>
+  <div class="section"><h2>ℹ️ INFO</h2><p style="color:#c4b5fd;font-size:14px;line-height:1.7">💶 ESPECES - 50minimum à la livraison<br>📍Livrons à domicile choisissez une tournée et votre commande sera livree a l'heure.<br>🪙 USDT TON - 200minimum paiement avant envoi<br>📦 Nous expédions discrètement par colis avec des transporteurs de confiance en point relais.<br>☎️ SEUL CONTACT @simone750</p></div>
   <div style="text-align:center;padding:20px;color:#888;font-size:13px;position:relative;z-index:2">SIMONE PARIS © 2026<a href="https://t.me/simone750" style="color:#e879f9">🔌 @simone750</a><br>BOUTIQUE OFFICIEL</div>
 </div>
 <button id="cartFloat" class="cart-float" onclick="openCart()">🛒 VOIR MON PANIER</button>
@@ -196,11 +196,11 @@ const PRODUCTS = [
   {id:5, name:"LEMON", desc:"🍀🍋LEMON CITRUS - Best qualité.", video:"LEMON.MP4", stock:5, variants:[{label:"5g",price:60},{label:"10g",price:110},{label:"25g",price:210},{label:"50g",price:390}]},
   {id:6, name:"CALI", desc:"🥬CALI ESPA.", video:"cali.mp4.PNG.MP4", stock:10, variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200}]},
   {id:7, name:"CALI US", desc:"🍀🧊FRESH CALI - Nouvelle arrivage.", video:"usacali .MOV", stock:0, variants:[{label:"3g",price:50}]},
-  {id:8, name:"PURPLE", desc:"🍀🍇Poudre de cali - Nouvelle arrivage tres limite.", video:"purple .mov", stock:1, variants:[{label:"5g",price:80}]},
+  {id:8, name:"PURPLE", desc:"🍀🍇Poudre de cali - Nouvelle arrivage tres limite.", video:"purple .mov", stock:1, variants:[{label:"4g",price:80}]},
   {id:9, name:"AMNESIA", desc:"🍀Amnesia indor - Qualité premium.", video:"amn.MP4", stock:7, variants:[{label:"5g",price:50},{label:"11g",price:100}]}
 ];
 let products = JSON.parse(JSON.stringify(PRODUCTS));
-let reviews = [{name:"Djo", stars:5, text:"Mousse carre.", date:"Il y a 3jours"},{name:"Sa.", stars:5, text:"Rapide ! Produit nickel.", date:"Il y a 5jours"},{name:"Sa.", stars:5, text:"Commandé à 14h, reçu à 15h. Parfait !", date:"Il y a 7jours"}];
+let reviews = [{name:"Az", stars:5, text:"Cali carre livraison a l'eure jaime ca👌", date:"Il y a 3jours"},{name:"Sa.", stars:5, text:"Rapide ! Produit nickel.", date:"Il y a 5jours"},{name:"Sa.", stars:5, text:"Commandé à 14h, reçu à 15h. Parfait !", date:"Il y a 7jours"}];
 let cart = []; try{ cart = JSON.parse(localStorage.getItem('lisa_cart') || '[]'); }catch(e){ cart=[]; }
 let favs = []; try{ favs = JSON.parse(localStorage.getItem('lisa_favs') || '[]'); }catch(e){ favs=[]; }
 let selectedVariant = {};
