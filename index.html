@@ -549,36 +549,24 @@ render();
 
 
 
+
 <!-- ========== SIMONE PARIS VIP ========== -->
 
-<button id="vipButton" class="vip-button">
-  ♛ VIP ACCESS
-</button>
+<button id="vipButton" class="vip-button">♛ VIP ACCESS</button>
 
-<!-- FENÊTRE MOT DE PASSE -->
 <div id="vipModal" class="vip-overlay">
   <div class="vip-login">
     <button id="vipClose" class="vip-close">×</button>
     <div class="vip-crown">♛</div>
     <h2>SIMONE PARIS</h2>
     <p>ACCÈS PRIVÉ VIP</p>
-
-    <input
-      id="vipCode"
-      type="password"
-      placeholder="Entrez votre code VIP"
-      autocomplete="off"
-    >
-
-    <button id="vipSubmit" class="vip-submit">
-      DÉVERROUILLER
-    </button>
-
+    <input id="vipCode" type="password"
+      placeholder="Entrez votre code VIP" autocomplete="off">
+    <button id="vipSubmit" class="vip-submit">DÉVERROUILLER</button>
     <p id="vipMessage" class="vip-message"></p>
   </div>
 </div>
 
-<!-- ESPACE VIP -->
 <section id="vipContent" class="vip-content" hidden>
 
   <div class="vip-header">
@@ -589,62 +577,71 @@ render();
   <h2>Bienvenue dans le club privé</h2>
   <p class="vip-subtitle">Votre espace exclusif vous attend.</p>
 
-  <!-- MENU -->
   <nav class="vip-tabs">
     <button class="vip-tab active" data-tab="home">Accueil</button>
     <button class="vip-tab" data-tab="offers">Offres</button>
-    <button class="vip-tab" data-tab="gallery">Nouveautés</button>
+    <button class="vip-tab" data-tab="menu">Menu VIP</button>
   </nav>
 
-  <!-- ACCUEIL -->
   <div id="vip-home" class="vip-panel">
     <div class="vip-banner">
       <span>SIMONE PARIS</span>
       <h3>PRIVATE CLUB</h3>
       <p>Un espace réservé à nos membres.</p>
     </div>
-
-    <h3>Votre espace vip</h3>
-    <p>Retrouvez ici les promo et contenus réservés aux membres vip.</p>
+    <h3>Votre espace VIP</h3>
+    <p>Retrouvez ici vos offres et votre sélection exclusive.</p>
   </div>
 
-  <!-- OFFRES -->
   <div id="vip-offers" class="vip-panel" hidden>
-    <h3>Offres exclusif</h3>
+    <h3>Offres exclusives</h3>
 
     <div class="vip-item">
       <span>✦</span>
       <div>
-        <strong>AMNESIA🍀</strong>
-        <p>15G - 110€</p>
+        <strong>OFFRE PRIVILÈGE</strong>
+        <p>Une sélection réservée aux membres.</p>
       </div>
     </div>
 
-        <div class="vip-item">
-      <span>✦</span>
-      <div>
-        <strong>LEMON🍀</strong>
-        <p>5G - 50€</p>
-      </div>
-    </div>
-
-        <div class="vip-item">
-      <span>✦</span>
-      <div>
-        <strong>MOUSSEUX🍫</strong>
-        <p>15G - 50€</p>
-      </div>
-    </div>
-    
     <div class="vip-item">
       <span>✦</span>
       <div>
-        <strong>PACK WEED & HASH📦</strong>
-        <p>Découvrez un pack unique reservé au club.</p>
+        <strong>PACK EXCLUSIF</strong>
+        <p>Découvrez notre sélection spéciale.</p>
       </div>
     </div>
   </div>
 
+  <!-- MENU VIP : PHOTOS MINIATURES -->
+  <div id="vip-menu" class="vip-panel" hidden>
+    <h3>♛ MENU VIP</h3>
+    <p class="vip-subtitle">Découvrez notre sélection exclusive.</p>
+
+    <div class="vip-gallery">
+
+      <div class="vip-photo-card">
+        <img src="https://placehold.co/240x180/241832/c99aff?text=Collection+01" alt="Collection 01">
+        <strong>COLLECTION 01</strong>
+      </div>
+
+      <div class="vip-photo-card">
+        <img src="https://placehold.co/240x180/241832/c99aff?text=Collection+02" alt="Collection 02">
+        <strong>COLLECTION 02</strong>
+      </div>
+
+      <div class="vip-photo-card">
+        <img src="https://placehold.co/240x180/241832/c99aff?text=Collection+03" alt="Collection 03">
+        <strong>COLLECTION 03</strong>
+      </div>
+
+      <div class="vip-photo-card">
+        <img src="https://placehold.co/240x180/241832/c99aff?text=Collection+04" alt="Collection 04">
+        <strong>COLLECTION 04</strong>
+      </div>
+
+    </div>
+  </div>
 
   <button id="vipLogout" class="vip-submit vip-exit">
     QUITTER L'ESPACE VIP
@@ -654,218 +651,217 @@ render();
 
 <style>
 .vip-button {
-  background: linear-gradient(135deg,#963ee9,#5716a5);
-  color: white;
-  border: 1px solid #bd8aff;
-  border-radius: 22px;
-  padding: 11px 20px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 0 15px #913cff66;
-  letter-spacing: 1px;
+  background:linear-gradient(135deg,#963ee9,#5716a5);
+  color:white;
+  border:1px solid #bd8aff;
+  border-radius:22px;
+  padding:11px 20px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 0 15px #913cff66;
+  letter-spacing:1px;
 }
 
 .vip-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: #080510ed;
-  z-index: 99999;
-  align-items: center;
-  justify-content: center;
-  padding: 18px;
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#080510ed;
+  z-index:99999;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
 }
 
-.vip-overlay.active {
-  display: flex;
-}
+.vip-overlay.active {display:flex;}
 
 .vip-login {
-  position: relative;
-  box-sizing: border-box;
-  width: 100%;
-  max-width: 360px;
-  padding: 35px 25px;
-  text-align: center;
-  color: white;
-  background: #171020;
-  border: 1px solid #9a55e8;
-  border-radius: 18px;
-  box-shadow: 0 0 35px #8b35e855;
+  position:relative;
+  box-sizing:border-box;
+  width:100%;
+  max-width:360px;
+  padding:35px 25px;
+  text-align:center;
+  color:white;
+  background:#171020;
+  border:1px solid #9a55e8;
+  border-radius:18px;
 }
 
 .vip-close {
-  position: absolute;
-  right: 15px;
-  top: 10px;
-  background: none;
-  border: 0;
-  color: white;
-  font-size: 28px;
-  cursor: pointer;
+  position:absolute;
+  right:15px;
+  top:10px;
+  background:none;
+  border:0;
+  color:white;
+  font-size:28px;
+  cursor:pointer;
 }
 
 .vip-crown {
-  font-size: 42px;
-  color: #bd8aff;
-}
-
-.vip-login h2 {
-  letter-spacing: 3px;
+  font-size:42px;
+  color:#bd8aff;
 }
 
 .vip-login input {
-  box-sizing: border-box;
-  width: 100%;
-  padding: 14px;
-  margin: 15px 0;
-  border: 1px solid #7541a5;
-  border-radius: 9px;
-  background: #0e0a14;
-  color: white;
-  text-align: center;
-  outline: none;
+  box-sizing:border-box;
+  width:100%;
+  padding:14px;
+  margin:15px 0;
+  border:1px solid #7541a5;
+  border-radius:9px;
+  background:#0e0a14;
+  color:white;
+  text-align:center;
 }
 
 .vip-submit {
-  width: 100%;
-  padding: 14px;
-  color: white;
-  background: linear-gradient(135deg,#963ee9,#5716a5);
-  border: none;
-  border-radius: 9px;
-  font-weight: bold;
-  cursor: pointer;
+  width:100%;
+  padding:14px;
+  color:white;
+  background:linear-gradient(135deg,#963ee9,#5716a5);
+  border:none;
+  border-radius:9px;
+  font-weight:bold;
+  cursor:pointer;
 }
 
 .vip-message {
-  min-height: 18px;
-  color: #ff7777;
-  font-size: 13px;
+  min-height:18px;
+  color:#ff7777;
+  font-size:13px;
 }
 
 .vip-content {
-  box-sizing: border-box;
-  width: min(94%,650px);
-  margin: 30px auto;
-  padding: 22px;
-  color: white;
-  background: #130d1c;
-  border: 1px solid #9145d6;
-  border-radius: 18px;
-  box-shadow: 0 0 25px #8b35e833;
+  box-sizing:border-box;
+  width:min(94%,650px);
+  margin:30px auto;
+  padding:22px;
+  color:white;
+  background:#130d1c;
+  border:1px solid #9145d6;
+  border-radius:18px;
 }
 
 .vip-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #c99aff;
-  font-weight: bold;
-  letter-spacing: 2px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:#c99aff;
+  font-weight:bold;
+  letter-spacing:2px;
 }
 
 .vip-tag {
-  padding: 6px 10px;
-  border: 1px solid #9145d6;
-  border-radius: 20px;
-  font-size: 10px;
+  padding:6px 10px;
+  border:1px solid #9145d6;
+  border-radius:20px;
+  font-size:10px;
 }
 
-.vip-subtitle {
-  color: #b6a9c5;
-}
+.vip-subtitle {color:#b6a9c5;}
 
 .vip-tabs {
-  display: flex;
-  gap: 8px;
-  margin: 25px 0;
+  display:flex;
+  gap:8px;
+  margin:25px 0;
 }
 
 .vip-tab {
-  flex: 1;
-  padding: 12px 5px;
-  color: white;
-  background: #251832;
-  border: 1px solid #55316f;
-  border-radius: 9px;
-  cursor: pointer;
+  flex:1;
+  padding:12px 5px;
+  color:white;
+  background:#251832;
+  border:1px solid #55316f;
+  border-radius:9px;
+  cursor:pointer;
 }
 
 .vip-tab.active {
-  background: #792dc0;
-  border-color: #c18aff;
+  background:#792dc0;
+  border-color:#c18aff;
 }
 
 .vip-banner {
-  padding: 28px 18px;
-  text-align: center;
-  border-radius: 13px;
-  background: linear-gradient(135deg,#40205b,#170e25);
-  border: 1px solid #7541a5;
+  padding:28px 18px;
+  text-align:center;
+  border-radius:13px;
+  background:linear-gradient(135deg,#40205b,#170e25);
+  border:1px solid #7541a5;
 }
 
 .vip-banner span {
-  color: #d5b0ff;
-  letter-spacing: 4px;
-  font-size: 12px;
+  color:#d5b0ff;
+  letter-spacing:4px;
+  font-size:12px;
 }
 
 .vip-banner h3 {
-  font-size: 27px;
-  letter-spacing: 4px;
+  font-size:27px;
+  letter-spacing:4px;
 }
 
 .vip-item {
-  display: flex;
-  gap: 15px;
-  padding: 17px;
-  margin: 12px 0;
-  background: #241832;
-  border-radius: 11px;
+  display:flex;
+  gap:15px;
+  padding:17px;
+  margin:12px 0;
+  background:#241832;
+  border-radius:11px;
 }
 
 .vip-item > span {
-  color: #c18aff;
-  font-size: 22px;
+  color:#c18aff;
+  font-size:22px;
 }
 
 .vip-item p {
-  color: #b6a9c5;
-  margin-bottom: 0;
+  color:#b6a9c5;
+  margin-bottom:0;
 }
 
+/* PETITES PHOTOS */
 .vip-gallery {
-  display: grid;
-  grid-template-columns: repeat(2,1fr);
-  gap: 12px;
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:18px;
 }
 
-.vip-photo {
-  min-height: 120px;
-  display: grid;
-  place-items: center;
-  background: linear-gradient(135deg,#38204c,#171020);
-  border: 1px solid #7541a5;
-  border-radius: 10px;
-  color: #c99aff;
-  font-size: 12px;
+.vip-photo-card {
+  min-width:0;
+  padding:8px;
+  background:#241832;
+  border:1px solid #7541a5;
+  border-radius:10px;
+  text-align:center;
 }
 
-.vip-exit {
-  margin-top: 25px;
+.vip-photo-card img {
+  display:block;
+  width:100%;
+  height:95px;
+  object-fit:cover;
+  border-radius:7px;
+  margin-bottom:8px;
 }
+
+.vip-photo-card strong {
+  font-size:11px;
+  color:#d5b0ff;
+}
+
+.vip-exit {margin-top:25px;}
 
 @media(max-width:400px) {
-  .vip-content {
-    padding: 16px;
-  }
+  .vip-content {padding:16px;}
+  .vip-photo-card img {height:80px;}
 }
 </style>
 
 <script>
 (() => {
-  // CODE VIP DE DÉMONSTRATION
   const ACCESS_CODE = "VIP2026";
 
   const modal = document.getElementById("vipModal");
@@ -873,40 +869,35 @@ render();
   const message = document.getElementById("vipMessage");
   const content = document.getElementById("vipContent");
 
-  // OUVRIR LA FENÊTRE
   document.getElementById("vipButton").onclick = () => {
     modal.classList.add("active");
     input.focus();
   };
 
-  // FERMER LA FENÊTRE
   document.getElementById("vipClose").onclick = () => {
     modal.classList.remove("active");
     message.textContent = "";
   };
 
-  // VÉRIFIER LE MOT DE PASSE
   document.getElementById("vipSubmit").onclick = () => {
-    if (input.value === ACCESS_CODE) {
+    if(input.value === ACCESS_CODE) {
       modal.classList.remove("active");
       content.hidden = false;
       input.value = "";
       message.textContent = "";
-      content.scrollIntoView({ behavior: "smooth" });
+      content.scrollIntoView({behavior:"smooth"});
     } else {
       message.textContent = "Code incorrect. Réessayez.";
       input.value = "";
     }
   };
 
-  // VALIDER AVEC ENTRÉE
   input.addEventListener("keydown", event => {
-    if (event.key === "Enter") {
+    if(event.key === "Enter") {
       document.getElementById("vipSubmit").click();
     }
   });
 
-  // MENU VIP
   document.querySelectorAll(".vip-tab").forEach(button => {
     button.addEventListener("click", () => {
       document.querySelectorAll(".vip-tab").forEach(tab =>
@@ -925,15 +916,15 @@ render();
     });
   });
 
-  // QUITTER LE VIP
   document.getElementById("vipLogout").onclick = () => {
     content.hidden = true;
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({top:0,behavior:"smooth"});
   };
 })();
 </script>
 
 <!-- ========== FIN SIMONE PARIS VIP ========== -->
+
 <div style="text-align:center;padding:20px;color:#888;font-size:13px;position:relative;z-index:2">SIMONE PARIS © 2026<a href="https://t.me/simone750" style="color:#e879f9">🔌 @simone750</a><br>BOUTIQUE OFFICIEL</div>
 </body>
 </html>
