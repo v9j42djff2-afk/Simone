@@ -462,5 +462,91 @@ render();
 })();
 </script>
 
+<section class="pub-section">
+  <h2>📣 Publicité & Annonces</h2>
+
+  <div class="pub-grid">
+
+    <div class="pub-card">
+      <img src="canal.jpg" alt="Canaux">
+      <h3>lisa</h3>
+      <button onclick="location.href='https://t.me/+KTI1bVpK1dMwMDRk'">
+        Rejoindre le canal
+      </button>
+    </div>
+
+    <div class="pub-card">
+      <img src="profil.jpg" alt="Profil vérifié">
+      <h3>Simone</h3>
+      <button onclick="location.href='https://t.me/simone750'">
+        Voir le profil
+      </button>
+    </div>
+
+    <div class="pub-card">
+      <img src="livreur.jpg" alt="Livreur">
+      <h3>Recherche de livreur</h3>
+      <button onclick="location.href='https://t.me/simone750'">
+        100€ jour
+      </button>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.pub-section {
+  padding: 20px;
+  color: white;
+  background: #0c101b;
+  border-radius: 20px;
+}
+
+.pub-section h2 {
+  text-align: center;
+  font-size: 23px;
+  margin-bottom: 25px;
+}
+
+.pub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.pub-card {
+  background: #171d2d;
+  border: 1px solid #244caa;
+  border-radius: 20px;
+  padding: 15px 10px;
+  text-align: center;
+}
+
+.pub-card img {
+  width: 115px;
+  height: 115px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #168cff;
+}
+
+.pub-card h3 {
+  font-size: 17px;
+  margin: 12px 0;
+}
+
+.pub-card button {
+  width: 100%;
+  padding: 12px 5px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #168cff, #064bdc);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+}
+</style>
+
 </body>
 </html>
