@@ -296,5 +296,171 @@ setInterval(updateCountdown,1000); updateCountdown(); updateQR();
 if(window.Telegram?.WebApp){ Telegram.WebApp.ready(); Telegram.WebApp.expand(); try{ Telegram.WebApp.setHeaderColor('#05050d'); Telegram.WebApp.setBackgroundColor('#05050d'); }catch(e){} }
 render();
 </script>
+
+<!-- BONUS QUOTIDIEN SIMONE PARIS -->
+<style>
+.daily-bonus {
+  margin: 15px;
+  padding: 22px;
+  border-radius: 24px;
+  background: linear-gradient(145deg,#2e1065,#120a24);
+  border: 1px solid #c084fc;
+  box-shadow: 0 0 25px rgba(168,85,247,.3);
+  text-align: center;
+  color: white;
+}
+.daily-bonus h2 { color: #e879f9; margin: 0 0 10px; }
+.daily-bonus p { color: #d8b4fe; font-size: 13px; }
+.bonus-days {
+  display: grid;
+  grid-template-columns: repeat(7,1fr);
+  gap: 6px;
+  margin: 18px 0;
+}
+.bonus-day {
+  padding: 12px 2px;
+  background: #1a1a2e;
+  border: 1px solid #4c1d95;
+  border-radius: 12px;
+  font-size: 11px;
+  color: #c4b5fd;
+}
+.bonus-day.done {
+  background: linear-gradient(135deg,#a855f7,#ec4899);
+  color: white;
+}
+.bonus-progress {
+  height: 10px;
+  background: #090914;
+  border-radius: 20px;
+  overflow: hidden;
+  margin: 15px 0;
+}
+.bonus-progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg,#a855f7,#ec4899);
+  transition: width .4s;
+}
+.bonus-button {
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  border-radius: 16px;
+  background: linear-gradient(90deg,#a855f7,#ec4899);
+  color: white;
+  font-weight: 900;
+  font-size: 14px;
+  cursor: pointer;
+}
+.bonus-button:disabled { opacity: .6; cursor: default; }
+</style>
+
+<div class="daily-bonus" id="simoneDailyBonus">
+  <h2>🎁 BONUS SIMONE PARIS</h2>
+  <p>Reviens chaque jour récupérer ton bonus !<br>
+  7 jours de fidélité = une récompense promotionnelle.</p>
+
+  <div class="bonus-days" id="bonusDays"></div>
+  <div class="bonus-progress">
+    <div class="bonus-progress-fill" id="bonusProgress"></div>
+  </div>
+
+  <p id="bonusStatus">Chargement...</p>
+  <button class="bonus-button" id="bonusButton" type="button">
+    🎁 RÉCUPÉRER MON BONUS
+  </button>
+  <p id="bonusReward" aria-live="polite"></p>
+</div>
+
+<script>
+(function () {
+  const KEY = "simone_daily_bonus_v1";
+  const daysEl = document.getElementById("bonusDays");
+  const progressEl = document.getElementById("bonusProgress");
+  const statusEl = document.getElementById("bonusStatus");
+  const buttonEl = document.getElementById("bonusButton");
+  const rewardEl = document.getElementById("bonusReward");
+
+  function today() {
+    const d = new Date();
+    return d.getFullYear() + "-" +
+      String(d.getMonth()+1).padStart(2,"0") + "-" +
+      String(d.getDate()).padStart(2,"0");
+  }
+
+  function yesterday() {
+    const d = new Date();
+    d.setDate(d.getDate()-1);
+    return d.getFullYear() + "-" +
+      String(d.getMonth()+1).padStart(2,"0") + "-" +
+      String(d.getDate()).padStart(2,"0");
+  }
+
+  function load() {
+    try {
+      const data = JSON.parse(localStorage.getItem(KEY));
+      if (data && Number.isInteger(data.streak) &&
+          data.streak >= 0 && data.streak <= 7) return data;
+    } catch (e) {}
+    return { streak: 0, lastDate: "", reward: false };
+  }
+
+  function save(data) {
+    localStorage.setItem(KEY, JSON.stringify(data));
+  }
+
+  function render() {
+    const data = load();
+    daysEl.innerHTML = "";
+
+    for (let i = 1; i <= 7; i++) {
+      const day = document.createElement("div");
+      day.className = "bonus-day" + (i <= data.streak ? " done" : "");
+      day.textContent = i <= data.streak ? "✓ J" + i : "J" + i;
+      daysEl.appendChild(day);
+    }
+
+    progressEl.style.width = (data.streak / 7 * 100) + "%";
+
+    if (data.reward) {
+      statusEl.textContent = "🏆 Tes 7 jours sont terminés !";
+      rewardEl.textContent = "🎉 Ta récompense promotionnelle est débloquée.";
+      buttonEl.textContent = "RÉCOMPENSE DÉBLOQUÉE";
+      buttonEl.disabled = true;
+    } else if (data.lastDate === today()) {
+      statusEl.textContent = "✅ Bonus déjà récupéré aujourd'hui !";
+      rewardEl.textContent = "Reviens demain pour continuer.";
+      buttonEl.textContent = "À DEMAIN ❤️";
+      buttonEl.disabled = true;
+    } else {
+      statusEl.textContent = "🔥 Jour " + (data.streak + 1) + " sur 7";
+      rewardEl.textContent = "";
+      buttonEl.textContent = "🎁 RÉCUPÉRER MON BONUS";
+      buttonEl.disabled = false;
+    }
+  }
+
+  buttonEl.addEventListener("click", function () {
+    const data = load();
+    const date = today();
+
+    if (data.lastDate === date || data.reward) return;
+
+    if (data.lastDate !== yesterday()) data.streak = 0;
+
+    data.streak = Math.min(7, data.streak + 1);
+    data.lastDate = date;
+
+    if (data.streak === 7) data.reward = true;
+
+    save(data);
+    render();
+  });
+
+  render();
+})();
+</script>
+
 </body>
 </html>
