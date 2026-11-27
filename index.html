@@ -548,5 +548,191 @@ render();
 }
 </style>
 
+<!-- BOUTON VIP -->
+<button id="vipButton" class="vip-button">♛ VIP ACCESS</button>
+
+<!-- MODALE VIP -->
+<div id="vipModal" class="vip-overlay">
+  <div class="vip-box">
+    <button class="vip-close" id="vipClose">×</button>
+    <div class="vip-crown">♛</div>
+    <h2>ESPACE VIP</h2>
+    <p>Entrez votre code d'accès privé</p>
+
+    <input
+      id="vipCode"
+      type="password"
+      placeholder="Code VIP"
+      autocomplete="off"
+    />
+
+    <button id="vipSubmit" class="vip-submit">
+      DÉVERROUILLER
+    </button>
+
+    <p id="vipMessage" class="vip-message"></p>
+  </div>
+</div>
+
+<!-- CONTENU PRIVÉ -->
+<section id="vipContent" class="vip-content" hidden>
+  <h2>Bienvenue dans l'espace VIP ♛</h2>
+  <p>Votre accès privé est activé.</p>
+  <div class="vip-private-card">
+    <h3>Contenu exclusif</h3>
+    <p>Bienvenue dans votre espace réservé.</p>
+  </div>
+  <button id="vipLogout" class="vip-submit">FERMER LA SESSION</button>
+</section>
+
+<style>
+.vip-button {
+  background: linear-gradient(135deg,#8b35e8,#5415a8);
+  color: white;
+  border: 1px solid #bd8aff;
+  border-radius: 20px;
+  padding: 9px 17px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 14px #913cff55;
+}
+
+.vip-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #080510eF;
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.vip-overlay.active { display: flex; }
+
+.vip-box {
+  position: relative;
+  width: 100%;
+  max-width: 350px;
+  padding: 35px 25px;
+  text-align: center;
+  color: white;
+  background: #171020;
+  border: 1px solid #9a55e8;
+  border-radius: 18px;
+  box-shadow: 0 0 35px #8b35e855;
+}
+
+.vip-close {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  background: none;
+  border: 0;
+  color: white;
+  font-size: 27px;
+  cursor: pointer;
+}
+
+.vip-crown {
+  font-size: 38px;
+  color: #bd8aff;
+}
+
+.vip-box h2 { letter-spacing: 3px; }
+
+.vip-box input {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 13px;
+  margin: 15px 0;
+  border: 1px solid #7541a5;
+  border-radius: 9px;
+  background: #0e0a14;
+  color: white;
+  text-align: center;
+  outline: none;
+}
+
+.vip-submit {
+  width: 100%;
+  padding: 13px;
+  color: white;
+  background: linear-gradient(135deg,#963ee9,#5716a5);
+  border: none;
+  border-radius: 9px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.vip-message {
+  min-height: 20px;
+  color: #ff7777;
+  font-size: 13px;
+}
+
+.vip-content {
+  margin: 25px auto;
+  padding: 25px;
+  max-width: 600px;
+  color: white;
+  background: #171020;
+  border: 1px solid #9a55e8;
+  border-radius: 15px;
+}
+
+.vip-private-card {
+  padding: 20px;
+  margin: 20px 0;
+  background: #251632;
+  border-radius: 12px;
+}
+</style>
+
+<script>
+(() => {
+  // Démonstration uniquement : utiliser une authentification serveur
+  // pour protéger réellement un espace privé.
+  const ACCESS_CODE = "VIP202675";
+
+  const modal = document.getElementById("vipModal");
+  const input = document.getElementById("vipCode");
+  const message = document.getElementById("vipMessage");
+  const content = document.getElementById("vipContent");
+
+  document.getElementById("vipButton").onclick = () => {
+    modal.classList.add("active");
+    input.focus();
+  };
+
+  document.getElementById("vipClose").onclick = () => {
+    modal.classList.remove("active");
+    message.textContent = "";
+  };
+
+  document.getElementById("vipSubmit").onclick = () => {
+    if (input.value === ACCESS_CODE) {
+      modal.classList.remove("active");
+      content.hidden = false;
+      input.value = "";
+      message.textContent = "";
+    } else {
+      message.textContent = "Code incorrect. Réessayez.";
+      input.value = "";
+    }
+  };
+
+  document.getElementById("vipLogout").onclick = () => {
+    content.hidden = true;
+  };
+
+  input.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+      document.getElementById("vipSubmit").click();
+    }
+  });
+})();
+</script>
+
 </body>
 </html>
