@@ -548,23 +548,28 @@ render();
 }
 </style>
 
-<!-- BOUTON VIP -->
-<button id="vipButton" class="vip-button">♛ VIP ACCESS</button>
 
-<!-- MODALE VIP -->
+
+<!-- ========== SIMONE PARIS VIP ========== -->
+
+<button id="vipButton" class="vip-button">
+  ♛ VIP ACCESS
+</button>
+
+<!-- FENÊTRE MOT DE PASSE -->
 <div id="vipModal" class="vip-overlay">
-  <div class="vip-box">
-    <button class="vip-close" id="vipClose">×</button>
+  <div class="vip-login">
+    <button id="vipClose" class="vip-close">×</button>
     <div class="vip-crown">♛</div>
-    <h2>ESPACE VIP</h2>
-    <p>Entrez votre code d'accès privé</p>
+    <h2>SIMONE PARIS</h2>
+    <p>ACCÈS PRIVÉ VIP</p>
 
     <input
       id="vipCode"
       type="password"
-      placeholder="Code VIP"
+      placeholder="Entrez votre code VIP"
       autocomplete="off"
-    />
+    >
 
     <button id="vipSubmit" class="vip-submit">
       DÉVERROUILLER
@@ -574,46 +579,108 @@ render();
   </div>
 </div>
 
-<!-- CONTENU PRIVÉ -->
+<!-- ESPACE VIP -->
 <section id="vipContent" class="vip-content" hidden>
-  <h2>Bienvenue dans l'espace VIP ♛</h2>
-  <p>Votre accès privé est activé.</p>
-  <div class="vip-private-card">
-    <h3>Contenu exclusif</h3>
-    <p>Bienvenue dans votre espace réservé.</p>
+
+  <div class="vip-header">
+    <span>♛ VIP</span>
+    <span class="vip-tag">MEMBRE VIP</span>
   </div>
-  <button id="vipLogout" class="vip-submit">FERMER LA SESSION</button>
+
+  <h2>Bienvenue dans le club privé</h2>
+  <p class="vip-subtitle">Votre espace exclusif vous attend.</p>
+
+  <!-- MENU -->
+  <nav class="vip-tabs">
+    <button class="vip-tab active" data-tab="home">Accueil</button>
+    <button class="vip-tab" data-tab="offers">Offres</button>
+    <button class="vip-tab" data-tab="gallery">Galerie</button>
+  </nav>
+
+  <!-- ACCUEIL -->
+  <div id="vip-home" class="vip-panel">
+    <div class="vip-banner">
+      <span>SIMONE PARIS</span>
+      <h3>PRIVATE CLUB</h3>
+      <p>Un espace réservé à nos membres.</p>
+    </div>
+
+    <h3>Votre espace personnel</h3>
+    <p>Retrouvez ici les actualités et contenus réservés aux membres vip.</p>
+  </div>
+
+  <!-- OFFRES -->
+  <div id="vip-offers" class="vip-panel" hidden>
+    <h3>Offres exclusif</h3>
+
+    <div class="vip-item">
+      <span>✦</span>
+      <div>
+        <strong>AMNESIA</strong>
+        <p>50G - 200€</p>
+      </div>
+    </div>
+
+    <div class="vip-item">
+      <span>✦</span>
+      <div>
+        <strong>Actualités privées</strong>
+        <p>Découvrez les nouveautés du club.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALERIE -->
+  <div id="vip-gallery" class="vip-panel" hidden>
+    <h3>Galerie privée</h3>
+
+<div class="vip-gallery">
+  <img src="images/lpurple .mov" alt="Photo VIP">
+  <img src="images/photo2.jpg" alt="Photo VIP">
+  <img src="images/photo3.jpg" alt="Photo VIP">
+  <img src="images/photo4.jpg" alt="Photo VIP">
+</div>
+  </div>
+
+  <button id="vipLogout" class="vip-submit vip-exit">
+    QUITTER L'ESPACE VIP
+  </button>
+
 </section>
 
 <style>
 .vip-button {
-  background: linear-gradient(135deg,#8b35e8,#5415a8);
+  background: linear-gradient(135deg,#963ee9,#5716a5);
   color: white;
   border: 1px solid #bd8aff;
-  border-radius: 20px;
-  padding: 9px 17px;
+  border-radius: 22px;
+  padding: 11px 20px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 0 14px #913cff55;
+  box-shadow: 0 0 15px #913cff66;
+  letter-spacing: 1px;
 }
 
 .vip-overlay {
   display: none;
   position: fixed;
   inset: 0;
-  background: #080510eF;
-  z-index: 9999;
+  background: #080510ed;
+  z-index: 99999;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 18px;
 }
 
-.vip-overlay.active { display: flex; }
+.vip-overlay.active {
+  display: flex;
+}
 
-.vip-box {
+.vip-login {
   position: relative;
+  box-sizing: border-box;
   width: 100%;
-  max-width: 350px;
+  max-width: 360px;
   padding: 35px 25px;
   text-align: center;
   color: white;
@@ -630,21 +697,23 @@ render();
   background: none;
   border: 0;
   color: white;
-  font-size: 27px;
+  font-size: 28px;
   cursor: pointer;
 }
 
 .vip-crown {
-  font-size: 38px;
+  font-size: 42px;
   color: #bd8aff;
 }
 
-.vip-box h2 { letter-spacing: 3px; }
+.vip-login h2 {
+  letter-spacing: 3px;
+}
 
-.vip-box input {
+.vip-login input {
   box-sizing: border-box;
   width: 100%;
-  padding: 13px;
+  padding: 14px;
   margin: 15px 0;
   border: 1px solid #7541a5;
   border-radius: 9px;
@@ -656,7 +725,7 @@ render();
 
 .vip-submit {
   width: 100%;
-  padding: 13px;
+  padding: 14px;
   color: white;
   background: linear-gradient(135deg,#963ee9,#5716a5);
   border: none;
@@ -666,73 +735,201 @@ render();
 }
 
 .vip-message {
-  min-height: 20px;
+  min-height: 18px;
   color: #ff7777;
   font-size: 13px;
 }
 
 .vip-content {
-  margin: 25px auto;
-  padding: 25px;
-  max-width: 600px;
+  box-sizing: border-box;
+  width: min(94%,650px);
+  margin: 30px auto;
+  padding: 22px;
   color: white;
-  background: #171020;
-  border: 1px solid #9a55e8;
-  border-radius: 15px;
+  background: #130d1c;
+  border: 1px solid #9145d6;
+  border-radius: 18px;
+  box-shadow: 0 0 25px #8b35e833;
 }
 
-.vip-private-card {
-  padding: 20px;
-  margin: 20px 0;
-  background: #251632;
-  border-radius: 12px;
+.vip-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #c99aff;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.vip-tag {
+  padding: 6px 10px;
+  border: 1px solid #9145d6;
+  border-radius: 20px;
+  font-size: 10px;
+}
+
+.vip-subtitle {
+  color: #b6a9c5;
+}
+
+.vip-tabs {
+  display: flex;
+  gap: 8px;
+  margin: 25px 0;
+}
+
+.vip-tab {
+  flex: 1;
+  padding: 12px 5px;
+  color: white;
+  background: #251832;
+  border: 1px solid #55316f;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.vip-tab.active {
+  background: #792dc0;
+  border-color: #c18aff;
+}
+
+.vip-banner {
+  padding: 28px 18px;
+  text-align: center;
+  border-radius: 13px;
+  background: linear-gradient(135deg,#40205b,#170e25);
+  border: 1px solid #7541a5;
+}
+
+.vip-banner span {
+  color: #d5b0ff;
+  letter-spacing: 4px;
+  font-size: 12px;
+}
+
+.vip-banner h3 {
+  font-size: 27px;
+  letter-spacing: 4px;
+}
+
+.vip-item {
+  display: flex;
+  gap: 15px;
+  padding: 17px;
+  margin: 12px 0;
+  background: #241832;
+  border-radius: 11px;
+}
+
+.vip-item > span {
+  color: #c18aff;
+  font-size: 22px;
+}
+
+.vip-item p {
+  color: #b6a9c5;
+  margin-bottom: 0;
+}
+
+.vip-gallery {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 12px;
+}
+
+.vip-photo {
+  min-height: 120px;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(135deg,#38204c,#171020);
+  border: 1px solid #7541a5;
+  border-radius: 10px;
+  color: #c99aff;
+  font-size: 12px;
+}
+
+.vip-exit {
+  margin-top: 25px;
+}
+
+@media(max-width:400px) {
+  .vip-content {
+    padding: 16px;
+  }
 }
 </style>
 
 <script>
 (() => {
-  // Démonstration uniquement : utiliser une authentification serveur
-  // pour protéger réellement un espace privé.
-  const ACCESS_CODE = "VIP202675";
+  // CODE VIP DE DÉMONSTRATION
+  const ACCESS_CODE = "VIP2026";
 
   const modal = document.getElementById("vipModal");
   const input = document.getElementById("vipCode");
   const message = document.getElementById("vipMessage");
   const content = document.getElementById("vipContent");
 
+  // OUVRIR LA FENÊTRE
   document.getElementById("vipButton").onclick = () => {
     modal.classList.add("active");
     input.focus();
   };
 
+  // FERMER LA FENÊTRE
   document.getElementById("vipClose").onclick = () => {
     modal.classList.remove("active");
     message.textContent = "";
   };
 
+  // VÉRIFIER LE MOT DE PASSE
   document.getElementById("vipSubmit").onclick = () => {
     if (input.value === ACCESS_CODE) {
       modal.classList.remove("active");
       content.hidden = false;
       input.value = "";
       message.textContent = "";
+      content.scrollIntoView({ behavior: "smooth" });
     } else {
       message.textContent = "Code incorrect. Réessayez.";
       input.value = "";
     }
   };
 
-  document.getElementById("vipLogout").onclick = () => {
-    content.hidden = true;
-  };
-
+  // VALIDER AVEC ENTRÉE
   input.addEventListener("keydown", event => {
     if (event.key === "Enter") {
       document.getElementById("vipSubmit").click();
     }
   });
+
+  // MENU VIP
+  document.querySelectorAll(".vip-tab").forEach(button => {
+    button.addEventListener("click", () => {
+      document.querySelectorAll(".vip-tab").forEach(tab =>
+        tab.classList.remove("active")
+      );
+
+      button.classList.add("active");
+
+      document.querySelectorAll(".vip-panel").forEach(panel => {
+        panel.hidden = true;
+      });
+
+      document.getElementById(
+        "vip-" + button.dataset.tab
+      ).hidden = false;
+    });
+  });
+
+  // QUITTER LE VIP
+  document.getElementById("vipLogout").onclick = () => {
+    content.hidden = true;
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
 })();
 </script>
+
+<!-- ========== FIN SIMONE PARIS VIP ========== -->
 
 </body>
 </html>
