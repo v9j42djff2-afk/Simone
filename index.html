@@ -550,6 +550,8 @@ render();
 
 
 
+
+
 <!-- ========== SIMONE PARIS VIP ========== -->
 
 <button id="vipButton" class="vip-button">♛ VIP ACCESS</button>
@@ -587,10 +589,10 @@ render();
     <div class="vip-banner">
       <span>SIMONE PARIS</span>
       <h3>PRIVATE CLUB</h3>
-      <p>Un espace réservé à nos membres.</p>
+      <p>Un espace réservé à nos membres</p>
     </div>
     <h3>Votre espace VIP</h3>
-    <p>Retrouvez ici vos offres et votre sélection exclusive.</p>
+    <p>Retrouvez ici vos offres et votre sélection exclusive</p>
   </div>
 
   <div id="vip-offers" class="vip-panel" hidden>
@@ -599,21 +601,17 @@ render();
     <div class="vip-item">
       <span>✦</span>
       <div>
-        <strong>Code promo -20%</strong>
-        <p>Code valable du 28 novembre au 4 décembre</p>
+        <strong>CODE PROMO -20%</strong>
+        <p>dipo jusquau 3 decembre</p>
       </div>
     </div>
 
-    <div class="vip-item">
-      <span>✦</span>
-      <div>
-        <strong>PACK WEED & HASH</strong>
-        <p>Pack limité en petite quantité dispo en pv</p>
-      </div>
-    </div>
+    <a class="vip-telegram" href="https://t.me/simone750"
+       target="_blank" rel="noopener">
+       ✦ CONTACT PRIVÉ
+    </a>
   </div>
 
-  <!-- MENU VIP : PHOTOS MINIATURES -->
   <div id="vip-menu" class="vip-panel" hidden>
     <h3>♛ MENU VIP</h3>
     <p class="vip-subtitle">Découvrez notre sélection exclusive.</p>
@@ -622,29 +620,44 @@ render();
 
       <div class="vip-photo-card">
         <img src="papaya.JPG" alt="Collection 01">
-        <strong>FILTRÉ 50G - 210€</strong>
+        <strong>FILTRE 50G 200€</strong>
       </div>
 
       <div class="vip-photo-card">
         <img src="calm.JPG" alt="Collection 02">
-        <strong>CALIMOUSSE 50G - 180€</strong>
+        <strong>CALIMOUSSE 50G 180€</strong>
       </div>
 
       <div class="vip-photo-card">
         <img src="usacali .MOV" alt="Collection 03">
-        <strong>CALI USA 50G - 420€</strong>
-      </div>
-      
-      <div class="vip-photo-card">
-        <img src="amn.MP4" alt="Collection 03">
-        <strong>AMNESIA 50G - 250€</strong>
+        <strong>CALI US 50G 350€</strong>
       </div>
 
       <div class="vip-photo-card">
-        <img src="mous.MOV" alt="Collection 04">
-        <strong>MOUSSEUX 50G - 150€</strong>
+        <img src="amn.MP4" alt="Collection 04">
+        <strong>AMNESIA 50G 260</strong>
       </div>
 
+      <div class="vip-photo-card">
+        <img src="mous.MOV" alt="Collection 05">
+        <strong>MOUSSEUX 50G 150€</strong>
+      </div>
+
+    </div>
+
+    <div class="vip-contact">
+      <h3>♛ CONTACT PRIVÉ</h3>
+      <p>Une question ? Contactez-nous directement.</p>
+
+      <a class="vip-telegram" href="https://t.me/simone750"
+         target="_blank" rel="noopener">
+         💬 CONTACTER SIMONE SUR TELEGRAM
+      </a>
+
+      <a class="vip-offer" href="https://t.me/simone750"
+         target="_blank" rel="noopener">
+         ✦ FAIRE UNE DEMANDE
+      </a>
     </div>
   </div>
 
@@ -826,7 +839,6 @@ render();
   margin-bottom:0;
 }
 
-/* PETITES PHOTOS */
 .vip-gallery {
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
@@ -855,6 +867,38 @@ render();
 .vip-photo-card strong {
   font-size:11px;
   color:#d5b0ff;
+}
+
+.vip-contact {
+  margin-top:25px;
+  padding:18px;
+  background:#241832;
+  border:1px solid #7541a5;
+  border-radius:12px;
+  text-align:center;
+}
+
+.vip-contact p {color:#b6a9c5;}
+
+.vip-telegram,
+.vip-offer {
+  display:block;
+  box-sizing:border-box;
+  width:100%;
+  padding:14px 10px;
+  margin-top:12px;
+  border-radius:9px;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  font-size:13px;
+  text-align:center;
+  background:linear-gradient(135deg,#963ee9,#5716a5);
+  border:1px solid #bd8aff;
+}
+
+.vip-offer {
+  background:linear-gradient(135deg,#583080,#301449);
 }
 
 .vip-exit {margin-top:25px;}
@@ -929,6 +973,8 @@ render();
 </script>
 
 <!-- ========== FIN SIMONE PARIS VIP ========== -->
+
+
 
 <div style="text-align:center;padding:20px;color:#888;font-size:13px;position:relative;z-index:2">SIMONE PARIS © 2026<a href="https://t.me/simone750" style="color:#e879f9">🔌 @simone750</a><br>BOUTIQUE OFFICIEL</div>
 </body>
