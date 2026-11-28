@@ -188,19 +188,19 @@ let orderId = 'LISA-' + Math.floor(10000 + Math.random()*89999);
 let isSending = false;
 let pendingMsg = '';
 const PRODUCTS = [
-  {id:1, name:"MOUSSEUX", desc:"🧽Mousse maroco - livraison rapide Paris.", video:"avant.mov", stock:8, variants:[{label:"10g",price:50},{label:"25g",price:110},{label:"50g",price:170},{label:"100g",price:300}]},
+  {id:1, name:"MOUSSEUX", desc:"🧽Mousse maroco - livraison rapide Paris.", video:"avant.mov", stock:2, variants:[{label:"10g",price:50},{label:"25g",price:100},{label:"50g",price:170},{label:"100g",price:300}]},
   {id:2, name:"CALIMOUSSE", desc:"🧽Best mousseux californie - Top qualité.", video:"mous20.mov", stock:0, variants:[{label:"10g",price:60}]},
-  {id:3, name:"GLUE PUNCH", desc:"🍫Hash premium super qualite.", video:"-6574841214704923018.mp4", stock:3, variants:[{label:"10g",price:110},{label:"20g",price:200},{label:"50g",price:400}]},
-  {id:4, name:"CALI", desc:"🍀🇪🇸CALI ESPAGNE - Qualité US.", video:"espa.mov", stock:4, variants:[{label:"5g",price:60}]},
+  {id:3, name:"GLUE PUNCH", desc:"🍫Hash premium super qualite.", video:"-6574841214704923018.mp4", stock:1, variants:[{label:"10g",price:110},{label:"20g",price:200},{label:"50g",price:400}]},
+  {id:4, name:"CALI", desc:"🍀🇪🇸CALI ESPAGNE - Qualité US.", video:"espa.mov", stock:3, variants:[{label:"5g",price:60}]},
   {id:5, name:"LEMON", desc:"🍀🍋LEMON CITRUS - Best qualité.", video:"LEMON.MP4", stock:4, variants:[{label:"5g",price:60},{label:"10g",price:110},{label:"25g",price:210},{label:"50g",price:390}]},
   {id:6, name:"CALI", desc:"🥬🇪🇸CALI ESPA.", video:"cali.mp4.PNG.MP4", stock:0, variants:[{label:"5g",price:50},{label:"10g",price:90},{label:"25g",price:200}]},
   {id:7, name:"PURPLE", desc:"🍀🍇Poudre de cali - Nouvelle arrivage tres limite.", video:"purple .mov", stock:0, variants:[{label:"4g",price:80}]},
-  {id:8, name:"CALI PURPLE", desc:"🍀🍇Caliweed - Nouvelle arrivage aussi limite que la poudre de cali.", video:"lpurple .mov", stock:4, variants:[{label:"4g",price:60}]},
+  {id:8, name:"CALI PURPLE", desc:"🍀🍇Caliweed - Nouvelle arrivage aussi limite que la poudre de cali.", video:"lpurple .mov", stock:1, variants:[{label:"4g",price:60}]},
   {id:9, name:"AMNESIA HAZE", desc:"🍀Amnesia haze - Nouvelle arrivage.", video:"-6966475422894871226.mp4", stock:5, variants:[{label:"5g",price:50}]},
   {id:10, name:"AMNESIA", desc:"🍀Amnesia indor - Qualité premium.", video:"amn.MP4", stock:4, variants:[{label:"5g",price:50},{label:"11g",price:100}]}
 ];
 let products = JSON.parse(JSON.stringify(PRODUCTS));
-let reviews = [{name:"Az", stars:5, text:"Cali carre livraison a l'eure jaime ca👌", date:"Il y a 4jours"},{name:"Sa.", stars:5, text:"Rapide ! Produit nickel.", date:"Il y a 7jours"},{name:"Sa.", stars:5, text:"Commandé à 14h, reçu à 15h. Parfait !", date:"Il y a 13jours"}];
+let reviews = [{name:"Az", stars:5, text:"Cali carre livraison a l'eure jaime ca👌", date:"Il y a 5jours"},{name:"Sa.", stars:5, text:"Rapide ! Produit nickel.", date:"Il y a 8jours"},{name:"Sa.", stars:5, text:"Commandé à 14h, reçu à 15h. Parfait !", date:"Il y a 15jours"}];
 let cart = []; try{ cart = JSON.parse(localStorage.getItem('lisa_cart') || '[]'); }catch(e){ cart=[]; }
 let favs = []; try{ favs = JSON.parse(localStorage.getItem('lisa_favs') || '[]'); }catch(e){ favs=[]; }
 let selectedVariant = {};
@@ -622,17 +622,22 @@ render();
 
       <div class="vip-photo-card">
         <img src="papaya.JPG" alt="Collection 01">
-        <strong>FILTRÉ 5G - 50€</strong>
+        <strong>FILTRÉ 50G - 210€</strong>
       </div>
 
       <div class="vip-photo-card">
         <img src="calm.JPG" alt="Collection 02">
-        <strong>CALIMOUSSE 10G - 50€</strong>
+        <strong>CALIMOUSSE 50G - 180€</strong>
       </div>
 
       <div class="vip-photo-card">
         <img src="usacali .MOV" alt="Collection 03">
-        <strong>CALI USA 10G - 120€</strong>
+        <strong>CALI USA 50G - 420€</strong>
+      </div>
+      
+      <div class="vip-photo-card">
+        <img src="usacali .MOV" alt="Collection 03">
+        <strong>AMNESIA 50G - 250€</strong>
       </div>
 
       <div class="vip-photo-card">
